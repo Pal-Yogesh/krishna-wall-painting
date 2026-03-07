@@ -55,7 +55,7 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
-      <div className="fixed top-5 right-5 z-[9999] flex flex-col gap-3 pointer-events-none">
+      <div className="fixed top-5 right-5 z-9999 flex flex-col gap-3 pointer-events-none">
         <AnimatePresence>
           {toasts.map((t) => {
             const s = styles[t.type];
