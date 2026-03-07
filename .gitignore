@@ -39,3 +39,5 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+/aec-horizon-firebase-adminsdk-fbsvc-1ed2318b67.json

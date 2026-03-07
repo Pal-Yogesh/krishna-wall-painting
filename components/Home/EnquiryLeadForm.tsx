@@ -15,6 +15,9 @@
 
 import React, { useState, useRef, useCallback } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
+import { db } from "@/lib/firebase";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
+import { useToast } from "@/context/Toast";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
 const ROOM_TYPES = ["Living Room", "Bedroom", "Kitchen", "Bathroom", "Office", "Kids Room", "Dining Room", "Other"];
@@ -141,6 +144,7 @@ export default function EnquiryLeadForm() {
   const [errors, setErrors]     = useState<Partial<Record<keyof FormState, string>>>({});
   const [status, setStatus]     = useState<"idle" | "loading" | "success" | "error">("idle");
   const [showConfetti, setShowConfetti] = useState(false);
+  const { showToast } = useToast();
 
   const sectionRef = useRef<HTMLElement>(null);
   const inView     = useInView(sectionRef, { once: true, margin: "-60px" });
@@ -156,17 +160,26 @@ export default function EnquiryLeadForm() {
 
     setStatus("loading");
     try {
-      const res = await fetch("/api/enquiry", {
+      // Save directly to Firestore
+      await addDoc(collection(db, "enquiries"), {
+        ...form,
+        createdAt: Timestamp.now(),
+      });
+
+      // Also send via API for email notification (non-blocking)
+      fetch("/api/enquiry", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      if (!res.ok) throw new Error();
+        body: JSON.stringify({ ...form, skipFirestore: true }),
+      }).catch(() => {});
+
       setStatus("success");
       setShowConfetti(true);
+      showToast("Enquiry submitted successfully! We'll contact you within 24 hours.", "success");
       setTimeout(() => setShowConfetti(false), 2000);
     } catch {
       setStatus("error");
+      showToast("Something went wrong. Please try again.", "error");
     }
   };
 

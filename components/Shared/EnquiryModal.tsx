@@ -6,6 +6,9 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PaintColor } from "@/lib/canvas-utils";
+import { db } from "@/lib/firebase";
+import { collection, addDoc, Timestamp } from "firebase/firestore";
+import { useToast } from "@/context/Toast";
 
 interface EnquiryModalProps {
   isOpen: boolean;
@@ -41,6 +44,7 @@ export default function EnquiryModal({
   });
   const [submitState, setSubmitState] = useState<SubmitState>("idle");
   const [errors, setErrors] = useState<Partial<FormData>>({});
+  const { showToast } = useToast();
 
   // Sync color when prop changes
   useEffect(() => {
@@ -76,16 +80,24 @@ export default function EnquiryModal({
     setSubmitState("loading");
 
     try {
-      const res = await fetch("/api/enquiry", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+      // Save directly to Firestore
+      await addDoc(collection(db, "enquiries"), {
+        ...form,
+        createdAt: Timestamp.now(),
       });
 
-      if (!res.ok) throw new Error("Submission failed");
+      // Also send via API for email notification (non-blocking)
+      fetch("/api/enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...form, skipFirestore: true }),
+      }).catch(() => {});
+
       setSubmitState("success");
+      showToast("Enquiry submitted successfully! We'll contact you soon.", "success");
     } catch {
       setSubmitState("error");
+      showToast("Submission failed. Please try again.", "error");
     }
   };
 
