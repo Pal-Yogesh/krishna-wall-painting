@@ -82,7 +82,8 @@ export default function LiveVisualizerPreview() {
         <div className="absolute -bottom-20 -left-20 w-72 h-72 rounded-full bg-stone-200/60 blur-3xl" />
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+                    style={{ fontFamily: "'Georgia', 'Times New Roman', serif", letterSpacing: "-0.04em", perspective: "600px" }}>
         {/* Section Heading */}
         <div ref={headingRef} className="text-center mb-12 opacity-0">
           <span className="inline-block px-4 py-1.5 bg-amber-100 text-amber-700 text-xs font-bold uppercase tracking-[0.2em] rounded-full mb-4">
@@ -122,7 +123,7 @@ export default function LiveVisualizerPreview() {
                   className="w-5 h-5 rounded-md border border-stone-200 shrink-0"
                   style={{ backgroundColor: selectedColor }}
                 />
-                <span className="text-xs font-mono text-stone-400">
+                <span className="text-xs text-stone-400">
                   {selectedColor.toUpperCase()}
                 </span>
               </div>
