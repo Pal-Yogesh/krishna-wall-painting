@@ -1,16 +1,6 @@
 "use client";
 
-// components/layout/Navbar.tsx
-// ─────────────────────────────────────────────────────────────────────────────
-// Sticky navbar with:
-//  - Transparent → frosted glass on scroll (GSAP ScrollTrigger)
-//  - Animated underline nav links (Framer Motion)
-//  - Mobile slide-in drawer (Framer Motion)
-//  - Color dot accent strip at the very top
-//  - "Try Visualizer" CTA with paint-brush icon
-// ─────────────────────────────────────────────────────────────────────────────
-
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -22,16 +12,16 @@ if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
 }
 
-// ── Nav links config ──────────────────────────────────────────────────────────
 const NAV_LINKS = [
-  { label: "Home",       href: "/" },
-  { label: "Visualizer", href: "/#visualizer" },
-  { label: "Colors",     href: "/#colors" },
-  { label: "Inspiration",href: "/#inspiration" },
-  { label: "Contact",    href: "/#contact" },
+  { label: "Home",        href: "/",              sectionId: "" },
+  { label: "Visualizer",  href: "/#visualizer",   sectionId: "visualizer" },
+  { label: "Colors",      href: "/#colors",       sectionId: "colors" },
+  { label: "Inspiration", href: "/#inspiration",  sectionId: "inspiration" },
+  { label: "Contact",     href: "/#enquiry",      sectionId: "enquiry" },
 ];
 
-// ── Color accent dots (decorative top strip) ──────────────────────────────────
+const SECTION_IDS = ["visualizer", "colors", "inspiration", "enquiry"];
+
 const ACCENT_COLORS = [
   "#C1623F","#D4A017","#7BB8D4","#8FAF7E",
   "#5C3A5E","#1A6B73","#D4898A","#2C3E6B",
@@ -39,60 +29,106 @@ const ACCENT_COLORS = [
 ];
 
 export default function Navbar() {
-  const [isScrolled, setIsScrolled]     = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [activeHash, setActiveHash]     = useState("");
-  const navRef   = useRef<HTMLElement>(null);
+  const [activeSection, setActiveSection] = useState("");
+  const navRef = useRef<HTMLElement>(null);
   const pathname = usePathname();
 
-  // ── GSAP: detect scroll to toggle frosted glass ───────────────────────────
+  // Scroll detection for frosted glass effect
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 40);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // ── Track active hash for link highlighting ───────────────────────────────
+  // IntersectionObserver scroll-spy: track which section is in view
   useEffect(() => {
-    const onHashChange = () => setActiveHash(window.location.hash);
-    setActiveHash(window.location.hash);
-    window.addEventListener("hashchange", onHashChange);
-    return () => window.removeEventListener("hashchange", onHashChange);
-  }, []);
+    if (pathname !== "/") return;
 
-  // ── Close mobile menu on route change ─────────────────────────────────────
+    const observers: IntersectionObserver[] = [];
+
+    // Small delay to let DOM render
+    const timer = setTimeout(() => {
+      const visibleSections = new Map<string, boolean>();
+
+      SECTION_IDS.forEach((id) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              visibleSections.set(id, entry.isIntersecting);
+            });
+
+            // Find the first visible section in DOM order
+            const current = SECTION_IDS.find((sid) => visibleSections.get(sid));
+            if (current) {
+              setActiveSection(current);
+            } else {
+              // If no section is visible, check if we're at the top
+              if (window.scrollY < 200) {
+                setActiveSection("");
+              }
+            }
+          },
+          { threshold: 0.15, rootMargin: "-80px 0px -40% 0px" }
+        );
+
+        observer.observe(el);
+        observers.push(observer);
+      });
+    }, 300);
+
+    // Also handle scroll to top = Home active
+    const onScroll = () => {
+      if (window.scrollY < 200) {
+        setActiveSection("");
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+
+    return () => {
+      clearTimeout(timer);
+      observers.forEach((o) => o.disconnect());
+      window.removeEventListener("scroll", onScroll);
+    };
+  }, [pathname]);
+
+  // When user clicks a nav link, immediately set active
+  const handleNavClick = (sectionId: string) => {
+    setActiveSection(sectionId);
+    setIsMobileOpen(false);
+  };
+
+  // Close mobile menu on route change
   useEffect(() => {
     setIsMobileOpen(false);
   }, [pathname]);
 
-  // ── Lock body scroll when mobile menu is open ─────────────────────────────
+  // Lock body scroll when mobile menu is open
   useEffect(() => {
     document.body.style.overflow = isMobileOpen ? "hidden" : "";
     return () => { document.body.style.overflow = ""; };
   }, [isMobileOpen]);
 
-  const isLinkActive = (href: string) => {
-    if (href === "/") return pathname === "/" && !activeHash;
-    return href.includes("#") ? activeHash === href.split("#")[1] ? true : false : pathname === href;
+  const isLinkActive = (link: typeof NAV_LINKS[number]) => {
+    if (pathname !== "/") return false;
+    if (link.sectionId === "") return activeSection === "";
+    return activeSection === link.sectionId;
   };
 
   return (
     <>
-      {/* ── Color dot accent strip ─────────────────────────────────────── */}
-      <div
-        className="fixed top-0 left-0 right-0 z-50 flex h-1 overflow-hidden"
-        aria-hidden
-      >
+      {/* Color dot accent strip */}
+      <div className="fixed top-0 left-0 right-0 z-50 flex h-1 overflow-hidden" aria-hidden>
         {ACCENT_COLORS.map((color, i) => (
-          <div
-            key={i}
-            className="flex-1 h-full"
-            style={{ backgroundColor: color }}
-          />
+          <div key={i} className="flex-1 h-full" style={{ backgroundColor: color }} />
         ))}
       </div>
 
-      {/* ── Main Navbar ───────────────────────────────────────────────── */}
+      {/* Main Navbar */}
       <motion.nav
         ref={navRef}
         initial={{ y: -80, opacity: 0 }}
@@ -112,35 +148,33 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 lg:h-18">
 
-            {/* ── Logo ────────────────────────────────────────────────── */}
-            <Link href="/" className=" mt-[5%]">
-              {/* Logo mark */}
-            
-
-     
-                <Image src="/logo.png" alt="Logo" className="w-60 h-[200px] object-cover" width={1000} height={1000} />
+            {/* Logo */}
+            <Link href="/" onClick={() => handleNavClick("")} className="mt-[5%]">
+              <Image src="/logo.png" alt="Logo" className="w-60 h-[200px] object-cover" width={1000} height={1000} />
             </Link>
 
-            {/* ── Desktop Nav Links ────────────────────────────────────── */}
+            {/* Desktop Nav Links */}
             <div className="hidden lg:flex items-center gap-1">
               {NAV_LINKS.map((link) => {
-                const active = isLinkActive(link.href);
+                const active = isLinkActive(link);
                 return (
                   <Link
                     key={link.href}
                     href={link.href}
+                    onClick={() => handleNavClick(link.sectionId)}
                     className="relative px-4 py-2 group"
                   >
-                    {/* Hover/active background pill */}
-                    <motion.span
-                      className={`
-                        absolute inset-0 rounded-xl transition-colors
-                        ${active ? "bg-amber-50" : "group-hover:bg-stone-50"}
-                      `}
-                      layoutId={active ? "nav-active-bg" : undefined}
-                    />
+                    {active && (
+                      <motion.span
+                        layoutId="nav-active-bg"
+                        className="absolute inset-0 rounded-xl bg-amber-50"
+                        transition={{ type: "spring", stiffness: 400, damping: 30 }}
+                      />
+                    )}
+                    {!active && (
+                      <span className="absolute inset-0 rounded-xl group-hover:bg-stone-50 transition-colors" />
+                    )}
 
-                    {/* Link text */}
                     <span
                       className={`
                         relative text-[13.5px] font-semibold tracking-wide transition-colors duration-200
@@ -151,7 +185,6 @@ export default function Navbar() {
                       {link.label}
                     </span>
 
-                    {/* Active dot indicator */}
                     {active && (
                       <motion.span
                         layoutId="nav-dot"
@@ -164,9 +197,8 @@ export default function Navbar() {
               })}
             </div>
 
-            {/* ── Desktop CTA + Phone ─────────────────────────────────── */}
+            {/* Desktop CTA + Phone */}
             <div className="hidden lg:flex items-center gap-3">
-              {/* Phone number */}
               <a
                 href="tel:+91XXXXXXXXXX"
                 className="flex items-center gap-2 text-stone-500 hover:text-stone-800 transition-colors group"
@@ -179,16 +211,15 @@ export default function Navbar() {
                 <span className="text-xs font-semibold tracking-wide">+91 XXXXX XXXXX</span>
               </a>
 
-              {/* Divider */}
               <div className="w-px h-5 bg-stone-200" />
 
-              {/* CTA Button */}
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                 <Link
                   href="/#visualizer"
+                  onClick={() => handleNavClick("visualizer")}
                   className="
                     flex items-center gap-2 px-5 py-2.5 rounded-2xl
-                    bg-gradient-to-r from-amber-500 to-amber-600
+                    bg-linear-to-r from-amber-500 to-amber-600
                     text-white text-[13px] font-bold tracking-wide
                     shadow-md shadow-amber-200
                     hover:shadow-lg hover:shadow-amber-300
@@ -204,10 +235,11 @@ export default function Navbar() {
               </motion.div>
             </div>
 
-            {/* ── Mobile: CTA pill + Hamburger ────────────────────────── */}
+            {/* Mobile: CTA pill + Hamburger */}
             <div className="flex lg:hidden items-center gap-2">
               <Link
                 href="/#visualizer"
+                onClick={() => handleNavClick("visualizer")}
                 className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-500 text-white text-xs font-bold shadow-sm shadow-amber-200"
               >
                 <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -244,11 +276,10 @@ export default function Navbar() {
         </div>
       </motion.nav>
 
-      {/* ── Mobile Drawer ─────────────────────────────────────────────── */}
+      {/* Mobile Drawer */}
       <AnimatePresence>
         {isMobileOpen && (
           <>
-            {/* Backdrop */}
             <motion.div
               key="mobile-backdrop"
               initial={{ opacity: 0 }}
@@ -259,7 +290,6 @@ export default function Navbar() {
               className="fixed inset-0 z-30 bg-black/30 backdrop-blur-sm lg:hidden"
             />
 
-            {/* Drawer panel */}
             <motion.div
               key="mobile-drawer"
               initial={{ x: "100%" }}
@@ -271,13 +301,13 @@ export default function Navbar() {
               {/* Drawer header */}
               <div className="flex items-center justify-between px-5 pt-6 pb-4 border-b border-stone-100">
                 <div className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-sm">
+                  <div className="w-8 h-8 rounded-xl bg-linear-to-br from-amber-400 to-amber-600 flex items-center justify-center shadow-sm">
                     <svg className="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M18.37 2.63 14 7l-1.59-1.59a2 2 0 0 0-2.82 0L8 7l9 9 1.59-1.59a2 2 0 0 0 0-2.82L17 10l4.37-4.37a2.12 2.12 0 1 0-3-3Z" />
                       <path d="M9 8c-2 3-4 3.5-7 4l8 10c2-1 6-5 6-7" />
                     </svg>
                   </div>
-                  <span className="font-black text-stone-900" style={{ fontFamily: "'Georgia', serif" }}>KMOPL Paints</span>
+                  <span className="font-black text-stone-900" style={{ fontFamily: "'Georgia', serif" }}>Krishna Paints</span>
                 </div>
                 <button
                   onClick={() => setIsMobileOpen(false)}
@@ -293,7 +323,7 @@ export default function Navbar() {
               {/* Drawer nav links */}
               <nav className="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-1">
                 {NAV_LINKS.map((link, i) => {
-                  const active = isLinkActive(link.href);
+                  const active = isLinkActive(link);
                   return (
                     <motion.div
                       key={link.href}
@@ -303,7 +333,7 @@ export default function Navbar() {
                     >
                       <Link
                         href={link.href}
-                        onClick={() => setIsMobileOpen(false)}
+                        onClick={() => handleNavClick(link.sectionId)}
                         className={`
                           flex items-center gap-3 px-4 py-3.5 rounded-2xl transition-all duration-150
                           ${active
@@ -312,15 +342,9 @@ export default function Navbar() {
                           }
                         `}
                       >
-                        {/* Active indicator bar */}
-                        {active && (
-                          <span className="w-1 h-5 rounded-full bg-amber-500 flex-shrink-0" />
-                        )}
-                        {!active && <span className="w-1 h-5 flex-shrink-0" />}
-                        <span
-                          className="text-[15px] font-semibold"
-                          style={{ fontFamily: "'Georgia', serif" }}
-                        >
+                        {active && <span className="w-1 h-5 rounded-full bg-amber-500 shrink-0" />}
+                        {!active && <span className="w-1 h-5 shrink-0" />}
+                        <span className="text-[15px] font-semibold" style={{ fontFamily: "'Georgia', serif" }}>
                           {link.label}
                         </span>
                       </Link>
@@ -329,14 +353,14 @@ export default function Navbar() {
                 })}
               </nav>
 
-              {/* Drawer footer — CTA + contact */}
+              {/* Drawer footer */}
               <div className="px-4 pb-6 pt-4 border-t border-stone-100 flex flex-col gap-3">
                 <Link
                   href="/#visualizer"
-                  onClick={() => setIsMobileOpen(false)}
+                  onClick={() => handleNavClick("visualizer")}
                   className="
                     flex items-center justify-center gap-2 w-full py-3.5 rounded-2xl
-                    bg-gradient-to-r from-amber-500 to-amber-600
+                    bg-linear-to-r from-amber-500 to-amber-600
                     text-white font-bold text-sm tracking-wide
                     shadow-md shadow-amber-200
                   "
@@ -357,7 +381,6 @@ export default function Navbar() {
                   Call Us Now
                 </a>
 
-                {/* Color swatches decorative strip in drawer */}
                 <div className="flex rounded-xl overflow-hidden h-2 mt-1">
                   {ACCENT_COLORS.map((color, i) => (
                     <div key={i} className="flex-1" style={{ backgroundColor: color }} />
@@ -369,7 +392,7 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* ── Spacer so page content clears the navbar ──────────────────── */}
+      {/* Spacer */}
       <div className="h-[65px] lg:h-[73px]" aria-hidden />
     </>
   );
