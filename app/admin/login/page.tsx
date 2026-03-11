@@ -34,7 +34,7 @@ export default function AdminLoginPage() {
 
   if (authLoading) {
     return (
-      <div className="min-h-screen flex items-center justify-center bg-stone-950">
+      <div className="min-h-screen flex items-center justify-center bg-stone-50">
         <div className="flex flex-col items-center gap-4">
           <div className="w-10 h-10 border-3 border-amber-500 border-t-transparent rounded-full animate-spin" />
           <p className="text-stone-400 text-sm">Loading...</p>
@@ -44,12 +44,11 @@ export default function AdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-stone-950">
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden bg-linear-to-br from-amber-50 via-stone-50 to-stone-100">
       {/* Ambient background */}
       <div className="absolute inset-0">
-        <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-amber-500/10 blur-[120px]" />
-        <div className="absolute bottom-[-20%] right-[-10%] w-[400px] h-[400px] rounded-full bg-amber-600/8 blur-[100px]" />
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_0%,rgba(12,10,9,0.8)_70%)]" />
+        <div className="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-amber-200/40 blur-[120px]" />
+        <div className="absolute bottom-[-20%] right-[-10%] w-[400px] h-[400px] rounded-full bg-orange-200/30 blur-[100px]" />
       </div>
 
       <motion.div
@@ -58,29 +57,27 @@ export default function AdminLoginPage() {
         transition={{ duration: 0.5 }}
         className="relative z-10 w-full max-w-md px-4"
       >
-        <div className="bg-stone-900/80 backdrop-blur-xl rounded-3xl border border-stone-800/60 shadow-2xl p-8 sm:p-10">
+        <div className="bg-white rounded-3xl border border-stone-200/80 shadow-xl shadow-stone-200/50 p-8 sm:p-10">
           {/* Logo & Header */}
           <div className="text-center mb-8">
             <div className="relative inline-flex">
               <div
-                className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-lg shadow-amber-500/20"
+                className="w-16 h-16 rounded-2xl flex items-center justify-center text-3xl shadow-lg shadow-amber-200/50"
                 style={{ background: "linear-gradient(135deg, #f59e0b, #d97706)" }}
               >
                 🎨
               </div>
-              <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-stone-900" />
+              <div className="absolute -bottom-1 -right-1 w-5 h-5 bg-green-500 rounded-full border-2 border-white" />
             </div>
-            <h1 className="text-2xl font-bold text-white mt-5">Welcome Back</h1>
+            <h1 className="text-2xl font-bold text-stone-800 mt-5">Welcome Back</h1>
             <p className="text-stone-400 text-sm mt-1.5">Sign in to Krishna Paint Admin</p>
           </div>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             <div>
-              <label className="block text-xs font-semibold text-stone-400 mb-2 uppercase tracking-wider">
-                Email Address
-              </label>
+              <label className="block text-xs font-semibold text-stone-500 mb-2 uppercase tracking-wider">Email Address</label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-500">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400">
                   <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                   </svg>
@@ -90,18 +87,16 @@ export default function AdminLoginPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-stone-800/60 border border-stone-700/50 text-sm text-white placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500/50 transition-all"
+                  className="w-full pl-11 pr-4 py-3 rounded-xl bg-stone-50 border border-stone-200 text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-200 focus:border-amber-300 transition-all"
                   placeholder="admin@example.com"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-stone-400 mb-2 uppercase tracking-wider">
-                Password
-              </label>
+              <label className="block text-xs font-semibold text-stone-500 mb-2 uppercase tracking-wider">Password</label>
               <div className="relative">
-                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-500">
+                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-stone-400">
                   <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                   </svg>
@@ -111,13 +106,13 @@ export default function AdminLoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required
-                  className="w-full pl-11 pr-12 py-3 rounded-xl bg-stone-800/60 border border-stone-700/50 text-sm text-white placeholder-stone-500 focus:outline-none focus:ring-2 focus:ring-amber-500/40 focus:border-amber-500/50 transition-all"
+                  className="w-full pl-11 pr-12 py-3 rounded-xl bg-stone-50 border border-stone-200 text-sm text-stone-800 placeholder-stone-400 focus:outline-none focus:ring-2 focus:ring-amber-200 focus:border-amber-300 transition-all"
                   placeholder="••••••••"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-stone-500 hover:text-stone-300 transition-colors"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-600 transition-colors"
                   aria-label={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
@@ -138,7 +133,7 @@ export default function AdminLoginPage() {
               <motion.div
                 initial={{ opacity: 0, y: -5 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="flex items-center gap-2.5 text-sm text-red-400 bg-red-500/10 border border-red-500/20 px-4 py-3 rounded-xl"
+                className="flex items-center gap-2.5 text-sm text-red-600 bg-red-50 border border-red-200 px-4 py-3 rounded-xl"
               >
                 <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 11-18 0 9 9 0 0118 0zm-9 3.75h.008v.008H12v-.008z" />
@@ -150,7 +145,7 @@ export default function AdminLoginPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 rounded-xl text-white font-bold text-sm transition-all disabled:opacity-60 hover:shadow-lg hover:shadow-amber-500/20 active:scale-[0.98]"
+              className="w-full py-3.5 rounded-xl text-white font-bold text-sm transition-all disabled:opacity-60 hover:shadow-lg hover:shadow-amber-200/50 active:scale-[0.98]"
               style={{ background: "linear-gradient(135deg, #f59e0b, #d97706)" }}
             >
               {loading ? (
@@ -163,7 +158,14 @@ export default function AdminLoginPage() {
               )}
             </button>
           </form>
+
+          <div className="mt-6 pt-6 border-t border-stone-100 text-center">
+            <p className="text-xs text-stone-400">
+              Protected area · Krishna Paints © {new Date().getFullYear()}
+            </p>
           </div>
-          </motion.div>
-          </div>
-  )}
+        </div>
+      </motion.div>
+    </div>
+  );
+}
