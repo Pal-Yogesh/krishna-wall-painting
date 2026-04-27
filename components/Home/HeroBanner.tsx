@@ -377,7 +377,7 @@ export default function HeroBanner() {
               {/* Primary CTA */}
               <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.97 }}>
                 <Link
-                  href="/#visualizer"
+                  href="/visualizer"
                   className="group flex items-center gap-3 px-7 py-4 rounded-2xl text-white font-bold text-[15px] tracking-wide shadow-xl transition-all duration-200"
                   style={{
                     background: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
@@ -400,7 +400,7 @@ export default function HeroBanner() {
               {/* Secondary CTA */}
               <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.97 }}>
                 <Link
-                  href="/#colors"
+                  href="/visualizer#colors"
                   className="flex items-center gap-2.5 px-6 py-4 rounded-2xl font-semibold text-[14px] text-stone-700 border-2 border-stone-200 hover:border-amber-300 hover:text-amber-700 bg-white/60 backdrop-blur-sm transition-all duration-200"
                   style={{ fontFamily: "'Georgia', serif" }}
                 >
@@ -492,7 +492,7 @@ export default function HeroBanner() {
               {/* Top-right: "Try it" chip */}
               <div className="absolute top-4 right-4">
                 <Link
-                  href="/#visualizer"
+                  href="/visualizer"
                   className="flex items-center gap-1.5 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1.5 text-xs font-bold text-stone-700 shadow hover:bg-amber-50 hover:text-amber-700 transition-colors border border-white"
                 >
                   <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>

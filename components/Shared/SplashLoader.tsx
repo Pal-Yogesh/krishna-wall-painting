@@ -27,8 +27,27 @@ export default function SplashLoader({ children }: { children: React.ReactNode }
             <div className="absolute top-1/4 right-1/4 w-48 h-48 rounded-full bg-orange-400/15 blur-[80px] animate-pulse delay-500" />
             <div className="absolute bottom-1/4 left-1/4 w-56 h-56 rounded-full bg-yellow-400/10 blur-[90px] animate-pulse delay-1000" />
 
-            {/* Paint drops animation */}
-            <div className="relative mb-10">
+          
+
+            {/* Logo / Brand */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              className="text-center"
+            >
+              <div
+                className="w-16 h-16 rounded-2xl mx-auto mb-5 flex items-center justify-center text-3xl shadow-lg shadow-amber-500/30"
+                style={{ background: "linear-gradient(135deg, #f59e0b, #d97706)" }}
+              >
+                <Image src="/logo.png" width={1000} height={1000} alt="logo" className="w-80 h-80 mt-[65px] object-cover"/>
+              </div>
+              {/* <h1 className="text-2xl font-bold text-black tracking-tight">Krishna Paints</h1>
+              <p className="text-stone-500 text-sm mt-1">The Brand of India</p> */}
+            </motion.div>
+
+  {/* Paint drops animation */}
+            <div className="relative mt-7">
               <div className="flex gap-3">
                 {["#f59e0b", "#ef4444", "#3b82f6", "#22c55e", "#a855f7"].map((color, i) => (
                   <motion.div
@@ -49,26 +68,8 @@ export default function SplashLoader({ children }: { children: React.ReactNode }
                 ))}
               </div>
             </div>
-
-            {/* Logo / Brand */}
-            <motion.div
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
-              className="text-center"
-            >
-              <div
-                className="w-16 h-16 rounded-2xl mx-auto mb-5 flex items-center justify-center text-3xl shadow-lg shadow-amber-500/30"
-                style={{ background: "linear-gradient(135deg, #f59e0b, #d97706)" }}
-              >
-                <Image src="/logo.png" width={1000} height={1000} alt="logo" className="w-80 h-80 mt-[65px] object-cover"/>
-              </div>
-              <h1 className="text-2xl font-bold text-black tracking-tight">Krishna Paints</h1>
-              <p className="text-stone-500 text-sm mt-1">The Brand of India</p>
-            </motion.div>
-
             {/* Progress bar */}
-            <div className="mt-10 w-48 h-1 bg-stone-800 rounded-full overflow-hidden">
+            <div className="mt-5 w-48 h-1 bg-stone-800 rounded-full overflow-hidden">
               <motion.div
                 className="h-full rounded-full"
                 style={{ background: "linear-gradient(90deg, #f59e0b, #ef4444, #3b82f6, #22c55e, #a855f7)" }}

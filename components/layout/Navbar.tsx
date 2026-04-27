@@ -14,13 +14,13 @@ if (typeof window !== "undefined") {
 
 const NAV_LINKS = [
   { label: "Home",        href: "/",              sectionId: "" },
-  { label: "Visualizer",  href: "/#visualizer",   sectionId: "visualizer" },
-  { label: "Colors",      href: "/#colors",       sectionId: "colors" },
-  { label: "Inspiration", href: "/#inspiration",  sectionId: "inspiration" },
-  { label: "Contact",     href: "/#enquiry",      sectionId: "enquiry" },
+  { label: "Visualizer",  href: "/visualizer",    sectionId: "" },
+  // { label: "Colors",      href: "/visualizer#colors", sectionId: "" },
+  { label: "About Us",    href: "/about",        sectionId: "about" },
+  { label: "Contact",     href: "/contact-us", sectionId: "" },
 ];
 
-const SECTION_IDS = ["visualizer", "colors", "inspiration", "enquiry"];
+const SECTION_IDS = ["about"];
 
 const ACCENT_COLORS = [
   "#C1623F","#D4A017","#7BB8D4","#8FAF7E",
@@ -114,9 +114,20 @@ export default function Navbar() {
   }, [isMobileOpen]);
 
   const isLinkActive = (link: typeof NAV_LINKS[number]) => {
-    if (pathname !== "/") return false;
-    if (link.sectionId === "") return activeSection === "";
-    return activeSection === link.sectionId;
+    // For hash-only links on the home page, use scroll-spy
+    if (link.sectionId && pathname === "/") {
+      return activeSection === link.sectionId;
+    }
+    // Home link: active when on "/" and no section is active
+    if (link.href === "/" && link.sectionId === "") {
+      return pathname === "/" && activeSection === "";
+    }
+    // For route-based links, match pathname
+    const linkPath = link.href.split("#")[0];
+    if (linkPath && linkPath !== "/") {
+      return pathname === linkPath;
+    }
+    return false;
   };
 
   return (
@@ -215,8 +226,8 @@ export default function Navbar() {
 
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                 <Link
-                  href="/#visualizer"
-                  onClick={() => handleNavClick("visualizer")}
+                  href="/visualizer"
+                  onClick={() => handleNavClick("")}
                   className="
                     flex items-center gap-2 px-5 py-2.5 rounded-2xl
                     bg-linear-to-r from-amber-500 to-amber-600
@@ -238,8 +249,8 @@ export default function Navbar() {
             {/* Mobile: CTA pill + Hamburger */}
             <div className="flex lg:hidden items-center gap-2">
               <Link
-                href="/#visualizer"
-                onClick={() => handleNavClick("visualizer")}
+                href="/visualizer"
+                onClick={() => handleNavClick("")}
                 className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-500 text-white text-xs font-bold shadow-sm shadow-amber-200"
               >
                 <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -356,8 +367,8 @@ export default function Navbar() {
               {/* Drawer footer */}
               <div className="px-4 pb-6 pt-4 border-t border-stone-100 flex flex-col gap-3">
                 <Link
-                  href="/#visualizer"
-                  onClick={() => handleNavClick("visualizer")}
+                  href="/visualizer"
+                  onClick={() => handleNavClick("")}
                   className="
                     flex items-center justify-center gap-2 w-full py-3.5 rounded-2xl
                     bg-linear-to-r from-amber-500 to-amber-600
