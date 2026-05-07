@@ -16,18 +16,18 @@
 //  - Responsive collapse to stacked layout
 // ─────────────────────────────────────────────────────────────────────────────
 
-import React, { useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 
 // ── Data ──────────────────────────────────────────────────────────────────────
 const NAV_LINKS = [
   { label: "Home",             href: "/"            },
-  { label: "Paint Visualizer", href: "/#visualizer" },
-  { label: "Color Collection", href: "/#colors"     },
-  { label: "How It Works",     href: "/#how-it-works"},
-  { label: "Why Choose Us",    href: "/#why-us"     },
-  { label: "Get a Quote",      href: "/#enquiry"    },
+  { label: "Paint Visualizer", href: "/visualizer"  },
+  { label: "Color Collection", href: "/visualizer#colors" },
+  { label: "About Us",         href: "/#about"      },
+  { label: "Why Choose Us",    href: "/about"       },
+  { label: "Get a Quote",      href: "/about#enquiry" },
 ];
 
 const COLOR_LINKS = [
@@ -64,7 +64,7 @@ const SOCIAL_LINKS = [
   },
   {
     name: "WhatsApp",
-    href: "https://wa.me/911111111111",
+    href: "https://wa.me/918588830308",
     color: "#25D366",
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
@@ -147,7 +147,7 @@ export default function Footer() {
             </div>
           </div>
           <a
-            href="https://wa.me/911111111111?text=Hi%20KMOPL%2C%20I%20need%20help%20with%20paint%20colors"
+            href="https://wa.me/918588830308?text=Hi%20KMOPL%2C%20I%20need%20help%20with%20paint%20colors"
             target="_blank"
             rel="noopener noreferrer"
             className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white transition-all duration-200 hover:opacity-90 flex-shrink-0"
@@ -192,7 +192,7 @@ export default function Footer() {
               className="text-sm leading-relaxed max-w-[260px]"
               style={{ color: "rgba(255,255,255,0.4)", fontFamily: "'Georgia', serif" }}
             >
-              Helping Indian homeowners visualise, choose and apply the perfect paint shade — since 2015.
+              From industrial chemicals to specialty coatings — serving India and global markets since 1998.
             </p>
 
             {/* Social icons */}
@@ -355,8 +355,8 @@ export default function Footer() {
                     </svg>
                   ),
                   label: "Phone",
-                  value: "+91 22222 22222",
-                  href: "tel:+91222222222",
+                  value: "+91 85888 30308",
+                  href: "tel:+918588830308",
                 },
                 {
                   icon: (
@@ -365,8 +365,8 @@ export default function Footer() {
                     </svg>
                   ),
                   label: "Email",
-                  value: "hello@kmopl.in",
-                  href: "mailto:hello@kmopl.in",
+                  value: "customercare@krishna-chemicals.com",
+                  href: "mailto:customercare@krishna-chemicals.com",
                 },
                 {
                   icon: (
@@ -376,7 +376,7 @@ export default function Footer() {
                     </svg>
                   ),
                   label: "Address",
-                  value: "Mumbai, Maharashtra, India",
+                  value: "B-169 & B-170, Industrial Area Phase-II, Noida, G.B. Nagar, U.P.-201305",
                   href: null,
                 },
               ].map(item => (
@@ -416,8 +416,7 @@ export default function Footer() {
                 <p className="text-[10px] font-black uppercase tracking-[0.15em] text-white/25 mb-2.5">Business Hours</p>
                 <div className="flex flex-col gap-1.5">
                   {[
-                    { day: "Mon – Fri", time: "9:00 AM – 7:00 PM" },
-                    { day: "Saturday",  time: "9:00 AM – 5:00 PM" },
+                    { day: "Mon – Sat", time: "09:00 AM – 06:00 PM" },
                     { day: "Sunday",    time: "Closed" },
                   ].map(row => (
                     <div key={row.day} className="flex items-center justify-between gap-4">
@@ -447,7 +446,7 @@ export default function Footer() {
             className="text-xs text-center sm:text-left"
             style={{ color: "rgba(255,255,255,0.25)", fontFamily: "'Georgia', serif" }}
           >
-            © {new Date().getFullYear()} KMOPL Paints & Colors. All rights reserved.
+            © {new Date().getFullYear()} Krishna Murari Organosys Pvt. Ltd. (KMOPL). All rights reserved.
           </p>
           <div className="flex items-center gap-5 flex-wrap justify-center">
             {LEGAL_LINKS.map(link => (
