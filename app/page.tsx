@@ -1,11 +1,19 @@
 import HeroBanner from "@/components/Home/HeroBanner";
-import CompanyOverview from "@/components/Home/CompanyOverview";
+import AboutSection from "@/components/Home/AboutSection";
+import MarketSegments from "@/components/Home/MarketSegments";
+import ProductsSection from "@/components/Home/ProductsSection";
+import ClientsSection from "@/components/Home/ClientsSection";
+import GallerySection from "@/components/Home/GallerySection";
 
 export default function Home() {
   return (
     <>
       <HeroBanner />
-      <CompanyOverview />
+      <AboutSection />
+      <MarketSegments />
+      <ProductsSection />
+      <ClientsSection />
+      <GallerySection />
     </>
   );
 }
