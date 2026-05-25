@@ -22,7 +22,7 @@ export default function VideoIntro() {
           key="video-intro"
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
-          className="relative w-full h-[105vh] overflow-hidden bg-white  flex items-center justify-center"
+          className="relative w-full h-full overflow-hidden bg-white  flex items-center justify-center"
         >
           <video
             ref={videoRef}
