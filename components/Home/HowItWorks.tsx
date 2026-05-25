@@ -141,9 +141,9 @@ function StepCard({
       >
         {/* Large decorative number */}
         <span
-          className="absolute -top-4 -right-2 text-[110px] font-black leading-none select-none pointer-events-none transition-all duration-300"
+          className="absolute -top-4 -right-2 text-[110px] font-bold leading-none select-none pointer-events-none transition-all duration-300"
           style={{
-            fontFamily: "'Georgia', serif",
+            fontFamily: "var(--font-raleway), sans-serif",
             color: isActive ? step.color : "rgba(255,255,255,0.04)",
             opacity: isActive ? 0.12 : 1,
           }}
@@ -154,11 +154,11 @@ function StepCard({
         {/* Step number pill */}
         <div className="flex items-center gap-4 mb-6">
           <div
-            className="flex items-center justify-center w-10 h-10 rounded-2xl text-sm font-black transition-all duration-300"
+            className="flex items-center justify-center w-10 h-10 rounded-2xl text-sm font-bold transition-all duration-300"
             style={{
               background: isActive ? step.color : "rgba(255,255,255,0.1)",
               color: isActive ? "white" : "rgba(255,255,255,0.5)",
-              fontFamily: "'Georgia', serif",
+              fontFamily: "var(--font-raleway), sans-serif",
             }}
           >
             {step.number}
@@ -190,9 +190,9 @@ function StepCard({
             {step.subtitle}
           </p>
           <h3
-            className="text-[1.55rem] font-black leading-tight mb-3 transition-colors duration-300"
+            className="text-[1.55rem] font-bold leading-tight mb-3 transition-colors duration-300"
             style={{
-              fontFamily: "'Georgia', 'Times New Roman', serif",
+              fontFamily: "var(--font-raleway), sans-serif",
               color: isActive ? "#1c1917" : "rgba(255,255,255,0.85)",
               letterSpacing: "-0.03em",
             }}
@@ -203,7 +203,7 @@ function StepCard({
             className="text-[14.5px] leading-relaxed transition-colors duration-300"
             style={{
               color: isActive ? "#57534e" : "rgba(255,255,255,0.45)",
-              fontFamily: "'Georgia', serif",
+              fontFamily: "var(--font-raleway), sans-serif",
             }}
           >
             {step.description}
@@ -322,8 +322,8 @@ export default function HowItWorks() {
             initial={{ opacity: 0, y: 32 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-[clamp(2rem,4.5vw,3.6rem)] font-black text-white leading-tight"
-            style={{ fontFamily: "'Georgia', 'Times New Roman', serif", letterSpacing: "-0.04em" }}
+            className="text-[clamp(2rem,4.5vw,3.6rem)] font-bold text-white leading-tight"
+            style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.04em" }}
           >
             From Doubt to Confident
             <br />
@@ -347,7 +347,7 @@ export default function HowItWorks() {
             animate={inView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.25 }}
             className="mt-5 text-[15px] max-w-lg mx-auto leading-relaxed"
-            style={{ color: "rgba(255,255,255,0.45)", fontFamily: "'Georgia', serif" }}
+            style={{ color: "rgba(255,255,255,0.45)", fontFamily: "var(--font-raleway), sans-serif" }}
           >
             No guesswork, no waste. Our visualizer walks you through the entire
             decision in under two minutes — completely free.
@@ -387,7 +387,7 @@ export default function HowItWorks() {
               style={{
                 background: "linear-gradient(135deg, #f59e0b, #d97706)",
                 boxShadow: "0 8px 28px rgba(217,119,6,0.4)",
-                fontFamily: "'Georgia', serif",
+                fontFamily: "var(--font-raleway), sans-serif",
               }}
             >
               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
@@ -404,7 +404,7 @@ export default function HowItWorks() {
           {/* Scroll hint */}
           <p
             className="text-sm"
-            style={{ color: "rgba(255,255,255,0.35)", fontFamily: "'Georgia', serif" }}
+            style={{ color: "rgba(255,255,255,0.35)", fontFamily: "var(--font-raleway), sans-serif" }}
           >
             Scroll down to explore our{" "}
             <Link
@@ -437,7 +437,7 @@ export default function HowItWorks() {
               style={{ color: "rgba(255,255,255,0.3)" }}
             >
               <span className="text-base">{icon}</span>
-              <span style={{ fontFamily: "'Georgia', serif" }}>{text}</span>
+              <span style={{ fontFamily: "var(--font-raleway), sans-serif" }}>{text}</span>
             </div>
           ))}
         </motion.div>

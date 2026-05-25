@@ -142,7 +142,7 @@ export default function Footer() {
               </svg>
             </div>
             <div>
-              <p className="text-sm font-bold text-white/80" style={{ fontFamily: "'Georgia', serif" }}>Chat with us on WhatsApp</p>
+              <p className="text-sm font-bold text-white/80" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>Chat with us on WhatsApp</p>
               <p className="text-xs text-white/35">Quick quotes, color advice & support</p>
             </div>
           </div>
@@ -176,8 +176,8 @@ export default function Footer() {
               </div>
               <div>
                 <span
-                  className="text-xl font-black text-white leading-none block"
-                  style={{ fontFamily: "'Georgia', 'Times New Roman', serif", letterSpacing: "0.04em" }}
+                  className="text-xl font-bold text-white leading-none block"
+                  style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "0.04em" }}
                 >
                   KMOPL
                 </span>
@@ -190,7 +190,7 @@ export default function Footer() {
             {/* Tagline */}
             <p
               className="text-sm leading-relaxed max-w-[260px]"
-              style={{ color: "rgba(255,255,255,0.4)", fontFamily: "'Georgia', serif" }}
+              style={{ color: "rgba(255,255,255,0.4)", fontFamily: "var(--font-raleway), sans-serif" }}
             >
               From industrial chemicals to specialty coatings — serving India and global markets since 1998.
             </p>
@@ -275,7 +275,7 @@ export default function Footer() {
           {/* ── Col 2: Quick links ──────────────────────────────────── */}
           <div>
             <h4
-              className="text-xs font-black uppercase tracking-[0.2em] mb-6"
+              className="text-xs font-bold uppercase tracking-[0.2em] mb-6"
               style={{ color: "rgba(255,255,255,0.3)" }}
             >
               Quick Links
@@ -286,7 +286,7 @@ export default function Footer() {
                   <Link
                     href={link.href}
                     className="group flex items-center gap-2 text-sm transition-all duration-200"
-                    style={{ color: "rgba(255,255,255,0.45)", fontFamily: "'Georgia', serif" }}
+                    style={{ color: "rgba(255,255,255,0.45)", fontFamily: "var(--font-raleway), sans-serif" }}
                   >
                     <span
                       className="w-1 h-1 rounded-full flex-shrink-0 transition-all duration-300 group-hover:w-3"
@@ -304,7 +304,7 @@ export default function Footer() {
           {/* ── Col 3: Color swatches ───────────────────────────────── */}
           <div>
             <h4
-              className="text-xs font-black uppercase tracking-[0.2em] mb-6"
+              className="text-xs font-bold uppercase tracking-[0.2em] mb-6"
               style={{ color: "rgba(255,255,255,0.3)" }}
             >
               Popular Shades
@@ -322,7 +322,7 @@ export default function Footer() {
                   />
                   <span
                     className="text-sm transition-colors duration-200 group-hover:text-white"
-                    style={{ color: "rgba(255,255,255,0.4)", fontFamily: "'Georgia', serif" }}
+                    style={{ color: "rgba(255,255,255,0.4)", fontFamily: "var(--font-raleway), sans-serif" }}
                   >
                     {color.name}
                   </span>
@@ -331,7 +331,7 @@ export default function Footer() {
               <Link
                 href="/#colors"
                 className="mt-1 text-xs font-bold transition-colors duration-200 hover:text-amber-400"
-                style={{ color: "rgba(217,119,6,0.6)", fontFamily: "'Georgia', serif" }}
+                style={{ color: "rgba(217,119,6,0.6)", fontFamily: "var(--font-raleway), sans-serif" }}
               >
                 View all 36+ shades →
               </Link>
@@ -341,7 +341,7 @@ export default function Footer() {
           {/* ── Col 4: Contact ───────────────────────────────────────── */}
           <div>
             <h4
-              className="text-xs font-black uppercase tracking-[0.2em] mb-6"
+              className="text-xs font-bold uppercase tracking-[0.2em] mb-6"
               style={{ color: "rgba(255,255,255,0.3)" }}
             >
               Get in Touch
@@ -395,12 +395,12 @@ export default function Footer() {
                       <a
                         href={item.href}
                         className="text-sm transition-colors duration-200 hover:text-amber-400"
-                        style={{ color: "rgba(255,255,255,0.55)", fontFamily: "'Georgia', serif" }}
+                        style={{ color: "rgba(255,255,255,0.55)", fontFamily: "var(--font-raleway), sans-serif" }}
                       >
                         {item.value}
                       </a>
                     ) : (
-                      <p className="text-sm" style={{ color: "rgba(255,255,255,0.55)", fontFamily: "'Georgia', serif" }}>
+                      <p className="text-sm" style={{ color: "rgba(255,255,255,0.55)", fontFamily: "var(--font-raleway), sans-serif" }}>
                         {item.value}
                       </p>
                     )}
@@ -413,17 +413,17 @@ export default function Footer() {
                 className="mt-2 rounded-2xl p-4"
                 style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.06)" }}
               >
-                <p className="text-[10px] font-black uppercase tracking-[0.15em] text-white/25 mb-2.5">Business Hours</p>
+                <p className="text-[10px] font-bold uppercase tracking-[0.15em] text-white/25 mb-2.5">Business Hours</p>
                 <div className="flex flex-col gap-1.5">
                   {[
                     { day: "Mon – Sat", time: "09:00 AM – 06:00 PM" },
                     { day: "Sunday",    time: "Closed" },
                   ].map(row => (
                     <div key={row.day} className="flex items-center justify-between gap-4">
-                      <span className="text-xs text-white/35" style={{ fontFamily: "'Georgia', serif" }}>{row.day}</span>
+                      <span className="text-xs text-white/35" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>{row.day}</span>
                       <span
                         className="text-xs font-semibold"
-                        style={{ color: row.time === "Closed" ? "rgba(239,68,68,0.6)" : "rgba(255,255,255,0.55)", fontFamily: "'Georgia', serif" }}
+                        style={{ color: row.time === "Closed" ? "rgba(239,68,68,0.6)" : "rgba(255,255,255,0.55)", fontFamily: "var(--font-raleway), sans-serif" }}
                       >
                         {row.time}
                       </span>
@@ -444,7 +444,7 @@ export default function Footer() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p
             className="text-xs text-center sm:text-left"
-            style={{ color: "rgba(255,255,255,0.25)", fontFamily: "'Georgia', serif" }}
+            style={{ color: "rgba(255,255,255,0.25)", fontFamily: "var(--font-raleway), sans-serif" }}
           >
             © {new Date().getFullYear()} Krishna Murari Organosys Pvt. Ltd. (KMOPL). All rights reserved.
           </p>
@@ -454,7 +454,7 @@ export default function Footer() {
                 key={link.label}
                 href={link.href}
                 className="text-xs transition-colors duration-200 hover:text-amber-500"
-                style={{ color: "rgba(255,255,255,0.25)", fontFamily: "'Georgia', serif" }}
+                style={{ color: "rgba(255,255,255,0.25)", fontFamily: "var(--font-raleway), sans-serif" }}
               >
                 {link.label}
               </Link>

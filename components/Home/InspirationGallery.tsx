@@ -433,12 +433,12 @@ function GalleryCard({
                 exit={{ y: 8, opacity: 0 }}
                 transition={{ duration: 0.22, delay: 0.05 }}
               >
-                <p className="text-[10px] font-black uppercase tracking-[0.2em] mb-1"
+                <p className="text-[10px] font-bold uppercase tracking-[0.2em] mb-1"
                   style={{ color: light ? "rgba(0,0,0,0.6)" : "rgba(255,255,255,0.7)" }}>
                   {item.room}
                 </p>
-                <h3 className="text-[17px] font-black leading-snug mb-2"
-                  style={{ fontFamily: "'Georgia', serif", color: light ? "rgba(0,0,0,0.85)" : "white", letterSpacing: "-0.02em" }}>
+                <h3 className="text-[17px] font-bold leading-snug mb-2"
+                  style={{ fontFamily: "var(--font-raleway), sans-serif", color: light ? "rgba(0,0,0,0.85)" : "white", letterSpacing: "-0.02em" }}>
                   {item.title}
                 </h3>
                 <div className="flex items-center gap-2 flex-wrap">
@@ -469,7 +469,7 @@ function GalleryCard({
           {item.tags.slice(0, 1).map(tag => (
             <span
               key={tag}
-              className="px-2 py-0.5 rounded-full text-[9px] font-black uppercase tracking-wider"
+              className="px-2 py-0.5 rounded-full text-[9px] font-bold uppercase tracking-wider"
               style={{
                 background: "rgba(255,255,255,0.88)",
                 color: "#292524",
@@ -487,7 +487,7 @@ function GalleryCard({
         <div className="flex items-center gap-2 min-w-0">
           <div className="w-3.5 h-3.5 rounded-full flex-shrink-0 border border-stone-200"
             style={{ backgroundColor: item.color }} />
-          <span className="text-[12px] font-bold text-stone-700 truncate" style={{ fontFamily: "'Georgia', serif" }}>
+          <span className="text-[12px] font-bold text-stone-700 truncate" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
             {item.title}
           </span>
         </div>
@@ -556,9 +556,9 @@ function Lightbox({
           </button>
 
           <div>
-            <span className="text-[10px] font-black uppercase tracking-[0.22em] text-stone-400">{item.room}</span>
-            <h2 className="text-2xl font-black text-stone-900 mt-1 leading-tight"
-              style={{ fontFamily: "'Georgia', serif", letterSpacing: "-0.03em" }}>
+            <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-stone-400">{item.room}</span>
+            <h2 className="text-2xl font-bold text-stone-900 mt-1 leading-tight"
+              style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.03em" }}>
               {item.title}
             </h2>
           </div>
@@ -569,7 +569,7 @@ function Lightbox({
               <div className="absolute inset-0"
                 style={{ background: "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 60%)" }}/>
               <div className="absolute bottom-3 left-4 right-4 flex items-end justify-between">
-                <span className="text-sm font-black" style={{ color: light ? "rgba(0,0,0,0.7)" : "white" }}>
+                <span className="text-sm font-bold" style={{ color: light ? "rgba(0,0,0,0.7)" : "white" }}>
                   {item.colorName}
                 </span>
                 <span className="text-xs font-mono opacity-60" style={{ color: light ? "#000" : "#fff" }}>
@@ -596,7 +596,7 @@ function Lightbox({
           </div>
 
           {/* Room info */}
-          <div className="flex-1 flex flex-col gap-2 text-sm text-stone-500" style={{ fontFamily: "'Georgia', serif" }}>
+          <div className="flex-1 flex flex-col gap-2 text-sm text-stone-500" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
             <p>A beautiful application of <strong className="text-stone-700">{item.colorName}</strong> in a {item.room.toLowerCase()} setting. The shade brings depth and character while remaining easy to live with.</p>
             <p className="text-xs text-stone-400">Available in Matte, Satin & Gloss finish.</p>
           </div>
@@ -606,7 +606,7 @@ function Lightbox({
             <Link
               href="/#visualizer"
               className="flex-1 flex items-center justify-center gap-2 py-3.5 rounded-2xl text-white text-sm font-bold transition-all hover:opacity-90"
-              style={{ background: "linear-gradient(135deg, #f59e0b, #d97706)", boxShadow: "0 6px 18px rgba(217,119,6,0.35)", fontFamily: "'Georgia', serif" }}
+              style={{ background: "linear-gradient(135deg, #f59e0b, #d97706)", boxShadow: "0 6px 18px rgba(217,119,6,0.35)", fontFamily: "var(--font-raleway), sans-serif" }}
               onClick={onClose}
             >
               🎨 Try This Color
@@ -714,8 +714,8 @@ export default function InspirationGallery() {
                 initial={{ opacity: 0, y: 28 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.7, delay: 0.1 }}
-                className="text-[clamp(2rem,4vw,3.4rem)] font-black text-stone-900 leading-tight"
-                style={{ fontFamily: "'Georgia', 'Times New Roman', serif", letterSpacing: "-0.04em" }}
+                className="text-[clamp(2rem,4vw,3.4rem)] font-bold text-stone-900 leading-tight"
+                style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.04em" }}
               >
                 Rooms That Inspire.
                 <br />
@@ -726,7 +726,7 @@ export default function InspirationGallery() {
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="mt-3 text-[14.5px] text-stone-500 max-w-md leading-relaxed"
-                style={{ fontFamily: "'Georgia', serif" }}
+                style={{ fontFamily: "var(--font-raleway), sans-serif" }}
               >
                 Browse 12 curated room scenes — click any to explore the color,
                 see tone variants, and try it in the visualizer.
@@ -738,7 +738,7 @@ export default function InspirationGallery() {
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.5, delay: 0.3 }}
               className="text-sm text-stone-400 hidden lg:block text-right"
-              style={{ fontFamily: "'Georgia', serif" }}
+              style={{ fontFamily: "var(--font-raleway), sans-serif" }}
             >
               <span className="font-bold text-stone-600">{filtered.length}</span> room{filtered.length !== 1 ? "s" : ""} shown
               <br />
@@ -803,7 +803,7 @@ export default function InspirationGallery() {
               whileTap={{ scale: 0.97 }}
               onClick={() => setShowAll(v => !v)}
               className="flex items-center gap-2.5 px-8 py-3.5 rounded-2xl border-2 border-stone-200 hover:border-stone-800 text-stone-600 hover:text-stone-900 font-bold text-sm transition-all bg-white/60 backdrop-blur-sm"
-              style={{ fontFamily: "'Georgia', serif" }}
+              style={{ fontFamily: "var(--font-raleway), sans-serif" }}
             >
               {showAll
                 ? <><span>↑</span> Show Less</>
@@ -820,7 +820,7 @@ export default function InspirationGallery() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="mt-14 text-center"
         >
-          <p className="text-stone-500 text-sm mb-5" style={{ fontFamily: "'Georgia', serif" }}>
+          <p className="text-stone-500 text-sm mb-5" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
             Love what you see? Recreate any of these looks in your own room.
           </p>
           <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.97 }} className="inline-block">
@@ -830,7 +830,7 @@ export default function InspirationGallery() {
               style={{
                 background: "linear-gradient(135deg, #f59e0b, #d97706)",
                 boxShadow: "0 8px 28px rgba(217,119,6,0.38)",
-                fontFamily: "'Georgia', serif",
+                fontFamily: "var(--font-raleway), sans-serif",
               }}
             >
               🎨 Try Any Color in Your Room — Free

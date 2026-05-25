@@ -1,3 +1,4 @@
+import VideoIntro from "@/components/Home/VideoIntro";
 import HeroBanner from "@/components/Home/HeroBanner";
 import AboutSection from "@/components/Home/AboutSection";
 import MarketSegments from "@/components/Home/MarketSegments";
@@ -8,7 +9,8 @@ import GallerySection from "@/components/Home/GallerySection";
 export default function Home() {
   return (
     <>
-      <HeroBanner />
+      <VideoIntro />
+      {/* <HeroBanner /> */}
       <AboutSection />
       <MarketSegments />
       <ProductsSection />

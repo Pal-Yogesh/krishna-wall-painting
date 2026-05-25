@@ -172,9 +172,9 @@ function StatCard({ stat, index, trigger }: { stat: typeof STATS[0]; index: numb
       style={{ background: "rgba(255,255,255,0.04)" }}
     >
       <div
-        className="text-[3.2rem] font-black leading-none tabular-nums"
+        className="text-[3.2rem] font-bold leading-none tabular-nums"
         style={{
-          fontFamily: "'Georgia', 'Times New Roman', serif",
+          fontFamily: "var(--font-raleway), sans-serif",
           letterSpacing: "-0.04em",
           color: "white",
         }}
@@ -183,7 +183,7 @@ function StatCard({ stat, index, trigger }: { stat: typeof STATS[0]; index: numb
         <span style={{ color: "#f59e0b" }}>{stat.suffix}</span>
       </div>
       <p className="text-[15px] font-bold text-white/80 leading-tight mt-1"
-        style={{ fontFamily: "'Georgia', serif" }}>
+        style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
         {stat.label}
       </p>
       <p className="text-xs text-white/35 font-medium tracking-wide uppercase">
@@ -229,12 +229,12 @@ function BenefitCard({ benefit, index, trigger }: { benefit: typeof BENEFITS[0];
 
       {/* Text */}
       <h3
-        className="text-[16px] font-black text-stone-900 mb-2 leading-snug"
-        style={{ fontFamily: "'Georgia', 'Times New Roman', serif", letterSpacing: "-0.02em" }}
+        className="text-[16px] font-bold text-stone-900 mb-2 leading-snug"
+        style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.02em" }}
       >
         {benefit.title}
       </h3>
-      <p className="text-[13.5px] text-stone-500 leading-relaxed" style={{ fontFamily: "'Georgia', serif" }}>
+      <p className="text-[13.5px] text-stone-500 leading-relaxed" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
         {benefit.description}
       </p>
 
@@ -277,14 +277,14 @@ function TestimonialTicker() {
           >
             {/* Avatar */}
             <div
-              className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-black flex-shrink-0 mt-0.5"
-              style={{ background: "#d97706", color: "white", fontFamily: "'Georgia', serif" }}
+              className="w-8 h-8 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0 mt-0.5"
+              style={{ background: "#d97706", color: "white", fontFamily: "var(--font-raleway), sans-serif" }}
             >
               {t.name[0]}
             </div>
             <div className="min-w-0">
               <div className="flex items-center gap-2 mb-1">
-                <span className="text-xs font-bold text-white/80" style={{ fontFamily: "'Georgia', serif" }}>{t.name}</span>
+                <span className="text-xs font-bold text-white/80" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>{t.name}</span>
                 <span className="text-[10px] text-white/35 font-medium">{t.city}</span>
                 <div className="flex gap-0.5 ml-auto">
                   {[...Array(5)].map((_, s) => (
@@ -295,7 +295,7 @@ function TestimonialTicker() {
                 </div>
               </div>
               <p className="text-xs text-white/45 leading-relaxed line-clamp-2"
-                style={{ fontFamily: "'Georgia', serif" }}>
+                style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
                 "{t.text}"
               </p>
             </div>
@@ -358,8 +358,8 @@ export default function WhyChooseUs() {
                 Why Choose KMOPL
               </span>
               <h2
-                className="text-[clamp(2rem,4vw,3.4rem)] font-black text-white leading-tight"
-                style={{ fontFamily: "'Georgia', 'Times New Roman', serif", letterSpacing: "-0.04em" }}
+                className="text-[clamp(2rem,4vw,3.4rem)] font-bold text-white leading-tight"
+                style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.04em" }}
               >
                 Numbers That
                 <br />
@@ -372,7 +372,7 @@ export default function WhyChooseUs() {
               animate={headingInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
               className="text-[14.5px] leading-relaxed max-w-sm lg:text-right"
-              style={{ color: "rgba(255,255,255,0.4)", fontFamily: "'Georgia', serif" }}
+              style={{ color: "rgba(255,255,255,0.4)", fontFamily: "var(--font-raleway), sans-serif" }}
             >
               Trusted by homeowners across India to make confident, lasting color decisions.
             </motion.p>
@@ -395,7 +395,7 @@ export default function WhyChooseUs() {
       {/* ── Bottom half: Light benefits grid ──────────────────────────── */}
       <div
         className="relative py-20"
-        style={{ background: "linear-gradient(180deg, #faf7f2 0%, #f0e8d8 100%)" }}
+        style={{ background: "linear-gradient(180deg, #fefdfb 0%, #fcfaf6 100%)" }}
       >
         {/* BG decoration */}
         <div aria-hidden className="absolute inset-0 pointer-events-none">
@@ -417,14 +417,14 @@ export default function WhyChooseUs() {
             className="text-center mb-12"
           >
             <h3
-              className="text-[clamp(1.6rem,3.5vw,2.8rem)] font-black text-stone-900 leading-tight"
-              style={{ fontFamily: "'Georgia', 'Times New Roman', serif", letterSpacing: "-0.03em" }}
+              className="text-[clamp(1.6rem,3.5vw,2.8rem)] font-bold text-stone-900 leading-tight"
+              style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.03em" }}
             >
               Built for the Way
               <span style={{ color: "#d97706" }}> India Decides</span>
             </h3>
             <p className="mt-3 text-[14px] text-stone-500 max-w-xl mx-auto leading-relaxed"
-              style={{ fontFamily: "'Georgia', serif" }}>
+              style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
               Every feature is designed around one goal: helping you pick the right color with total confidence.
             </p>
           </motion.div>
@@ -451,7 +451,7 @@ export default function WhyChooseUs() {
                 style={{
                   background: "linear-gradient(135deg, #f59e0b, #d97706)",
                   boxShadow: "0 8px 28px rgba(217,119,6,0.38)",
-                  fontFamily: "'Georgia', serif",
+                  fontFamily: "var(--font-raleway), sans-serif",
                 }}
               >
                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
@@ -468,14 +468,14 @@ export default function WhyChooseUs() {
                 {["#C1623F","#7BB8D4","#8FAF7E","#5C3A5E","#D4A017"].map((c, i) => (
                   <div
                     key={i}
-                    className="w-8 h-8 rounded-full border-2 border-white flex items-center justify-center text-[11px] font-black text-white shadow-sm"
+                    className="w-8 h-8 rounded-full border-2 border-white flex items-center justify-center text-[11px] font-bold text-white shadow-sm"
                     style={{ background: c, zIndex: 5 - i }}
                   >
                     {["P","R","A","V","D"][i]}
                   </div>
                 ))}
               </div>
-              <p className="text-sm text-stone-500" style={{ fontFamily: "'Georgia', serif" }}>
+              <p className="text-sm text-stone-500" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
                 <strong className="text-stone-700">500+</strong> homeowners already love it
               </p>
             </div>

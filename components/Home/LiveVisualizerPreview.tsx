@@ -83,13 +83,13 @@ export default function LiveVisualizerPreview() {
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
-                    style={{ fontFamily: "'Georgia', 'Times New Roman', serif", letterSpacing: "-0.04em", perspective: "600px" }}>
+                    style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.04em", perspective: "600px" }}>
         {/* Section Heading */}
         <div ref={headingRef} className="text-center mb-12 opacity-0">
           <span className="inline-block px-4 py-1.5 bg-amber-100 text-amber-700 text-xs font-bold uppercase tracking-[0.2em] rounded-full mb-4">
             Live Color Visualizer
           </span>
-          <h2 className="text-4xl sm:text-5xl font-black text-stone-900 leading-tight">
+          <h2 className="text-4xl sm:text-5xl font-bold text-stone-900 leading-tight">
             See It On Your Wall
             <br />
             <span className="text-amber-500">Before You Paint</span>

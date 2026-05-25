@@ -42,8 +42,8 @@ export default function ClientsSection() {
     <section
       ref={sectionRef}
       id="clients"
-      className="relative py-24 overflow-hidden"
-      style={{ background: "linear-gradient(180deg, #f0e8d8 0%, #faf7f2 50%, #f0e8d8 100%)" }}
+      className="relative py-5 overflow-hidden"
+      style={{ background: "linear-gradient(180deg, #fcfaf6 0%, #fefdfb 50%, #fcfaf6 100%)" }}
     >
       {/* Background */}
       <div aria-hidden className="absolute inset-0 pointer-events-none">
@@ -63,8 +63,8 @@ export default function ClientsSection() {
             Trusted Partners
           </span>
           <h2
-            className="text-[clamp(2rem,4vw,3.2rem)] font-black text-stone-900 leading-tight"
-            style={{ fontFamily: "'Georgia', 'Times New Roman', serif", letterSpacing: "-0.03em" }}
+            className="text-[clamp(2rem,4vw,3.2rem)] font-bold text-stone-900 leading-tight"
+            style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.03em" }}
           >
             Clients Who Trust
             <br />
@@ -72,7 +72,7 @@ export default function ClientsSection() {
           </h2>
           <p
             className="mt-4 text-stone-500 text-[15px] max-w-lg mx-auto leading-relaxed"
-            style={{ fontFamily: "'Georgia', serif" }}
+            style={{ fontFamily: "var(--font-raleway), sans-serif" }}
           >
             Serving industry leaders across automotive, consumer goods, solar energy, and more.
           </p>
@@ -84,11 +84,11 @@ export default function ClientsSection() {
         {/* Fade edges */}
         <div
           className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-          style={{ background: "linear-gradient(to right, #f5ede0, transparent)" }}
+          style={{ background: "linear-gradient(to right, #fdfbf7, transparent)" }}
         />
         <div
           className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-          style={{ background: "linear-gradient(to left, #f5ede0, transparent)" }}
+          style={{ background: "linear-gradient(to left, #fdfbf7, transparent)" }}
         />
 
         <motion.div
@@ -102,14 +102,14 @@ export default function ClientsSection() {
               className="shrink-0 flex items-center gap-3 px-6 py-3.5 bg-white border border-stone-200 rounded-xl shadow-sm hover:shadow-md hover:border-amber-200 transition-all"
             >
               <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-black shrink-0"
+                className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-bold shrink-0"
                 style={{ background: BADGE_COLORS[i % BADGE_COLORS.length] }}
               >
                 {client[0]}
               </div>
               <span
                 className="text-[13px] font-semibold text-stone-700 whitespace-nowrap"
-                style={{ fontFamily: "'Georgia', serif" }}
+                style={{ fontFamily: "var(--font-raleway), sans-serif" }}
               >
                 {client}
               </span>
@@ -123,11 +123,11 @@ export default function ClientsSection() {
         {/* Fade edges */}
         <div
           className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-          style={{ background: "linear-gradient(to right, #f5ede0, transparent)" }}
+          style={{ background: "linear-gradient(to right, #fdfbf7, transparent)" }}
         />
         <div
           className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
-          style={{ background: "linear-gradient(to left, #f5ede0, transparent)" }}
+          style={{ background: "linear-gradient(to left, #fdfbf7, transparent)" }}
         />
 
         <motion.div
@@ -141,14 +141,14 @@ export default function ClientsSection() {
               className="shrink-0 flex items-center gap-3 px-6 py-3.5 bg-white border border-stone-200 rounded-xl shadow-sm hover:shadow-md hover:border-amber-200 transition-all"
             >
               <div
-                className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-black shrink-0"
+                className="w-8 h-8 rounded-lg flex items-center justify-center text-white text-xs font-bold shrink-0"
                 style={{ background: BADGE_COLORS[(BADGE_COLORS.length - 1 - i) % BADGE_COLORS.length] }}
               >
                 {client[0]}
               </div>
               <span
                 className="text-[13px] font-semibold text-stone-700 whitespace-nowrap"
-                style={{ fontFamily: "'Georgia', serif" }}
+                style={{ fontFamily: "var(--font-raleway), sans-serif" }}
               >
                 {client}
               </span>

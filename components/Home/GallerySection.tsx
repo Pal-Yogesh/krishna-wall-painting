@@ -90,7 +90,7 @@ export default function GallerySection() {
       ref={sectionRef}
       id="gallery"
       className="relative py-24 overflow-hidden"
-      style={{ background: "linear-gradient(180deg, #faf7f2 0%, #f5ede0 100%)" }}
+      style={{ background: "linear-gradient(180deg, #fefdfb 0%, #fdfbf7 100%)" }}
     >
       {/* Background */}
       <div aria-hidden className="absolute inset-0 pointer-events-none">
@@ -117,8 +117,8 @@ export default function GallerySection() {
             Gallery
           </span>
           <h2
-            className="text-[clamp(2rem,4vw,3.2rem)] font-black text-stone-900 leading-tight"
-            style={{ fontFamily: "'Georgia', 'Times New Roman', serif", letterSpacing: "-0.03em" }}
+            className="text-[clamp(2rem,4vw,3.2rem)] font-bold text-stone-900 leading-tight"
+            style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.03em" }}
           >
             A Glimpse Into
             <br />
@@ -126,7 +126,7 @@ export default function GallerySection() {
           </h2>
           <p
             className="mt-4 text-stone-500 text-[15px] max-w-lg mx-auto leading-relaxed"
-            style={{ fontFamily: "'Georgia', serif" }}
+            style={{ fontFamily: "var(--font-raleway), sans-serif" }}
           >
             From our manufacturing plant to team events and product showcases.
           </p>
@@ -160,7 +160,7 @@ export default function GallerySection() {
                 </span>
                 <h4
                   className="text-[14px] font-bold text-stone-800"
-                  style={{ fontFamily: "'Georgia', serif" }}
+                  style={{ fontFamily: "var(--font-raleway), sans-serif" }}
                 >
                   {item.title}
                 </h4>
@@ -190,7 +190,7 @@ export default function GallerySection() {
               style={{
                 background: "linear-gradient(135deg, #f59e0b, #d97706)",
                 boxShadow: "0 8px 28px rgba(217,119,6,0.35)",
-                fontFamily: "'Georgia', serif",
+                fontFamily: "var(--font-raleway), sans-serif",
               }}
             >
               View Full Gallery

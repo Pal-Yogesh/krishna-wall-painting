@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-raleway), 'Raleway', ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-raleway), 'Raleway', ui-sans-serif, system-ui, sans-serif;
+}
+
 /* Hide scrollbar but keep scrolling */
 .scrollbar-none::-webkit-scrollbar {
   display: none;
@@ -7,4 +12,28 @@
 .scrollbar-none {
   -ms-overflow-style: none;
   scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* whatsapp ripple effect */
+  @keyframes ripple {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+.animate-ripple {
+  animation: ripple 2s infinite ease-out;
 }

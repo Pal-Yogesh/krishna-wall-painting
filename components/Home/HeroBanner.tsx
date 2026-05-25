@@ -276,7 +276,7 @@ export default function HeroBanner() {
       ref={sectionRef}
       className="relative min-h-[calc(100vh-65px)] overflow-hidden flex items-center"
       style={{
-        background: "linear-gradient(160deg, #faf6ef 0%, #f0e8d8 40%, #e8dcc8 100%)",
+        background: "linear-gradient(160deg, #fefdfb 0%, #fcfaf6 40%, #faf8f4 100%)",
       }}
     >
       {/* ── Decorative background elements ──────────────────────────── */}
@@ -316,7 +316,7 @@ export default function HeroBanner() {
                 <span className="flex w-2 h-2 rounded-full bg-amber-500 animate-pulse flex-shrink-0" />
                 <span
                   className="text-xs font-bold text-amber-700 tracking-[0.18em] uppercase"
-                  style={{ fontFamily: "'Georgia', serif" }}
+                  style={{ fontFamily: "var(--font-raleway), sans-serif" }}
                 >
                   India's Smart Paint Visualizer
                 </span>
@@ -326,8 +326,8 @@ export default function HeroBanner() {
             {/* Headline */}
             <h1
               ref={h1Ref}
-              className="text-[clamp(2.4rem,5.5vw,4.2rem)] leading-[1.08] font-black text-stone-900"
-              style={{ fontFamily: "'Georgia', 'Times New Roman', serif", letterSpacing: "-0.04em", perspective: "600px" }}
+              className="text-[clamp(2.4rem,5.5vw,4.2rem)] leading-[1.08] font-bold text-stone-900"
+              style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.04em", perspective: "600px" }}
             >
               {["See", "Your", "Walls", "Come", "to\u00a0Life"].map((word, i) => (
                 <span key={i} className="word inline-block opacity-0 mr-[0.22em]">
@@ -365,7 +365,7 @@ export default function HeroBanner() {
             <p
               ref={subRef}
               className="opacity-0 text-[1.05rem] text-stone-500 leading-relaxed max-w-[480px]"
-              style={{ fontFamily: "'Georgia', serif" }}
+              style={{ fontFamily: "var(--font-raleway), sans-serif" }}
             >
               Pick any shade from our curated palette and watch your room walls
               transform in real time — with accurate lighting, shadows, and finishes.
@@ -382,7 +382,7 @@ export default function HeroBanner() {
                   style={{
                     background: "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
                     boxShadow: "0 8px 28px rgba(217,119,6,0.38), 0 2px 8px rgba(217,119,6,0.2)",
-                    fontFamily: "'Georgia', serif",
+                    fontFamily: "var(--font-raleway), sans-serif",
                   }}
                 >
                   <span
@@ -402,7 +402,7 @@ export default function HeroBanner() {
                 <Link
                   href="/visualizer#colors"
                   className="flex items-center gap-2.5 px-6 py-4 rounded-2xl font-semibold text-[14px] text-stone-700 border-2 border-stone-200 hover:border-amber-300 hover:text-amber-700 bg-white/60 backdrop-blur-sm transition-all duration-200"
-                  style={{ fontFamily: "'Georgia', serif" }}
+                  style={{ fontFamily: "var(--font-raleway), sans-serif" }}
                 >
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
@@ -420,8 +420,8 @@ export default function HeroBanner() {
               {STATS.map(({ value, label }, i) => (
                 <div key={i} className="flex flex-col">
                   <span
-                    className="text-2xl font-black text-stone-900 leading-none"
-                    style={{ fontFamily: "'Georgia', serif", color: i === 0 ? currentColor.hex : undefined, transition: "color 0.4s" }}
+                    className="text-2xl font-bold text-stone-900 leading-none"
+                    style={{ fontFamily: "var(--font-raleway), sans-serif", color: i === 0 ? currentColor.hex : undefined, transition: "color 0.4s" }}
                   >
                     {value}
                   </span>
@@ -447,7 +447,7 @@ export default function HeroBanner() {
                   right: (badge as any).right,
                 }}
               >
-                <span className="text-amber-500 text-sm font-black">{badge.icon}</span>
+                <span className="text-amber-500 text-sm font-bold">{badge.icon}</span>
                 <span className="text-xs font-bold text-stone-700 whitespace-nowrap">{badge.text}</span>
               </motion.div>
             ))}

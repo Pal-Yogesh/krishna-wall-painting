@@ -14,6 +14,7 @@ if (typeof window !== "undefined") {
 
 const NAV_LINKS = [
   { label: "Home",        href: "/",              sectionId: "" },
+  { label: "Products",    href: "/products",      sectionId: "" },
   { label: "Visualizer",  href: "/visualizer",    sectionId: "" },
   // { label: "Colors",      href: "/visualizer#colors", sectionId: "" },
   { label: "About Us",    href: "/about",        sectionId: "about" },
@@ -160,8 +161,8 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16 lg:h-18">
 
             {/* Logo */}
-            <Link href="/" onClick={() => handleNavClick("")} className="mt-[5%]">
-              <Image src="/logo.png" alt="Logo" className="w-60 h-[200px] object-cover" width={1000} height={1000} />
+            <Link href="/" onClick={() => handleNavClick("")} className="">
+              <Image src="/logo.jpeg" alt="Logo" className="w-20 h-18 object-contain  " width={1000} height={1000} />
             </Link>
 
             {/* Desktop Nav Links */}
@@ -191,7 +192,7 @@ export default function Navbar() {
                         relative text-[13.5px] font-semibold tracking-wide transition-colors duration-200
                         ${active ? "text-amber-600" : "text-stone-600 group-hover:text-stone-900"}
                       `}
-                      style={{ fontFamily: "'Georgia', serif" }}
+                      style={{ fontFamily: "var(--font-raleway), sans-serif" }}
                     >
                       {link.label}
                     </span>
@@ -208,25 +209,11 @@ export default function Navbar() {
               })}
             </div>
 
-            {/* Desktop CTA + Phone */}
+            {/* Desktop CTA */}
             <div className="hidden lg:flex items-center gap-3">
-              <a
-                href="tel:+918588830308"
-                className="flex items-center gap-2 text-stone-500 hover:text-stone-800 transition-colors group"
-              >
-                <div className="w-7 h-7 rounded-lg bg-stone-100 group-hover:bg-amber-50 flex items-center justify-center transition-colors">
-                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                </div>
-                <span className="text-xs font-semibold tracking-wide">+91 85888 30308</span>
-              </a>
-
-              <div className="w-px h-5 bg-stone-200" />
-
               <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
                 <Link
-                  href="/visualizer"
+                  href="/contact-us"
                   onClick={() => handleNavClick("")}
                   className="
                     flex items-center gap-2 px-5 py-2.5 rounded-2xl
@@ -239,9 +226,9 @@ export default function Navbar() {
                   "
                 >
                   <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.069A1 1 0 0121 8.88V15.12a1 1 0 01-1.447.89L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                   </svg>
-                  Try Visualizer
+                  Contact Us
                 </Link>
               </motion.div>
             </div>
@@ -249,14 +236,14 @@ export default function Navbar() {
             {/* Mobile: CTA pill + Hamburger */}
             <div className="flex lg:hidden items-center gap-2">
               <Link
-                href="/visualizer"
+                href="/contact-us"
                 onClick={() => handleNavClick("")}
                 className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-500 text-white text-xs font-bold shadow-sm shadow-amber-200"
               >
                 <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                 </svg>
-                Colors
+                Contact
               </Link>
 
               <button
@@ -318,7 +305,7 @@ export default function Navbar() {
                       <path d="M9 8c-2 3-4 3.5-7 4l8 10c2-1 6-5 6-7" />
                     </svg>
                   </div>
-                  <span className="font-black text-stone-900" style={{ fontFamily: "'Georgia', serif" }}>Krishna Paints</span>
+                  <span className="font-bold text-stone-900" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>Krishna Paints</span>
                 </div>
                 <button
                   onClick={() => setIsMobileOpen(false)}
@@ -355,7 +342,7 @@ export default function Navbar() {
                       >
                         {active && <span className="w-1 h-5 rounded-full bg-amber-500 shrink-0" />}
                         {!active && <span className="w-1 h-5 shrink-0" />}
-                        <span className="text-[15px] font-semibold" style={{ fontFamily: "'Georgia', serif" }}>
+                        <span className="text-[15px] font-semibold" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
                           {link.label}
                         </span>
                       </Link>
@@ -367,7 +354,7 @@ export default function Navbar() {
               {/* Drawer footer */}
               <div className="px-4 pb-6 pt-4 border-t border-stone-100 flex flex-col gap-3">
                 <Link
-                  href="/visualizer"
+                  href="/contact-us"
                   onClick={() => handleNavClick("")}
                   className="
                     flex items-center justify-center gap-2 w-full py-3.5 rounded-2xl
@@ -377,20 +364,21 @@ export default function Navbar() {
                   "
                 >
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M15 10l4.553-2.069A1 1 0 0121 8.88V15.12a1 1 0 01-1.447.89L15 14M3 8a2 2 0 012-2h8a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2V8z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                   </svg>
-                  Try Visualizer Free
+                  Contact Us
                 </Link>
 
-                <a
-                  href="tel:+918588830308"
+                <Link
+                  href="/products"
+                  onClick={() => handleNavClick("")}
                   className="flex items-center justify-center gap-2 w-full py-3 rounded-2xl border border-stone-200 text-stone-600 font-semibold text-sm hover:bg-stone-50 transition-colors"
                 >
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />
                   </svg>
-                  Call Us Now
-                </a>
+                  Explore Products
+                </Link>
 
                 <div className="flex rounded-xl overflow-hidden h-2 mt-1">
                   {ACCENT_COLORS.map((color, i) => (

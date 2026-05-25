@@ -93,7 +93,7 @@ export default function CompanyOverview() {
       ref={sectionRef}
       id="about"
       className="relative py-24 overflow-hidden"
-      style={{ background: "linear-gradient(180deg, #faf7f2 0%, #f5ede0 50%, #faf7f2 100%)" }}
+      style={{ background: "linear-gradient(180deg, #fefdfb 0%, #fdfbf7 50%, #fefdfb 100%)" }}
     >
       {/* Decorative background */}
       <div aria-hidden className="absolute inset-0 pointer-events-none">
@@ -116,8 +116,8 @@ export default function CompanyOverview() {
             Our Journey
           </span>
           <h2
-            className="text-4xl sm:text-5xl font-black text-stone-900 leading-tight"
-            style={{ fontFamily: "'Georgia', serif" }}
+            className="text-4xl sm:text-5xl font-bold text-stone-900 leading-tight"
+            style={{ fontFamily: "var(--font-raleway), sans-serif" }}
           >
             Company Overview
             <br />
@@ -158,11 +158,11 @@ export default function CompanyOverview() {
                         <div className={`w-10 h-10 rounded-xl bg-linear-to-br ${m.color} flex items-center justify-center text-lg text-white shadow-md`}>
                           {m.icon}
                         </div>
-                        <span className="text-2xl font-black text-stone-800" style={{ fontFamily: "'Georgia', serif" }}>{m.year}</span>
+                        <span className="text-2xl font-bold text-stone-800" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>{m.year}</span>
                       </div>
 
                       {/* Desktop year */}
-                      <span className="hidden sm:block text-3xl font-black text-stone-800 mb-1" style={{ fontFamily: "'Georgia', serif" }}>
+                      <span className="hidden sm:block text-3xl font-bold text-stone-800 mb-1" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
                         {m.year}
                       </span>
 
@@ -208,7 +208,7 @@ export default function CompanyOverview() {
                 >
                   🚀
                 </div>
-                <h3 className="text-xl font-bold text-stone-800" style={{ fontFamily: "'Georgia', serif" }}>
+                <h3 className="text-xl font-bold text-stone-800" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
                   A Futuristic Approach to Market Needs
                 </h3>
               </div>

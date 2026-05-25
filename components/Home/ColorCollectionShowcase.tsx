@@ -130,7 +130,7 @@ function ColorCard({
           {/* Trending badge */}
           {color.trending && (
             <span
-              className="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[10px] font-black uppercase tracking-wider"
+              className="absolute top-2 left-2 px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider"
               style={{
                 background: light ? "rgba(0,0,0,0.18)" : "rgba(255,255,255,0.25)",
                 color: light ? "rgba(0,0,0,0.7)" : "rgba(255,255,255,0.9)",
@@ -258,9 +258,9 @@ function FeaturedSpotlight({
                 Featured Shade
               </p>
               <h3
-                className="text-3xl font-black leading-tight"
+                className="text-3xl font-bold leading-tight"
                 style={{
-                  fontFamily: "'Georgia', serif",
+                  fontFamily: "var(--font-raleway), sans-serif",
                   color: light ? "rgba(0,0,0,0.8)" : "rgba(255,255,255,0.95)",
                   letterSpacing: "-0.03em",
                 }}
@@ -327,7 +327,7 @@ function FeaturedSpotlight({
               style={{
                 background: "linear-gradient(135deg, #f59e0b, #d97706)",
                 boxShadow: "0 6px 20px rgba(217,119,6,0.35)",
-                fontFamily: "'Georgia', serif",
+                fontFamily: "var(--font-raleway), sans-serif",
               }}
             >
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
@@ -395,7 +395,7 @@ export default function ColorCollectionShowcase() {
       ref={sectionRef}
       id="colors"
       className="relative py-24 overflow-hidden"
-      style={{ background: "linear-gradient(180deg, #faf7f2 0%, #f5ede0 100%)" }}
+      style={{ background: "linear-gradient(180deg, #fefdfb 0%, #fdfbf7 100%)" }}
     >
       {/* ── Decorative background ──────────────────────────────────── */}
       <div aria-hidden className="absolute inset-0 pointer-events-none">
@@ -433,8 +433,8 @@ export default function ColorCollectionShowcase() {
                 initial={{ opacity: 0, y: 28 }}
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.65, delay: 0.1 }}
-                className="text-[clamp(2rem,4vw,3.4rem)] font-black text-stone-900 leading-tight"
-                style={{ fontFamily: "'Georgia', 'Times New Roman', serif", letterSpacing: "-0.04em" }}
+                className="text-[clamp(2rem,4vw,3.4rem)] font-bold text-stone-900 leading-tight"
+                style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.04em" }}
               >
                 36+ Hand-Picked
                 <br />
@@ -446,7 +446,7 @@ export default function ColorCollectionShowcase() {
                 animate={inView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.2 }}
                 className="mt-3 text-[14.5px] text-stone-500 max-w-md leading-relaxed"
-                style={{ fontFamily: "'Georgia', serif" }}
+                style={{ fontFamily: "var(--font-raleway), sans-serif" }}
               >
                 Each shade is curated for Indian interiors — tested under warm natural
                 light to ensure what you see is what you get on your walls.
@@ -565,7 +565,7 @@ export default function ColorCollectionShowcase() {
                   whileTap={{ scale: 0.97 }}
                   onClick={() => setShowAll(v => !v)}
                   className="flex items-center gap-2.5 px-8 py-3.5 rounded-2xl border-2 border-stone-200 hover:border-amber-400 text-stone-600 hover:text-amber-700 font-bold text-sm transition-all bg-white/60 backdrop-blur-sm"
-                  style={{ fontFamily: "'Georgia', serif" }}
+                  style={{ fontFamily: "var(--font-raleway), sans-serif" }}
                 >
                   {showAll ? (
                     <>
@@ -607,7 +607,7 @@ export default function ColorCollectionShowcase() {
                 ))}
               </div>
               <div className="flex-1 text-center sm:text-left">
-                <p className="font-bold text-stone-800 text-[15px]" style={{ fontFamily: "'Georgia', serif" }}>
+                <p className="font-bold text-stone-800 text-[15px]" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
                   Can't decide? Try them all on your wall.
                 </p>
                 <p className="text-sm text-stone-400 mt-0.5">Pick any shade and see it on your room in seconds.</p>
@@ -616,7 +616,7 @@ export default function ColorCollectionShowcase() {
                 <Link
                   href="/#visualizer"
                   className="flex items-center gap-2 px-6 py-3 rounded-2xl text-white font-bold text-sm"
-                  style={{ background: "linear-gradient(135deg, #f59e0b, #d97706)", boxShadow: "0 6px 18px rgba(217,119,6,0.3)", fontFamily: "'Georgia', serif" }}
+                  style={{ background: "linear-gradient(135deg, #f59e0b, #d97706)", boxShadow: "0 6px 18px rgba(217,119,6,0.3)", fontFamily: "var(--font-raleway), sans-serif" }}
                 >
                   Open Visualizer →
                 </Link>

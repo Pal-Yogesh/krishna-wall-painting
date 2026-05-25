@@ -192,7 +192,7 @@ export default function EnquiryLeadForm() {
       ref={sectionRef}
       id="enquiry"
       className="relative py-24 overflow-hidden"
-      style={{ background: "linear-gradient(160deg, #faf7f2 0%, #f0e6d4 60%, #e8dcc8 100%)" }}
+      style={{ background: "linear-gradient(160deg, #fefdfb 0%, #f0e6d4 60%, #faf8f4 100%)" }}
     >
       {/* ── Background ──────────────────────────────────────────────── */}
       <div aria-hidden className="absolute inset-0 pointer-events-none">
@@ -230,15 +230,15 @@ export default function EnquiryLeadForm() {
             Get a Free Consultation
           </span>
           <h2
-            className="text-[clamp(2rem,4vw,3.4rem)] font-black text-stone-900 leading-tight"
-            style={{ fontFamily: "'Georgia', 'Times New Roman', serif", letterSpacing: "-0.04em" }}
+            className="text-[clamp(2rem,4vw,3.4rem)] font-bold text-stone-900 leading-tight"
+            style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.04em" }}
           >
             Ready to Transform
             <br />
             <span style={{ color: "#d97706" }}>Your Space?</span>
           </h2>
           <p className="mt-4 text-[14.5px] text-stone-500 max-w-md mx-auto leading-relaxed"
-            style={{ fontFamily: "'Georgia', serif" }}>
+            style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
             Tell us about your project and our paint experts will reach out within 24 hours — no cost, no commitment.
           </p>
         </motion.div>
@@ -270,13 +270,13 @@ export default function EnquiryLeadForm() {
             {/* Headline */}
             <div>
               <h3
-                className="text-[1.75rem] font-black text-white leading-tight mb-3"
-                style={{ fontFamily: "'Georgia', serif", letterSpacing: "-0.03em" }}
+                className="text-[1.75rem] font-bold text-white leading-tight mb-3"
+                style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.03em" }}
               >
                 Let's Paint Your World{" "}
                 <span style={{ color: "#f59e0b" }}>Right.</span>
               </h3>
-              <p className="text-sm text-white/45 leading-relaxed" style={{ fontFamily: "'Georgia', serif" }}>
+              <p className="text-sm text-white/45 leading-relaxed" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
                 Our colour consultants have helped 500+ Indian families find their perfect shade. You're next.
               </p>
             </div>
@@ -293,7 +293,7 @@ export default function EnquiryLeadForm() {
                 >
                   <span className="text-xl flex-shrink-0 mt-0.5">{pt.icon}</span>
                   <div>
-                    <p className="text-[13px] font-bold text-white/85" style={{ fontFamily: "'Georgia', serif" }}>{pt.title}</p>
+                    <p className="text-[13px] font-bold text-white/85" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>{pt.title}</p>
                     <p className="text-xs text-white/40 leading-snug mt-0.5">{pt.desc}</p>
                   </div>
                 </motion.div>
@@ -312,7 +312,7 @@ export default function EnquiryLeadForm() {
                   </svg>
                 ))}
               </div>
-              <p className="text-xs text-white/55 leading-relaxed italic" style={{ fontFamily: "'Georgia', serif" }}>
+              <p className="text-xs text-white/55 leading-relaxed italic" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
                 "Submitted the form on a Tuesday night — got a call Wednesday morning. The team helped us pick the perfect shade for our drawing room."
               </p>
               <p className="text-xs font-bold text-white/40 mt-2">— Meena R., Bangalore</p>
@@ -364,17 +364,17 @@ export default function EnquiryLeadForm() {
                     ✓
                   </motion.div>
                   <div>
-                    <h3 className="text-2xl font-black text-stone-900 mb-2" style={{ fontFamily: "'Georgia', serif" }}>
+                    <h3 className="text-2xl font-bold text-stone-900 mb-2" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
                       Enquiry Sent!
                     </h3>
-                    <p className="text-stone-500 text-sm max-w-xs leading-relaxed" style={{ fontFamily: "'Georgia', serif" }}>
+                    <p className="text-stone-500 text-sm max-w-xs leading-relaxed" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
                       Our team will call you at <strong className="text-stone-700">{form.mobile}</strong> within 24 hours. Keep your eyes on your phone!
                     </p>
                   </div>
                   <button
                     onClick={handleReset}
                     className="mt-2 text-sm font-bold text-amber-600 hover:underline underline-offset-2 transition-colors"
-                    style={{ fontFamily: "'Georgia', serif" }}
+                    style={{ fontFamily: "var(--font-raleway), sans-serif" }}
                   >
                     Submit another enquiry →
                   </button>
@@ -382,7 +382,7 @@ export default function EnquiryLeadForm() {
               ) : (
                 <motion.div key="form" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
                   <div className="mb-8">
-                    <h3 className="text-xl font-black text-stone-900" style={{ fontFamily: "'Georgia', serif" }}>
+                    <h3 className="text-xl font-bold text-stone-900" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
                       Tell us about your project
                     </h3>
                     <p className="text-sm text-stone-400 mt-1">
@@ -543,7 +543,7 @@ export default function EnquiryLeadForm() {
                       style={{
                         background: "linear-gradient(135deg, #f59e0b, #d97706)",
                         boxShadow: "0 8px 24px rgba(217,119,6,0.38)",
-                        fontFamily: "'Georgia', serif",
+                        fontFamily: "var(--font-raleway), sans-serif",
                       }}
                     >
                       {status === "loading" ? (
@@ -564,7 +564,7 @@ export default function EnquiryLeadForm() {
                       )}
                     </motion.button>
 
-                    <p className="text-xs text-stone-400 max-w-[220px] leading-relaxed" style={{ fontFamily: "'Georgia', serif" }}>
+                    <p className="text-xs text-stone-400 max-w-[220px] leading-relaxed" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
                       By submitting, you agree to be contacted by our team. No spam, ever.
                     </p>
                   </div>
@@ -581,13 +581,13 @@ export default function EnquiryLeadForm() {
           transition={{ duration: 0.6, delay: 0.4 }}
           className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 text-center"
         >
-          <p className="text-sm text-stone-500" style={{ fontFamily: "'Georgia', serif" }}>
+          <p className="text-sm text-stone-500" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
             Prefer to call directly?
           </p>
           <a
             href="tel:+919876543210"
             className="flex items-center gap-2 font-bold text-stone-800 hover:text-amber-700 transition-colors text-[15px]"
-            style={{ fontFamily: "'Georgia', serif" }}
+            style={{ fontFamily: "var(--font-raleway), sans-serif" }}
           >
             <span className="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs"
               style={{ background: "linear-gradient(135deg, #f59e0b, #d97706)" }}>
@@ -596,7 +596,7 @@ export default function EnquiryLeadForm() {
             +91 98765 43210
           </a>
           <span className="text-stone-300 hidden sm:block">•</span>
-          <p className="text-sm text-stone-400" style={{ fontFamily: "'Georgia', serif" }}>
+          <p className="text-sm text-stone-400" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
             Mon – Sat, 9 AM – 7 PM
           </p>
         </motion.div>

@@ -68,8 +68,8 @@ export default function ProductsSection() {
     <section
       ref={sectionRef}
       id="products"
-      className="relative py-24 overflow-hidden"
-      style={{ background: "linear-gradient(180deg, #faf7f2 0%, #f0e8d8 100%)" }}
+      className="relative py-10 overflow-hidden"
+      style={{ background: "linear-gradient(180deg, #fefdfb 0%, #fcfaf6 100%)" }}
     >
       {/* Background */}
       <div aria-hidden className="absolute inset-0 pointer-events-none">
@@ -96,12 +96,12 @@ export default function ProductsSection() {
             Our Products
           </span>
           <h2
-            className="text-[clamp(1.8rem,3.5vw,3rem)] font-black text-stone-900 leading-tight max-w-3xl mx-auto"
-            style={{ fontFamily: "'Georgia', 'Times New Roman', serif", letterSpacing: "-0.03em" }}
+            className="text-[clamp(1.8rem,3.5vw,3rem)] font-bold text-stone-900 leading-tight max-w-3xl mx-auto"
+            style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.03em" }}
           >
             Products available for a variety of substrates including{" "}
-            <span className="text-amber-500">sheet metal, glass, wood</span> and{" "}
-            <span className="text-amber-500">plastics</span>
+            <span className="text-amber-500">metal, glass</span> and{" "}
+            <span className="text-amber-500">wood</span>
           </h2>
         </motion.div>
 
@@ -131,7 +131,7 @@ export default function ProductsSection() {
                 <span className="text-lg">{chem.icon}</span>
                 <span
                   className="text-[13px] font-bold text-stone-700 whitespace-nowrap"
-                  style={{ fontFamily: "'Georgia', serif" }}
+                  style={{ fontFamily: "var(--font-raleway), sans-serif" }}
                 >
                   {chem.name}
                 </span>
@@ -143,7 +143,7 @@ export default function ProductsSection() {
         {/* Product types + Effects grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           {/* Product Types */}
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, x: -20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -168,7 +168,7 @@ export default function ProductsSection() {
                   <div>
                     <h4
                       className="text-[14px] font-bold text-stone-800"
-                      style={{ fontFamily: "'Georgia', serif" }}
+                      style={{ fontFamily: "var(--font-raleway), sans-serif" }}
                     >
                       {product.name}
                     </h4>
@@ -177,10 +177,10 @@ export default function ProductsSection() {
                 </motion.div>
               ))}
             </div>
-          </motion.div>
+          </motion.div> */}
 
           {/* Visual Effects */}
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0, x: 20 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, margin: "-60px" }}
@@ -206,7 +206,7 @@ export default function ProductsSection() {
                   <div className="p-4 bg-white">
                     <h4
                       className="text-[14px] font-bold text-stone-800"
-                      style={{ fontFamily: "'Georgia', serif" }}
+                      style={{ fontFamily: "var(--font-raleway), sans-serif" }}
                     >
                       {effect.name}
                     </h4>
@@ -215,7 +215,7 @@ export default function ProductsSection() {
                 </motion.div>
               ))}
             </div>
-          </motion.div>
+          </motion.div> */}
         </div>
       </div>
     </section>
