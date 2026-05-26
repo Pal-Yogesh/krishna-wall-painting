@@ -37,10 +37,10 @@ export default function SplashLoader({ children }: { children: React.ReactNode }
               className="text-center"
             >
               <div
-                className="w-40 h-16 rounded-2xl mx-auto mb-5 flex items-center justify-center text-3xl shadow-lg shadow-amber-500/30"
+                className="w-64 h-64 rounded-3xl mx-auto mb-5 flex items-center justify-center overflow-hidden shadow-2xl shadow-amber-500/30"
                 style={{ background: "linear-gradient(135deg, #f59e0b, #d97706)" }}
               >
-                <Image src="/logo.jpeg" width={1000} height={1000} alt="logo" className="w-40 h-40 object-cover"/>
+                <Image src="/logo.jpeg" width={1000} height={1000} alt="logo" className="w-64 h-64 object-cover"/>
               </div>
               {/* <h1 className="text-2xl font-bold text-black tracking-tight">Krishna Paints</h1>
               <p className="text-stone-500 text-sm mt-1">The Brand of India</p> */}

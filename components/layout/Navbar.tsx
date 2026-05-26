@@ -134,7 +134,7 @@ export default function Navbar() {
   return (
     <>
       {/* Color dot accent strip */}
-      <div className="fixed top-0 left-0 right-0 z-50 flex h-1 overflow-hidden" aria-hidden>
+      <div className={`fixed top-0 left-0 right-0 z-50 flex h-1 overflow-hidden transition-all duration-500 ${isScrolled ? "opacity-100" : "opacity-0 -translate-y-full"}`} aria-hidden>
         {ACCENT_COLORS.map((color, i) => (
           <div key={i} className="flex-1 h-full" style={{ backgroundColor: color }} />
         ))}
@@ -144,8 +144,8 @@ export default function Navbar() {
       <motion.nav
         ref={navRef}
         initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        animate={isScrolled ? { y: 0, opacity: 1 } : { y: -80, opacity: 0 }}
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         className={`
           fixed top-1 left-0 right-0 z-40
           transition-all duration-300 ease-out
@@ -391,8 +391,8 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* Spacer */}
-      <div className="h-[65px] lg:h-[73px]" aria-hidden />
+      {/* Spacer - only when scrolled */}
+      {isScrolled && <div className="h-[65px] lg:h-[73px]" aria-hidden />}
     </>
   );
 }

@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import SplashLoader from "@/components/Shared/SplashLoader";
+// import ProductMarquee from "@/components/Home/ProductMarquee";
 
 export default function NavbarFooterWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
@@ -15,6 +16,7 @@ export default function NavbarFooterWrapper({ children }: { children: React.Reac
     <SplashLoader>
       <Navbar />
       {children}
+      {/* <ProductMarquee /> */}
       <Footer />
     </SplashLoader>
   );
