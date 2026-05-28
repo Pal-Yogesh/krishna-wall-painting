@@ -67,10 +67,10 @@ export default function ProductsPage() {
               </span>
               <h1 className="text-[clamp(2.2rem,4.5vw,3.5rem)] font-bold text-stone-900 leading-[1.1] mb-5"
                 style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.03em" }}>
-                Premium Industrial{" "}
+                Premium {" "}
                 <span className="relative">
                   <span className="relative z-10 text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #d97706, #16a34a, #0891b2)" }}>
-                    Coatings
+                    Industrial Coatings
                   </span>
                 </span>
                 {" "}for Every Surface

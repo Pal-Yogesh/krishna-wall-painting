@@ -115,20 +115,18 @@ export default function Footer() {
             <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-stone-400 mb-5">Popular Coatings</h4>
             <ul className="flex flex-col gap-3">
               {[
-                { name: "NC Coatings", href: "/products/wood/nc-coatings-for-wood" },
-                { name: "PU Coatings", href: "/products/wood/pu-coatings-for-wood" },
-                { name: "Polyester Coatings", href: "/products/wood/unsaturated-polyester-coatings-for-wood" },
-                { name: "1K Acrylic Coatings", href: "/products/wood/1k-acrylic-coatings-for-wood" },
-                { name: "UV Coatings", href: "/products/wood/uv-coatings-for-wood" },
-                { name: "1K Water-Based", href: "/products/wood/1k-wb-coatings-for-wood" },
-                { name: "2K Water-Based", href: "/products/wood/2k-wb-coatings-for-wood" },
+                { name: "NC Coatings", href: "/products/wood/nc-coatings-for-wood", img: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0001.jpg" },
+                { name: "PU Coatings", href: "/products/wood/pu-coatings-for-wood", img: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0002.jpg" },
+                { name: "Polyester Coatings", href: "/products/wood/unsaturated-polyester-coatings-for-wood", img: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0003.jpg" },
+                { name: "1K Acrylic Coatings", href: "/products/wood/1k-acrylic-coatings-for-wood", img: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0004.jpg" },
+                { name: "UV Coatings", href: "/products/wood/uv-coatings-for-wood", img: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0005.jpg" },
+                { name: "1K Water-Based", href: "/products/wood/1k-wb-coatings-for-wood", img: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0006.jpg" },
+                { name: "2K Water-Based", href: "/products/wood/2k-wb-coatings-for-wood", img: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0007.jpg" },
               ].map(item => (
                 <li key={item.name}>
                   <Link href={item.href}
                     className="group flex items-center gap-2.5 text-sm text-stone-500 hover:text-amber-700 transition-colors" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
-                    <svg className="w-4 h-4 shrink-0 text-emerald-500 opacity-60 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
-                    </svg>
+                    <Image src={item.img} alt={item.name} width={24} height={24} className="w-6 h-6 rounded-full object-cover shrink-0 border border-stone-200" />
                     <span className="group-hover:translate-x-0.5 transition-transform">{item.name}</span>
                   </Link>
                 </li>

@@ -12,7 +12,7 @@ if (typeof window !== "undefined") {
 
 const SEGMENTS = [
   {
-    icon: "�️",
+    icon: "🛡️",
     title: "Metal Coating",
     description:
       "Anti-corrosion primers, base coats, and top coats for sheet metal, aluminium, brass, and copper substrates.",
@@ -25,6 +25,7 @@ const SEGMENTS = [
     bg: "bg-amber-50",
     border: "border-amber-200",
     href: "/products/metal",
+    image: "/coating/metal-coating.jpeg",
   },
   {
     icon: "🪵",
@@ -36,17 +37,19 @@ const SEGMENTS = [
     bg: "bg-emerald-50",
     border: "border-emerald-200",
     href: "/products/wood",
+    image: "/coating/wood-coating.jpeg",
   },
   {
-    icon: "�",
+    icon: "🪟",
     title: "Glass Coating",
     description:
-      "Speciality coatings for glass articles, decorative glassware, and architectural glass with superior adhesion and clarity.",
+      "Specialty coatings for glass articles, decorative glassware, and architectural glass with superior adhesion and clarity.",
     clients: ["Glass Articles", "Decorative Ware", "Lighting Industry"],
     color: "#0891b2",
     bg: "bg-cyan-50",
     border: "border-cyan-200",
     href: "/products/glass",
+    image: "/coating/glass-coating.jpeg",
   },
 ];
 
@@ -142,7 +145,7 @@ export default function MarketSegments() {
         {/* Cards grid */}
         <div
           ref={gridRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
         >
           {SEGMENTS.map((segment) => (
             <Link
@@ -152,74 +155,63 @@ export default function MarketSegments() {
             >
               <motion.div
                 whileHover={{
-                  y: -6,
-                  boxShadow: "0 20px 48px rgba(0,0,0,0.08)",
+                  y: -8,
+                  boxShadow: "0 25px 50px rgba(0,0,0,0.12)",
                 }}
                 transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                className={`relative p-6 bg-white border border-stone-200 rounded-2xl shadow-sm cursor-pointer h-full`}
+                className="relative overflow-hidden bg-white border border-stone-200/80 rounded-3xl shadow-sm cursor-pointer h-full"
               >
-                {/* Icon */}
-                <div
-                  className={`w-12 h-12 rounded-xl ${segment.bg} ${segment.border} border flex items-center justify-center text-xl mb-4 group-hover:scale-110 transition-transform duration-300`}
-                >
-                  {segment.icon}
+                {/* Image with overlay */}
+                <div className="relative w-full h-44 overflow-hidden">
+                  <img src={segment.image} alt={segment.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
+                  {/* Gradient overlay */}
+                  <div className="absolute inset-0 bg-linear-to-t from-black/50 via-black/10 to-transparent" />
+                  {/* Title on image */}
+                  <div className="absolute bottom-3 left-4 right-4">
+                    <h3 className="text-[17px] font-bold text-white drop-shadow-md" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
+                      {segment.title}
+                    </h3>
+                  </div>
+                  {/* Color accent top bar */}
+                  <div className="absolute top-0 left-0 right-0 h-1" style={{ background: `linear-gradient(90deg, ${segment.color}, ${segment.color}60)` }} />
                 </div>
 
-                {/* Title */}
-                <h3
-                  className="text-[16px] font-bold text-stone-800 mb-2 group-hover:text-amber-700 transition-colors"
-                  style={{ fontFamily: "var(--font-raleway), sans-serif" }}
-                >
-                  {segment.title}
-                </h3>
+                {/* Content */}
+                <div className="p-5">
+                  {/* Description */}
+                  <p className="text-[13px] text-stone-500 leading-relaxed mb-4">
+                    {segment.description}
+                  </p>
 
-                {/* Description */}
-                <p className="text-[13px] text-stone-500 leading-relaxed mb-4">
-                  {segment.description}
-                </p>
+                  {/* Client tags */}
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    {segment.clients.map((client) => (
+                      <span
+                        key={client}
+                        className="px-2.5 py-1 text-[11px] font-semibold rounded-full"
+                        style={{
+                          background: `${segment.color}10`,
+                          color: segment.color,
+                          border: `1px solid ${segment.color}20`,
+                        }}
+                      >
+                        {client}
+                      </span>
+                    ))}
+                  </div>
 
-                {/* Client tags */}
-                <div className="flex flex-wrap gap-1.5 mb-4">
-                  {segment.clients.map((client) => (
-                    <span
-                      key={client}
-                      className="px-2.5 py-1 text-[11px] font-semibold rounded-lg"
-                      style={{
-                        background: `${segment.color}10`,
-                        color: segment.color,
-                        border: `1px solid ${segment.color}25`,
-                      }}
-                    >
-                      {client}
+                  {/* View Products link */}
+                  <div className="flex items-center justify-between pt-3 border-t border-stone-100">
+                    <span className="text-[12px] font-bold uppercase tracking-wider" style={{ color: segment.color }}>
+                      View Products
                     </span>
-                  ))}
+                    <div className="w-8 h-8 rounded-full flex items-center justify-center group-hover:translate-x-1 transition-transform" style={{ background: `${segment.color}12` }}>
+                      <svg className="w-4 h-4" style={{ color: segment.color }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                      </svg>
+                    </div>
+                  </div>
                 </div>
-
-                {/* View Products link indicator */}
-                <div className="flex items-center gap-1.5 text-xs font-semibold text-amber-600">
-                  View Products
-                  <svg
-                    className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M13 7l5 5m0 0l-5 5m5-5H6"
-                    />
-                  </svg>
-                </div>
-
-                {/* Accent bar on hover */}
-                <div
-                  className="absolute bottom-0 left-6 right-6 h-0.5 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{
-                    background: `linear-gradient(to right, ${segment.color}, transparent)`,
-                  }}
-                />
               </motion.div>
             </Link>
           ))}
