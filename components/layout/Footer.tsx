@@ -2,7 +2,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 const NAV_LINKS = [
   { label: "Home",             href: "/"            },
@@ -20,6 +21,10 @@ const SOCIAL_LINKS = [
   {
     name: "Facebook", href: "https://facebook.com", color: "#1877F2",
     icon: <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>,
+  },
+  {
+    name: "LinkedIn", href: "https://linkedin.com/company/kmopl", color: "#0A66C2",
+    icon: <svg viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>,
   },
   {
     name: "WhatsApp", href: "https://wa.me/918588830308", color: "#25D366",
@@ -40,7 +45,7 @@ export default function Footer() {
   const [hoveredSocial, setHoveredSocial] = useState<string | null>(null);
 
   return (
-    <footer className="relative" style={{ background: "linear-gradient(180deg, #fefdfb 0%, #fdf8f0 50%, #fef9f2 100%)" }} aria-label="Site footer">
+    <footer className="relative" style={{ background: "linear-gradient(135deg, #fdf6ee 0%, #fef3e2 25%, #faf0e4 50%, #f8edd9 75%, #fdf6ee 100%)" }} aria-label="Site footer">
       {/* Paint swatch accent strip */}
       <div className="flex h-1.5 w-full overflow-hidden">
         {ACCENT_SWATCHES.map((color, i) => (
@@ -49,30 +54,18 @@ export default function Footer() {
       </div>
 
       {/* Main footer content */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 lg:py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
 
           {/* Col 1: Brand */}
           <div className="flex flex-col gap-5">
             <Link href="/" className="flex items-center gap-3 w-fit group">
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:rotate-6"
-                style={{ background: "linear-gradient(135deg, #f59e0b, #d97706)" }}>
-                <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" stroke="white" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-                </svg>
-              </div>
-              <div>
-                <span className="text-xl font-bold text-stone-900 leading-none block" style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "0.04em" }}>
-                  KMOPL
-                </span>
-                <span className="text-[10px] font-semibold text-stone-400 tracking-[0.18em] uppercase block">
-                  Paints & Coatings
-                </span>
-              </div>
+              
+              <Image src="/logo.png" alt="Logo" className=" w-20 h-16 object-contain" width={1000} height={1000} />
             </Link>
 
             <p className="text-sm leading-relaxed text-stone-500 max-w-[280px]" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
-              From industrial chemicals to specialty coatings — serving India and global markets since 1998.
+              From industrial chemicals to Speciality coatings — serving India and global markets since 1998.
             </p>
 
             {/* Social icons */}
@@ -117,7 +110,38 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Col 3: Contact */}
+          {/* Col 3: Wood Coatings */}
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-stone-400 mb-5">Popular Coatings</h4>
+            <ul className="flex flex-col gap-3">
+              {[
+                { name: "NC Coatings", href: "/products/wood/nc-coatings-for-wood" },
+                { name: "PU Coatings", href: "/products/wood/pu-coatings-for-wood" },
+                { name: "Polyester Coatings", href: "/products/wood/unsaturated-polyester-coatings-for-wood" },
+                { name: "1K Acrylic Coatings", href: "/products/wood/1k-acrylic-coatings-for-wood" },
+                { name: "UV Coatings", href: "/products/wood/uv-coatings-for-wood" },
+                { name: "1K Water-Based", href: "/products/wood/1k-wb-coatings-for-wood" },
+                { name: "2K Water-Based", href: "/products/wood/2k-wb-coatings-for-wood" },
+              ].map(item => (
+                <li key={item.name}>
+                  <Link href={item.href}
+                    className="group flex items-center gap-2.5 text-sm text-stone-500 hover:text-amber-700 transition-colors" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
+                    <svg className="w-4 h-4 shrink-0 text-emerald-500 opacity-60 group-hover:opacity-100 transition-opacity" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21" />
+                    </svg>
+                    <span className="group-hover:translate-x-0.5 transition-transform">{item.name}</span>
+                  </Link>
+                </li>
+              ))}
+              <li>
+                <Link href="/products/wood" className="text-xs font-bold text-amber-600 hover:text-amber-700 transition-colors mt-1 inline-block">
+                  View all Wood Coatings →
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 4: Contact */}
           <div>
             <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-stone-400 mb-5">Get in Touch</h4>
             <div className="flex flex-col gap-4">
@@ -143,27 +167,14 @@ export default function Footer() {
                 </div>
               ))}
 
-              {/* Business hours */}
-              <div className="mt-2 rounded-xl p-4 bg-white border border-stone-200/80 shadow-sm">
-                <p className="text-[10px] font-bold uppercase tracking-wider text-stone-400 mb-2">Business Hours</p>
-                <div className="flex flex-col gap-1.5">
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-stone-500">Mon – Sat</span>
-                    <span className="text-xs font-semibold text-stone-700">09:00 AM – 06:00 PM</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs text-stone-500">Sunday</span>
-                    <span className="text-xs font-semibold text-red-400">Closed</span>
-                  </div>
-                </div>
-              </div>
+          
             </div>
           </div>
         </div>
       </div>
 
       {/* Bottom bar */}
-      <div className="border-t border-stone-200/80">
+      <div className="border-t border-stone-300/99">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-stone-400 text-center sm:text-left" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
             © {new Date().getFullYear()} Krishna Murari Organosys Pvt. Ltd. All rights reserved.

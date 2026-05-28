@@ -34,10 +34,10 @@ const MILESTONES = [
   },
   {
     year: "2008",
-    title: "Specialty Coatings",
+    title: "Speciality Coatings",
     subtitle: "Krishna Murari Organosys Pvt. Ltd.",
     description:
-      "We initiated the production of specialty coatings. Our products catered to esteemed clients such as IKEA and other reputable buying houses, primarily supplying major furniture exporters serving the U.S. and European markets.",
+      "We initiated the production of Speciality coatings. Our products catered to esteemed clients such as IKEA and other reputable buying houses, primarily supplying major furniture exporters serving the U.S. and European markets.",
     icon: "🎨",
     color: "from-blue-500 to-indigo-600",
     bg: "bg-blue-50",

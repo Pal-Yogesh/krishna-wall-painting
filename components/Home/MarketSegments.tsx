@@ -41,7 +41,7 @@ const SEGMENTS = [
     icon: "�",
     title: "Glass Coating",
     description:
-      "Specialty coatings for glass articles, decorative glassware, and architectural glass with superior adhesion and clarity.",
+      "Speciality coatings for glass articles, decorative glassware, and architectural glass with superior adhesion and clarity.",
     clients: ["Glass Articles", "Decorative Ware", "Lighting Industry"],
     color: "#0891b2",
     bg: "bg-cyan-50",
@@ -84,7 +84,7 @@ export default function MarketSegments() {
     <section
       ref={sectionRef}
       id="market-segments"
-      className="relative py-5 overflow-hidden"
+      className="relative py-14 overflow-hidden"
       style={{
         background:
           "linear-gradient(180deg, #fdfbf7 0%, #fefdfb 50%, #fdfbf7 100%)",
@@ -114,7 +114,7 @@ export default function MarketSegments() {
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-14"
+          className="text-center mb-10"
         >
           <span className="inline-block px-4 py-1.5 bg-amber-100 text-amber-700 text-xs font-bold uppercase tracking-[0.2em] rounded-full mb-5">
             Industries We Serve

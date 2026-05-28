@@ -56,7 +56,7 @@ const STRENGTHS = [
 const STATS = [
   { value: "25+", label: "Years" },
   { value: "500+", label: "Clients" },
-  { value: "15+", label: "Products" },
+  { value: "15+", label: "Product Categories" },
   { value: "9+", label: "Chemistries" },
 ];
 
@@ -86,7 +86,7 @@ export default function AboutSection() {
     <section
       ref={sectionRef}
       id="about-section"
-      className="relative py-24 overflow-hidden"
+      className="relative py-14 overflow-hidden"
       style={{ background: "linear-gradient(180deg, #fdfbf7 0%, #fefdfb 50%, #fdfbf7 100%)" }}
     >
       {/* Background decorations */}
@@ -106,7 +106,7 @@ export default function AboutSection() {
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-10"
         >
           <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-100/80 text-amber-700 text-xs font-bold uppercase tracking-[0.2em] rounded-full mb-5 border border-amber-200/50">
             <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
@@ -126,7 +126,7 @@ export default function AboutSection() {
         </motion.div>
 
         {/* ─── MAIN CONTENT: Description + Visual ─── */}
-        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center mb-20">
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center mb-14">
           {/* Left: Description */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -135,7 +135,7 @@ export default function AboutSection() {
             className="lg:col-span-3"
           >
             <p className="text-stone-600 text-[15px] leading-[1.9] mb-5" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
-              Krishna Murari Organosys Pvt. Ltd. (KMOPL) is a leading manufacturer of specialty coatings
+              Krishna Murari Organosys Pvt. Ltd. (KMOPL) is a leading manufacturer of Speciality coatings
               and industrial chemicals based in Noida, U.P. Since <span className="font-bold text-amber-600">1998</span>, we have been delivering
               high-performance coating solutions to the automotive, consumer goods, home furnishing,
               and general industry sectors.
@@ -268,8 +268,8 @@ export default function AboutSection() {
         >
           <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
             <Link href="/products"
-              className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-white font-bold text-sm shadow-lg shadow-amber-200/50 hover:shadow-xl hover:shadow-amber-300/50 transition-all"
-              style={{ background: "linear-gradient(135deg, #f59e0b, #d97706)" }}>
+              className="inline-flex items-center gap-2.5 px-8 py-4 rounded-xl text-white font-bold text-[14px] shadow-lg shadow-stone-900/20 hover:shadow-xl transition-all"
+              style={{ background: "linear-gradient(135deg, #292524, #1c1917)", fontFamily: "var(--font-raleway), sans-serif" }}>
               Explore Our Products
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />

@@ -45,7 +45,7 @@ export const substrates = {
     color: "#0891b2",
     bg: "bg-cyan-50",
     border: "border-cyan-200",
-    description: "Specialty coatings for glass, ABS, and plastic substrates offering superior adhesion, optical clarity, and decorative effects for lighting, glassware, and electronics.",
+    description: "Speciality coatings for glass, ABS, and plastic substrates offering superior adhesion, optical clarity, and decorative effects for lighting, glassware, and electronics.",
   },
 };
 

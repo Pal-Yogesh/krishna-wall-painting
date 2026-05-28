@@ -4,7 +4,11 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
-export default function SplashLoader({ children }: { children: React.ReactNode }) {
+export default function SplashLoader({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -27,8 +31,6 @@ export default function SplashLoader({ children }: { children: React.ReactNode }
             <div className="absolute top-1/4 right-1/4 w-48 h-48 rounded-full bg-orange-400/15 blur-[80px] animate-pulse delay-500" />
             <div className="absolute bottom-1/4 left-1/4 w-56 h-56 rounded-full bg-yellow-400/10 blur-[90px] animate-pulse delay-1000" />
 
-          
-
             {/* Logo / Brand */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
@@ -37,42 +39,53 @@ export default function SplashLoader({ children }: { children: React.ReactNode }
               className="text-center"
             >
               <div
-                className="w-64 h-64 rounded-3xl mx-auto mb-5 flex items-center justify-center overflow-hidden shadow-2xl shadow-amber-500/30"
-                style={{ background: "linear-gradient(135deg, #f59e0b, #d97706)" }}
+                className="w-64 h-64 mx-auto  flex items-center justify-center overflow-hidden "
+                // style={{ background: "linear-gradient(135deg, #f59e0b, #d97706)" }}
               >
-                <Image src="/logo.jpeg" width={1000} height={1000} alt="logo" className="w-64 h-64 object-cover"/>
+                <Image
+                  src="/logo.png"
+                  width={1000}
+                  height={1000}
+                  alt="logo"
+                  className="w-40 h-40 object-cover"
+                />
               </div>
               {/* <h1 className="text-2xl font-bold text-black tracking-tight">Krishna Paints</h1>
               <p className="text-stone-500 text-sm mt-1">The Brand of India</p> */}
             </motion.div>
 
-  {/* Paint drops animation */}
-            <div className="relative mt-7">
+            {/* Paint drops animation */}
+            <div className="relative ">
               <div className="flex gap-3">
-                {["#f59e0b", "#ef4444", "#3b82f6", "#22c55e", "#a855f7"].map((color, i) => (
-                  <motion.div
-                    key={color}
-                    className="w-4 h-4 rounded-full"
-                    style={{ backgroundColor: color }}
-                    animate={{
-                      y: [0, -28, 0],
-                      scale: [1, 1.3, 1],
-                    }}
-                    transition={{
-                      duration: 0.8,
-                      repeat: Infinity,
-                      delay: i * 0.12,
-                      ease: "easeInOut",
-                    }}
-                  />
-                ))}
+                {["#f59e0b", "#ef4444", "#3b82f6", "#22c55e", "#a855f7"].map(
+                  (color, i) => (
+                    <motion.div
+                      key={color}
+                      className="w-4 h-4 rounded-full"
+                      style={{ backgroundColor: color }}
+                      animate={{
+                        y: [0, -28, 0],
+                        scale: [1, 1.3, 1],
+                      }}
+                      transition={{
+                        duration: 0.8,
+                        repeat: Infinity,
+                        delay: i * 0.12,
+                        ease: "easeInOut",
+                      }}
+                    />
+                  ),
+                )}
               </div>
             </div>
             {/* Progress bar */}
             <div className="mt-5 w-48 h-1 bg-stone-800 rounded-full overflow-hidden">
               <motion.div
                 className="h-full rounded-full"
-                style={{ background: "linear-gradient(90deg, #f59e0b, #ef4444, #3b82f6, #22c55e, #a855f7)" }}
+                style={{
+                  background:
+                    "linear-gradient(90deg, #f59e0b, #ef4444, #3b82f6, #22c55e, #a855f7)",
+                }}
                 initial={{ width: "0%" }}
                 animate={{ width: "100%" }}
                 transition={{ duration: 4.5, ease: "easeInOut" }}

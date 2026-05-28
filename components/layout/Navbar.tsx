@@ -18,7 +18,7 @@ const NAV_LINKS = [
   { label: "Visualizer",  href: "/visualizer",    sectionId: "" },
   // { label: "Colors",      href: "/visualizer#colors", sectionId: "" },
   { label: "About Us",    href: "/about",        sectionId: "about" },
-  { label: "Contact",     href: "/contact-us", sectionId: "" },
+  // { label: "Contact",     href: "/contact-us", sectionId: "" },
 ];
 
 const SECTION_IDS = ["about"];
@@ -131,10 +131,15 @@ export default function Navbar() {
     return false;
   };
 
+  const isHomePage = pathname === "/";
+  // On homepage: hide navbar at top (video plays), show on scroll
+  // On other pages: always show navbar
+  const showNavbar = isHomePage ? isScrolled : true;
+
   return (
     <>
       {/* Color dot accent strip */}
-      <div className={`fixed top-0 left-0 right-0 z-50 flex h-1 overflow-hidden transition-all duration-500 ${isScrolled ? "opacity-100" : "opacity-0 -translate-y-full"}`} aria-hidden>
+      <div className={`fixed top-0 left-0 right-0 z-50 flex h-1 overflow-hidden transition-all duration-500 ${showNavbar ? "opacity-100" : "opacity-0 -translate-y-full"}`} aria-hidden>
         {ACCENT_COLORS.map((color, i) => (
           <div key={i} className="flex-1 h-full" style={{ backgroundColor: color }} />
         ))}
@@ -143,11 +148,11 @@ export default function Navbar() {
       {/* Main Navbar */}
       <motion.nav
         ref={navRef}
-        initial={{ y: -80, opacity: 0 }}
-        animate={isScrolled ? { y: 0, opacity: 1 } : { y: -80, opacity: 0 }}
+        initial={isHomePage ? { y: -80, opacity: 0 } : { y: 0, opacity: 1 }}
+        animate={showNavbar ? { y: 0, opacity: 1 } : { y: -80, opacity: 0 }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         className={`
-          fixed top-1 left-0 right-0 z-40
+          fixed top-0 left-0 right-0 z-40 pt-1
           transition-all duration-300 ease-out
           ${isScrolled
             ? "bg-white/90 backdrop-blur-xl shadow-[0_2px_32px_rgba(0,0,0,0.08)] border-b border-stone-100/80"
@@ -158,15 +163,15 @@ export default function Navbar() {
         aria-label="Main navigation"
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 lg:h-18">
+          <div className="flex items-center justify-between h-18 lg:h-20">
 
             {/* Logo */}
-            <Link href="/" onClick={() => handleNavClick("")} className="">
-              <Image src="/logo.jpeg" alt="Logo" className="w-20 h-18 object-contain  " width={1000} height={1000} />
+            <Link href="/" onClick={() => handleNavClick("")} className="shrink-0">
+              <Image src="/logo.png" alt="KMOPL Logo" className="w-28 h-16 object-contain" width={1000} height={1000} />
             </Link>
 
             {/* Desktop Nav Links */}
-            <div className="hidden lg:flex items-center gap-1">
+            <div className="hidden lg:flex items-center gap-1.5">
               {NAV_LINKS.map((link) => {
                 const active = isLinkActive(link);
                 return (
@@ -189,8 +194,8 @@ export default function Navbar() {
 
                     <span
                       className={`
-                        relative text-[13.5px] font-semibold tracking-wide transition-colors duration-200
-                        ${active ? "text-amber-600" : "text-stone-600 group-hover:text-stone-900"}
+                        relative text-[12px] font-bold uppercase tracking-[0.2em] transition-colors duration-200
+                        ${active ? "text-amber-600" : "text-stone-700 group-hover:text-stone-900"}
                       `}
                       style={{ fontFamily: "var(--font-raleway), sans-serif" }}
                     >
@@ -216,19 +221,17 @@ export default function Navbar() {
                   href="/contact-us"
                   onClick={() => handleNavClick("")}
                   className="
-                    flex items-center gap-2 px-5 py-2.5 rounded-2xl
-                    bg-linear-to-r from-amber-500 to-amber-600
-                    text-white text-[13px] font-bold tracking-wide
-                    shadow-md shadow-amber-200
-                    hover:shadow-lg hover:shadow-amber-300
-                    hover:from-amber-600 hover:to-amber-700
+                    flex items-center gap-2 px-6 py-2.5 rounded-xl
+                    bg-stone-900 text-white text-[13px] font-bold tracking-wide
+                    shadow-md shadow-stone-900/20
+                    hover:shadow-lg hover:bg-stone-800
                     transition-all duration-200
                   "
                 >
-                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-                  </svg>
                   Contact Us
+                  <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
                 </Link>
               </motion.div>
             </div>
@@ -238,12 +241,9 @@ export default function Navbar() {
               <Link
                 href="/contact-us"
                 onClick={() => handleNavClick("")}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-amber-500 text-white text-xs font-bold shadow-sm shadow-amber-200"
+                className="flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-stone-900 text-white text-xs font-bold shadow-sm"
               >
-                <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
-                </svg>
-                Contact
+                Get Quote
               </Link>
 
               <button
@@ -391,8 +391,8 @@ export default function Navbar() {
         )}
       </AnimatePresence>
 
-      {/* Spacer - only when scrolled */}
-      {isScrolled && <div className="h-[65px] lg:h-[73px]" aria-hidden />}
+      {/* Spacer - always on non-home pages, only when scrolled on home */}
+      {showNavbar && <div className="h-[85px] lg:h-[90px]" aria-hidden />}
     </>
   );
 }

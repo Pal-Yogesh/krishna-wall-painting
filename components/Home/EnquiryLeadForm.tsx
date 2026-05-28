@@ -585,7 +585,7 @@ export default function EnquiryLeadForm() {
             Prefer to call directly?
           </p>
           <a
-            href="tel:+919876543210"
+            href="tel:++918588830308"
             className="flex items-center gap-2 font-bold text-stone-800 hover:text-amber-700 transition-colors text-[15px]"
             style={{ fontFamily: "var(--font-raleway), sans-serif" }}
           >
@@ -593,11 +593,11 @@ export default function EnquiryLeadForm() {
               style={{ background: "linear-gradient(135deg, #f59e0b, #d97706)" }}>
               📞
             </span>
-            +91 98765 43210
+            +91 85888 30308
           </a>
           <span className="text-stone-300 hidden sm:block">•</span>
           <p className="text-sm text-stone-400" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
-            Mon – Sat, 9 AM – 7 PM
+            Mon - Sat, 9 AM - 6 PM
           </p>
         </motion.div>
       </div>

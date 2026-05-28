@@ -42,7 +42,7 @@ export default function ClientsSection() {
     <section
       ref={sectionRef}
       id="clients"
-      className="relative py-5 overflow-hidden"
+      className="relative py-14 overflow-hidden"
       style={{ background: "linear-gradient(180deg, #fcfaf6 0%, #fefdfb 50%, #fcfaf6 100%)" }}
     >
       {/* Background */}
@@ -57,7 +57,7 @@ export default function ClientsSection() {
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-14"
+          className="text-center mb-10"
         >
           <span className="inline-block px-4 py-1.5 bg-amber-100 text-amber-700 text-xs font-bold uppercase tracking-[0.2em] rounded-full mb-5">
             Trusted Partners
