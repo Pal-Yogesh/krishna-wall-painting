@@ -118,7 +118,7 @@ export default function AboutSection() {
             className="text-[clamp(2rem,4vw,3.2rem)] font-bold text-stone-900 leading-tight"
             style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.03em" }}
           >
-            Specialty Coatings for{" "}
+            Speciality Coatings for{" "}
             <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #d97706, #f59e0b)" }}>
               Every Industry
             </span>

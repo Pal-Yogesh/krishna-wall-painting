@@ -15,7 +15,7 @@ if (typeof window !== "undefined") {
 
 const GALLERY_ITEMS = [
   { category: "Manufacturing Plant", title: "Production Facility", color: "#d97706", gradient: "linear-gradient(135deg, #f59e0b20, #d9770640)", image: "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&q=80" },
-  // { category: "Product Showcase", title: "Specialty Coatings", color: "#0891b2", gradient: "linear-gradient(135deg, #0891b220, #06748540)", image: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80" },
+  // { category: "Product Showcase", title: "Speciality Coatings", color: "#0891b2", gradient: "linear-gradient(135deg, #0891b220, #06748540)", image: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80" },
   { category: "Team Events", title: "Annual Meet 2024", color: "#16a34a", gradient: "linear-gradient(135deg, #16a34a20, #15803d40)", image: "https://images.unsplash.com/photo-1581783898377-1c85bf937427?w=800&q=80" },
   { category: "Manufacturing Plant", title: "Quality Lab", color: "#7c3aed", gradient: "linear-gradient(135deg, #7c3aed20, #6d28d940)", image: "https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=800&q=80" },
   { category: "Product Showcase", title: "Metallic Finishes", color: "#be185d", gradient: "linear-gradient(135deg, #be185d20, #9d174d40)", image: "https://images.unsplash.com/photo-1513467535987-fd81bc7d62f8?w=800&q=80" },
