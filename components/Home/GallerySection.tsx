@@ -14,12 +14,14 @@ if (typeof window !== "undefined") {
 }
 
 const GALLERY_ITEMS = [
-  { category: "Manufacturing Plant", title: "Production Facility", color: "#d97706", gradient: "linear-gradient(135deg, #f59e0b20, #d9770640)", image: "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?w=800&q=80" },
-  // { category: "Product Showcase", title: "Speciality Coatings", color: "#0891b2", gradient: "linear-gradient(135deg, #0891b220, #06748540)", image: "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=800&q=80" },
-  { category: "Team Events", title: "Annual Meet 2024", color: "#16a34a", gradient: "linear-gradient(135deg, #16a34a20, #15803d40)", image: "https://images.unsplash.com/photo-1581783898377-1c85bf937427?w=800&q=80" },
-  { category: "Manufacturing Plant", title: "Quality Lab", color: "#7c3aed", gradient: "linear-gradient(135deg, #7c3aed20, #6d28d940)", image: "https://images.unsplash.com/photo-1562259929-b4e1fd3aef09?w=800&q=80" },
-  { category: "Product Showcase", title: "Metallic Finishes", color: "#be185d", gradient: "linear-gradient(135deg, #be185d20, #9d174d40)", image: "https://images.unsplash.com/photo-1513467535987-fd81bc7d62f8?w=800&q=80" },
-  { category: "Team Events", title: "Training Workshop", color: "#ea580c", gradient: "linear-gradient(135deg, #ea580c20, #c2410c40)", image: "https://images.unsplash.com/photo-1598300042247-d088f8ab3a91?w=800&q=80" },
+  { category: "Head", title: "Director", color: "#d97706", gradient: "linear-gradient(135deg, #f59e0b20, #d9770640)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426456/kmopl-gallery/njivu2s6yogwmpvipicl.jpg" },
+  { category: "Head", title: "Director", color: "#16a34a", gradient: "linear-gradient(135deg, #16a34a20, #15803d40)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426454/kmopl-gallery/vdbibnxl8wj3q7wrz8ct.jpg" },
+  { category: "Manufacturing Plant", title: "Quality Lab", color: "#7c3aed", gradient: "linear-gradient(135deg, #7c3aed20, #6d28d940)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426446/kmopl-gallery/kwuwjyjy3iclquyb4mz4.jpg" },
+  { category: "Product Brand", title: "KMOPL", color: "#be185d", gradient: "linear-gradient(135deg, #be185d20, #9d174d40)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426444/kmopl-gallery/d6u6sxziccmym4pphrmj.jpg" },
+  { category: "Events", title: "Training Workshop", color: "#ea580c", gradient: "linear-gradient(135deg, #ea580c20, #c2410c40)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426440/kmopl-gallery/oy02cwt9b1x7ygto57d5.jpg" },
+  { category: "Product Team", title: "Team", color: "#0891b2", gradient: "linear-gradient(135deg, #0891b220, #06748540)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426461/kmopl-gallery/wtlufvbueql2f6fzqxsn.jpg" },
+    { category: "Product Showcase", title: "Speciality Coatings", color: "#0891b2", gradient: "linear-gradient(135deg, #0891b220, #06748540)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426463/kmopl-gallery/awnaaotvvt9r5grl2rzz.jpg" },
+
 ];
 
 function GalleryCard({ item, className = "" }: { item: typeof GALLERY_ITEMS[number]; className?: string }) {
