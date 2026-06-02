@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import Navbar from "@/components/layout/Navbar";
 import Footer from "@/components/layout/Footer";
 import SplashLoader from "@/components/Shared/SplashLoader";
+import VideoShowcase from "@/components/Home/VideoShowcase";
 // import ProductMarquee from "@/components/Home/ProductMarquee";
 
 export default function NavbarFooterWrapper({ children }: { children: React.ReactNode }) {
@@ -17,6 +18,7 @@ export default function NavbarFooterWrapper({ children }: { children: React.Reac
       <Navbar />
       {children}
       {/* <ProductMarquee /> */}
+      <VideoShowcase />
       <Footer />
     </SplashLoader>
   );

@@ -82,7 +82,7 @@ export default function ProductsPage() {
               {/* Stats row */}
               <div className="flex items-center gap-6">
                 {[
-                  { value: `${products.length}+`, label: "Products" },
+                  { value: `${products.length}+`, label: "Categories" },
                   { value: "3", label: "Substrates" },
                   { value: "9+", label: "Chemistries" },
                 ].map((stat, i) => (

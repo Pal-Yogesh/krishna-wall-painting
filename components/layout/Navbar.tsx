@@ -15,10 +15,8 @@ if (typeof window !== "undefined") {
 const NAV_LINKS = [
   { label: "Home",        href: "/",              sectionId: "" },
   { label: "Products",    href: "/products",      sectionId: "" },
-  // { label: "Visualizer",  href: "/visualizer",    sectionId: "" },
-  // { label: "Colors",      href: "/visualizer#colors", sectionId: "" },
+  { label: "Gallery",     href: "/gallery",       sectionId: "" },
   { label: "About Us",    href: "/about",        sectionId: "about" },
-  // { label: "Contact",     href: "/contact-us", sectionId: "" },
 ];
 
 const SECTION_IDS = ["about"];
