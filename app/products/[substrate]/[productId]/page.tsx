@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { substrates, getProductById, TechnicalProperty } from "@/data/products";
+import { substrates, getProductById, getProductsBySubstrate, TechnicalProperty } from "@/data/products";
 
 const FINISH_VISUALS: Record<string, { gradient: string; label: string }> = {
   "Matte": { gradient: "linear-gradient(135deg, #e7e5e4, #d6d3d1)", label: "Low sheen, velvety" },
@@ -523,6 +523,99 @@ export default function ProductDetailPage() {
             </motion.div>
           )}
         </AnimatePresence>
+      </section>
+
+      {/* ═══ PRODUCT BENEFITS ═══ */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
+        <div className="relative overflow-hidden rounded-3xl p-8 sm:p-10" style={{ background: `linear-gradient(135deg, ${info.color}08, ${info.color}04, #fefdfb)` }}>
+          <div className="absolute -right-16 -top-16 w-48 h-48 rounded-full opacity-10" style={{ background: info.color }} />
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-1.5 h-8 rounded-full" style={{ background: info.color }} />
+            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-stone-800" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
+               Product Benefits / Advantages section
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {product.features.slice(0, 6).map((feature, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.06 }}
+                className="relative flex items-start gap-3 p-4 bg-white/80 backdrop-blur-sm border border-white rounded-2xl shadow-sm group hover:shadow-md transition-all">
+                <div className="w-8 h-8 rounded-lg shrink-0 flex items-center justify-center text-sm font-bold text-white mt-0.5" style={{ background: `linear-gradient(135deg, ${info.color}, ${info.color}bb)` }}>
+                  {i + 1}
+                </div>
+                <span className="text-[13px] font-medium text-stone-700 leading-relaxed">{feature}</span>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ RECOMMENDED SUBSTRATES ═══ */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
+        <div className="flex items-center gap-3 mb-6">
+          <div className="w-1.5 h-8 rounded-full" style={{ background: info.color }} />
+          <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-stone-800" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
+            Recommended Substrates
+          </h2>
+        </div>
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+          {product.applications.map((app, i) => (
+            <motion.div key={i} initial={{ opacity: 0, scale: 0.9 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} transition={{ delay: i * 0.04 }}
+              className="relative overflow-hidden p-4 bg-white border border-stone-200/80 rounded-2xl shadow-sm hover:shadow-md hover:border-stone-300 transition-all group">
+              <div className="absolute top-0 left-0 w-full h-0.5 opacity-0 group-hover:opacity-100 transition-opacity" style={{ background: `linear-gradient(90deg, ${info.color}, transparent)` }} />
+              <div className="flex items-center gap-2.5">
+                <div className="w-3 h-3 rounded-full shrink-0 shadow-sm" style={{ background: `linear-gradient(135deg, ${info.color}, ${info.color}80)` }} />
+                <span className="text-[12px] font-semibold text-stone-700">{app}</span>
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* ═══ RELATED PRODUCTS ═══ */}
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
+        <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center gap-3">
+            <div className="w-1.5 h-8 rounded-full" style={{ background: info.color }} />
+            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-stone-800" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
+              Related Products
+            </h2>
+          </div>
+          <Link href={`/products/${substrate}`} className="text-xs font-bold uppercase tracking-[0.15em] hover:text-amber-700 transition-colors flex items-center gap-1" style={{ color: info.color }}>
+            View All
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+          </Link>
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {getProductsBySubstrate(substrate).filter(p => p.id !== productId).slice(0, 3).map((relProduct, i) => (
+            <motion.div key={relProduct.id} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }}>
+              <Link href={`/products/${substrate}/${relProduct.id}`} className="block group h-full">
+                <div className="relative overflow-hidden h-full bg-white border border-stone-200/80 rounded-2xl shadow-sm hover:shadow-xl transition-all">
+                  {/* Top color bar */}
+                  <div className="h-1 w-full" style={{ background: `linear-gradient(90deg, ${info.color}, ${info.color}40)` }} />
+                  {/* Visual header */}
+                  <div className="h-80 overflow-hidden" style={{ background: `linear-gradient(135deg, ${info.color}10, ${info.color}04)` }}>
+                    <img src="/product/1.jpeg" alt={relProduct.name} className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500" />
+                  </div>
+                  {/* Content */}
+                  <div className="p-5">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="w-2 h-2 rounded-full" style={{ background: info.color }} />
+                      <span className="text-[10px] font-bold uppercase tracking-wider" style={{ color: info.color }}>{relProduct.chemistry}</span>
+                    </div>
+                    <h4 className="text-[14px] font-bold text-stone-800 mb-2 group-hover:text-amber-700 transition-colors" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
+                      {relProduct.name}
+                    </h4>
+                    <p className="text-[12px] text-stone-500 line-clamp-2 leading-relaxed">{relProduct.description}</p>
+                    <div className="mt-3 flex items-center gap-1 text-[11px] font-semibold" style={{ color: info.color }}>
+                      Learn More
+                      <svg className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" /></svg>
+                    </div>
+                  </div>
+                </div>
+              </Link>
+            </motion.div>
+          ))}
+        </div>
       </section>
 
       {/* ═══ BOTTOM CTA ═══ */}
