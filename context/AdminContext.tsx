@@ -34,6 +34,28 @@ export interface EnquiryDoc {
   createdAt?: Timestamp;
 }
 
+export interface ProductDoc {
+  id: string;
+  name: string;
+  substrate: "wood" | "metal" | "glass";
+  chemistry: string;
+  description: string;
+  fullDescription: string;
+  features: string[];
+  applications: string[];
+  finishes: string[];
+  icon: string;
+  image: string;
+  recommendedUse: string;
+  applicationGuidelines: string;
+  inCanProperties: { label: string; value: string }[];
+  applicationProperties: { label: string; value: string }[];
+  filmProperties: { label: string; value: string }[];
+  delivery: { label: string; value: string }[];
+  active: boolean;
+  createdAt?: Timestamp;
+}
+
 interface AdminContextType {
   // Auth
   user: User | null;
@@ -54,6 +76,14 @@ interface AdminContextType {
   enquiries: EnquiryDoc[];
   enquiriesLoading: boolean;
   fetchEnquiries: () => Promise<void>;
+
+  // Products
+  products: ProductDoc[];
+  productsLoading: boolean;
+  fetchProducts: () => Promise<void>;
+  addProduct: (product: Omit<ProductDoc, "id">) => Promise<void>;
+  updateProduct: (id: string, data: Partial<ProductDoc>) => Promise<void>;
+  deleteProduct: (id: string) => Promise<void>;
 }
 
 const AdminContext = createContext<AdminContextType | null>(null);
@@ -71,6 +101,8 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   const [colorsLoading, setColorsLoading] = useState(false);
   const [enquiries, setEnquiries] = useState<EnquiryDoc[]>([]);
   const [enquiriesLoading, setEnquiriesLoading] = useState(false);
+  const [products, setProducts] = useState<ProductDoc[]>([]);
+  const [productsLoading, setProductsLoading] = useState(false);
 
   // Auth listener
   useEffect(() => {
@@ -141,12 +173,63 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
+  // ── Products CRUD ─────────────────────────────────────────────────
+  const fetchProducts = useCallback(async () => {
+    setProductsLoading(true);
+    try {
+      const res = await fetch("/api/products");
+      const data = await res.json();
+      console.log("[AdminContext] Fetched products:", data.products?.length || 0);
+      setProducts(data.products || []);
+    } catch (err) {
+      console.error("[AdminContext] fetchProducts error:", err);
+    } finally {
+      setProductsLoading(false);
+    }
+  }, []);
+
+  const addProduct = async (product: Omit<ProductDoc, "id">) => {
+    const res = await fetch("/api/products", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(product),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || "Failed to create product");
+    }
+    await fetchProducts();
+  };
+
+  const updateProduct = async (id: string, data: Partial<ProductDoc>) => {
+    const res = await fetch("/api/products", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, ...data }),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || "Failed to update product");
+    }
+    await fetchProducts();
+  };
+
+  const deleteProduct = async (id: string) => {
+    const res = await fetch(`/api/products?id=${id}`, { method: "DELETE" });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || "Failed to delete product");
+    }
+    await fetchProducts();
+  };
+
   return (
     <AdminContext.Provider
       value={{
         user, authLoading, login, logout,
         colors, colorsLoading, fetchColors, addColor, updateColor, deleteColor, toggleColorActive,
         enquiries, enquiriesLoading, fetchEnquiries,
+        products, productsLoading, fetchProducts, addProduct, updateProduct, deleteProduct,
       }}
     >
       {children}

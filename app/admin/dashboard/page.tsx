@@ -5,25 +5,27 @@ import { useRouter } from "next/navigation";
 import { useAdmin } from "@/context/AdminContext";
 import ColorManager from "@/components/Admin/ColorManager";
 import EnquiryManager from "@/components/Admin/EnquiryManager";
+import ProductManager from "@/components/Admin/ProductManager";
+import ProductForm from "@/components/Admin/ProductForm";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
-type Tab = "colors" | "enquiries";
+type Page = "products" | "add-product" | "edit-product" | "colors" | "enquiries";
 
 export default function AdminDashboardPage() {
-  const { user, authLoading, logout, colors, enquiries, fetchColors, fetchEnquiries } = useAdmin();
+  const { user, authLoading, logout, colors, enquiries, products, fetchColors, fetchEnquiries, fetchProducts } = useAdmin();
   const router = useRouter();
-  const [tab, setTab] = useState<Tab>("colors");
+  const [activePage, setActivePage] = useState<Page>("products");
+  const [editProductId, setEditProductId] = useState<string | null>(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => {
     if (!authLoading && !user) router.replace("/admin/login");
   }, [user, authLoading, router]);
 
   useEffect(() => {
-    if (user) {
-      fetchColors();
-      fetchEnquiries();
-    }
-  }, [user, fetchColors, fetchEnquiries]);
+    if (user) { fetchColors(); fetchEnquiries(); fetchProducts(); }
+  }, [user, fetchColors, fetchEnquiries, fetchProducts]);
 
   if (authLoading || !user) {
     return (
@@ -36,147 +38,141 @@ export default function AdminDashboardPage() {
     );
   }
 
-  const activeColors = colors.filter((c) => c.active).length;
-  const todayEnquiries = enquiries.filter((e) => {
-    const ts = e.createdAt as unknown as { seconds: number } | undefined;
-    if (!ts) return false;
-    const d = new Date(ts.seconds * 1000);
-    const now = new Date();
-    return d.toDateString() === now.toDateString();
-  }).length;
+  const handleEditProduct = (id: string) => {
+    setEditProductId(id);
+    setActivePage("edit-product");
+  };
 
-  const stats = [
-    {
-      label: "Total Colors", value: colors.length,
-      icon: (<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z" /></svg>),
-      color: "from-amber-500 to-orange-500", bg: "bg-amber-50", border: "border-amber-100",
-    },
-    {
-      label: "Active Colors", value: activeColors,
-      icon: (<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>),
-      color: "from-emerald-500 to-green-500", bg: "bg-emerald-50", border: "border-emerald-100",
-    },
-    {
-      label: "Total Enquiries", value: enquiries.length,
-      icon: (<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" /></svg>),
-      color: "from-blue-500 to-indigo-500", bg: "bg-blue-50", border: "border-blue-100",
-    },
-    {
-      label: "Today's Leads", value: todayEnquiries,
-      icon: (<svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 18L9 11.25l4.306 4.307a11.95 11.95 0 015.814-5.519l2.74-1.22m0 0l-5.94-2.28m5.94 2.28l-2.28 5.941" /></svg>),
-      color: "from-violet-500 to-purple-500", bg: "bg-violet-50", border: "border-violet-100",
-    },
-  ];
+  const handleProductSaved = () => {
+    setActivePage("products");
+    setEditProductId(null);
+    fetchProducts();
+  };
 
-  const tabs: { key: Tab; label: string; count: number; icon: React.ReactNode }[] = [
-    {
-      key: "colors", label: "Paint Colors", count: colors.length,
-      icon: (<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z" /></svg>),
-    },
-    {
-      key: "enquiries", label: "Enquiries", count: enquiries.length,
-      icon: (<svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" /></svg>),
-    },
+  const NAV_ITEMS = [
+    { key: "products" as Page, label: "Products", count: products.length, icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z" /></svg> },
+    { key: "add-product" as Page, label: "Add Product", count: null, icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg> },
+    // { key: "colors" as Page, label: "Paint Colors", count: colors.length, icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z" /></svg> },
+    { key: "enquiries" as Page, label: "Enquiries", count: enquiries.length, icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" /></svg> },
   ];
 
   return (
-    <div className="min-h-screen bg-stone-50">
-      {/* Top bar */}
-      <header className="bg-white/90 backdrop-blur-xl border-b border-stone-200/80 sticky top-0 z-30 shadow-sm shadow-stone-100/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div
-              className="w-9 h-9 rounded-xl flex items-center justify-center text-lg text-white shadow-md shadow-amber-200/50"
-              style={{ background: "linear-gradient(135deg, #f59e0b, #d97706)" }}
-            >
-              🎨
-            </div>
-            <div>
-              <h1 className="text-base font-bold text-stone-800 leading-tight">Krishna Paints</h1>
-              <p className="text-[10px] text-stone-400 uppercase tracking-widest">Admin Dashboard</p>
-            </div>
-          </div>
-          <div className="flex items-center gap-3">
-            <div className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg bg-stone-50 border border-stone-200">
-              <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-xs text-stone-500">{user.email}</span>
-            </div>
-            <button
-              onClick={logout}
-              className="flex items-center gap-2 px-4 py-2 text-sm font-medium text-stone-500 bg-stone-50 border border-stone-200 rounded-xl hover:bg-stone-100 hover:text-stone-700 transition-all"
-            >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" />
-              </svg>
-              <span className="hidden sm:inline">Sign Out</span>
-            </button>
+    <div className="min-h-screen bg-stone-50 flex">
+      {/* ═══ SIDEBAR (Desktop) ═══ */}
+      <aside className="hidden lg:flex flex-col w-64 bg-white border-r border-stone-200 fixed inset-y-0 left-0 z-30">
+        {/* Logo */}
+        <div className="flex items-center gap-3 px-5 h-16 border-b border-stone-100">
+          <Image src="/logo.png" width={1000} height={1000} alt="logo" className="w-14 h-14"/>
+          <div>
+            <h1 className="text-sm font-bold text-stone-800">KMOPL Admin</h1>
+            <p className="text-[10px] text-stone-400">Product Management</p>
           </div>
         </div>
-      </header>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          {stats.map((s, i) => (
-            <motion.div
-              key={s.label}
-              initial={{ opacity: 0, y: 15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.08 }}
-              className={`relative overflow-hidden ${s.bg} border ${s.border} rounded-2xl p-5`}
-            >
-              <div className="relative">
-                <div className={`w-10 h-10 rounded-xl bg-linear-to-br ${s.color} flex items-center justify-center text-white mb-3 shadow-lg`}>
-                  {s.icon}
-                </div>
-                <p className="text-2xl font-bold text-stone-800">{s.value}</p>
-                <p className="text-xs text-stone-500 mt-0.5 uppercase tracking-wider">{s.label}</p>
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Tabs */}
-        <div className="flex items-center gap-1 bg-white border border-stone-200 p-1.5 rounded-2xl w-fit mb-6 shadow-sm">
-          {tabs.map((t) => (
+        {/* Nav links */}
+        <nav className="flex-1 px-3 py-4 space-y-1">
+          {NAV_ITEMS.map((item) => (
             <button
-              key={t.key}
-              onClick={() => setTab(t.key)}
-              className={`relative flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold transition-all ${
-                tab === t.key
-                  ? "bg-stone-800 text-white shadow-md"
-                  : "text-stone-500 hover:text-stone-700 hover:bg-stone-50"
+              key={item.key}
+              onClick={() => { setActivePage(item.key); setEditProductId(null); }}
+              className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                activePage === item.key || (item.key === "add-product" && activePage === "edit-product")
+                  ? "bg-stone-900 text-white shadow-md"
+                  : "text-stone-600 hover:bg-stone-100 hover:text-stone-800"
               }`}
             >
-              {t.icon}
-              <span className="hidden sm:inline">{t.label}</span>
-              <span
-                className={`ml-1 px-2 py-0.5 rounded-full text-[10px] font-bold ${
-                  tab === t.key
-                    ? "bg-amber-500/20 text-amber-300"
-                    : "bg-stone-100 text-stone-400"
-                }`}
-              >
-                {t.count}
-              </span>
+              {item.icon}
+              <span className="flex-1 text-left">{item.label}</span>
+              {item.count !== null && (
+                <span className={`px-2 py-0.5 rounded-md text-[10px] font-bold ${
+                  activePage === item.key ? "bg-white/20 text-white" : "bg-stone-100 text-stone-500"
+                }`}>{item.count}</span>
+              )}
             </button>
           ))}
-        </div>
+        </nav>
 
-        {/* Tab Content */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={tab}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.2 }}
-          >
-            {tab === "colors" && <ColorManager />}
-            {tab === "enquiries" && <EnquiryManager />}
-          </motion.div>
-        </AnimatePresence>
+        {/* User footer */}
+        <div className="px-4 py-4 border-t border-stone-100">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-xs font-bold text-amber-700">
+              {user.email?.[0]?.toUpperCase()}
+            </div>
+            <div className="flex-1 min-w-0">
+              <p className="text-xs font-semibold text-stone-700 truncate">{user.email}</p>
+              <p className="text-[10px] text-stone-400">Administrator</p>
+            </div>
+          </div>
+          <button onClick={logout} className="w-full flex items-center justify-center gap-2 px-3 py-2 text-xs font-medium text-stone-500 bg-stone-50 border border-stone-200 rounded-lg hover:bg-stone-100 transition-colors">
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" /></svg>
+            Sign Out
+          </button>
+        </div>
+      </aside>
+
+      {/* ═══ MOBILE HEADER ═══ */}
+      <div className="lg:hidden fixed top-0 left-0 right-0 z-30 bg-white border-b border-stone-200 h-14 flex items-center justify-between px-4">
+        <button onClick={() => setSidebarOpen(true)} className="p-2 rounded-lg hover:bg-stone-100">
+          <svg className="w-5 h-5 text-stone-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" /></svg>
+        </button>
+        <span className="text-sm font-bold text-stone-800">KMOPL Admin</span>
+        <button onClick={logout} className="p-2 rounded-lg hover:bg-stone-100">
+          <svg className="w-5 h-5 text-stone-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15m3 0l3-3m0 0l-3-3m3 3H9" /></svg>
+        </button>
       </div>
+
+      {/* Mobile sidebar overlay */}
+      <AnimatePresence>
+        {sidebarOpen && (
+          <>
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={() => setSidebarOpen(false)} className="lg:hidden fixed inset-0 z-40 bg-black/30" />
+            <motion.aside initial={{ x: "-100%" }} animate={{ x: 0 }} exit={{ x: "-100%" }} transition={{ type: "spring", stiffness: 300, damping: 30 }}
+              className="lg:hidden fixed inset-y-0 left-0 z-50 w-64 bg-white shadow-xl flex flex-col">
+              <div className="flex items-center justify-between px-5 h-14 border-b border-stone-100">
+                <span className="text-sm font-bold text-stone-800">Menu</span>
+                <button onClick={() => setSidebarOpen(false)} className="p-1.5 rounded-lg hover:bg-stone-100 text-stone-500">✕</button>
+              </div>
+              <nav className="flex-1 px-3 py-4 space-y-1">
+                {NAV_ITEMS.map((item) => (
+                  <button key={item.key} onClick={() => { setActivePage(item.key); setSidebarOpen(false); }}
+                    className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all ${
+                      activePage === item.key ? "bg-stone-900 text-white" : "text-stone-600 hover:bg-stone-100"
+                    }`}>
+                    {item.icon}
+                    <span>{item.label}</span>
+                  </button>
+                ))}
+              </nav>
+            </motion.aside>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* ═══ MAIN CONTENT ═══ */}
+      <main className="flex-1 lg:ml-64 pt-14 lg:pt-0">
+        {/* Top bar */}
+        <header className="hidden lg:flex items-center justify-between h-16 px-8 bg-white border-b border-stone-200 sticky top-0 z-20">
+          <h2 className="text-lg font-bold text-stone-800 capitalize">
+            {activePage === "add-product" ? "Add New Product" : activePage === "edit-product" ? "Edit Product" : activePage.replace("-", " ")}
+          </h2>
+          <div className="flex items-center gap-3 text-sm text-stone-500">
+            <span className="px-3 py-1.5 bg-stone-50 border border-stone-200 rounded-lg text-xs">{products.length} Products</span>
+            <span className="px-3 py-1.5 bg-stone-50 border border-stone-200 rounded-lg text-xs">{enquiries.length} Enquiries</span>
+          </div>
+        </header>
+
+        <div className="p-4 sm:p-6 lg:p-8">
+          <AnimatePresence mode="wait">
+            <motion.div key={activePage + (editProductId || "")} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }}>
+              {activePage === "products" && <ProductManager onEdit={handleEditProduct} onAdd={() => setActivePage("add-product")} />}
+              {activePage === "add-product" && <ProductForm onSaved={handleProductSaved} onCancel={() => setActivePage("products")} />}
+              {activePage === "edit-product" && editProductId && <ProductForm productId={editProductId} onSaved={handleProductSaved} onCancel={() => setActivePage("products")} />}
+              {activePage === "colors" && <ColorManager />}
+              {activePage === "enquiries" && <EnquiryManager />}
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </main>
     </div>
   );
 }

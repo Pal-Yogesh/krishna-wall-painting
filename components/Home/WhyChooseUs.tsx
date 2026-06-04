@@ -23,7 +23,7 @@ import { motion, useInView, useMotionValue, useSpring, animate } from "framer-mo
 // ── Stats data ────────────────────────────────────────────────────────────────
 const STATS = [
   { value: 500,  suffix: "+", label: "Happy Clients",     sublabel: "across India"        },
-  { value: 36,   suffix: "+", label: "Paint Shades",      sublabel: "hand-curated"        },
+  { value: 15,   suffix: "+", label: "Coating Types",      sublabel: "precision-engineered"        },
   { value: 98,   suffix: "%", label: "Satisfaction Rate", sublabel: "from lead surveys"   },
   { value: 24,   suffix: "h", label: "Response Time",     sublabel: "guaranteed callback" },
 ];
@@ -67,8 +67,8 @@ const BENEFITS = [
   },
   {
     id: 3,
-    title: "36+ Curated Shades",
-    description: "Every color in our palette is selected for Indian light conditions — warm morning sun to cool evening tones.",
+    title: "36+ Curated Coatings",
+    description: "Every coating in our range is formulated for industrial performance — from automotive to furniture applications.",
     color: "#16a34a",
     icon: (
       <svg viewBox="0 0 48 48" fill="none" className="w-full h-full">
@@ -104,7 +104,7 @@ const BENEFITS = [
   {
     id: 5,
     title: "Instant Lead Capture",
-    description: "Love a color? Submit your enquiry with a tap — color name is auto-filled, and our team calls back within 24h.",
+    description: "Love a coating? Submit your enquiry with a tap — product details are auto-filled, and our team calls back within 24h.",
     color: "#b45309",
     icon: (
       <svg viewBox="0 0 48 48" fill="none" className="w-full h-full">
@@ -118,7 +118,7 @@ const BENEFITS = [
   {
     id: 6,
     title: "100% Free Forever",
-    description: "The visualizer is completely free to use — unlimited color tries, no watermarks, no hidden paywalls. Ever.",
+    description: "The visualizer is completely free to use — unlimited coating previews, no watermarks, no hidden paywalls. Ever.",
     color: "#be185d",
     icon: (
       <svg viewBox="0 0 48 48" fill="none" className="w-full h-full">
@@ -132,12 +132,12 @@ const BENEFITS = [
 
 // ── Testimonials ticker ───────────────────────────────────────────────────────
 const TESTIMONIALS = [
-  { name: "Priya Sharma",   city: "Mumbai",    text: "Saved us so much time deciding between shades. Picked Terracotta on first try!" },
-  { name: "Rahul Mehta",    city: "Delhi",     text: "The gloss finish preview is incredibly accurate. Exactly what we got painted." },
+  { name: "Priya Sharma",   city: "Mumbai",    text: "Saved us so much time deciding between coating types. Picked PU Gloss on first try!" },
+  { name: "Rahul Mehta",    city: "Delhi",     text: "The finish preview is incredibly accurate. Exactly what we got on our metal surfaces." },
   { name: "Anita Joshi",    city: "Bangalore", text: "Finally a tool that works without downloading an app. Used it on my phone!" },
-  { name: "Vikram Singh",   city: "Pune",      text: "Hunter Green on our feature wall — couldn't have decided without the visualizer." },
+  { name: "Vikram Singh",   city: "Pune",      text: "NC Coating on our furniture — couldn't have decided without the visualizer." },
   { name: "Deepa Nair",     city: "Chennai",   text: "The enquiry form was so smooth. Team called back in 3 hours. Excellent service!" },
-  { name: "Arjun Kapoor",   city: "Hyderabad", text: "Tried 12 colors before settling on Ocean Breeze. Zero regrets — it's perfect." },
+  { name: "Arjun Kapoor",   city: "Hyderabad", text: "Tried multiple finishes before settling on Satin. Zero regrets — it's perfect." },
 ];
 
 // ── Count-up hook ─────────────────────────────────────────────────────────────
@@ -374,7 +374,7 @@ export default function WhyChooseUs() {
               className="text-[14.5px] leading-relaxed max-w-sm lg:text-right"
               style={{ color: "rgba(255,255,255,0.4)", fontFamily: "var(--font-raleway), sans-serif" }}
             >
-              Trusted by homeowners across India to make confident, lasting color decisions.
+              Trusted by industries across India to make confident, lasting coating decisions.
             </motion.p>
           </div>
 
@@ -392,96 +392,7 @@ export default function WhyChooseUs() {
         </div>
       </div>
 
-      {/* ── Bottom half: Light benefits grid ──────────────────────────── */}
-      <div
-        className="relative py-20"
-        style={{ background: "linear-gradient(180deg, #fefdfb 0%, #fcfaf6 100%)" }}
-      >
-        {/* BG decoration */}
-        <div aria-hidden className="absolute inset-0 pointer-events-none">
-          <div className="absolute top-0 right-0 w-96 h-96 rounded-full opacity-20"
-            style={{ background: "radial-gradient(circle, #fde68a 0%, transparent 70%)" }}/>
-          <svg className="absolute bottom-0 left-0 w-56 h-56 opacity-[0.05]" viewBox="0 0 200 200">
-            <circle cx="100" cy="100" r="80" stroke="#d97706" strokeWidth="2" fill="none" strokeDasharray="8 8"/>
-            <circle cx="100" cy="100" r="50" stroke="#d97706" strokeWidth="1.5" fill="none" strokeDasharray="6 6"/>
-          </svg>
-        </div>
-
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Sub-heading */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12"
-          >
-            <h3
-              className="text-[clamp(1.6rem,3.5vw,2.8rem)] font-bold text-stone-900 leading-tight"
-              style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.03em" }}
-            >
-              Built for the Way
-              <span style={{ color: "#d97706" }}> India Decides</span>
-            </h3>
-            <p className="mt-3 text-[14px] text-stone-500 max-w-xl mx-auto leading-relaxed"
-              style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
-              Every feature is designed around one goal: helping you pick the right color with total confidence.
-            </p>
-          </motion.div>
-
-          {/* Benefits 2×3 grid */}
-          <div ref={benefitsRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {BENEFITS.map((benefit, i) => (
-              <BenefitCard key={benefit.id} benefit={benefit} index={i} trigger={benefitsInView} />
-            ))}
-          </div>
-
-          {/* CTA bar */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="mt-14 flex flex-col sm:flex-row items-center justify-center gap-5"
-          >
-            <motion.div whileHover={{ scale: 1.03, y: -2 }} whileTap={{ scale: 0.97 }}>
-              <Link
-                href="/#visualizer"
-                className="flex items-center gap-3 px-8 py-4 rounded-2xl text-white font-bold text-[15px]"
-                style={{
-                  background: "linear-gradient(135deg, #f59e0b, #d97706)",
-                  boxShadow: "0 8px 28px rgba(217,119,6,0.38)",
-                  fontFamily: "var(--font-raleway), sans-serif",
-                }}
-              >
-                <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"/>
-                </svg>
-                Experience It Yourself — Free
-              </Link>
-            </motion.div>
-
-            {/* Social proof */}
-            <div className="flex items-center gap-3">
-              {/* Avatar stack */}
-              <div className="flex -space-x-2">
-                {["#C1623F","#7BB8D4","#8FAF7E","#5C3A5E","#D4A017"].map((c, i) => (
-                  <div
-                    key={i}
-                    className="w-8 h-8 rounded-full border-2 border-white flex items-center justify-center text-[11px] font-bold text-white shadow-sm"
-                    style={{ background: c, zIndex: 5 - i }}
-                  >
-                    {["P","R","A","V","D"][i]}
-                  </div>
-                ))}
-              </div>
-              <p className="text-sm text-stone-500" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
-                <strong className="text-stone-700">500+</strong> homeowners already love it
-              </p>
-            </div>
-          </motion.div>
-        </div>
-      </div>
+     
     </section>
   );
 }

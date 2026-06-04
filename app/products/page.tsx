@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { substrates, products } from "@/data/products";
+import { substrates, useProducts } from "@/context/ProductContext";
 
 const substrateKeys = Object.keys(substrates) as (keyof typeof substrates)[];
 
@@ -20,6 +20,7 @@ const CHEMISTRIES = [
 
 export default function ProductsPage() {
   const [activeSubstrate, setActiveSubstrate] = useState<keyof typeof substrates | "all">("all");
+  const { products, loading } = useProducts();
 
   const filteredProducts = activeSubstrate === "all"
     ? products
@@ -95,29 +96,26 @@ export default function ProductsPage() {
               </div>
             </motion.div>
 
-            {/* Right: Visual substrate cards */}
+            {/* Right: Visual substrate cards with images */}
             <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
               className="hidden lg:grid grid-cols-2 gap-3">
               {substrateKeys.map((key, i) => {
                 const info = substrates[key];
                 const count = products.filter(p => p.substrate === key).length;
+                const imgMap: Record<string, string> = { wood: "/coating/wood-coating.jpeg", metal: "/coating/metal-coating.jpeg", glass: "/coating/glass-coating.jpeg" };
                 return (
                   <motion.div key={key} whileHover={{ y: -4, scale: 1.02 }} transition={{ type: "spring", stiffness: 300, damping: 25 }}
                     className={`${i === 0 ? "col-span-2" : ""}`}>
                     <Link href={`/products/${key}`} className="block group">
-                      <div className="relative overflow-hidden rounded-2xl border border-stone-200/80 bg-white shadow-sm hover:shadow-lg transition-all">
-                        {/* Color bar top */}
-                        <div className="h-1.5 w-full" style={{ background: `linear-gradient(90deg, ${info.color}, ${info.color}60)` }} />
-                        <div className={`p-4 ${i === 0 ? "flex items-center gap-4" : ""}`}>
-                          <div className={`w-12 h-12 rounded-xl ${info.bg} ${info.border} border flex items-center justify-center text-xl shrink-0 group-hover:scale-110 transition-transform`}>
-                            {info.icon}
-                          </div>
-                          <div className={i === 0 ? "" : "mt-3"}>
-                            <h3 className="text-[14px] font-bold text-stone-800 group-hover:text-amber-700 transition-colors" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
-                              {info.label}
-                            </h3>
-                            <p className="text-[11px] text-stone-400 mt-0.5">{count} products</p>
-                          </div>
+                      <div className={`relative overflow-hidden rounded-2xl shadow-sm hover:shadow-lg transition-all ${i === 0 ? "h-44" : "h-40"}`}>
+                        <img src={imgMap[key]} alt={info.label} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
+                        <div className="absolute top-0 left-0 right-0 h-1.5" style={{ background: `linear-gradient(90deg, ${info.color}, ${info.color}60)` }} />
+                        <div className="absolute bottom-4 left-4">
+                          <h3 className="text-[15px] font-bold text-white drop-shadow-md" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
+                            {info.label}
+                          </h3>
+                          <p className="text-[11px] text-white/70 mt-0.5">{count} products</p>
                         </div>
                       </div>
                     </Link>
@@ -213,7 +211,7 @@ export default function ProductsPage() {
                       <div className="h-1 w-full" style={{ background: `linear-gradient(90deg, ${info.color}, ${info.color}50, transparent)` }} />
 
                       {/* Coating visual header */}
-                      <div className="relative h-28 overflow-hidden" style={{ background: `linear-gradient(135deg, ${info.color}10, ${info.color}05, transparent)` }}>
+                      <div className="relative h-80 overflow-hidden" style={{ background: `linear-gradient(135deg, ${info.color}10, ${info.color}05, transparent)` }}>
                         {/* Subtle pattern */}
                         <svg className="absolute inset-0 w-full h-full opacity-[0.03]" aria-hidden>
                           <defs>
@@ -225,11 +223,13 @@ export default function ProductsPage() {
                         </svg>
                         {/* Icon */}
                         <div className="absolute inset-0 flex items-center justify-center">
-                          <motion.span
-                            className="text-4xl opacity-40 group-hover:opacity-60 group-hover:scale-110 transition-all duration-300"
-                          >
-                            {product.icon}
-                          </motion.span>
+                        {product.image ? (
+                          <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        ) : (
+                          <div className="w-12 h-12 rounded-xl bg-stone-200/50 flex items-center justify-center">
+                            <svg className="w-6 h-6 text-stone-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.41a2.25 2.25 0 013.182 0l2.909 2.91M3.75 21h16.5a1.5 1.5 0 001.5-1.5V5.25a1.5 1.5 0 00-1.5-1.5H3.75a1.5 1.5 0 00-1.5 1.5v14.25a1.5 1.5 0 001.5 1.5z" /></svg>
+                          </div>
+                        )}
                         </div>
                         {/* Shine on hover */}
                         <div className="absolute inset-y-0 -left-full w-1/2 bg-linear-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg] group-hover:left-[150%] transition-all duration-700" />
@@ -296,40 +296,34 @@ export default function ProductsPage() {
           {substrateKeys.map((key, i) => {
             const info = substrates[key];
             const count = products.filter(p => p.substrate === key).length;
+            const imgMap: Record<string, string> = { wood: "/coating/wood-coating.jpeg", metal: "/coating/metal-coating.jpeg", glass: "/coating/glass-coating.jpeg" };
             return (
               <motion.div key={key} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
                 transition={{ delay: i * 0.1 }}>
                 <Link href={`/products/${key}`} className="block group">
-                  <div className="relative overflow-hidden rounded-2xl border border-stone-200/80 bg-white shadow-sm hover:shadow-xl transition-all">
-                    {/* Colored header area */}
-                    <div className="relative h-36 overflow-hidden" style={{ background: `linear-gradient(135deg, ${info.color}20, ${info.color}08)` }}>
-                      {/* Animated paint effect */}
-                      <motion.div
-                        animate={{ y: [0, -5, 0] }}
-                        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
-                        className="absolute bottom-0 left-0 right-0 h-1/2"
-                        style={{ background: `linear-gradient(180deg, transparent, ${info.color}12)` }}
-                      />
-                      <div className="absolute inset-0 flex items-center justify-center">
-                        <span className="text-5xl group-hover:scale-110 transition-transform duration-300">{info.icon}</span>
-                      </div>
+                  <div className="relative overflow-hidden rounded-2xl shadow-sm hover:shadow-xl transition-all">
+                    {/* Image */}
+                    <div className="relative h-96 overflow-hidden">
+                      <img src={imgMap[key]} alt={info.label} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
+                      <div className="absolute top-0 left-0 right-0 h-1.5" style={{ background: `linear-gradient(90deg, ${info.color}, ${info.color}60)` }} />
                       {/* Shine */}
-                      <div className="absolute inset-y-0 -left-full w-1/2 bg-linear-to-r from-transparent via-white/25 to-transparent skew-x-[-20deg] group-hover:left-[150%] transition-all duration-700" />
+                      <div className="absolute inset-y-0 -left-full w-1/2 bg-linear-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg] group-hover:left-[150%] transition-all duration-700" />
                     </div>
 
-                    {/* Content */}
-                    <div className="p-5">
+                    {/* Content overlaid at bottom */}
+                    <div className="absolute bottom-0 left-0 right-0 p-5">
                       <div className="flex items-center justify-between mb-2">
-                        <h3 className="text-[16px] font-bold text-stone-800 group-hover:text-amber-700 transition-colors"
+                        <h3 className="text-[16px] font-bold text-white drop-shadow-md"
                           style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
                           {info.label}
                         </h3>
-                        <span className="px-2.5 py-1 rounded-lg text-[11px] font-bold" style={{ background: `${info.color}12`, color: info.color }}>
+                        <span className="px-2.5 py-1 rounded-lg text-[11px] font-bold bg-white/20 backdrop-blur-sm text-white">
                           {count} products
                         </span>
                       </div>
-                      <p className="text-[12px] text-stone-500 leading-relaxed line-clamp-2 mb-4">{info.description}</p>
-                      <div className="flex items-center gap-1.5 text-[12px] font-semibold" style={{ color: info.color }}>
+                      <p className="text-[12px] text-white/80 leading-relaxed line-clamp-2 mb-3">{info.description}</p>
+                      <div className="flex items-center gap-1.5 text-[12px] font-semibold text-white">
                         Explore Collection
                         <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                           <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />

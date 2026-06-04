@@ -3,13 +3,14 @@
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { substrates, getProductsBySubstrate, products } from "@/data/products";
+import { substrates, useProducts } from "@/context/ProductContext";
 
 export default function SubstratePage() {
   const params = useParams();
   const substrate = params.substrate as string;
   const info = substrates[substrate as keyof typeof substrates];
-  const items = getProductsBySubstrate(substrate);
+  const { products, loading } = useProducts();
+  const items = products.filter((p) => p.substrate === substrate);
 
   if (!info) {
     return (
@@ -97,35 +98,31 @@ export default function SubstratePage() {
 
             {/* Right: Visual card */}
             <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="lg:col-span-2 hidden lg:block">
-              <div className="relative bg-white rounded-3xl border border-stone-200/80 shadow-lg overflow-hidden">
-                {/* Coating visual */}
-                <div className="relative h-48 overflow-hidden" style={{ background: `linear-gradient(135deg, ${info.color}25, ${info.color}10, ${info.color}05)` }}>
-                  {/* Layered coating effect */}
-                  <div className="absolute bottom-0 left-0 right-0 h-1/3" style={{ background: `linear-gradient(180deg, transparent, ${info.color}15)` }} />
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <motion.span animate={{ scale: [1, 1.05, 1], rotate: [0, 2, -2, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                      className="text-7xl opacity-50">{info.icon}</motion.span>
-                  </div>
+              <div className="relative rounded-3xl shadow-lg overflow-hidden">
+                {/* Full image */}
+                <div className="relative h-64 overflow-hidden">
+                  <img src={`/coating/${substrate}-coating.jpeg`} alt={info.label} className="w-full h-full object-cover" />
+                  <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/10 to-transparent" />
                   {/* Shine effect */}
                   <motion.div
                     animate={{ x: ["-100%", "200%"] }}
                     transition={{ duration: 3, repeat: Infinity, repeatDelay: 5, ease: "easeInOut" }}
-                    className="absolute inset-y-0 w-1/3 bg-linear-to-r from-transparent via-white/30 to-transparent skew-x-[-20deg]"
+                    className="absolute inset-y-0 w-1/3 bg-linear-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg]"
                   />
                 </div>
-                {/* Stats */}
-                <div className="p-5 grid grid-cols-3 gap-3">
+                {/* Stats overlay at bottom */}
+                <div className="absolute bottom-0 left-0 right-0 p-5 grid grid-cols-3 gap-3">
                   <div className="text-center">
-                    <div className="text-xl font-bold text-stone-900">{items.length}</div>
-                    <div className="text-[10px] text-stone-400 font-medium">Products</div>
+                    <div className="text-xl font-bold text-white drop-shadow-md">{items.length}</div>
+                    <div className="text-[10px] text-white/70 font-medium">Products</div>
                   </div>
-                  <div className="text-center border-x border-stone-100">
-                    <div className="text-xl font-bold text-stone-900">{chemistries.length}</div>
-                    <div className="text-[10px] text-stone-400 font-medium">Chemistries</div>
+                  <div className="text-center border-x border-white/20">
+                    <div className="text-xl font-bold text-white drop-shadow-md">{chemistries.length}</div>
+                    <div className="text-[10px] text-white/70 font-medium">Chemistries</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-xl font-bold text-stone-900">{items.reduce((acc, p) => acc + (p.finishes?.length || 0), 0)}+</div>
-                    <div className="text-[10px] text-stone-400 font-medium">Finishes</div>
+                    <div className="text-xl font-bold text-white drop-shadow-md">{items.reduce((acc, p) => acc + (p.finishes?.length || 0), 0)}+</div>
+                    <div className="text-[10px] text-white/70 font-medium">Finishes</div>
                   </div>
                 </div>
               </div>
@@ -168,7 +165,7 @@ export default function SubstratePage() {
                   <div className="h-1 w-full" style={{ background: `linear-gradient(90deg, ${info.color}, ${info.color}50, transparent)` }} />
 
                   {/* Visual header */}
-                  <div className="relative h-32 overflow-hidden" style={{ background: `linear-gradient(135deg, ${info.color}12, ${info.color}05, transparent)` }}>
+                  <div className="relative h-80 overflow-hidden" style={{ background: `linear-gradient(135deg, ${info.color}12, ${info.color}05, transparent)` }}>
                     {/* Dot pattern */}
                     <svg className="absolute inset-0 w-full h-full opacity-[0.04]" aria-hidden>
                       <defs>
@@ -180,9 +177,13 @@ export default function SubstratePage() {
                     </svg>
                     {/* Icon */}
                     <div className="absolute inset-0 flex items-center justify-center">
-                      <span className="text-4xl opacity-40 group-hover:opacity-60 group-hover:scale-110 transition-all duration-300">
-                        {product.icon}
-                      </span>
+                      {product.image ? (
+                        <img src={product.image} alt={product.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      ) : (
+                        <div className="w-12 h-12 rounded-xl bg-stone-200/50 flex items-center justify-center">
+                          <svg className="w-6 h-6 text-stone-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.41a2.25 2.25 0 013.182 0l2.909 2.91M3.75 21h16.5a1.5 1.5 0 001.5-1.5V5.25a1.5 1.5 0 00-1.5-1.5H3.75a1.5 1.5 0 00-1.5 1.5v14.25a1.5 1.5 0 001.5 1.5z" /></svg>
+                        </div>
+                      )}
                     </div>
                     {/* Hover shine */}
                     <div className="absolute inset-y-0 -left-full w-1/2 bg-linear-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg] group-hover:left-[150%] transition-all duration-700" />

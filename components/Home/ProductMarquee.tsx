@@ -3,7 +3,7 @@
 import { useRef } from "react";
 import Link from "next/link";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { substrates } from "@/data/products";
+import { substrates } from "@/context/ProductContext";
 
 const SHOWCASE_PRODUCTS = [
   { name: "PU Coatings", substrate: "wood" as const, chemistry: "Polyurethane", href: "/products/wood/pu-coatings-for-wood" },
