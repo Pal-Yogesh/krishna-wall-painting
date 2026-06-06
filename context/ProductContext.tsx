@@ -18,6 +18,8 @@ export interface Product {
   applications: string[];
   finishes: string[];
   image: string;
+  imageFront: string;
+  imageBack: string;
   recommendedUse: string;
   applicationGuidelines: string;
   inCanProperties: TechnicalProperty[];

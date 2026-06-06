@@ -47,6 +47,8 @@ export default function ProductForm({ productId, onSaved, onCancel }: Props) {
   const [chemistry, setChemistry] = useState("Polyurethane");
   const [icon, setIcon] = useState("🎨");
   const [image, setImage] = useState("");
+  const [imageFront, setImageFront] = useState("");
+  const [imageBack, setImageBack] = useState("");
   const [description, setDescription] = useState("");
   const [finishes, setFinishes] = useState("");
   const [fullDescription, setFullDescription] = useState("");
@@ -65,7 +67,7 @@ export default function ProductForm({ productId, onSaved, onCancel }: Props) {
       const p = products.find(pr => pr.id === productId);
       if (p) {
         setName(p.name); setSubstrate(p.substrate); setChemistry(p.chemistry);
-        setIcon(p.icon); setImage(p.image || ""); setDescription(p.description);
+        setIcon(p.icon); setImage(p.image || ""); setImageFront((p as any).imageFront || ""); setImageBack((p as any).imageBack || ""); setDescription(p.description);
         setFinishes((p.finishes || []).join(", ")); setFullDescription(p.fullDescription);
         setFeatures((p.features || []).join("\n")); setApplications((p.applications || []).join("\n"));
         setRecommendedUse(p.recommendedUse || ""); setApplicationGuidelines(p.applicationGuidelines || "");
@@ -75,7 +77,7 @@ export default function ProductForm({ productId, onSaved, onCancel }: Props) {
     }
   }, [productId, products]);
 
-  const handleImageUpload = async (file: File) => {
+  const handleImageUpload = async (file: File, target: "main" | "front" | "back" = "main") => {
     setUploading(true);
     try {
       const fd = new FormData();
@@ -83,8 +85,11 @@ export default function ProductForm({ productId, onSaved, onCancel }: Props) {
       fd.append("folder", "kmopl-products");
       const res = await fetch("/api/upload", { method: "POST", body: fd });
       const data = await res.json();
-      if (data.url) setImage(data.url);
-      else alert("Upload failed: " + (data.error || "Unknown error"));
+      if (data.url) {
+        if (target === "main") setImage(data.url);
+        else if (target === "front") setImageFront(data.url);
+        else if (target === "back") setImageBack(data.url);
+      } else alert("Upload failed: " + (data.error || "Unknown error"));
     } catch { alert("Upload failed"); }
     finally { setUploading(false); }
   };
@@ -94,7 +99,7 @@ export default function ProductForm({ productId, onSaved, onCancel }: Props) {
     setSaving(true);
     try {
       const productData = {
-        name, substrate, chemistry, icon, image, description,
+        name, substrate, chemistry, icon, image, imageFront, imageBack, description,
         fullDescription,
         features: features.split("\n").map(s => s.trim()).filter(Boolean),
         applications: applications.split("\n").map(s => s.trim()).filter(Boolean),
@@ -181,15 +186,41 @@ export default function ProductForm({ productId, onSaved, onCancel }: Props) {
 
             {/* Image upload */}
             <div>
-              <label className="text-xs font-semibold text-stone-600 mb-1.5 block">Product Image</label>
+              <label className="text-xs font-semibold text-stone-600 mb-1.5 block">Product Image (Main)</label>
               <div className="flex items-center gap-4">
                 <label className="flex items-center gap-2 px-5 py-3 bg-stone-50 border-2 border-dashed border-stone-300 rounded-xl text-sm font-medium text-stone-600 hover:border-amber-400 hover:bg-amber-50 cursor-pointer transition-all">
                   <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>
                   {uploading ? "Uploading..." : "Choose Image"}
-                  <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleImageUpload(f); }} />
+                  <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleImageUpload(f, "main"); }} />
                 </label>
                 {image && <img src={image} alt="preview" className="w-14 h-14 rounded-xl object-cover border-2 border-stone-200 shadow-sm" />}
                 {uploading && <div className="w-14 h-14 rounded-xl bg-stone-100 border-2 border-stone-200 flex items-center justify-center"><div className="w-5 h-5 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" /></div>}
+              </div>
+            </div>
+
+            {/* Front & Back images */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="text-xs font-semibold text-stone-600 mb-1.5 block">Front Image</label>
+                <div className="flex items-center gap-3">
+                  <label className="flex items-center gap-2 px-4 py-2.5 bg-stone-50 border-2 border-dashed border-stone-300 rounded-xl text-xs font-medium text-stone-600 hover:border-emerald-400 hover:bg-emerald-50 cursor-pointer transition-all">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>
+                    Upload Front
+                    <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleImageUpload(f, "front"); }} />
+                  </label>
+                  {imageFront && <img src={imageFront} alt="Front" className="w-12 h-12 rounded-lg object-cover border border-stone-200" />}
+                </div>
+              </div>
+              <div>
+                <label className="text-xs font-semibold text-stone-600 mb-1.5 block">Back Image</label>
+                <div className="flex items-center gap-3">
+                  <label className="flex items-center gap-2 px-4 py-2.5 bg-stone-50 border-2 border-dashed border-stone-300 rounded-xl text-xs font-medium text-stone-600 hover:border-blue-400 hover:bg-blue-50 cursor-pointer transition-all">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>
+                    Upload Back
+                    <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleImageUpload(f, "back"); }} />
+                  </label>
+                  {imageBack && <img src={imageBack} alt="Back" className="w-12 h-12 rounded-lg object-cover border border-stone-200" />}
+                </div>
               </div>
             </div>
 

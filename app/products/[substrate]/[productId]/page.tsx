@@ -2,7 +2,7 @@
 
 import { useParams } from "next/navigation";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { substrates, useProducts } from "@/context/ProductContext";
 import type { TechnicalProperty } from "@/context/ProductContext";
@@ -85,6 +85,46 @@ const FINISH_VISUALS: Record<string, { gradient: string; label: string }> = {
 
 const TAB_KEYS = ["overview", "technical", "application"] as const;
 type TabKey = (typeof TAB_KEYS)[number];
+
+function ProductImageSlider({ images, name }: { images: string[]; name: string }) {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (images.length <= 1) return;
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % images.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [images.length]);
+
+  if (images.length === 0) return null;
+
+  return (
+    <div className="relative w-full rounded-3xl border-4 overflow-hidden border-white shadow-xl" style={{ height: "420px", width:"400px" }}>
+      {images.map((src, i) => (
+        <img
+          key={src}
+          src={src}
+          alt={`${name} - ${i + 1}`}
+          
+          className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${i === activeIndex ? "opacity-100" : "opacity-0"}`}
+        />
+      ))}
+      {/* Dots */}
+      {images.length > 1 && (
+        <div className="absolute bottom-4 right-4 flex gap-2">
+          {images.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => setActiveIndex(i)}
+              className={`rounded-full transition-all shadow-sm ${i === activeIndex ? "w-6 h-2.5 bg-white" : "w-2.5 h-2.5 bg-white/60"}`}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+}
 
 function TechnicalTable({
   title,
@@ -389,71 +429,14 @@ export default function ProductDetailPage() {
               </div>
             </motion.div>
 
-            {/* Right: Visual coating swatch card */}
+            {/* Right: Product Image Slider */}
             <motion.div
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.2 }}
               className="lg:col-span-2"
             >
-              <div className="relative bg-white rounded-3xl border border-stone-200/80 shadow-lg overflow-hidden">
-                {/* Coating visual */}
-                <div
-                  className="relative h-88 overflow-hidden"
-                  style={{
-                    background: `linear-gradient(135deg, ${info.color}30, ${info.color}15, ${info.color}05)`,
-                  }}
-                >
-                  {/* Simulated coating layers */}
-                  <div className="absolute inset-0 flex flex-col justify-end">
-                    <motion.div
-                      animate={{ opacity: [0.3, 0.6, 0.3] }}
-                      transition={{ duration: 3, repeat: Infinity }}
-                      className="h-1/3 w-full"
-                      style={{
-                        background: `linear-gradient(180deg, transparent, ${info.color}20)`,
-                      }}
-                    />
-                  </div>
-                  {/* Large icon */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    {product.image ? (
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                        className="w-full h-full object-cover"
-                      />
-                    ) : (
-                      <div className="w-16 h-16 rounded-xl bg-stone-200/50 flex items-center justify-center">
-                        <svg
-                          className="w-8 h-8 text-stone-400"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={1.5}
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.41a2.25 2.25 0 013.182 0l2.909 2.91M3.75 21h16.5a1.5 1.5 0 001.5-1.5V5.25a1.5 1.5 0 00-1.5-1.5H3.75a1.5 1.5 0 00-1.5 1.5v14.25a1.5 1.5 0 001.5 1.5z"
-                          />
-                        </svg>
-                      </div>
-                    )}
-                  </div>
-                  {/* Shine effect */}
-                  <motion.div
-                    animate={{ x: ["-100%", "200%"] }}
-                    transition={{
-                      duration: 3,
-                      repeat: Infinity,
-                      repeatDelay: 4,
-                      ease: "easeInOut",
-                    }}
-                    className="absolute inset-y-0 w-1/3 bg-linear-to-r from-transparent via-white/30 to-transparent skew-x-[-20deg]"
-                  />
-                </div>
-              </div>
+              <ProductImageSlider images={[product.image, product.imageFront, product.imageBack].filter(Boolean) as string[]} name={product.name} />
             </motion.div>
           </div>
         </div>
