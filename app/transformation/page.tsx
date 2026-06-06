@@ -10,8 +10,8 @@ const SUBSTRATES = [
     label: "Wood Coating",
     description: "From raw timber to premium finished furniture",
     color: "#16a34a",
-    before: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0001.jpg",
-    after: "/coating/wood-coating.jpeg",
+    before: "/before-after-coating/wood-before.jpeg",
+    after: "/before-after-coating/wood-after.jpeg",
     features: ["UV Protection", "Scratch Resistant", "Grain Enhancement", "Long-lasting Finish"],
   },
   {
@@ -19,18 +19,45 @@ const SUBSTRATES = [
     label: "Metal Coating",
     description: "From bare metal to corrosion-protected surfaces",
     color: "#d97706",
-    before: "/our-product/3.jpeg",
-    after: "/coating/metal-coating.jpeg",
+    before: "/before-after-coating/metal-before.jpeg",
+    after: "/before-after-coating/metal-after.jpeg",
     features: ["Anti-Corrosion", "Weather Resistant", "High Gloss", "Chemical Protection"],
   },
   {
-    key: "glass",
-    label: "Glass Coating",
-    description: "From plain glass to decorative coated finish",
+    key: "chair",
+    label: "Chair Coating",
+    description: "From unfinished wood chair to beautifully coated piece",
+    color: "#7c3aed",
+    before: "/before-after-coating/chair-before.jpeg",
+    after: "/before-after-coating/chair-after.jpeg",
+    features: ["Smooth Finish", "Color Consistency", "Durable Surface", "Premium Look"],
+  },
+  {
+    key: "gate",
+    label: "Gate Coating",
+    description: "From rusted gate to weather-resistant protective finish",
+    color: "#be185d",
+    before: "/before-after-coating/gate-before.jpeg",
+    after: "/before-after-coating/gate-after.jpeg",
+    features: ["Rust Protection", "UV Resistant", "Long Life", "Decorative Appeal"],
+  },
+  {
+    key: "metal2",
+    label: "Industrial Metal",
+    description: "From raw industrial metal to high-performance coated surface",
+    color: "#ea580c",
+    before: "/before-after-coating/metal2-before.jpeg",
+    after: "/before-after-coating/metal2-after.jpeg",
+    features: ["Industrial Grade", "Heat Resistant", "Abrasion Proof", "Chemical Safe"],
+  },
+  {
+    key: "cross",
+    label: "Cross / Decorative",
+    description: "From plain surface to decorative coated artwork",
     color: "#0891b2",
-    before: "/our-product/4.jpeg",
-    after: "/coating/glass-coating.jpeg",
-    features: ["Superior Adhesion", "Optical Clarity", "Decorative Effects", "UV Stable"],
+    before: "/before-after-coating/cross-before.jpeg",
+    after: "/before-after-coating/cross-after.jpeg",
+    features: ["Decorative Finish", "Optical Clarity", "Color Depth", "Specialty Effect"],
   },
 ];
 
@@ -66,14 +93,14 @@ function ComparisonSlider({ beforeSrc, afterSrc }: { beforeSrc: string; afterSrc
       onTouchEnd={handleMouseUp}
     >
       {/* After image (full background) */}
-      <img src={afterSrc} alt="After coating" className="absolute inset-0 w-full h-full object-cover" draggable={false} />
+      <img src={afterSrc} alt="After coating" className="absolute inset-0 w-full h-full object-contain bg-stone-100" draggable={false} />
 
       {/* Before image (clipped by slider) */}
       <div className="absolute inset-0 overflow-hidden" style={{ width: `${sliderPos}%` }}>
         <img
           src={beforeSrc}
           alt="Before coating"
-          className="absolute inset-0 h-full object-cover"
+          className="absolute inset-0 h-full object-contain bg-stone-100"
           style={{ width: `${containerRef.current ? containerRef.current.offsetWidth : 1000}px`, maxWidth: "none" }}
           draggable={false}
         />
@@ -130,7 +157,7 @@ export default function BeforeAfterPage() {
       {/* Main content */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
         {/* Substrate tabs */}
-        <div className="flex items-center justify-center gap-3 mb-10">
+        <div className="flex items-center justify-center gap-2 sm:gap-3 mb-10 flex-wrap">
           {SUBSTRATES.map((sub, i) => (
             <button
               key={sub.key}
@@ -155,7 +182,7 @@ export default function BeforeAfterPage() {
           transition={{ duration: 0.4 }}
           className="mb-12"
         >
-          <div className="relative w-full h-[50vh] sm:h-[55vh] lg:h-[65vh] max-h-[600px] rounded-2xl overflow-hidden shadow-2xl border border-stone-200/50">
+          <div className="relative w-full  h-[50vh] sm:h-[55vh] lg:h-[65vh] max-h-[600px] rounded-2xl overflow-hidden shadow-2xl border border-stone-200/50">
             <ComparisonSlider beforeSrc={current.before} afterSrc={current.after} />
           </div>
 
@@ -170,7 +197,7 @@ export default function BeforeAfterPage() {
               </div>
               <p className="text-sm text-stone-500">{current.description}</p>
             </div>
-            <Link href={`/products/${current.key}`}
+            <Link href={`/products/${current.key === "chair" || current.key === "cross" ? "wood" : current.key === "gate" || current.key === "metal2" ? "metal" : current.key}`}
               className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white shadow-md hover:shadow-lg transition-all shrink-0"
               style={{ background: current.color }}>
               View Products
@@ -206,7 +233,7 @@ export default function BeforeAfterPage() {
           <h2 className="text-xl font-bold text-stone-900 mb-6" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
             All Substrate Comparisons
           </h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5">
             {SUBSTRATES.map((sub, i) => (
               <motion.div
                 key={sub.key}

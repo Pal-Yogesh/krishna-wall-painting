@@ -10,6 +10,7 @@ import VideoShowcase from "@/components/Home/VideoShowcase";
 export default function NavbarFooterWrapper({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname.startsWith("/admin");
+  const isHomePage = pathname === "/";
 
   if (isAdmin) return <>{children}</>;
 
@@ -18,7 +19,7 @@ export default function NavbarFooterWrapper({ children }: { children: React.Reac
       <Navbar />
       {children}
       {/* <ProductMarquee /> */}
-      <VideoShowcase />
+      {isHomePage && <VideoShowcase />}
       <Footer />
     </SplashLoader>
   );
