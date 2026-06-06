@@ -8,6 +8,20 @@ export default function VideoIntro() {
   const sectionRef = useRef<HTMLElement>(null);
   const [isMuted, setIsMuted] = useState(true);
   const [hasInteracted, setHasInteracted] = useState(false);
+  const [videoReady, setVideoReady] = useState(false);
+
+  // Wait for splash loader to finish (5s), then start video from beginning
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const video = videoRef.current;
+      if (video) {
+        video.currentTime = 0;
+        video.play().catch(() => {});
+        setVideoReady(true);
+      }
+    }, 5200); // slightly after the 5s loader + 0.6s exit animation
+    return () => clearTimeout(timer);
+  }, []);
 
   // Unmute the video (requires user gesture first time)
   const unmute = useCallback(() => {
@@ -93,10 +107,10 @@ export default function VideoIntro() {
       <video
         ref={videoRef}
         src="https://res.cloudinary.com/dxfkygu6e/video/upload/v1780423543/WhatsApp_Video_2026-05-24_at_4.53.28_PM_1_wu4dsc_npvxao.mp4"
-        autoPlay
         muted
         loop
         playsInline
+        preload="auto"
         className="w-full h-full object-cover"
       />
 
