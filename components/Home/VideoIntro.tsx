@@ -16,6 +16,7 @@ export default function VideoIntro() {
       const video = videoRef.current;
       if (video) {
         video.currentTime = 0;
+        video.loop = true;
         video.play().catch(() => {});
         setVideoReady(true);
       }
@@ -111,6 +112,10 @@ export default function VideoIntro() {
         loop
         playsInline
         preload="auto"
+        onEnded={() => {
+          const video = videoRef.current;
+          if (video) { video.currentTime = 0; video.play().catch(() => {}); }
+        }}
         className="w-full h-full object-cover"
       />
 

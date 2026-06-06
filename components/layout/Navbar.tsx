@@ -31,6 +31,7 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+  const [productsDropdown, setProductsDropdown] = useState(false);
   const navRef = useRef<HTMLElement>(null);
   const pathname = usePathname();
 
@@ -172,6 +173,61 @@ export default function Navbar() {
             <div className="hidden lg:flex items-center gap-1.5">
               {NAV_LINKS.map((link) => {
                 const active = isLinkActive(link);
+                const isProducts = link.href === "/products";
+
+                if (isProducts) {
+                  return (
+                    <div key={link.href} className="relative"
+                      onMouseEnter={() => setProductsDropdown(true)}
+                      onMouseLeave={() => setProductsDropdown(false)}
+                    >
+                      <Link
+                        href={link.href}
+                        onClick={() => handleNavClick(link.sectionId)}
+                        className="relative px-4 py-2 flex items-center gap-1"
+                      >
+                        {active && (
+                          <motion.span layoutId="nav-active-bg" className="absolute inset-0 rounded-xl bg-amber-50" transition={{ type: "spring", stiffness: 400, damping: 30 }} />
+                        )}
+                        <span className={`relative text-[12px] font-bold uppercase tracking-[0.2em] transition-colors duration-200 ${active ? "text-amber-600" : "text-stone-700 hover:text-stone-900"}`}
+                          style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
+                          {link.label}
+                        </span>
+                        <svg className={`relative w-3 h-3 transition-transform duration-200 ${productsDropdown ? "rotate-180 text-amber-600" : "text-stone-400"}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                        </svg>
+                        {active && (
+                          <motion.span layoutId="nav-dot" className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-amber-500" transition={{ type: "spring", stiffness: 500, damping: 30 }} />
+                        )}
+                      </Link>
+                      {/* Dropdown */}
+                      {productsDropdown && (
+                        <div className="absolute top-full left-0 pt-2 z-50">
+                          <div className="bg-white rounded-xl border border-stone-200/80 shadow-xl p-2 min-w-[200px]">
+                            {[
+                              { label: "Wood Coatings", href: "/products/wood", color: "#16a34a" },
+                              { label: "Metal Coatings", href: "/products/metal", color: "#d97706" },
+                              { label: "Glass & Plastic", href: "/products/glass", color: "#0891b2" },
+                            ].map((sub) => (
+                              <Link key={sub.href} href={sub.href} onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
+                                className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-stone-50 transition-colors">
+                                <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: sub.color }} />
+                                <span className="text-[12px] font-semibold text-stone-600 hover:text-stone-900 transition-colors">{sub.label}</span>
+                              </Link>
+                            ))}
+                            <div className="border-t border-stone-100 mt-1 pt-1">
+                              <Link href="/products" onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
+                                className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-amber-50 transition-colors">
+                                <span className="text-[11px] font-bold text-amber-600">View All Products →</span>
+                              </Link>
+                            </div>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                }
+
                 return (
                   <Link
                     key={link.href}
