@@ -93,14 +93,14 @@ function ComparisonSlider({ beforeSrc, afterSrc }: { beforeSrc: string; afterSrc
       onTouchEnd={handleMouseUp}
     >
       {/* After image (full background) */}
-      <img src={afterSrc} alt="After coating" className="absolute inset-0 w-full h-full object-contain bg-stone-100" draggable={false} />
+      <img src={afterSrc} alt="After coating" className="absolute inset-0 w-full h-full object-cover" draggable={false} />
 
       {/* Before image (clipped by slider) */}
       <div className="absolute inset-0 overflow-hidden" style={{ width: `${sliderPos}%` }}>
         <img
           src={beforeSrc}
           alt="Before coating"
-          className="absolute inset-0 h-full object-contain bg-stone-100"
+          className="absolute inset-0 h-full object-cover"
           style={{ width: `${containerRef.current ? containerRef.current.offsetWidth : 1000}px`, maxWidth: "none" }}
           draggable={false}
         />
@@ -182,7 +182,7 @@ export default function BeforeAfterPage() {
           transition={{ duration: 0.4 }}
           className="mb-12"
         >
-          <div className="relative w-full  h-[50vh] sm:h-[55vh] lg:h-[65vh] max-h-[600px] rounded-2xl overflow-hidden shadow-2xl border border-stone-200/50">
+          <div className="relative w-full h-[55vh] sm:h-[60vh] lg:h-[70vh] max-h-[650px] rounded-2xl overflow-hidden shadow-2xl">
             <ComparisonSlider beforeSrc={current.before} afterSrc={current.after} />
           </div>
 
