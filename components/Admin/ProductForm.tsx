@@ -13,6 +13,7 @@ const STEPS = [
   { key: "basic", label: "Basic Info", icon: "1" },
   { key: "details", label: "Description & Features", icon: "2" },
   { key: "technical", label: "Technical Data", icon: "3" },
+  { key: "gallery", label: "Product Gallery", icon: "4" },
 ];
 
 function TechPropsEditor({ label, items, onChange }: { label: string; items: TechProp[]; onChange: (items: TechProp[]) => void }) {
@@ -60,6 +61,9 @@ export default function ProductForm({ productId, onSaved, onCancel }: Props) {
   const [applicationProperties, setApplicationProperties] = useState<TechProp[]>([]);
   const [filmProperties, setFilmProperties] = useState<TechProp[]>([]);
   const [delivery, setDelivery] = useState<TechProp[]>([]);
+  const [gallery, setGallery] = useState<{ url: string; name: string }[]>([]);
+  const [galleryUploading, setGalleryUploading] = useState(false);
+  const [galleryProgress, setGalleryProgress] = useState({ current: 0, total: 0 });
 
   // Load existing product data for editing
   useEffect(() => {
@@ -73,6 +77,7 @@ export default function ProductForm({ productId, onSaved, onCancel }: Props) {
         setRecommendedUse(p.recommendedUse || ""); setApplicationGuidelines(p.applicationGuidelines || "");
         setInCanProperties(p.inCanProperties || []); setApplicationProperties(p.applicationProperties || []);
         setFilmProperties(p.filmProperties || []); setDelivery(p.delivery || []);
+        setGallery((p as any).gallery || []);
       }
     }
   }, [productId, products]);
@@ -109,6 +114,7 @@ export default function ProductForm({ productId, onSaved, onCancel }: Props) {
         applicationProperties: applicationProperties.filter(p => p.label && p.value),
         filmProperties: filmProperties.filter(p => p.label && p.value),
         delivery: delivery.filter(p => p.label && p.value),
+        gallery,
         active: true,
       };
       if (productId) await updateProduct(productId, productData);
@@ -282,6 +288,92 @@ export default function ProductForm({ productId, onSaved, onCancel }: Props) {
             <TechPropsEditor label="Delivery Information" items={delivery} onChange={setDelivery} />
           </div>
         )}
+
+        {/* STEP 4: Gallery */}
+        {step === 3 && (
+          <div className="space-y-5">
+            <div>
+              <h3 className="text-lg font-bold text-stone-800 mb-1">Product Gallery</h3>
+              <p className="text-sm text-stone-400 mb-6">Upload up to 30 product images with names (drag & drop or click)</p>
+            </div>
+
+            {/* Upload area */}
+            {gallery.length < 30 && (
+              <label className={`flex flex-col items-center justify-center gap-3 p-8 border-2 border-dashed rounded-2xl transition-all ${galleryUploading ? "border-amber-400 bg-amber-50/30 pointer-events-none" : "border-stone-300 hover:border-amber-400 hover:bg-amber-50/30 cursor-pointer"}`}>
+                {galleryUploading ? (
+                  <>
+                    <div className="w-10 h-10 border-3 border-amber-500 border-t-transparent rounded-full animate-spin" />
+                    <span className="text-sm font-semibold text-amber-700">Uploading {galleryProgress.current}/{galleryProgress.total}</span>
+                    {/* Progress bar */}
+                    <div className="w-48 h-2 bg-stone-200 rounded-full overflow-hidden">
+                      <div className="h-full bg-amber-500 rounded-full transition-all duration-300" style={{ width: `${galleryProgress.total > 0 ? (galleryProgress.current / galleryProgress.total) * 100 : 0}%` }} />
+                    </div>
+                    <span className="text-xs text-stone-400">Please wait...</span>
+                  </>
+                ) : (
+                  <>
+                    <svg className="w-8 h-8 text-stone-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                    </svg>
+                    <span className="text-sm font-medium text-stone-500">Click to upload images (multiple allowed)</span>
+                    <span className="text-xs text-stone-400">{gallery.length}/30 images uploaded</span>
+                  </>
+                )}
+                <input type="file" accept="image/*" multiple className="hidden" disabled={galleryUploading} onChange={async (e) => {
+                  const files = e.target.files;
+                  if (!files || files.length === 0) return;
+                  const totalToUpload = Math.min(files.length, 30 - gallery.length);
+                  setGalleryUploading(true);
+                  setGalleryProgress({ current: 0, total: totalToUpload });
+                  const newImages: { url: string; name: string }[] = [];
+                  for (let i = 0; i < totalToUpload; i++) {
+                    setGalleryProgress({ current: i + 1, total: totalToUpload });
+                    try {
+                      const fd = new FormData();
+                      fd.append("file", files[i]);
+                      fd.append("folder", "kmopl-products/gallery");
+                      const res = await fetch("/api/upload", { method: "POST", body: fd });
+                      const data = await res.json();
+                      if (data.url) newImages.push({ url: data.url, name: files[i].name.replace(/\.[^/.]+$/, "") });
+                    } catch {}
+                  }
+                  setGallery([...gallery, ...newImages]);
+                  setGalleryUploading(false);
+                  setGalleryProgress({ current: 0, total: 0 });
+                }} />
+              </label>
+            )}
+
+            {/* Gallery preview grid */}
+            {gallery.length > 0 && (
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {gallery.map((img, i) => (
+                  <div key={i} className="relative group rounded-xl overflow-hidden border border-stone-200 bg-stone-50">
+                    <img src={img.url} alt={img.name} className="w-full h-28 object-cover" />
+                    {/* Remove button */}
+                    <button type="button" onClick={() => setGallery(gallery.filter((_, idx) => idx !== i))}
+                      className="absolute top-2 right-2 w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity shadow-md">
+                      ✕
+                    </button>
+                    {/* Name input */}
+                    <div className="p-2">
+                      <input
+                        value={img.name}
+                        onChange={(e) => { const updated = [...gallery]; updated[i] = { ...updated[i], name: e.target.value }; setGallery(updated); }}
+                        placeholder="Image name"
+                        className="w-full px-2 py-1.5 text-xs border border-stone-200 rounded-lg bg-white focus:outline-none focus:ring-1 focus:ring-amber-300"
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+
+            {gallery.length === 0 && (
+              <p className="text-center text-sm text-stone-400 py-4">No gallery images uploaded yet.</p>
+            )}
+          </div>
+        )}
       </div>
 
       {/* Navigation buttons */}
@@ -296,7 +388,7 @@ export default function ProductForm({ productId, onSaved, onCancel }: Props) {
         </div>
         <div className="flex items-center gap-3">
           <button onClick={onCancel} className="px-5 py-2.5 text-sm font-semibold text-stone-500 hover:text-stone-700 transition-colors">Cancel</button>
-          {step < 2 ? (
+          {step < 3 ? (
             <button onClick={() => setStep(step + 1)} className="flex items-center gap-2 px-6 py-2.5 bg-stone-800 text-white rounded-xl text-sm font-semibold hover:bg-stone-700 transition-colors shadow-md">
               Next Step
               <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>

@@ -1169,6 +1169,32 @@ export default function ProductDetailPage() {
         </AnimatePresence>
       </section>
 
+      {/* ═══ PRODUCT GALLERY ═══ */}
+      {product.gallery && product.gallery.length > 0 && (
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
+          <div className="flex items-center gap-3 mb-6">
+            <div className="w-1.5 h-8 rounded-full bg-amber-500" />
+            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-stone-800" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
+              Product Gallery
+            </h2>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
+            {product.gallery.map((img, i) => (
+              <motion.div key={i} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}
+                className="relative group overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all">
+                <img src={img.url} alt={img.name || `Gallery ${i + 1}`} className="w-full h-36 sm:h-40 object-cover group-hover:scale-105 transition-transform duration-500" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                {img.name && (
+                  <div className="absolute bottom-0 left-0 right-0 p-2.5 bg-linear-to-t from-black/70 to-transparent">
+                    <span className="text-[11px] font-semibold text-white drop-shadow-sm">{img.name}</span>
+                  </div>
+                )}
+              </motion.div>
+            ))}
+          </div>
+        </section>
+      )}
+
       {/* ═══ PRODUCT BENEFITS ═══ */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
         <div

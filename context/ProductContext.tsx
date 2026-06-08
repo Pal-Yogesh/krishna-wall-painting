@@ -20,6 +20,7 @@ export interface Product {
   image: string;
   imageFront: string;
   imageBack: string;
+  gallery: { url: string; name: string }[];
   recommendedUse: string;
   applicationGuidelines: string;
   inCanProperties: TechnicalProperty[];
