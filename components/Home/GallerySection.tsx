@@ -1,21 +1,28 @@
 "use client";
 
+import { useRef, useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { EffectCards } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/effect-cards";
 
+if (typeof window !== "undefined") {
+  gsap.registerPlugin(ScrollTrigger);
+}
+
 const GALLERY_ITEMS = [
-  { category: "Manufacturing Plant", title: "Production Facility", color: "#d97706", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426394/kmopl-gallery/vyt2gejregacju984dtd.jpg" },
-  { category: "Product Showcase", title: "Specialty Coatings", color: "#0891b2", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426396/kmopl-gallery/uhy67apojoclxgcjupeh.jpg" },
-  { category: "Team Events", title: "Annual Meet 2024", color: "#16a34a", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426398/kmopl-gallery/jgecgnnrttkvjfuh3tzn.jpg" },
-  { category: "Manufacturing Plant", title: "Quality Lab", color: "#7c3aed", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426401/kmopl-gallery/u4kvt2avzjgiairz4hrh.jpg" },
-  { category: "Product Showcase", title: "Metallic Finishes", color: "#be185d", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426411/kmopl-gallery/qhu5a9okvwdavwquu0jp.jpg" },
-  { category: "Team Events", title: "Training Workshop", color: "#ea580c", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426413/kmopl-gallery/nmiefq0mvbdorpab6ydx.jpg" },
-  { category: "Manufacturing Plant", title: "Coating Line", color: "#d97706", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426419/kmopl-gallery/pdqv4fb4zersjxfbvmai.jpg" },
-  { category: "Product Showcase", title: "Wood Finishes", color: "#16a34a", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426423/kmopl-gallery/vgs27kg1va27hl7qftvy.jpg" },
+{ category: "Head", title: "Director", color: "#d97706", gradient: "linear-gradient(135deg, #f59e0b20, #d9770640)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426456/kmopl-gallery/njivu2s6yogwmpvipicl.jpg" },
+  { category: "Head", title: "Director", color: "#16a34a", gradient: "linear-gradient(135deg, #16a34a20, #15803d40)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426454/kmopl-gallery/vdbibnxl8wj3q7wrz8ct.jpg" },
+  { category: "Manufacturing Plant", title: "Quality Lab", color: "#7c3aed", gradient: "linear-gradient(135deg, #7c3aed20, #6d28d940)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426446/kmopl-gallery/kwuwjyjy3iclquyb4mz4.jpg" },
+  { category: "Product Brand", title: "KMOPL", color: "#be185d", gradient: "linear-gradient(135deg, #be185d20, #9d174d40)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426444/kmopl-gallery/d6u6sxziccmym4pphrmj.jpg" },
+  { category: "Events", title: "Training Workshop", color: "#ea580c", gradient: "linear-gradient(135deg, #ea580c20, #c2410c40)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426440/kmopl-gallery/oy02cwt9b1x7ygto57d5.jpg" },
+  { category: "Product Team", title: "Team", color: "#0891b2", gradient: "linear-gradient(135deg, #0891b220, #06748540)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426461/kmopl-gallery/wtlufvbueql2f6fzqxsn.jpg" },
+  { category: "Product Showcase", title: "Speciality Coatings", color: "#0891b2", gradient: "linear-gradient(135deg, #0891b220, #06748540)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426463/kmopl-gallery/awnaaotvvt9r5grl2rzz.jpg" },
+
 ];
 
 function GalleryCard({ item }: { item: typeof GALLERY_ITEMS[number] }) {
@@ -34,6 +41,41 @@ function GalleryCard({ item }: { item: typeof GALLERY_ITEMS[number] }) {
 
 export default function GallerySection() {
   const doubledItems = [...GALLERY_ITEMS, ...GALLERY_ITEMS];
+  const sectionRef = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+
+  // GSAP horizontal scroll - desktop only
+  useEffect(() => {
+    const section = sectionRef.current;
+    const track = trackRef.current;
+    if (!section || !track) return;
+    if (window.innerWidth < 1024) return;
+
+    const getScrollAmount = () => -(track.scrollWidth - window.innerWidth);
+
+    const timer = setTimeout(() => {
+      const ctx = gsap.context(() => {
+        gsap.to(track, {
+          x: getScrollAmount,
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: () => `+=${track.scrollWidth - window.innerWidth}`,
+            pin: true,
+            pinSpacing: true,
+            scrub: 1,
+            invalidateOnRefresh: true,
+            anticipatePin: 1,
+          },
+        });
+      }, section);
+
+      return () => ctx.revert();
+    }, 200);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <>
@@ -82,47 +124,68 @@ export default function GallerySection() {
         </div>
       </section>
 
-      {/* ═══ DESKTOP: Auto-scrolling marquee ═══ */}
-      <section className="hidden lg:block relative py-14 overflow-hidden" style={{ background: "linear-gradient(180deg, #fefdfb 0%, #fdfbf7 100%)" }}>
-        <div className="max-w-6xl mx-auto px-8 mb-10">
-          <div className="flex items-center justify-between">
-            <div>
-              <span className="inline-block px-4 py-1.5 bg-amber-100 text-amber-700 text-xs font-bold uppercase tracking-[0.2em] rounded-full mb-4">
+      {/* ═══ DESKTOP: GSAP Horizontal Scroll ═══ */}
+      <div className="hidden lg:block" id="gallery-wrapper">
+        <section
+          ref={sectionRef}
+          className="relative overflow-hidden"
+          style={{ background: "linear-gradient(180deg, #fefdfb 0%, #fdfbf7 100%)" }}
+        >
+          <div ref={trackRef} className="flex items-center gap-6 px-20 h-screen w-max">
+            {/* Heading panel */}
+            <div className="shrink-0 w-[35vw] flex flex-col justify-center pr-8">
+              <span className="inline-block px-4 py-1.5 bg-amber-100 text-amber-700 text-xs font-bold uppercase tracking-[0.2em] rounded-full mb-5 w-fit">
                 Gallery
               </span>
-              <h2 className="text-2xl font-bold text-stone-900 leading-tight" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
+              <h2 className="text-[clamp(2rem,4vw,3rem)] font-bold text-stone-900 leading-tight"
+                style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.02em" }}>
                 A Glimpse Into{" "}
                 <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #d97706, #f59e0b)" }}>Our World</span>
               </h2>
+              <p className="mt-4 text-stone-500 text-[15px] leading-relaxed max-w-sm" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
+                From our manufacturing plant to team events and product showcases — scroll to explore.
+              </p>
+              <div className="mt-6 flex items-center gap-2 text-amber-600">
+                <span className="text-xs font-bold uppercase tracking-wider">Scroll</span>
+                <svg className="w-5 h-5 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </div>
             </div>
-            <Link href="/gallery" className="flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-bold text-white shadow-md hover:shadow-lg transition-all"
-              style={{ background: "linear-gradient(135deg, #292524, #1c1917)" }}>
-              View Gallery
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-              </svg>
-            </Link>
-          </div>
-        </div>
 
-        {/* Marquee */}
-        <div className="relative">
-          <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, #fdfbf7, transparent)" }} />
-          <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, #fdfbf7, transparent)" }} />
-
-          <motion.div
-            animate={{ x: [0, -(GALLERY_ITEMS.length * 340)] }}
-            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-            className="flex gap-5 w-max"
-          >
-            {doubledItems.map((item, i) => (
-              <div key={`desktop-${i}`} className="shrink-0 w-[350px] h-[320px] rounded-2xl overflow-hidden shadow-lg">
+            {/* Gallery cards */}
+            {GALLERY_ITEMS.map((item, i) => (
+              <div key={`desktop-${item.title}-${i}`} className="shrink-0 w-[30vw] h-[70vh] rounded-2xl overflow-hidden shadow-lg">
                 <GalleryCard item={item} />
               </div>
             ))}
-          </motion.div>
-        </div>
-      </section>
+
+            {/* CTA panel */}
+            <div className="shrink-0 w-[30vw] h-[70vh] flex flex-col items-center justify-center px-8">
+              <div className="text-center">
+                <div className="w-16 h-16 rounded-2xl mx-auto mb-5 flex items-center justify-center"
+                  style={{ background: "linear-gradient(135deg, #f59e0b20, #d9770640)", border: "1.5px solid #f59e0b40" }}>
+                  <svg className="w-7 h-7 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </div>
+                <h4 className="text-xl font-bold text-stone-900 mb-3" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>See More</h4>
+                <p className="text-sm text-stone-500 mb-6 max-w-xs">
+                  Visit our gallery for a complete look at our facilities, products, and team.
+                </p>
+                <Link href="/gallery"
+                  className="inline-flex items-center gap-2 px-7 py-3.5 rounded-xl text-white font-bold text-sm shadow-lg shadow-stone-900/15 transition-all hover:shadow-xl"
+                  style={{ background: "linear-gradient(135deg, #292524, #1c1917)", fontFamily: "var(--font-raleway), sans-serif" }}>
+                  View Full Gallery
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
     </>
   );
 }

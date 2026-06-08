@@ -2,16 +2,14 @@
 
 export default function VideoShowcase() {
   return (
-    <section className="relative w-full"
-          style={{ background: "linear-gradient(180deg, #fefdfb 0%, #fdfbf7 100%)" }}
-    >
+    <section className="relative w-full overflow-hidden" style={{ height: "60vh", maxHeight: "500px" }}>
       <video
-        src="https://res.cloudinary.com/dxfkygu6e/video/upload/v1780423729/WhatsApp_Video_2026-06-02_at_4.36.05_PM_ugqvt8.mp4"
+        src="https://res.cloudinary.com/dxfkygu6e/video/upload/v1780937493/WhatsApp_Video_2026-06-06_at_2.45.24_PM_ksxcjg.mp4"
         autoPlay
         muted
         loop
         playsInline
-        className="w-full h-[70vh] object-contain"
+        className="absolute inset-0 w-full h-full object-cover"
       />
     </section>
   );
