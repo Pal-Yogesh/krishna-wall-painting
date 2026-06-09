@@ -197,6 +197,7 @@ export default function ProductDetailPage() {
   const { products, loading } = useProducts();
   const product = products.find((p) => p.id === productId);
   const [activeTab, setActiveTab] = useState<TabKey>("overview");
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   if (!info || (loading ? false : !product)) {
     if (loading) {
@@ -1181,9 +1182,18 @@ export default function ProductDetailPage() {
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
             {product.gallery.map((img, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }}
-                className="relative group overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all">
+                className="relative group overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all cursor-pointer"
+                onClick={() => setLightboxIndex(i)}>
                 <img src={img.url} alt={img.name || `Gallery ${i + 1}`} className="w-full h-36 sm:h-40 object-cover group-hover:scale-105 transition-transform duration-500" />
                 <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                {/* Zoom icon */}
+                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                  <div className="w-9 h-9 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
+                    <svg className="w-4 h-4 text-stone-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
+                    </svg>
+                  </div>
+                </div>
                 {img.name && (
                   <div className="absolute bottom-0 left-0 right-0 p-2.5 bg-linear-to-t from-black/70 to-transparent">
                     <span className="text-[11px] font-semibold text-white drop-shadow-sm">{img.name}</span>
@@ -1194,6 +1204,46 @@ export default function ProductDetailPage() {
           </div>
         </section>
       )}
+
+      {/* ═══ GALLERY LIGHTBOX ═══ */}
+      <AnimatePresence>
+        {lightboxIndex !== null && product.gallery && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4"
+            onClick={() => setLightboxIndex(null)}
+          >
+            {/* Close */}
+            <button onClick={() => setLightboxIndex(null)} className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white z-50">
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+            </button>
+            {/* Previous */}
+            <button onClick={(e) => { e.stopPropagation(); setLightboxIndex((lightboxIndex - 1 + product.gallery.length) % product.gallery.length); }}
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white z-50">
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+            </button>
+            {/* Next */}
+            <button onClick={(e) => { e.stopPropagation(); setLightboxIndex((lightboxIndex + 1) % product.gallery.length); }}
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white z-50">
+              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+            </button>
+            {/* Image */}
+            <motion.div key={lightboxIndex} initial={{ opacity: 0, scale: 0.9 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: 0.9 }}
+              className="flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+              <img src={product.gallery[lightboxIndex].url} alt={product.gallery[lightboxIndex].name || ""} className="max-w-[90vw] max-h-[75vh] object-contain rounded-xl shadow-2xl" />
+              {product.gallery[lightboxIndex].name && (
+                <p className="mt-3 text-white text-sm font-medium">{product.gallery[lightboxIndex].name}</p>
+              )}
+            </motion.div>
+            {/* Counter */}
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 rounded-full bg-white/10 text-white text-sm font-medium">
+              {lightboxIndex + 1} / {product.gallery.length}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* ═══ PRODUCT BENEFITS ═══ */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
