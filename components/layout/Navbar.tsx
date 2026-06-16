@@ -17,6 +17,7 @@ const NAV_LINKS = [
   { label: "Products",    href: "/products",      sectionId: "" },
   { label: "Gallery",     href: "/gallery",       sectionId: "" },
   { label: "About Us",    href: "/about",        sectionId: "about" },
+  { label: "Visualizer",    href: "/wood-panel-visualizer",        sectionId: "" },
 ];
 
 const SECTION_IDS = ["about"];
