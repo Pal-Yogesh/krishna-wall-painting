@@ -5,108 +5,23 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 
 const WOOD_PANELS = [
-  {
-    id: 1,
-    name: "Classic Walnut",
-    image: "/WOOD-PANNEL/1-CLASSIC WALNUT.png",
-    color: "#5C3A1E",
-  },
-  {
-    id: 2,
-    name: "Dark Walnut",
-    image: "/WOOD-PANNEL/2-DARK WALNUT.png",
-    color: "#3B2210",
-  },
-  {
-    id: 3,
-    name: "Royal Teak",
-    image: "/WOOD-PANNEL/3-ROYAL TEAK.jpg",
-    color: "#8B5E3C",
-  },
-  {
-    id: 4,
-    name: "Natural Maple",
-    image: "/WOOD-PANNEL/4-NATURAL MAPLE.jpg",
-    color: "#C4A56E",
-  },
-  {
-    id: 5,
-    name: "Light Oak",
-    image: "/WOOD-PANNEL/5-LIGHT OAK.jpg",
-    color: "#D4B078",
-  },
-  {
-    id: 6,
-    name: "Golden Teak",
-    image: "/WOOD-PANNEL/6-GOLDEN TEAK.jpg",
-    color: "#A87D3E",
-  },
-  {
-    id: 7,
-    name: "Rustic Brown",
-    image: "/WOOD-PANNEL/7-RUSTIC BROWN.png",
-    color: "#6B4226",
-  },
-  {
-    id: 8,
-    name: "Coffee Brown",
-    image: "/WOOD-PANNEL/8-COFFEE BROWN.jpg",
-    color: "#4A2C17",
-  },
-  {
-    id: 9,
-    name: "Rich Mahogany",
-    image: "/WOOD-PANNEL/9-RICH MAHOGANY.png",
-    color: "#6B1C1C",
-  },
-  {
-    id: 10,
-    name: "Vintage Oak",
-    image: "/WOOD-PANNEL/10-VINTAGE OAK.jpg",
-    color: "#8C7254",
-  },
-  {
-    id: 11,
-    name: "Warm Chestnut",
-    image: "/WOOD-PANNEL/11-WARM CHESTNUT.jpg",
-    color: "#7B4B2A",
-  },
-  {
-    id: 12,
-    name: "Honey Teak",
-    image: "/WOOD-PANNEL/12-HONEY TEAK.jpg",
-    color: "#C08B3E",
-  },
-  {
-    id: 13,
-    name: "Natural Wood",
-    image: "/WOOD-PANNEL/13-NATURAL WOOD.jpg",
-    color: "#B8956A",
-  },
-  {
-    id: 14,
-    name: "Soft Maple",
-    image: "/WOOD-PANNEL/14-SOFT MAPLE.png",
-    color: "#E0C8A0",
-  },
-  {
-    id: 15,
-    name: "Smoky Walnut",
-    image: "/WOOD-PANNEL/15-SMOKY WALNUT.png",
-    color: "#5A4030",
-  },
-  {
-    id: 16,
-    name: "Desert Oak",
-    image: "/WOOD-PANNEL/16-DESERT OAK.png",
-    color: "#9E8060",
-  },
-  {
-    id: 18,
-    name: "Grey Ash",
-    image: "/WOOD-PANNEL/18-GREY ASH.png",
-    color: "#8A8A80",
-  },
+  { id: 1, name: "Classic Walnut", image: "/WOOD-PANNEL/1-CLASSIC WALNUT.png", swatch: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0001.jpg", color: "#5C3A1E" },
+  { id: 2, name: "Dark Walnut", image: "/WOOD-PANNEL/2-DARK WALNUT.png", swatch: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0002.jpg", color: "#3B2210" },
+  { id: 3, name: "Royal Teak", image: "/WOOD-PANNEL/3-ROYAL TEAK.jpg", swatch: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0003.jpg", color: "#8B5E3C" },
+  { id: 4, name: "Natural Maple", image: "/WOOD-PANNEL/4-NATURAL MAPLE.jpg", swatch: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0004.jpg", color: "#C4A56E" },
+  { id: 5, name: "Light Oak", image: "/WOOD-PANNEL/5-LIGHT OAK.jpg", swatch: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0005.jpg", color: "#D4B078" },
+  { id: 6, name: "Golden Teak", image: "/WOOD-PANNEL/6-GOLDEN TEAK.jpg", swatch: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0006.jpg", color: "#A87D3E" },
+  { id: 7, name: "Rustic Brown", image: "/WOOD-PANNEL/7-RUSTIC BROWN.png", swatch: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0007.jpg", color: "#6B4226" },
+  { id: 8, name: "Coffee Brown", image: "/WOOD-PANNEL/8-COFFEE BROWN.jpg", swatch: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0008.jpg", color: "#4A2C17" },
+  { id: 9, name: "Rich Mahogany", image: "/WOOD-PANNEL/9-RICH MAHOGANY.png", swatch: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0009.jpg", color: "#6B1C1C" },
+  { id: 10, name: "Vintage Oak", image: "/WOOD-PANNEL/10-VINTAGE OAK.jpg", swatch: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0010.jpg", color: "#8C7254" },
+  { id: 11, name: "Warm Chestnut", image: "/WOOD-PANNEL/11-WARM CHESTNUT.jpg", swatch: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0011.jpg", color: "#7B4B2A" },
+  { id: 12, name: "Honey Teak", image: "/WOOD-PANNEL/12-HONEY TEAK.jpg", swatch: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0012.jpg", color: "#C08B3E" },
+  { id: 13, name: "Natural Wood", image: "/WOOD-PANNEL/13-NATURAL WOOD.jpg", swatch: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0013.jpg", color: "#B8956A" },
+  { id: 14, name: "Soft Maple", image: "/WOOD-PANNEL/14-SOFT MAPLE.png", swatch: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0014.jpg", color: "#E0C8A0" },
+  { id: 15, name: "Smoky Walnut", image: "/WOOD-PANNEL/15-SMOKY WALNUT.png", swatch: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0015.jpg", color: "#5A4030" },
+  { id: 16, name: "Desert Oak", image: "/WOOD-PANNEL/16-DESERT OAK.png", swatch: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0016.jpg", color: "#9E8060" },
+  { id: 18, name: "Grey Ash", image: "/WOOD-PANNEL/18-GREY ASH.png", swatch: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0018.jpg", color: "#8A8A80" },
 ];
 
 export default function WoodPanelVisualizer() {
@@ -169,8 +84,9 @@ export default function WoodPanelVisualizer() {
                       ? "border-amber-500 scale-110 shadow-xl shadow-amber-200/50"
                       : "border-stone-300 hover:border-stone-400 hover:scale-105"
                   }`}
-                  style={{ background: panel.color }}
-                ></div>
+                >
+                  <img src={panel.swatch} alt={panel.name} className="w-full h-full object-cover" />
+                </div>
                 <span
                   className={`text-[11px] font-semibold whitespace-nowrap transition-colors ${
                     activePanel === i ? "text-amber-700" : "text-stone-500"
