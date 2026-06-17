@@ -23,24 +23,24 @@ import { useToast } from "@/context/Toast";
 const ROOM_TYPES = ["Living Room", "Bedroom", "Kitchen", "Bathroom", "Office", "Kids Room", "Dining Room", "Other"];
 
 const COLOR_OPTIONS = [
-  { hex: "#C1623F", name: "Terracotta"   },
-  { hex: "#7BB8D4", name: "Ocean Breeze" },
-  { hex: "#8FAF7E", name: "Sage Leaf"    },
-  { hex: "#5C3A5E", name: "Velvet Plum"  },
-  { hex: "#D4A017", name: "Golden Hour"  },
-  { hex: "#2C3E6B", name: "Midnight Navy"},
-  { hex: "#D4B896", name: "Sandy Beige"  },
-  { hex: "#355E3B", name: "Hunter Green" },
-  { hex: "#D4898A", name: "Dusty Rose"   },
-  { hex: "#4A4A4A", name: "Charcoal"     },
-  { hex: "#1A6B73", name: "Teal Depth"   },
-  { hex: "#B8956A", name: "Driftwood"    },
+  { hex: "#5C3A1E", name: "Classic Walnut" },
+  { hex: "#3B2210", name: "Dark Walnut" },
+  { hex: "#8B5E3C", name: "Royal Teak" },
+  { hex: "#C4A56E", name: "Natural Maple" },
+  { hex: "#D4B078", name: "Light Oak" },
+  { hex: "#A87D3E", name: "Golden Teak" },
+  { hex: "#6B4226", name: "Rustic Brown" },
+  { hex: "#4A2C17", name: "Coffee Brown" },
+  { hex: "#6B1C1C", name: "Rich Mahogany" },
+  { hex: "#8C7254", name: "Vintage Oak" },
+  { hex: "#7B4B2A", name: "Warm Chestnut" },
+  { hex: "#C08B3E", name: "Honey Teak" },
 ];
 
 const TRUST_POINTS = [
   { icon: "⚡", title: "24h Callback",     desc: "Our team calls back within one business day." },
   { icon: "🔒", title: "No Spam",          desc: "Your details are never shared with third parties." },
-  { icon: "🎨", title: "Expert Advice",    desc: "Get personalised shade suggestions from our team." },
+  { icon: "🎨", title: "Expert Advice",    desc: "Get personalised coating suggestions from our team." },
   { icon: "💯", title: "Zero Obligation",  desc: "Just an enquiry — no purchase commitment needed." },
 ];
 
@@ -255,17 +255,7 @@ export default function EnquiryLeadForm() {
             className="relative p-10 flex flex-col justify-between gap-8"
             style={{ background: "linear-gradient(160deg, #292524 0%, #1c1917 100%)" }}
           >
-            {/* Paint swatch strip */}
-            <div className="flex gap-1.5 flex-wrap">
-              {COLOR_OPTIONS.slice(0, 8).map(c => (
-                <div
-                  key={c.hex}
-                  className="w-5 h-5 rounded-full border-2 border-white/20 flex-shrink-0"
-                  style={{ backgroundColor: c.hex }}
-                  title={c.name}
-                />
-              ))}
-            </div>
+           
 
             {/* Headline */}
             <div>
@@ -273,11 +263,11 @@ export default function EnquiryLeadForm() {
                 className="text-[1.75rem] font-bold text-white leading-tight mb-3"
                 style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.03em" }}
               >
-                Let's Paint Your World{" "}
+                Let's Coat Your World{" "}
                 <span style={{ color: "#f59e0b" }}>Right.</span>
               </h3>
               <p className="text-sm text-white/45 leading-relaxed" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
-                Our colour consultants have helped 500+ Indian families find their perfect shade. You're next.
+                Our coating consultants have helped 500+ clients find their perfect finish. You're next.
               </p>
             </div>
 
@@ -300,25 +290,7 @@ export default function EnquiryLeadForm() {
               ))}
             </div>
 
-            {/* Mini testimonial */}
-            {/* <div
-              className="rounded-2xl p-4"
-              style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.08)" }}
-            >
-              <div className="flex gap-0.5 mb-2">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} className="w-3 h-3" viewBox="0 0 12 12" fill="#f59e0b">
-                    <path d="M6 1l1.5 3 3.5.5-2.5 2.5.5 3.5L6 9l-3 1.5.5-3.5L1 4.5 4.5 4z"/>
-                  </svg>
-                ))}
-              </div>
-              <p className="text-xs text-white/55 leading-relaxed italic" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
-                "Submitted the form on a Tuesday night — got a call Wednesday morning. The team helped us pick the perfect shade for our drawing room."
-              </p>
-              <p className="text-xs font-bold text-white/40 mt-2">— Meena R., Bangalore</p>
-            </div> */}
-
-            {/* Decorative corner circle */}
+          
             <div
               className="absolute -bottom-16 -right-16 w-40 h-40 rounded-full opacity-10"
               style={{ background: "radial-gradient(circle, #f59e0b 0%, transparent 70%)" }}
@@ -448,54 +420,6 @@ export default function EnquiryLeadForm() {
                         <p className="text-xs text-red-500 mt-1.5 ml-1 font-semibold">⚠ {errors.roomType}</p>
                       )}
                     </div>
-                  </div>
-
-                  {/* Color interest swatches */}
-                  <div className="mt-5">
-                    <p className="text-xs font-bold uppercase tracking-[0.12em] text-stone-400 mb-3">
-                      Interested Shade <span className="normal-case font-normal">(optional)</span>
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {COLOR_OPTIONS.map(c => (
-                        <button
-                          key={c.hex}
-                          type="button"
-                          onClick={() => setField("colorInterest")(form.colorInterest === c.name ? "" : c.name)}
-                          title={c.name}
-                          className="relative flex-shrink-0 transition-all duration-200"
-                        >
-                          <div
-                            className="w-8 h-8 rounded-full border-2 transition-all duration-200"
-                            style={{
-                              backgroundColor: c.hex,
-                              borderColor: form.colorInterest === c.name ? "#1c1917" : "transparent",
-                              boxShadow: form.colorInterest === c.name ? `0 0 0 2px ${c.hex}` : "none",
-                              transform: form.colorInterest === c.name ? "scale(1.2)" : "scale(1)",
-                            }}
-                          />
-                          {form.colorInterest === c.name && (
-                            <motion.span
-                              initial={{ scale: 0 }}
-                              animate={{ scale: 1 }}
-                              className="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-stone-900 flex items-center justify-center"
-                            >
-                              <svg className="w-2 h-2" viewBox="0 0 8 8" fill="none">
-                                <path d="M1.5 4l2 2 3-3" stroke="white" strokeWidth="1.2" strokeLinecap="round"/>
-                              </svg>
-                            </motion.span>
-                          )}
-                        </button>
-                      ))}
-                    </div>
-                    {form.colorInterest && (
-                      <motion.p
-                        initial={{ opacity: 0, y: -4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        className="text-xs text-amber-600 font-semibold mt-2 ml-0.5"
-                      >
-                        Selected: {form.colorInterest}
-                      </motion.p>
-                    )}
                   </div>
 
                   {/* Message */}
