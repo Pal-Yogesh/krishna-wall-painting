@@ -27,7 +27,7 @@ const GALLERY_ITEMS = [
 
 function GalleryCard({ item }: { item: typeof GALLERY_ITEMS[number] }) {
   return (
-    <div className="relative rounded-2xl overflow-hidden group h-full">
+    <div className="relative overflow-hidden group h-full">
       <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
       <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
       <div className="absolute top-0 left-0 right-0 h-1" style={{ background: `linear-gradient(90deg, ${item.color}, ${item.color}60)` }} />
@@ -131,9 +131,9 @@ export default function GallerySection() {
           className="relative overflow-hidden"
           style={{ background: "linear-gradient(180deg, #fefdfb 0%, #fdfbf7 100%)" }}
         >
-          <div ref={trackRef} className="flex items-center gap-6 px-20 h-screen w-max">
+          <div ref={trackRef} className="flex items-center gap-0 px-0 h-screen w-max">
             {/* Heading panel */}
-            <div className="shrink-0 w-[35vw] flex flex-col justify-center pr-8">
+            <div className="shrink-0 w-[35vw] flex flex-col justify-center px-16">
               <span className="inline-block px-4 py-1.5 bg-amber-100 text-amber-700 text-xs font-bold uppercase tracking-[0.2em] rounded-full mb-5 w-fit">
                 Gallery
               </span>
@@ -155,13 +155,13 @@ export default function GallerySection() {
 
             {/* Gallery cards */}
             {GALLERY_ITEMS.map((item, i) => (
-              <div key={`desktop-${item.title}-${i}`} className="shrink-0 w-[30vw] h-[70vh] rounded-2xl overflow-hidden shadow-lg">
+              <div key={`desktop-${item.title}-${i}`} className="shrink-0 w-[30vw] h-screen overflow-hidden">
                 <GalleryCard item={item} />
               </div>
             ))}
 
             {/* CTA panel */}
-            <div className="shrink-0 w-[30vw] h-[70vh] flex flex-col items-center justify-center px-8">
+            <div className="shrink-0 w-[30vw] h-screen flex flex-col items-center justify-center px-8">
               <div className="text-center">
                 <div className="w-16 h-16 rounded-2xl mx-auto mb-5 flex items-center justify-center"
                   style={{ background: "linear-gradient(135deg, #f59e0b20, #d9770640)", border: "1.5px solid #f59e0b40" }}>

@@ -44,16 +44,16 @@ const GALLERY_IMAGES = [
 
 // Bento grid pattern - defines span for each position (repeating)
 const BENTO_PATTERN = [
-  { col: "col-span-2", row: "row-span-2" },
   { col: "col-span-1", row: "row-span-1" },
   { col: "col-span-1", row: "row-span-1" },
-  { col: "col-span-1", row: "row-span-2" },
-  { col: "col-span-1", row: "row-span-1" },
-  { col: "col-span-2", row: "row-span-1" },
   { col: "col-span-1", row: "row-span-1" },
   { col: "col-span-1", row: "row-span-1" },
-  { col: "col-span-1", row: "row-span-2" },
-  { col: "col-span-2", row: "row-span-1" },
+  { col: "col-span-1", row: "row-span-1" },
+  { col: "col-span-1", row: "row-span-1" },
+  { col: "col-span-1", row: "row-span-1" },
+  { col: "col-span-1", row: "row-span-1" },
+  { col: "col-span-1", row: "row-span-1" },
+  { col: "col-span-1", row: "row-span-1" },
 ];
 
 export default function GalleryPage() {
@@ -109,13 +109,13 @@ export default function GalleryPage() {
 
       {/* Bento Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-        <div ref={gridRef} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 auto-rows-[180px] sm:auto-rows-[200px] lg:auto-rows-[220px] gap-3 sm:gap-4">
+        <div ref={gridRef} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
           {GALLERY_IMAGES.map((src, i) => {
             const pattern = BENTO_PATTERN[i % BENTO_PATTERN.length];
             return (
               <div
                 key={i}
-                className={`bento-item ${pattern.col} ${pattern.row} relative overflow-hidden rounded-2xl cursor-pointer group opacity-0`}
+                className={`bento-item relative overflow-hidden rounded-xl cursor-pointer group opacity-0 aspect-square`}
                 onClick={() => openLightbox(i)}
               >
                 <img
