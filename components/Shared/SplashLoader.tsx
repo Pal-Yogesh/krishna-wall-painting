@@ -43,11 +43,11 @@ export default function SplashLoader({
                 // style={{ background: "linear-gradient(135deg, #f59e0b, #d97706)" }}
               >
                 <Image
-                  src="/logo.png"
+                  src="/new-logo.jpeg"
                   width={1000}
                   height={1000}
                   alt="logo"
-                  className="w-40 h-40 object-cover"
+                  className="w-64 h-64 object-cover"
                 />
               </div>
               {/* <h1 className="text-2xl font-bold text-black tracking-tight">Krishna Paints</h1>
