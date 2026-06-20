@@ -229,9 +229,11 @@ if (typeof window !== "undefined") {
 }
 
 const GALLERY_ITEMS = [
+  // { category: "Head", title: "Chairman", color: "#16a34a", gradient: "linear-gradient(135deg, #16a34a20, #15803d40)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426454/kmopl-gallery/vdbibnxl8wj3q7wrz8ct.jpg" },
   { category: "Head", title: "Chairman", color: "#16a34a", gradient: "linear-gradient(135deg, #16a34a20, #15803d40)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426454/kmopl-gallery/vdbibnxl8wj3q7wrz8ct.jpg" },
   { category: "Mr. Alok Arora", title: "Director", color: "#d97706", gradient: "linear-gradient(135deg, #f59e0b20, #d9770640)", image: "/director.jpeg" },
-  { category: "Manufacturing Plant", title: "Quality Lab", color: "#7c3aed", gradient: "linear-gradient(135deg, #7c3aed20, #6d28d940)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426446/kmopl-gallery/kwuwjyjy3iclquyb4mz4.jpg" },
+  { category: "Mr. Rohit Arora ", title: "Director", color: "#d97706", gradient: "linear-gradient(135deg, #f59e0b20, #d9770640)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426456/kmopl-gallery/njivu2s6yogwmpvipicl.jpg" },
+  { category: "Manufacturing Plant", title: "KMOPL Building", color: "#7c3aed", gradient: "linear-gradient(135deg, #7c3aed20, #6d28d940)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426446/kmopl-gallery/kwuwjyjy3iclquyb4mz4.jpg" },
   { category: "Product Brand", title: "KMOPL", color: "#be185d", gradient: "linear-gradient(135deg, #be185d20, #9d174d40)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426444/kmopl-gallery/d6u6sxziccmym4pphrmj.jpg" },
   { category: "Events", title: "Training Workshop", color: "#ea580c", gradient: "linear-gradient(135deg, #ea580c20, #c2410c40)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426440/kmopl-gallery/oy02cwt9b1x7ygto57d5.jpg" },
   { category: "Product Team", title: "Team", color: "#0891b2", gradient: "linear-gradient(135deg, #0891b220, #06748540)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426461/kmopl-gallery/wtlufvbueql2f6fzqxsn.jpg" },

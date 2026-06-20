@@ -6,7 +6,7 @@ import { motion, useInView } from "framer-motion";
 
 const CLIENT_LOGOS = Array.from({ length: 13 }, (_, i) => ({
   id: i + 1,
-  src: `/client-logos/Client's Logo (Paint Web)_page-${String(i + 1).padStart(4, "0")}.jpg`,
+  src: `/client-logos/client-logo-${String(i + 1).padStart(2, "0")}.jpg`,
   alt: `Client ${i + 1}`,
 }));
 
