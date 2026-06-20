@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import Link from "next/link";
 
 const WOOD_PANELS = [
@@ -103,43 +103,41 @@ export default function WoodPanelVisualizer() {
       {/* Main visualizer */}
       <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-5">
-          {/* Large preview - Full panel image */}
+          {/* Large preview - Full panel image with color-morph effect */}
           <div className="lg:col-span-2">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={current.id}
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.4 }}
-                className="relative rounded-2xl overflow-hidden shadow-xl"
-              >
-                <img
-                  src={current.image}
-                  alt={current.name}
-                  className="w-full h-auto min-h-[400px] sm:min-h-[480px]  object-cover"
+            <div className="relative rounded-2xl overflow-hidden shadow-xl min-h-[400px] sm:min-h-[480px]">
+              {/* Stack all images, only the active one is visible */}
+              {WOOD_PANELS.map((panel, i) => (
+                <motion.img
+                  key={panel.id}
+                  src={panel.image}
+                  alt={panel.name}
+                  initial={false}
+                  animate={{ opacity: activePanel === i ? 1 : 0 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
+              ))}
 
-                {/* Panel name overlay */}
-                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between">
-                  <div className="px-4 py-2.5 bg-black/60 backdrop-blur-md rounded-xl">
-                    <p className="text-white font-bold text-sm">
-                      {current.name}
-                    </p>
-                    <p className="text-white/60 text-[11px]">
-                      Wood Panel Finish
-                    </p>
-                  </div>
-                  <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-lg">
-                    <img
-                      src={current.image}
-                      alt=""
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
+              {/* Panel name overlay */}
+              <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between z-10">
+                <div className="px-4 py-2.5 bg-black/60 backdrop-blur-md rounded-xl">
+                  <p className="text-white font-bold text-sm">
+                    {current.name}
+                  </p>
+                  <p className="text-white/60 text-[11px]">
+                    Wood Panel Finish
+                  </p>
                 </div>
-              </motion.div>
-            </AnimatePresence>
+                <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-lg">
+                  <img
+                    src={current.image}
+                    alt=""
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              </div>
+            </div>
           </div>
 
           {/* Right side - Panel details + more views */}
@@ -200,19 +198,19 @@ export default function WoodPanelVisualizer() {
             </div>
 
             {/* Close-up texture view */}
-            <div className="rounded-2xl overflow-hidden shadow-sm border border-stone-200/80 h-40">
-              <AnimatePresence mode="wait">
+            <div className="rounded-2xl overflow-hidden shadow-sm border border-stone-200/80 h-40 relative">
+              {WOOD_PANELS.map((panel, i) => (
                 <motion.img
-                  key={current.id + "-texture"}
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  src={current.image}
-                  alt={`${current.name} texture`}
-                  className="w-full h-full object-cover"
+                  key={panel.id + "-texture"}
+                  initial={false}
+                  animate={{ opacity: activePanel === i ? 1 : 0 }}
+                  transition={{ duration: 0.6, ease: "easeInOut" }}
+                  src={panel.image}
+                  alt={`${panel.name} texture`}
+                  className="absolute inset-0 w-full h-full object-cover"
                 />
-              </AnimatePresence>
-              <div className="relative -mt-8 px-3 pb-2">
+              ))}
+              <div className="absolute bottom-0 left-0 px-3 pb-2 z-10">
                 <span className="px-2 py-1 bg-black/60 backdrop-blur-sm rounded-md text-[10px] font-bold text-white uppercase">
                   Close-up Texture
                 </span>
