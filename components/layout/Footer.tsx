@@ -8,7 +8,7 @@ import Image from "next/image";
 const NAV_LINKS = [
   { label: "Home",             href: "/"            },
   { label: "Products",         href: "/products"    },
-  { label: "Visualizer",       href: "/visualizer"  },
+  { label: "Visualizer",       href: "/wood-panel-visualizer"  },
   { label: "About Us",         href: "/about"       },
   { label: "Contact Us",       href: "/contact-us"  },
 ];
