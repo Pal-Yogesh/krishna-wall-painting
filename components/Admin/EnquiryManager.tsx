@@ -25,10 +25,11 @@ function timeAgo(ts?: { seconds: number }) {
 }
 
 function downloadCSV(data: EnquiryDoc[], filename: string) {
-  const headers = ["Name", "Mobile", "City", "Room Type", "Color Interest", "Color Name", "Color Hex", "Finish", "Message", "Date"];
+  const headers = ["Name", "Email", "Mobile", "City", "Coating Type", "Color Interest", "Color Name", "Message", "Date"];
   const rows = data.map((e) => [
-    e.name, e.mobile, e.city, e.roomType || "", e.colorInterest || "",
-    e.colorName || "", e.colorHex || "", e.finish || "", e.message || "",
+    e.name, e.email || "", e.mobile, e.city,
+    e.coatingType || "", e.colorInterest || "",
+    e.colorName || "", e.message || "",
     formatDate(e.createdAt as unknown as { seconds: number }),
   ]);
   const csv = [headers, ...rows].map((r) => r.map((c) => `"${String(c).replace(/"/g, '""')}"`).join(",")).join("\n");
@@ -126,8 +127,8 @@ export default function EnquiryManager() {
                       )}
                     </div>
                   </div>
-                  {e.roomType && (
-                    <span className="hidden sm:inline-flex px-2.5 py-1 rounded-lg text-[10px] font-semibold uppercase tracking-wider bg-stone-100 text-stone-500 border border-stone-200">{e.roomType}</span>
+                  {(e.coatingType || e.roomType) && (
+                    <span className="hidden sm:inline-flex px-2.5 py-1 rounded-lg text-[10px] font-semibold uppercase tracking-wider bg-stone-100 text-stone-500 border border-stone-200">{e.coatingType || e.roomType}</span>
                   )}
                   <svg className={`w-4 h-4 text-stone-400 shrink-0 transition-transform ${isExpanded ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
@@ -139,21 +140,14 @@ export default function EnquiryManager() {
                     <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: "auto", opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }} className="overflow-hidden">
                       <div className="px-5 pb-5 pt-0">
                         <div className="border-t border-stone-100 pt-4">
-                          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
                             <div>
                               <p className="text-[10px] text-stone-400 font-semibold uppercase tracking-wider mb-1">Phone</p>
                               <a href={`tel:+91${e.mobile}`} className="text-sm text-amber-600 hover:text-amber-700 transition-colors font-medium">+91 {e.mobile}</a>
                             </div>
                             <div>
-                              <p className="text-[10px] text-stone-400 font-semibold uppercase tracking-wider mb-1">Finish</p>
-                              <p className="text-sm text-stone-700 capitalize">{e.finish || "—"}</p>
-                            </div>
-                            <div>
-                              <p className="text-[10px] text-stone-400 font-semibold uppercase tracking-wider mb-1">Color Hex</p>
-                              <div className="flex items-center gap-2">
-                                {e.colorHex && <span className="w-4 h-4 rounded border border-stone-200" style={{ backgroundColor: e.colorHex }} />}
-                                <p className="text-sm text-stone-700 font-mono">{e.colorHex || "—"}</p>
-                              </div>
+                              <p className="text-[10px] text-stone-400 font-semibold uppercase tracking-wider mb-1">Email</p>
+                              <p className="text-sm text-stone-700 break-all">{e.email || "—"}</p>
                             </div>
                             <div>
                               <p className="text-[10px] text-stone-400 font-semibold uppercase tracking-wider mb-1">Date</p>

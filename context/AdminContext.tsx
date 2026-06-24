@@ -23,8 +23,10 @@ export interface PaintColorDoc {
 export interface EnquiryDoc {
   id: string;
   name: string;
+  email?: string;
   mobile: string;
   city: string;
+  coatingType?: string;
   roomType?: string;
   colorInterest?: string;
   colorName?: string;

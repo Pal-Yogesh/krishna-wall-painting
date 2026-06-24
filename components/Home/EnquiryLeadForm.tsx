@@ -20,7 +20,7 @@ import { collection, addDoc, Timestamp } from "firebase/firestore";
 import { useToast } from "@/context/Toast";
 
 // ── Constants ─────────────────────────────────────────────────────────────────
-const ROOM_TYPES = ["Living Room", "Bedroom", "Kitchen", "Bathroom", "Office", "Kids Room", "Dining Room", "Other"];
+const COATING_TYPES = ["Wood", "Metal", "Glass"];
 
 const COLOR_OPTIONS = [
   { hex: "#5C3A1E", name: "Classic Walnut" },
@@ -47,22 +47,24 @@ const TRUST_POINTS = [
 // ── Form state type ───────────────────────────────────────────────────────────
 interface FormState {
   name: string;
+  email: string;
   mobile: string;
   city: string;
-  roomType: string;
+  coatingType: string;
   colorInterest: string;
   message: string;
 }
 
-const INITIAL_FORM: FormState = { name: "", mobile: "", city: "", roomType: "", colorInterest: "", message: "" };
+const INITIAL_FORM: FormState = { name: "", email: "", mobile: "", city: "", coatingType: "", colorInterest: "", message: "" };
 
 // ── Validation ────────────────────────────────────────────────────────────────
 function validate(form: FormState): Partial<Record<keyof FormState, string>> {
   const errs: Partial<Record<keyof FormState, string>> = {};
-  if (!form.name.trim() || form.name.trim().length < 2)        errs.name       = "Please enter your full name.";
-  if (!/^[6-9]\d{9}$/.test(form.mobile.replace(/\s/g, "")))   errs.mobile     = "Enter a valid 10-digit Indian mobile number.";
-  if (!form.city.trim())                                        errs.city       = "Please enter your city.";
-  if (!form.roomType)                                           errs.roomType   = "Please select a room type.";
+  if (!form.name.trim() || form.name.trim().length < 2)        errs.name        = "Please enter your full name.";
+  if (!form.email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) errs.email = "Please enter a valid email address.";
+  if (!/^[6-9]\d{9}$/.test(form.mobile.replace(/\s/g, "")))   errs.mobile      = "Enter a valid 10-digit Indian mobile number.";
+  if (!form.city.trim())                                        errs.city        = "Please enter your city.";
+  if (!form.coatingType)                                        errs.coatingType = "Please select a coating type.";
   return errs;
 }
 
@@ -372,6 +374,17 @@ export default function EnquiryLeadForm() {
                       error={errors.name}
                       autoComplete="name"
                     />
+                    {/* Email */}
+                    <FloatInput
+                      label="Email Address *"
+                      name="email"
+                      type="email"
+                      value={form.email}
+                      onChange={setField("email")}
+                      error={errors.email}
+                      placeholder="you@example.com"
+                      autoComplete="email"
+                    />
                     {/* Mobile */}
                     <FloatInput
                       label="Mobile Number *"
@@ -392,32 +405,32 @@ export default function EnquiryLeadForm() {
                       error={errors.city}
                       autoComplete="address-level2"
                     />
-                    {/* Room type */}
-                    <div className="relative">
+                    {/* Coating Type */}
+                    <div className="relative sm:col-span-2">
                       <select
-                        value={form.roomType}
-                        onChange={e => setField("roomType")(e.target.value)}
+                        value={form.coatingType}
+                        onChange={e => setField("coatingType")(e.target.value)}
                         className="w-full px-4 pt-5 pb-2.5 rounded-2xl text-[15px] bg-white outline-none appearance-none transition-all duration-200 cursor-pointer"
                         style={{
-                          border: `1.5px solid ${errors.roomType ? "#ef4444" : form.roomType ? "#d97706" : "#e7e5e4"}`,
-                          color: form.roomType ? "#1c1917" : "#a8a29e",
-                          boxShadow: errors.roomType ? "0 0 0 3px rgba(239,68,68,0.08)" : "none",
+                          border: `1.5px solid ${errors.coatingType ? "#ef4444" : form.coatingType ? "#d97706" : "#e7e5e4"}`,
+                          color: form.coatingType ? "#1c1917" : "#a8a29e",
+                          boxShadow: errors.coatingType ? "0 0 0 3px rgba(239,68,68,0.08)" : "none",
                         }}
                       >
-                        <option value="" disabled>Select room type</option>
-                        {ROOM_TYPES.map(r => <option key={r} value={r}>{r}</option>)}
+                        <option value="" disabled>Select coating type</option>
+                        {COATING_TYPES.map(r => <option key={r} value={r}>{r}</option>)}
                       </select>
                       <label
                         className="absolute left-4 text-[10px] font-bold uppercase tracking-[0.1em] pointer-events-none"
-                        style={{ top: 8, color: errors.roomType ? "#ef4444" : "#a8a29e" }}
+                        style={{ top: 8, color: errors.coatingType ? "#ef4444" : "#a8a29e" }}
                       >
-                        Room Type *
+                        Coating Type *
                       </label>
                       <svg className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-stone-400 pointer-events-none" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7"/>
                       </svg>
-                      {errors.roomType && (
-                        <p className="text-xs text-red-500 mt-1.5 ml-1 font-semibold">⚠ {errors.roomType}</p>
+                      {errors.coatingType && (
+                        <p className="text-xs text-red-500 mt-1.5 ml-1 font-semibold">⚠ {errors.coatingType}</p>
                       )}
                     </div>
                   </div>

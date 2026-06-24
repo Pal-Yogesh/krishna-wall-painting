@@ -1381,6 +1381,12 @@ export default function ProductDetailPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {products
             .filter((p) => p.substrate === substrate && p.id !== productId)
+            .sort((a, b) => {
+              // Prioritize same chemistry products first
+              const aMatch = a.chemistry === product.chemistry ? 0 : 1;
+              const bMatch = b.chemistry === product.chemistry ? 0 : 1;
+              return aMatch - bMatch;
+            })
             .slice(0, 3)
             .map((relProduct, i) => (
               <motion.div
@@ -1409,11 +1415,21 @@ export default function ProductDetailPage() {
                         background: `linear-gradient(135deg, ${info.color}10, ${info.color}04)`,
                       }}
                     >
-                      <img
-                        src="/product/1.jpeg"
-                        alt={relProduct.name}
-                        className="w-full h-full object-cover opacity-80 group-hover:scale-105 transition-transform duration-500"
-                      />
+                      {relProduct.image ? (
+                        <img
+                          src={relProduct.image}
+                          alt={relProduct.name}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center">
+                          <div className="w-16 h-16 rounded-2xl bg-stone-100 flex items-center justify-center">
+                            <svg className="w-8 h-8 text-stone-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.41a2.25 2.25 0 013.182 0l2.909 2.91M3.75 21h16.5a1.5 1.5 0 001.5-1.5V5.25a1.5 1.5 0 00-1.5-1.5H3.75a1.5 1.5 0 00-1.5 1.5v14.25a1.5 1.5 0 001.5 1.5z" />
+                            </svg>
+                          </div>
+                        </div>
+                      )}
                     </div>
                     {/* Content */}
                     <div className="p-5">

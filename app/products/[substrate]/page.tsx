@@ -10,7 +10,35 @@ export default function SubstratePage() {
   const substrate = params.substrate as string;
   const info = substrates[substrate as keyof typeof substrates];
   const { products, loading } = useProducts();
-  const items = products.filter((p) => p.substrate === substrate);
+
+  // Define the display order for wood product categories
+  const WOOD_CHEMISTRY_ORDER = [
+    "NC",
+    "PU",
+    "UNSATURATED POLYSTER",
+    "1K ACRYLIC",
+    "UV",
+    "1K WB",
+    "2K WB",
+  ];
+
+  const items = (() => {
+    const filtered = products.filter((p) => p.substrate === substrate);
+    if (substrate !== "wood") return filtered;
+
+    // Sort wood products by defined chemistry order
+    return [...filtered].sort((a, b) => {
+      const getOrderIndex = (chemistry: string) => {
+        const upper = chemistry.toUpperCase();
+        return WOOD_CHEMISTRY_ORDER.findIndex((key) => upper.includes(key));
+      };
+      const aIndex = getOrderIndex(a.chemistry);
+      const bIndex = getOrderIndex(b.chemistry);
+      const aSortKey = aIndex === -1 ? WOOD_CHEMISTRY_ORDER.length : aIndex;
+      const bSortKey = bIndex === -1 ? WOOD_CHEMISTRY_ORDER.length : bIndex;
+      return aSortKey - bSortKey;
+    });
+  })();
 
   if (!info) {
     return (

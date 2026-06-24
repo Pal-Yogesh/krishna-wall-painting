@@ -18,9 +18,11 @@ const adminDb = getFirestore();
 // ── Types ─────────────────────────────────────────────────────────────────────
 interface EnquiryPayload {
   name: string;
+  email?: string;
   mobile: string;
   city: string;
   roomType?: string;
+  coatingType?: string;
   colorInterest?: string;
   colorName?: string;
   colorHex?: string;
@@ -117,7 +119,9 @@ function buildEmailHtml(data: EnquiryPayload): string {
             <tr><td style="padding:0 36px;">
               <table cellpadding="0" cellspacing="0" border="0" width="100%">
                 ${detailRow("📱", "Mobile Number", `<a href="tel:+91${data.mobile}" style="color:#1c1917;text-decoration:none;">+91 ${data.mobile.slice(0,5)} ${data.mobile.slice(5)}</a>`)}
+                ${data.email ? detailRow("📧", "Email", `<a href="mailto:${data.email}" style="color:#1c1917;text-decoration:none;">${data.email}</a>`) : ""}
                 ${detailRow("📍", "City", data.city)}
+                ${data.coatingType ? detailRow("🪵", "Coating Type", data.coatingType) : ""}
                 ${data.roomType ? detailRow("🏠", "Room Type", data.roomType) : ""}
                 ${data.finish && !colorName ? detailRow("✨", "Finish", data.finish.charAt(0).toUpperCase() + data.finish.slice(1)) : ""}
               </table>
@@ -200,8 +204,10 @@ export async function POST(req: NextRequest) {
         html: buildEmailHtml(body),
         text: [
           `New paint enquiry from ${body.name}`,
+          body.email ? `Email: ${body.email}` : "",
           `Mobile: ${body.mobile}`,
           `City: ${body.city}`,
+          body.coatingType ? `Coating: ${body.coatingType}` : "",
           body.roomType ? `Room: ${body.roomType}` : "",
           body.colorInterest ? `Color: ${body.colorInterest}` : "",
           body.message ? `Message: ${body.message}` : "",
