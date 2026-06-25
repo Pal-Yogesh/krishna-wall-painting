@@ -11,31 +11,46 @@ export default function SubstratePage() {
   const info = substrates[substrate as keyof typeof substrates];
   const { products, loading } = useProducts();
 
-  // Define the display order for wood product categories
-  const WOOD_CHEMISTRY_ORDER = [
-    "NC",
-    "PU",
-    "UNSATURATED POLYSTER",
-    "1K ACRYLIC",
-    "UV",
-    "1K WB",
-    "2K WB",
-  ];
+  // Define the display order for each substrate's product categories (matched by product name)
+  const NAME_ORDER: Record<string, string[]> = {
+    wood: [
+      "NC COATINGS",
+      "PU COATINGS",
+      "UNSATURATED POLYSTER",
+      "1K ACRYLIC",
+      "UV COATINGS",
+      "1K WB",
+      "2K WB",
+    ],
+    metal: [
+      "NC COATINGS",
+      "PU COATINGS",
+      "EPOXY ANTI-CORROSION",
+      "HR COATINGS",
+      "1K ACRYLIC",
+    ],
+    glass: [
+      "PU COATINGS FOR GLASS",
+      "PU COATINGS FOR ABS",
+      "EPOXY CLEAR",
+    ],
+  };
 
   const items = (() => {
     const filtered = products.filter((p) => p.substrate === substrate);
-    if (substrate !== "wood") return filtered;
+    const order = NAME_ORDER[substrate];
+    if (!order) return filtered;
 
-    // Sort wood products by defined chemistry order
+    // Sort products by defined name order
     return [...filtered].sort((a, b) => {
-      const getOrderIndex = (chemistry: string) => {
-        const upper = chemistry.toUpperCase();
-        return WOOD_CHEMISTRY_ORDER.findIndex((key) => upper.includes(key));
+      const getOrderIndex = (name: string) => {
+        const upper = (name || "").toUpperCase();
+        return order.findIndex((key) => upper.startsWith(key));
       };
-      const aIndex = getOrderIndex(a.chemistry);
-      const bIndex = getOrderIndex(b.chemistry);
-      const aSortKey = aIndex === -1 ? WOOD_CHEMISTRY_ORDER.length : aIndex;
-      const bSortKey = bIndex === -1 ? WOOD_CHEMISTRY_ORDER.length : bIndex;
+      const aIndex = getOrderIndex(a.name);
+      const bIndex = getOrderIndex(b.name);
+      const aSortKey = aIndex === -1 ? order.length : aIndex;
+      const bSortKey = bIndex === -1 ? order.length : bIndex;
       return aSortKey - bSortKey;
     });
   })();
