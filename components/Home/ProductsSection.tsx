@@ -28,6 +28,12 @@ const PRODUCTS = [
     title: "Sustainability",
     description: "Our unwavering focus on innovation and sustainability drives our continuous expansion and enhancement of services.",
     color: "#7c3aed",
+  }, 
+  {
+    image: "/our-product/5.jpeg",
+    title: "Eco Friendly",
+    description: "Designed to protect materials while minimizing environmental and health impacts.",
+    color: "#7c3aed",
   },
 ];
 
@@ -64,7 +70,7 @@ export default function ProductsSection() {
         </motion.div>
 
         {/* Product cards grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {PRODUCTS.map((product, i) => (
             <motion.div
               key={product.title}

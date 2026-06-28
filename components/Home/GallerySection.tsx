@@ -230,7 +230,7 @@ if (typeof window !== "undefined") {
 
 const GALLERY_ITEMS = [
   // { category: "Head", title: "Chairman", color: "#16a34a", gradient: "linear-gradient(135deg, #16a34a20, #15803d40)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426454/kmopl-gallery/vdbibnxl8wj3q7wrz8ct.jpg" },
-  { category: "Head", title: "Chairman", color: "#16a34a", gradient: "linear-gradient(135deg, #16a34a20, #15803d40)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426454/kmopl-gallery/vdbibnxl8wj3q7wrz8ct.jpg" },
+  { category: "Mr. Ashok Arora ", title: "Chairman", color: "#16a34a", gradient: "linear-gradient(135deg, #16a34a20, #15803d40)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426454/kmopl-gallery/vdbibnxl8wj3q7wrz8ct.jpg" },
   { category: "Mr. Alok Arora", title: "Director", color: "#d97706", gradient: "linear-gradient(135deg, #f59e0b20, #d9770640)", image: "/director.jpeg" },
   { category: "Mr. Rohit Arora ", title: "Director", color: "#d97706", gradient: "linear-gradient(135deg, #f59e0b20, #d9770640)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426456/kmopl-gallery/njivu2s6yogwmpvipicl.jpg" },
   { category: "Manufacturing Plant", title: "KMOPL Building", color: "#7c3aed", gradient: "linear-gradient(135deg, #7c3aed20, #6d28d940)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426446/kmopl-gallery/kwuwjyjy3iclquyb4mz4.jpg" },
@@ -248,8 +248,8 @@ function GalleryCard({ item }: { item: typeof GALLERY_ITEMS[number] }) {
       <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
       <div className="absolute top-0 left-0 right-0 h-1" style={{ background: `linear-gradient(90deg, ${item.color}, ${item.color}60)` }} />
       <div className="absolute bottom-4 left-4">
-        <span className="text-[10px] font-bold uppercase tracking-wider block mb-1" style={{ color: item.color }}>{item.category}</span>
-        <span className="text-[15px] font-bold text-white" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>{item.title}</span>
+        <span className="text-[1.5rem] font-bold uppercase tracking-wider block mb-1" style={{ color: item.color }}>{item.category}</span>
+        <span className="text-[1.25rem] font-bold text-white " style={{ fontFamily: "var(--font-raleway), sans-serif" }}>{item.title}</span>
       </div>
     </div>
   );

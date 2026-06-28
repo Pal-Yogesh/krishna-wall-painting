@@ -33,11 +33,10 @@ export default function WoodPanelVisualizer() {
       {/* Hero */}
       <section className="relative h-[80vh] text-center overflow-hidden flex items-center justify-center">
         <img
-          src="/wood-panel.jpg"
+          src="/wood-hero.jpeg"
           alt="Wood panels"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-black/30" />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
