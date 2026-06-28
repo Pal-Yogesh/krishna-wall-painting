@@ -58,6 +58,44 @@ export interface ProductDoc {
   createdAt?: Timestamp;
 }
 
+export interface JobDoc {
+  id: string;
+  title: string;
+  location: string;
+  qualification: string;
+  experience: string;
+  industry: string;
+  description: string;
+  applyEmail: string;
+  active: boolean;
+  createdAt?: Timestamp;
+}
+
+export interface ApplicationDoc {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  city: string;
+  qualification: string;
+  expertise: string;
+  resumeUrl: string;
+  jobTitle?: string;
+  createdAt?: Timestamp;
+}
+
+export interface EventDoc {
+  id: string;
+  title: string;
+  location: string;
+  eventDate: string;
+  description: string;
+  coverImage: string;
+  gallery: { url: string; name: string }[];
+  active: boolean;
+  createdAt?: Timestamp;
+}
+
 interface AdminContextType {
   // Auth
   user: User | null;
@@ -86,6 +124,28 @@ interface AdminContextType {
   addProduct: (product: Omit<ProductDoc, "id">) => Promise<void>;
   updateProduct: (id: string, data: Partial<ProductDoc>) => Promise<void>;
   deleteProduct: (id: string) => Promise<void>;
+
+  // Jobs
+  jobs: JobDoc[];
+  jobsLoading: boolean;
+  fetchJobs: () => Promise<void>;
+  addJob: (job: Omit<JobDoc, "id">) => Promise<void>;
+  updateJob: (id: string, data: Partial<JobDoc>) => Promise<void>;
+  deleteJob: (id: string) => Promise<void>;
+
+  // Applications
+  applications: ApplicationDoc[];
+  applicationsLoading: boolean;
+  fetchApplications: () => Promise<void>;
+  deleteApplication: (id: string) => Promise<void>;
+
+  // Events
+  events: EventDoc[];
+  eventsLoading: boolean;
+  fetchEvents: () => Promise<void>;
+  addEvent: (event: Omit<EventDoc, "id">) => Promise<void>;
+  updateEvent: (id: string, data: Partial<EventDoc>) => Promise<void>;
+  deleteEvent: (id: string) => Promise<void>;
 }
 
 const AdminContext = createContext<AdminContextType | null>(null);
@@ -105,6 +165,12 @@ export function AdminProvider({ children }: { children: ReactNode }) {
   const [enquiriesLoading, setEnquiriesLoading] = useState(false);
   const [products, setProducts] = useState<ProductDoc[]>([]);
   const [productsLoading, setProductsLoading] = useState(false);
+  const [jobs, setJobs] = useState<JobDoc[]>([]);
+  const [jobsLoading, setJobsLoading] = useState(false);
+  const [applications, setApplications] = useState<ApplicationDoc[]>([]);
+  const [applicationsLoading, setApplicationsLoading] = useState(false);
+  const [events, setEvents] = useState<EventDoc[]>([]);
+  const [eventsLoading, setEventsLoading] = useState(false);
 
   // Auth listener
   useEffect(() => {
@@ -225,6 +291,130 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     await fetchProducts();
   };
 
+  // ── Jobs CRUD ─────────────────────────────────────────────────────
+  const fetchJobs = useCallback(async () => {
+    setJobsLoading(true);
+    try {
+      const res = await fetch("/api/jobs");
+      const data = await res.json();
+      console.log("[AdminContext] Fetched jobs:", data.jobs?.length || 0);
+      setJobs(data.jobs || []);
+    } catch (err) {
+      console.error("[AdminContext] fetchJobs error:", err);
+    } finally {
+      setJobsLoading(false);
+    }
+  }, []);
+
+  const addJob = async (job: Omit<JobDoc, "id">) => {
+    const res = await fetch("/api/jobs", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(job),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || "Failed to create job");
+    }
+    await fetchJobs();
+  };
+
+  const updateJob = async (id: string, data: Partial<JobDoc>) => {
+    const res = await fetch("/api/jobs", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, ...data }),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || "Failed to update job");
+    }
+    await fetchJobs();
+  };
+
+  const deleteJob = async (id: string) => {
+    const res = await fetch(`/api/jobs?id=${id}`, { method: "DELETE" });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || "Failed to delete job");
+    }
+    await fetchJobs();
+  };
+
+  // ── Applications ──────────────────────────────────────────────────
+  const fetchApplications = useCallback(async () => {
+    setApplicationsLoading(true);
+    try {
+      const res = await fetch("/api/applications");
+      const data = await res.json();
+      console.log("[AdminContext] Fetched applications:", data.applications?.length || 0);
+      setApplications(data.applications || []);
+    } catch (err) {
+      console.error("[AdminContext] fetchApplications error:", err);
+    } finally {
+      setApplicationsLoading(false);
+    }
+  }, []);
+
+  const deleteApplication = async (id: string) => {
+    const res = await fetch(`/api/applications?id=${id}`, { method: "DELETE" });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || "Failed to delete application");
+    }
+    await fetchApplications();
+  };
+
+  // ── Events CRUD ───────────────────────────────────────────────────
+  const fetchEvents = useCallback(async () => {
+    setEventsLoading(true);
+    try {
+      const res = await fetch("/api/events");
+      const data = await res.json();
+      console.log("[AdminContext] Fetched events:", data.events?.length || 0);
+      setEvents(data.events || []);
+    } catch (err) {
+      console.error("[AdminContext] fetchEvents error:", err);
+    } finally {
+      setEventsLoading(false);
+    }
+  }, []);
+
+  const addEvent = async (event: Omit<EventDoc, "id">) => {
+    const res = await fetch("/api/events", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(event),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || "Failed to create event");
+    }
+    await fetchEvents();
+  };
+
+  const updateEvent = async (id: string, data: Partial<EventDoc>) => {
+    const res = await fetch("/api/events", {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id, ...data }),
+    });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || "Failed to update event");
+    }
+    await fetchEvents();
+  };
+
+  const deleteEvent = async (id: string) => {
+    const res = await fetch(`/api/events?id=${id}`, { method: "DELETE" });
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || "Failed to delete event");
+    }
+    await fetchEvents();
+  };
+
   return (
     <AdminContext.Provider
       value={{
@@ -232,6 +422,9 @@ export function AdminProvider({ children }: { children: ReactNode }) {
         colors, colorsLoading, fetchColors, addColor, updateColor, deleteColor, toggleColorActive,
         enquiries, enquiriesLoading, fetchEnquiries,
         products, productsLoading, fetchProducts, addProduct, updateProduct, deleteProduct,
+        jobs, jobsLoading, fetchJobs, addJob, updateJob, deleteJob,
+        applications, applicationsLoading, fetchApplications, deleteApplication,
+        events, eventsLoading, fetchEvents, addEvent, updateEvent, deleteEvent,
       }}
     >
       {children}

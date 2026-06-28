@@ -7,13 +7,16 @@ import ColorManager from "@/components/Admin/ColorManager";
 import EnquiryManager from "@/components/Admin/EnquiryManager";
 import ProductManager from "@/components/Admin/ProductManager";
 import ProductForm from "@/components/Admin/ProductForm";
+import JobManager from "@/components/Admin/JobManager";
+import ApplicationManager from "@/components/Admin/ApplicationManager";
+import EventManager from "@/components/Admin/EventManager";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
-type Page = "products" | "add-product" | "edit-product" | "colors" | "enquiries";
+type Page = "products" | "add-product" | "edit-product" | "colors" | "enquiries" | "jobs" | "applications" | "events";
 
 export default function AdminDashboardPage() {
-  const { user, authLoading, logout, colors, enquiries, products, fetchColors, fetchEnquiries, fetchProducts } = useAdmin();
+  const { user, authLoading, logout, colors, enquiries, products, jobs, applications, events, fetchColors, fetchEnquiries, fetchProducts, fetchJobs, fetchApplications, fetchEvents } = useAdmin();
   const router = useRouter();
   const [activePage, setActivePage] = useState<Page>("products");
   const [editProductId, setEditProductId] = useState<string | null>(null);
@@ -24,8 +27,8 @@ export default function AdminDashboardPage() {
   }, [user, authLoading, router]);
 
   useEffect(() => {
-    if (user) { fetchColors(); fetchEnquiries(); fetchProducts(); }
-  }, [user, fetchColors, fetchEnquiries, fetchProducts]);
+    if (user) { fetchColors(); fetchEnquiries(); fetchProducts(); fetchJobs(); fetchApplications(); fetchEvents(); }
+  }, [user, fetchColors, fetchEnquiries, fetchProducts, fetchJobs, fetchApplications, fetchEvents]);
 
   if (authLoading || !user) {
     return (
@@ -54,6 +57,9 @@ export default function AdminDashboardPage() {
     { key: "add-product" as Page, label: "Add Product", count: null, icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg> },
     // { key: "colors" as Page, label: "Paint Colors", count: colors.length, icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z" /></svg> },
     { key: "enquiries" as Page, label: "Enquiries", count: enquiries.length, icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z" /></svg> },
+    { key: "jobs" as Page, label: "Jobs", count: jobs.length, icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 00.75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 00-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0112 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 01-.673-.38m0 0A2.18 2.18 0 013 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 013.413-.387m7.5 0V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25v.894m7.5 0a48.667 48.667 0 00-7.5 0M12 12.75h.008v.008H12v-.008z" /></svg> },
+    { key: "applications" as Page, label: "Applications", count: applications.length, icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg> },
+    { key: "events" as Page, label: "Events", count: events.length, icon: <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" /></svg> },
   ];
 
   return (
@@ -169,6 +175,9 @@ export default function AdminDashboardPage() {
               {activePage === "edit-product" && editProductId && <ProductForm productId={editProductId} onSaved={handleProductSaved} onCancel={() => setActivePage("products")} />}
               {activePage === "colors" && <ColorManager />}
               {activePage === "enquiries" && <EnquiryManager />}
+              {activePage === "jobs" && <JobManager />}
+              {activePage === "applications" && <ApplicationManager />}
+              {activePage === "events" && <EventManager />}
             </motion.div>
           </AnimatePresence>
         </div>

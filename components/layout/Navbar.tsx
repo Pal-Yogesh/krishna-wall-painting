@@ -18,6 +18,8 @@ const NAV_LINKS = [
   { label: "Gallery",     href: "/gallery",       sectionId: "" },
   { label: "About Us",    href: "/about",        sectionId: "about" },
   { label: "Visualizer",    href: "/wood-panel-visualizer",        sectionId: "" },
+  { label: "Events",      href: "/events",        sectionId: "" },
+  { label: "Careers",     href: "/careers",       sectionId: "" },
 ];
 
 const SECTION_IDS = ["about"];
