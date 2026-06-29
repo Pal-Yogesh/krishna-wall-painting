@@ -1,13 +1,13 @@
+import AboutHero from "@/components/Home/AboutHero";
 import CompanyOverview from "@/components/Home/CompanyOverview";
-import WhyChooseUs from "@/components/Home/WhyChooseUs";
-import EnquiryLeadForm from "@/components/Home/EnquiryLeadForm";
+import AboutContent from "@/components/Home/AboutContent";
 
 export default function AboutPage() {
   return (
     <>
+      <AboutHero />
       <CompanyOverview />
-      <WhyChooseUs />
-      {/* <EnquiryLeadForm /> */}
+      <AboutContent />
     </>
   );
 }

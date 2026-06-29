@@ -20,6 +20,7 @@ const MILESTONES = [
     color: "from-amber-500 to-orange-500",
     bg: "bg-amber-50",
     border: "border-amber-200",
+    image: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=700&q=80",
   },
   {
     year: "2004",
@@ -31,6 +32,7 @@ const MILESTONES = [
     color: "from-emerald-500 to-green-600",
     bg: "bg-emerald-50",
     border: "border-emerald-200",
+    image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=700&q=80",
   },
   {
     year: "2008",
@@ -42,6 +44,7 @@ const MILESTONES = [
     color: "from-blue-500 to-indigo-600",
     bg: "bg-blue-50",
     border: "border-blue-200",
+    image: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=700&q=80",
   },
   {
     year: "2019",
@@ -53,6 +56,7 @@ const MILESTONES = [
     color: "from-violet-500 to-purple-600",
     bg: "bg-violet-50",
     border: "border-violet-200",
+    image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=700&q=80",
   },
 ];
 
@@ -172,8 +176,15 @@ export default function CompanyOverview() {
                     </motion.div>
                   </div>
 
-                  {/* Spacer for the other side */}
-                  <div className="hidden sm:block w-[calc(50%-40px)]" />
+                  {/* Image on the opposite side (desktop) */}
+                  <div className="hidden sm:block w-[calc(50%-40px)]">
+                    <div className={`relative rounded-2xl overflow-hidden shadow-md border-4 border-white h-56 ${isLeft ? "sm:ml-4" : "sm:mr-4"}`}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={m.image} alt={m.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                      <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.35))" }} />
+                      <span className="absolute bottom-3 left-4 text-white text-xs font-bold uppercase tracking-wider drop-shadow">{m.subtitle}</span>
+                    </div>
+                  </div>
                 </div>
               );
             })}

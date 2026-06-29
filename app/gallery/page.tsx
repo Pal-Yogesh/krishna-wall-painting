@@ -26,9 +26,10 @@ const GALLERY_IMAGES = [
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426444/kmopl-gallery/d6u6sxziccmym4pphrmj.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426446/kmopl-gallery/kwuwjyjy3iclquyb4mz4.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426454/kmopl-gallery/vdbibnxl8wj3q7wrz8ct.jpg",
-  "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426456/kmopl-gallery/njivu2s6yogwmpvipicl.jpg",
+  // "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426456/kmopl-gallery/njivu2s6yogwmpvipicl.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426458/kmopl-gallery/tiqghmkm20clwo69mxyp.jpg",
-  "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426460/kmopl-gallery/ojolkntacwrhdd3yuxkl.jpg",
+  "/director.jpeg",
+  // "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426460/kmopl-gallery/ojolkntacwrhdd3yuxkl.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426461/kmopl-gallery/wtlufvbueql2f6fzqxsn.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426463/kmopl-gallery/awnaaotvvt9r5grl2rzz.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426466/kmopl-gallery/qqmskkkvdtapsmrdn4hx.jpg",
@@ -69,10 +70,18 @@ export default function GalleryPage() {
         items,
         { opacity: 0, y: 40, scale: 0.95 },
         {
-          opacity: 1, y: 0, scale: 1,
-          duration: 0.6, stagger: 0.06, ease: "power3.out",
-          scrollTrigger: { trigger: gridRef.current, start: "top 80%", once: true },
-        }
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.6,
+          stagger: 0.06,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: gridRef.current,
+            start: "top 80%",
+            once: true,
+          },
+        },
       );
     });
 
@@ -81,27 +90,56 @@ export default function GalleryPage() {
 
   const openLightbox = (index: number) => setLightboxIndex(index);
   const closeLightbox = () => setLightboxIndex(null);
-  const nextImage = () => setLightboxIndex((prev) => prev !== null ? (prev + 1) % GALLERY_IMAGES.length : null);
-  const prevImage = () => setLightboxIndex((prev) => prev !== null ? (prev - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length : null);
+  const nextImage = () =>
+    setLightboxIndex((prev) =>
+      prev !== null ? (prev + 1) % GALLERY_IMAGES.length : null,
+    );
+  const prevImage = () =>
+    setLightboxIndex((prev) =>
+      prev !== null
+        ? (prev - 1 + GALLERY_IMAGES.length) % GALLERY_IMAGES.length
+        : null,
+    );
 
   return (
     <div className="min-h-screen bg-[#faf9f7]">
       {/* Header */}
-      <section className="relative py-16 overflow-hidden" style={{ background: "linear-gradient(160deg, #fef3c720 0%, #fefdfb 50%, #faf9f7 100%)" }}>
+      <section
+        className="relative py-16 overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(160deg, #fef3c720 0%, #fefdfb 50%, #faf9f7 100%)",
+        }}
+      >
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
             <span className="inline-block px-4 py-1.5 bg-amber-100/80 text-amber-700 text-xs font-bold uppercase tracking-[0.2em] rounded-full mb-5 border border-amber-200/50">
               Gallery
             </span>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-stone-900 leading-tight"
-              style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.03em" }}>
+            <h1
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold text-stone-900 leading-tight"
+              style={{
+                fontFamily: "var(--font-raleway), sans-serif",
+                letterSpacing: "-0.03em",
+              }}
+            >
               Inside{" "}
-              <span className="text-transparent bg-clip-text" style={{ backgroundImage: "linear-gradient(135deg, #d97706, #f59e0b)" }}>
+              <span
+                className="text-transparent bg-clip-text"
+                style={{
+                  backgroundImage: "linear-gradient(135deg, #d97706, #f59e0b)",
+                }}
+              >
                 KMOPL
               </span>
             </h1>
             <p className="mt-4 text-stone-500 text-[15px] max-w-lg mx-auto leading-relaxed">
-              A glimpse into our manufacturing facility, products, team events, and more.
+              A glimpse into our manufacturing facility, products, team events,
+              and more.
             </p>
           </motion.div>
         </div>
@@ -109,7 +147,10 @@ export default function GalleryPage() {
 
       {/* Bento Grid */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-20">
-        <div ref={gridRef} className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2">
+        <div
+          ref={gridRef}
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2"
+        >
           {GALLERY_IMAGES.map((src, i) => {
             const pattern = BENTO_PATTERN[i % BENTO_PATTERN.length];
             return (
@@ -129,8 +170,18 @@ export default function GalleryPage() {
                 {/* Zoom icon on hover */}
                 <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                   <div className="w-10 h-10 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
-                    <svg className="w-5 h-5 text-stone-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
+                    <svg
+                      className="w-5 h-5 text-stone-700"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                      strokeWidth={2}
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6"
+                      />
                     </svg>
                   </div>
                 </div>
@@ -151,25 +202,68 @@ export default function GalleryPage() {
             onClick={closeLightbox}
           >
             {/* Close button */}
-            <button onClick={closeLightbox} className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-50">
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+            <button
+              onClick={closeLightbox}
+              className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-50"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
 
             {/* Previous */}
-            <button onClick={(e) => { e.stopPropagation(); prevImage(); }}
-              className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-50">
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                prevImage();
+              }}
+              className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-50"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M15 19l-7-7 7-7"
+                />
               </svg>
             </button>
 
             {/* Next */}
-            <button onClick={(e) => { e.stopPropagation(); nextImage(); }}
-              className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-50">
-              <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                nextImage();
+              }}
+              className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors z-50"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M9 5l7 7-7 7"
+                />
               </svg>
             </button>
 
