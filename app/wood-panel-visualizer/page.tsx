@@ -46,7 +46,7 @@ export default function WoodPanelVisualizer() {
             Wood Panel Visualizer
           </span>
           <h1
-            className="text-3xl sm:text-4xl font-bold text-white leading-tight"
+            className="text-3xl sm:text-4xl font-bold text-black leading-tight bg-white/20 backdrop-blur-sm"
             style={{
               fontFamily: "var(--font-raleway), sans-serif",
               letterSpacing: "-0.03em",
