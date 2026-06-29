@@ -175,7 +175,7 @@ export default function Footer() {
       <div className="border-t border-stone-300/99">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-stone-400 text-center sm:text-left" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
-            © {new Date().getFullYear()} Krishna Murari Organosys Pvt. Ltd. All rights reserved.
+            © {new Date().getFullYear()} KMOPL. All rights reserved.
           </p>
           <div className="flex items-center gap-5">
             {["Privacy Policy", "Terms of Service"].map(label => (
