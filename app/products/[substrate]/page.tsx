@@ -144,7 +144,7 @@ export default function SubstratePage() {
               <div className="relative rounded-3xl shadow-lg overflow-hidden">
                 {/* Full image */}
                 <div className="relative h-64 overflow-hidden">
-                  <img src={`/coating/${substrate}-coating.jpeg`} alt={info.label} className="w-full h-full object-cover" />
+                  <img src={`/coating/${substrate}-coating-product.jpeg`} alt={info.label} className="w-full h-full object-cover" />
                   <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/10 to-transparent" />
                   {/* Shine effect */}
                   <motion.div
