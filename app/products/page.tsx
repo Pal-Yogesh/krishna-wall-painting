@@ -128,7 +128,7 @@ export default function ProductsPage() {
           {substrateKeys.map((key, i) => {
             const info = substrates[key];
             const count = products.filter(p => p.substrate === key).length;
-            const imgMap: Record<string, string> = { wood: "/coating/wood-coating.jpeg", metal: "/coating/metal-coating.jpeg", glass: "/coating/glass-coating.jpeg" };
+            const imgMap: Record<string, string> = { wood: "/products/wood.jpeg", metal: "/products/metal.jpeg", glass: "/products/glass.jpeg" };
             return (
               <motion.div
                 key={key}

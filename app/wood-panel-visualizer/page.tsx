@@ -30,6 +30,17 @@ const METAL_PANELS = [
   { id: 3, name: "Copper Brown", image: "/metal-panels/copper-brown.png", color: "#8B4A2F" },
   { id: 4, name: "Matte Black", image: "/metal-panels/matte-black.png", color: "#2B2B2B" },
   { id: 5, name: "Peach Orange", image: "/metal-panels/peach-orange.png", color: "#E8A87C" },
+  { id: 6, name: "Bronze PVD", image: "/metal-panels/bronze-pvd.png", color: "#7A5C2E" },
+  { id: 7, name: "Champagne Gold PVD", image: "/metal-panels/champagne-gold-pvd.png", color: "#D4AF6A" },
+  { id: 8, name: "Copper PVD", image: "/metal-panels/copper-pvd.png", color: "#B87333" },
+  { id: 9, name: "Emerald Green PVD", image: "/metal-panels/emerald-green-pvd.png", color: "#2E8B57" },
+  { id: 10, name: "Gunmetal Grey PVD", image: "/metal-panels/gunmetal-grey-pvd.png", color: "#4A4A4A" },
+  { id: 11, name: "Matte Black PVD", image: "/metal-panels/matte-black-pvd.png", color: "#1A1A1A" },
+  { id: 12, name: "Orange Powder Coated", image: "/metal-panels/orange-powder-coated.png", color: "#E86B20" },
+  { id: 13, name: "Rose Gold PVD", image: "/metal-panels/rose-gold-pvd.png", color: "#B76E79" },
+  { id: 14, name: "Royal Blue PVD", image: "/metal-panels/royal-blue-pvd.png", color: "#1E3A8A" },
+  { id: 15, name: "Titanium Silver PVD", image: "/metal-panels/titanium-silver-pvd.png", color: "#A8A9AD" },
+  { id: 16, name: "Red Wine", image: "/metal-panels/red-wine.png", color: "#722F37" },
 ];
 
 export default function WoodPanelVisualizer() {
@@ -258,12 +269,12 @@ export default function WoodPanelVisualizer() {
         {/* Metal hero banner */}
         <div className="relative h-[80vh] overflow-hidden flex items-center justify-center">
           <img
-            src="/metal-panels/metal-banner.jpeg"
+            src="/metal-panels/metal-visualizer.jpg"
             alt="Metal coating panels"
             className="absolute inset-0 w-full h-full object-cover"
           />
-          {/* <div className="absolute inset-0 bg-black/45" /> */}
-          {/* <motion.div
+          <div className="absolute inset-0 bg-black/45" />
+           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -281,14 +292,18 @@ export default function WoodPanelVisualizer() {
             <p className="mt-3 text-white/75 text-[14px] max-w-md mx-auto">
               Select a metal coating shade below to preview the finish in real environments
             </p>
-          </motion.div> */}
+          </motion.div> 
         </div>
 
         {/* Metal selector strip */}
         <div className="sticky top-20 z-30 bg-[#f5f2ed]/95 backdrop-blur-md border-b border-stone-200/50 mt-6 pt-3">
           <div className="max-w-6xl mx-auto px-4">
             <div
-              className="flex items-center justify-center flex-wrap gap-5 pb-2"
+              className="flex items-center gap-5 pb-3 overflow-x-auto"
+              style={{
+                scrollbarWidth: "thin",
+                scrollbarColor: "#d97706 #e7e5e4",
+              }}
             >
               {METAL_PANELS.map((panel, i) => (
                 <button
@@ -400,12 +415,12 @@ export default function WoodPanelVisualizer() {
               {/* Quick select */}
               <div className="bg-white rounded-2xl p-4 shadow-sm border border-stone-200/80">
                 <p className="text-xs font-bold text-stone-400 uppercase tracking-wider mb-3">Quick Select</p>
-                <div className="grid grid-cols-5 gap-2">
+                <div className="flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: "thin", scrollbarColor: "#d97706 #e7e5e4" }}>
                   {METAL_PANELS.map((panel, i) => (
                     <button
                       key={panel.id}
                       onClick={() => setActiveMetal(i)}
-                      className={`w-full aspect-square rounded-lg overflow-hidden border-2 transition-all ${activeMetal === i ? "border-amber-500 scale-105" : "border-stone-200 hover:border-stone-300"}`}
+                      className={`w-12 h-12 shrink-0 rounded-lg overflow-hidden border-2 transition-all ${activeMetal === i ? "border-amber-500 scale-105" : "border-stone-200 hover:border-stone-300"}`}
                     >
                       <img src={panel.image} alt={panel.name} className="w-full h-full object-cover" />
                     </button>
