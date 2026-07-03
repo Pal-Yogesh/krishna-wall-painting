@@ -25,11 +25,11 @@ const WOOD_PANELS = [
 ];
 
 const METAL_PANELS = [
-  { id: 1, name: "Antique Bronze", image: "/metal-panels/antique-bronze.png", color: "#8C6B3F" },
-  { id: 2, name: "Champagne Gold", image: "/metal-panels/champagne-gold.png", color: "#C9A96A" },
-  { id: 3, name: "Copper Brown", image: "/metal-panels/copper-brown.png", color: "#8B4A2F" },
-  { id: 4, name: "Matte Black", image: "/metal-panels/matte-black.png", color: "#2B2B2B" },
-  { id: 5, name: "Peach Orange", image: "/metal-panels/peach-orange.png", color: "#E8A87C" },
+  // { id: 1, name: "Antique Bronze", image: "/metal-panels/antique-bronze.png", color: "#8C6B3F" },
+  // { id: 2, name: "Champagne Gold", image: "/metal-panels/champagne-gold.png", color: "#C9A96A" },
+  // { id: 3, name: "Copper Brown", image: "/metal-panels/copper-brown.png", color: "#8B4A2F" },
+  // { id: 4, name: "Matte Black", image: "/metal-panels/matte-black.png", color: "#2B2B2B" },
+  // { id: 5, name: "Peach Orange", image: "/metal-panels/peach-orange.png", color: "#E8A87C" },
   { id: 6, name: "Bronze PVD", image: "/metal-panels/bronze-pvd.png", color: "#7A5C2E" },
   { id: 7, name: "Champagne Gold PVD", image: "/metal-panels/champagne-gold-pvd.png", color: "#D4AF6A" },
   { id: 8, name: "Copper PVD", image: "/metal-panels/copper-pvd.png", color: "#B87333" },
