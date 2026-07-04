@@ -32,7 +32,7 @@ const MILESTONES = [
     color: "from-emerald-500 to-green-600",
     bg: "bg-emerald-50",
     border: "border-emerald-200",
-    image: "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?auto=format&fit=crop&w=700&q=80",
+    image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426437/kmopl-gallery/h6zhqdikgpb4hfmt5tbj.jpg",
   },
   {
     year: "2008",
