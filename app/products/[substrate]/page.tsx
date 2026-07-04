@@ -142,9 +142,29 @@ export default function SubstratePage() {
             {/* Right: Visual card */}
             <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="lg:col-span-2 hidden lg:block">
               <div className="relative rounded-3xl shadow-lg overflow-hidden">
-                {/* Full image */}
+                {/* Full image or video */}
                 <div className="relative h-64 overflow-hidden">
-                  <img src={`/coating/${substrate}-coating-product.jpeg`} alt={info.label} className="w-full h-full object-cover" />
+                  {substrate === "wood" ? (
+                    <video
+                      src="https://res.cloudinary.com/dxfkygu6e/video/upload/v1783163099/WhatsApp_Video_2026-07-04_at_4.33.57_PM_mf6omj.mp4"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                  ) : substrate === "metal" ? (
+                    <video
+                      src="https://res.cloudinary.com/dxfkygu6e/video/upload/v1783163094/WhatsApp_Video_2026-07-04_at_4.33.54_PM_lbdqoy.mp4"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <img src={`/coating/${substrate}-coating-product.jpeg`} alt={info.label} className="w-full h-full object-cover" />
+                  )}
                   <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/10 to-transparent" />
                   {/* Shine effect */}
                   <motion.div

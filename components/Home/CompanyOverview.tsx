@@ -44,7 +44,7 @@ const MILESTONES = [
     color: "from-blue-500 to-indigo-600",
     bg: "bg-blue-50",
     border: "border-blue-200",
-    image: "https://images.unsplash.com/photo-1562259949-e8e7689d7828?auto=format&fit=crop&w=700&q=80",
+    image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426446/kmopl-gallery/kwuwjyjy3iclquyb4mz4.jpg",
   },
   {
     year: "2019",
@@ -56,7 +56,7 @@ const MILESTONES = [
     color: "from-violet-500 to-purple-600",
     bg: "bg-violet-50",
     border: "border-violet-200",
-    image: "https://images.unsplash.com/photo-1509391366360-2e959784a276?auto=format&fit=crop&w=700&q=80",
+    image: "/about-2019.jpeg",
   },
 ];
 

@@ -29,6 +29,7 @@ const GALLERY_IMAGES = [
   // "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426456/kmopl-gallery/njivu2s6yogwmpvipicl.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426458/kmopl-gallery/tiqghmkm20clwo69mxyp.jpg",
   "/director.jpeg",
+  "/gallery.jpeg",
   // "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426460/kmopl-gallery/ojolkntacwrhdd3yuxkl.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426461/kmopl-gallery/wtlufvbueql2f6fzqxsn.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426463/kmopl-gallery/awnaaotvvt9r5grl2rzz.jpg",

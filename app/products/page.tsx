@@ -76,32 +76,13 @@ export default function ProductsPage() {
               </div>
             </motion.div>
 
-            {/* Right: Substrate cards */}
+            {/* Right: Single image */}
             <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }}
-              className="hidden lg:grid grid-cols-2 gap-3">
-              {substrateKeys.map((key, i) => {
-                const info = substrates[key];
-                const count = products.filter(p => p.substrate === key).length;
-                const imgMap: Record<string, string> = { wood: "/coating/wood-coating.jpeg", metal: "/coating/metal-coating.jpeg", glass: "/coating/glass-coating.jpeg" };
-                return (
-                  <motion.div key={key} whileHover={{ y: -4, scale: 1.02 }} transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                    className={`${i === 0 ? "col-span-2" : ""}`}>
-                    <Link href={`/products/${key}`} className="block group">
-                      <div className={`relative overflow-hidden rounded-2xl shadow-sm hover:shadow-lg transition-all ${i === 0 ? "h-44" : "h-40"}`}>
-                        <img src={imgMap[key]} alt={info.label} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                        <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
-                        <div className="absolute top-0 left-0 right-0 h-1.5" style={{ background: `linear-gradient(90deg, ${info.color}, ${info.color}60)` }} />
-                        <div className="absolute bottom-4 left-4">
-                          <h3 className="text-[15px] font-bold text-white drop-shadow-md" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
-                            {info.label}
-                          </h3>
-                          <p className="text-[11px] text-white/70 mt-0.5">{count} products</p>
-                        </div>
-                      </div>
-                    </Link>
-                  </motion.div>
-                );
-              })}
+              className="hidden lg:block">
+              <div className="relative overflow-hidden rounded-3xl shadow-xl h-80">
+                <img src="/common.jpeg" alt="Industrial Coatings" className="w-full h-full object-cover" />
+                <div className="absolute inset-0 bg-linear-to-t from-black/40 via-black/10 to-transparent" />
+              </div>
             </motion.div>
           </div>
         </div>

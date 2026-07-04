@@ -25,22 +25,22 @@ const WOOD_PANELS = [
 ];
 
 const METAL_PANELS = [
-  // { id: 1, name: "Antique Bronze", image: "/metal-panels/antique-bronze.png", color: "#8C6B3F" },
-  // { id: 2, name: "Champagne Gold", image: "/metal-panels/champagne-gold.png", color: "#C9A96A" },
-  // { id: 3, name: "Copper Brown", image: "/metal-panels/copper-brown.png", color: "#8B4A2F" },
-  // { id: 4, name: "Matte Black", image: "/metal-panels/matte-black.png", color: "#2B2B2B" },
-  // { id: 5, name: "Peach Orange", image: "/metal-panels/peach-orange.png", color: "#E8A87C" },
-  { id: 6, name: "Bronze PVD", image: "/metal-panels/bronze-pvd.png", color: "#7A5C2E" },
-  { id: 7, name: "Champagne Gold PVD", image: "/metal-panels/champagne-gold-pvd.png", color: "#D4AF6A" },
-  { id: 8, name: "Copper PVD", image: "/metal-panels/copper-pvd.png", color: "#B87333" },
-  { id: 9, name: "Emerald Green PVD", image: "/metal-panels/emerald-green-pvd.png", color: "#2E8B57" },
-  { id: 10, name: "Gunmetal Grey PVD", image: "/metal-panels/gunmetal-grey-pvd.png", color: "#4A4A4A" },
-  { id: 11, name: "Matte Black PVD", image: "/metal-panels/matte-black-pvd.png", color: "#1A1A1A" },
-  { id: 12, name: "Orange Powder Coated", image: "/metal-panels/orange-powder-coated.png", color: "#E86B20" },
-  { id: 13, name: "Rose Gold PVD", image: "/metal-panels/rose-gold-pvd.png", color: "#B76E79" },
-  { id: 14, name: "Royal Blue PVD", image: "/metal-panels/royal-blue-pvd.png", color: "#1E3A8A" },
-  { id: 15, name: "Titanium Silver PVD", image: "/metal-panels/titanium-silver-pvd.png", color: "#A8A9AD" },
-  { id: 16, name: "Red Wine", image: "/metal-panels/red-wine.png", color: "#722F37" },
+  // { id: 1, name: "Antique Bronze", image: "/metal-panels/antique-bronze.png", cover: "/metal-panels/antique-bronze.png", color: "#8C6B3F" },
+  // { id: 2, name: "Champagne Gold", image: "/metal-panels/champagne-gold.png", cover: "/metal-panels/champagne-gold.png", color: "#C9A96A" },
+  // { id: 3, name: "Copper Brown", image: "/metal-panels/copper-brown.png", cover: "/metal-panels/copper-brown.png", color: "#8B4A2F" },
+  // { id: 4, name: "Matte Black", image: "/metal-panels/matte-black.png", cover: "/metal-panels/matte-black.png", color: "#2B2B2B" },
+  // { id: 5, name: "Peach Orange", image: "/metal-panels/peach-orange.png", cover: "/metal-panels/peach-orange.png", color: "#E8A87C" },
+  { id: 16, name: "Red Wine",              image: "/metal-panels/red-wine.png",              cover: "/cover-photos/red-wine-pvd.jpg",         color: "#722F37" },
+  { id: 6,  name: "Bronze PVD",            image: "/metal-panels/bronze-pvd.png",            cover: "/cover-photos/bronze-pvd.jpg",           color: "#7A5C2E" },
+  { id: 7,  name: "Champagne Gold PVD",    image: "/metal-panels/champagne-gold-pvd.png",    cover: "/cover-photos/champagne-gold-pvd.jpg",   color: "#D4AF6A" },
+  { id: 8,  name: "Copper PVD",            image: "/metal-panels/copper-pvd.png",            cover: "/cover-photos/copper-pvd.jpg",           color: "#B87333" },
+  { id: 9,  name: "Emerald Green PVD",     image: "/metal-panels/emerald-green-pvd.png",     cover: "/cover-photos/emerald-green-pvd.jpg",    color: "#2E8B57" },
+  { id: 10, name: "Gunmetal Grey PVD",     image: "/metal-panels/gunmetal-grey-pvd.png",     cover: "/cover-photos/gunmetal-grey-pvd.jpg",    color: "#4A4A4A" },
+  { id: 11, name: "Matte Black PVD",       image: "/metal-panels/matte-black-pvd.png",       cover: "/cover-photos/matte-black-pvd.jpg",      color: "#1A1A1A" },
+  { id: 12, name: "Orange Powder Coated",  image: "/metal-panels/orange-powder-coated.png",  cover: "/cover-photos/orange-powder-coated.jpg", color: "#E86B20" },
+  { id: 13, name: "Rose Gold PVD",         image: "/metal-panels/rose-gold-pvd.png",         cover: "/cover-photos/rose-gold-pvd.jpg",        color: "#B76E79" },
+  { id: 14, name: "Royal Blue PVD",        image: "/metal-panels/royal-blue-pvd.png",        cover: "/cover-photos/royal-blue-pvd.jpg",       color: "#1E3A8A" },
+  { id: 15, name: "Titanium Silver PVD",   image: "/metal-panels/titanium-silver-pvd.png",   cover: "/cover-photos/titanium-silver-pvd.jpg",  color: "#A8A9AD" },
 ];
 
 export default function WoodPanelVisualizer() {
@@ -318,7 +318,7 @@ export default function WoodPanelVisualizer() {
                         : "border-stone-300 hover:border-stone-400 hover:scale-105"
                     }`}
                   >
-                    <img src={panel.image} alt={panel.name} className="w-full h-full object-cover" />
+                    <img src={panel.cover} alt={panel.name} className="w-full h-full object-cover" />
                   </div>
                   <span
                     className={`text-[11px] font-semibold whitespace-nowrap transition-colors ${
@@ -356,7 +356,7 @@ export default function WoodPanelVisualizer() {
                     <p className="text-white/60 text-[11px]">Metal Coating Finish</p>
                   </div>
                   <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-white shadow-lg">
-                    <img src={currentMetal.image} alt="" className="w-full h-full object-cover" />
+                    <img src={currentMetal.cover} alt="" className="w-full h-full object-cover" />
                   </div>
                 </div>
               </div>
@@ -422,7 +422,7 @@ export default function WoodPanelVisualizer() {
                       onClick={() => setActiveMetal(i)}
                       className={`w-12 h-12 shrink-0 rounded-lg overflow-hidden border-2 transition-all ${activeMetal === i ? "border-amber-500 scale-105" : "border-stone-200 hover:border-stone-300"}`}
                     >
-                      <img src={panel.image} alt={panel.name} className="w-full h-full object-cover" />
+                      <img src={panel.cover} alt={panel.name} className="w-full h-full object-cover" />
                     </button>
                   ))}
                 </div>
