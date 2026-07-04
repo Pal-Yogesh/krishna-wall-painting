@@ -20,13 +20,11 @@ const NAV_LINKS = [
 
 // Sub-links shown in the "About Us" dropdown
 const ABOUT_DROPDOWN = [
-  { label: "About Us", href: "/about", color: "#d97706" },
   { label: "Careers",  href: "/careers", color: "#16a34a" },
 ];
 
 // Sub-links shown in the "Events" dropdown
 const MEDIA_DROPDOWN = [
-  { label: "Events",  href: "/events",  color: "#7c3aed" },
   { label: "Gallery", href: "/gallery", color: "#0891b2" },
 ];
 
@@ -220,19 +218,52 @@ export default function Navbar() {
                       {/* Dropdown */}
                       {productsDropdown && (
                         <div className="absolute top-full left-0 pt-2 z-50">
-                          <div className="bg-white rounded-xl border border-stone-200/80 shadow-xl p-2 min-w-[200px]">
-                            {[
-                              { label: "Wood Coatings", href: "/products/wood", color: "#16a34a" },
-                              { label: "Metal Coatings", href: "/products/metal", color: "#d97706" },
-                              { label: "Glass & Plastic", href: "/products/glass", color: "#0891b2" },
-                            ].map((sub) => (
-                              <Link key={sub.href} href={sub.href} onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
-                                className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-stone-50 transition-colors">
-                                <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: sub.color }} />
-                                <span className="text-[12px] font-semibold text-stone-600 hover:text-stone-900 transition-colors">{sub.label}</span>
-                              </Link>
-                            ))}
-                            <div className="border-t border-stone-100 mt-1 pt-1">
+                          <div className="bg-white rounded-xl border border-stone-200/80 shadow-xl p-4 min-w-[520px]">
+                            <div className="grid grid-cols-3 gap-4">
+                              {/* Wood */}
+                              <div>
+                                <Link href="/products/wood" onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
+                                  className="flex items-center gap-2 mb-2 group">
+                                  <span className="w-2.5 h-2.5 rounded-full shrink-0 bg-[#16a34a]" />
+                                  <span className="text-[12px] font-bold text-stone-800 group-hover:text-amber-600 transition-colors">Wood Coatings</span>
+                                </Link>
+                                {["NC Coatings", "PU Coatings", "Unsaturated Polyester", "1K Acrylic", "UV Coatings", "1K WB Coatings", "2K WB Coatings"].map((item) => (
+                                  <Link key={item} href="/products/wood" onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
+                                    className="block px-3 py-1.5 text-[11px] text-stone-500 hover:text-stone-900 hover:bg-stone-50 rounded-md transition-colors">
+                                    {item}
+                                  </Link>
+                                ))}
+                              </div>
+                              {/* Metal */}
+                              <div>
+                                <Link href="/products/metal" onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
+                                  className="flex items-center gap-2 mb-2 group">
+                                  <span className="w-2.5 h-2.5 rounded-full shrink-0 bg-[#d97706]" />
+                                  <span className="text-[12px] font-bold text-stone-800 group-hover:text-amber-600 transition-colors">Metal Coatings</span>
+                                </Link>
+                                {["NC Coatings", "PU Coatings", "Epoxy Anti-Corrosion", "HR Coatings", "1K Acrylic"].map((item) => (
+                                  <Link key={item} href="/products/metal" onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
+                                    className="block px-3 py-1.5 text-[11px] text-stone-500 hover:text-stone-900 hover:bg-stone-50 rounded-md transition-colors">
+                                    {item}
+                                  </Link>
+                                ))}
+                              </div>
+                              {/* Glass */}
+                              <div>
+                                <Link href="/products/glass" onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
+                                  className="flex items-center gap-2 mb-2 group">
+                                  <span className="w-2.5 h-2.5 rounded-full shrink-0 bg-[#0891b2]" />
+                                  <span className="text-[12px] font-bold text-stone-800 group-hover:text-amber-600 transition-colors">Glass & Plastic</span>
+                                </Link>
+                                {["PU Glass Coatings", "PU ABS Coatings", "Epoxy Clear"].map((item) => (
+                                  <Link key={item} href="/products/glass" onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
+                                    className="block px-3 py-1.5 text-[11px] text-stone-500 hover:text-stone-900 hover:bg-stone-50 rounded-md transition-colors">
+                                    {item}
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
+                            <div className="border-t border-stone-100 mt-3 pt-2">
                               <Link href="/products" onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
                                 className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-amber-50 transition-colors">
                                 <span className="text-[11px] font-bold text-amber-600">View All Products →</span>
@@ -298,7 +329,7 @@ export default function Navbar() {
                       onMouseEnter={() => setMediaDropdown(true)}
                       onMouseLeave={() => setMediaDropdown(false)}
                     >
-                      <button className="relative px-4 py-2 flex items-center gap-1">
+                      <Link href="/events" onClick={() => handleNavClick("")} className="relative px-4 py-2 flex items-center gap-1">
                         {active && (
                           <motion.span layoutId="nav-active-bg" className="absolute inset-0 rounded-xl bg-amber-50" transition={{ type: "spring", stiffness: 400, damping: 30 }} />
                         )}
@@ -312,7 +343,7 @@ export default function Navbar() {
                         {active && (
                           <motion.span layoutId="nav-dot" className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-amber-500" transition={{ type: "spring", stiffness: 500, damping: 30 }} />
                         )}
-                      </button>
+                      </Link>
                       {mediaDropdown && (
                         <div className="absolute top-full left-0 pt-2 z-50">
                           <div className="bg-white rounded-xl border border-stone-200/80 shadow-xl p-2 min-w-[160px]">
@@ -520,6 +551,36 @@ export default function Navbar() {
                           {link.label}
                         </span>
                       </Link>
+                      {/* Products sub-links */}
+                      {link.href === "/products" && (
+                        <>
+                          {[
+                            { label: "Wood Coatings", href: "/products/wood", color: "#16a34a", items: ["NC", "PU", "Polyester", "1K Acrylic", "UV", "1K WB", "2K WB"] },
+                            { label: "Metal Coatings", href: "/products/metal", color: "#d97706", items: ["NC", "PU", "Epoxy", "HR", "1K Acrylic"] },
+                            { label: "Glass & Plastic", href: "/products/glass", color: "#0891b2", items: ["PU Glass", "PU ABS", "Epoxy Clear"] },
+                          ].map((cat) => (
+                            <div key={cat.href}>
+                              <Link
+                                href={cat.href}
+                                onClick={() => handleNavClick("")}
+                                className={`
+                                  flex items-center gap-3 pl-8 pr-4 py-2.5 rounded-2xl transition-all duration-150
+                                  ${pathname === cat.href
+                                    ? "bg-amber-50 text-amber-700"
+                                    : "text-stone-600 hover:bg-stone-50 hover:text-stone-900"
+                                  }
+                                `}
+                              >
+                                <span className="w-2 h-2 rounded-full shrink-0" style={{ background: cat.color }} />
+                                <span className="text-[13px] font-semibold" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
+                                  {cat.label}
+                                </span>
+                                <span className="ml-auto text-[10px] text-stone-400 font-medium">{cat.items.length}</span>
+                              </Link>
+                            </div>
+                          ))}
+                        </>
+                      )}
                       {/* About Us sub-link: Careers */}
                       {link.href === "/about" && (
                         <Link
@@ -571,30 +632,35 @@ export default function Navbar() {
               {/* Drawer footer */}
               <div className="px-4 pb-6 pt-4 border-t border-stone-100 flex flex-col gap-3">
                 <Link
+                  href="/wood-panel-visualizer"
+                  onClick={() => handleNavClick("")}
+                  className="
+                    flex items-center justify-center gap-2 w-full py-3.5 rounded-2xl
+                    bg-amber-500
+                    text-white font-bold text-sm tracking-wide
+                    shadow-md shadow-amber-200
+                  "
+                >
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />
+                  </svg>
+                  Visualizer
+                </Link>
+
+                <Link
                   href="/contact-us"
                   onClick={() => handleNavClick("")}
                   className="
                     flex items-center justify-center gap-2 w-full py-3.5 rounded-2xl
-                    bg-linear-to-r from-amber-500 to-amber-600
+                    bg-stone-900
                     text-white font-bold text-sm tracking-wide
-                    shadow-md shadow-amber-200
+                    shadow-md shadow-stone-900/20
                   "
                 >
                   <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                     <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
                   </svg>
                   Contact Us
-                </Link>
-
-                <Link
-                  href="/products"
-                  onClick={() => handleNavClick("")}
-                  className="flex items-center justify-center gap-2 w-full py-3 rounded-2xl border border-stone-200 text-stone-600 font-semibold text-sm hover:bg-stone-50 transition-colors"
-                >
-                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                    <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />
-                  </svg>
-                  Explore Products
                 </Link>
 
                 <div className="flex rounded-xl overflow-hidden h-2 mt-1">
