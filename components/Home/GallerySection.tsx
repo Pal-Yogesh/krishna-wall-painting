@@ -156,7 +156,7 @@ export default function GallerySection() {
 
             {/* Gallery cards */}
             {GALLERY_ITEMS.map((item, i) => (
-              <div key={`desktop-${item.title}-${i}`} className="shrink-0 w-[30vw] h-[70vh] rounded-2xl overflow-hidden shadow-lg">
+              <div key={`desktop-${item.title}-${i}`} className="shrink-0 w-[35vw] h-[60vh] rounded-2xl overflow-hidden shadow-lg">
                 <GalleryCard item={item} />
               </div>
             ))}

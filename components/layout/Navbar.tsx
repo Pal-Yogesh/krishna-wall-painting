@@ -7,6 +7,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import { useProducts } from "@/context/ProductContext";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger);
@@ -45,6 +46,12 @@ export default function Navbar() {
   const [mediaDropdown, setMediaDropdown] = useState(false);
   const navRef = useRef<HTMLElement>(null);
   const pathname = usePathname();
+  const { products } = useProducts();
+
+  // Group products by substrate for dropdown
+  const woodProducts = products.filter(p => p.substrate === "wood");
+  const metalProducts = products.filter(p => p.substrate === "metal");
+  const glassProducts = products.filter(p => p.substrate === "glass");
 
   // Scroll detection for frosted glass effect
   useEffect(() => {
@@ -227,10 +234,10 @@ export default function Navbar() {
                                   <span className="w-2.5 h-2.5 rounded-full shrink-0 bg-[#16a34a]" />
                                   <span className="text-[12px] font-bold text-stone-800 group-hover:text-amber-600 transition-colors">Wood Coatings</span>
                                 </Link>
-                                {["NC Coatings", "PU Coatings", "Unsaturated Polyester", "1K Acrylic", "UV Coatings", "1K WB Coatings", "2K WB Coatings"].map((item) => (
-                                  <Link key={item} href="/products/wood" onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
-                                    className="block px-3 py-1.5 text-[11px] text-stone-500 hover:text-stone-900 hover:bg-stone-50 rounded-md transition-colors">
-                                    {item}
+                                {woodProducts.map((p) => (
+                                  <Link key={p.id} href={`/products/wood/${p.id}`} onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
+                                    className="block px-3 py-1.5 text-[11px] text-stone-500 hover:text-stone-900 hover:bg-stone-50 rounded-md transition-colors truncate">
+                                    {p.name}
                                   </Link>
                                 ))}
                               </div>
@@ -241,10 +248,10 @@ export default function Navbar() {
                                   <span className="w-2.5 h-2.5 rounded-full shrink-0 bg-[#d97706]" />
                                   <span className="text-[12px] font-bold text-stone-800 group-hover:text-amber-600 transition-colors">Metal Coatings</span>
                                 </Link>
-                                {["NC Coatings", "PU Coatings", "Epoxy Anti-Corrosion", "HR Coatings", "1K Acrylic"].map((item) => (
-                                  <Link key={item} href="/products/metal" onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
-                                    className="block px-3 py-1.5 text-[11px] text-stone-500 hover:text-stone-900 hover:bg-stone-50 rounded-md transition-colors">
-                                    {item}
+                                {metalProducts.map((p) => (
+                                  <Link key={p.id} href={`/products/metal/${p.id}`} onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
+                                    className="block px-3 py-1.5 text-[11px] text-stone-500 hover:text-stone-900 hover:bg-stone-50 rounded-md transition-colors truncate">
+                                    {p.name}
                                   </Link>
                                 ))}
                               </div>
@@ -255,10 +262,10 @@ export default function Navbar() {
                                   <span className="w-2.5 h-2.5 rounded-full shrink-0 bg-[#0891b2]" />
                                   <span className="text-[12px] font-bold text-stone-800 group-hover:text-amber-600 transition-colors">Glass & Plastic</span>
                                 </Link>
-                                {["PU Glass Coatings", "PU ABS Coatings", "Epoxy Clear"].map((item) => (
-                                  <Link key={item} href="/products/glass" onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
-                                    className="block px-3 py-1.5 text-[11px] text-stone-500 hover:text-stone-900 hover:bg-stone-50 rounded-md transition-colors">
-                                    {item}
+                                {glassProducts.map((p) => (
+                                  <Link key={p.id} href={`/products/glass/${p.id}`} onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
+                                    className="block px-3 py-1.5 text-[11px] text-stone-500 hover:text-stone-900 hover:bg-stone-50 rounded-md transition-colors truncate">
+                                    {p.name}
                                   </Link>
                                 ))}
                               </div>
@@ -555,9 +562,9 @@ export default function Navbar() {
                       {link.href === "/products" && (
                         <>
                           {[
-                            { label: "Wood Coatings", href: "/products/wood", color: "#16a34a", items: ["NC", "PU", "Polyester", "1K Acrylic", "UV", "1K WB", "2K WB"] },
-                            { label: "Metal Coatings", href: "/products/metal", color: "#d97706", items: ["NC", "PU", "Epoxy", "HR", "1K Acrylic"] },
-                            { label: "Glass & Plastic", href: "/products/glass", color: "#0891b2", items: ["PU Glass", "PU ABS", "Epoxy Clear"] },
+                            { label: "Wood Coatings", href: "/products/wood", color: "#16a34a", items: woodProducts },
+                            { label: "Metal Coatings", href: "/products/metal", color: "#d97706", items: metalProducts },
+                            { label: "Glass & Plastic", href: "/products/glass", color: "#0891b2", items: glassProducts },
                           ].map((cat) => (
                             <div key={cat.href}>
                               <Link
@@ -577,6 +584,16 @@ export default function Navbar() {
                                 </span>
                                 <span className="ml-auto text-[10px] text-stone-400 font-medium">{cat.items.length}</span>
                               </Link>
+                              {cat.items.map((p) => (
+                                <Link
+                                  key={p.id}
+                                  href={`/products/${p.substrate}/${p.id}`}
+                                  onClick={() => handleNavClick("")}
+                                  className="flex items-center gap-3 pl-12 pr-4 py-2 rounded-xl text-stone-400 hover:text-stone-700 hover:bg-stone-50 transition-all text-[12px] truncate"
+                                >
+                                  {p.name}
+                                </Link>
+                              ))}
                             </div>
                           ))}
                         </>

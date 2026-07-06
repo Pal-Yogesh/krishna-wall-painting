@@ -1,12 +1,4 @@
 "use client";
-
-// components/Home/AboutHero.tsx
-// ─────────────────────────────────────────────────────────────────────────────
-// Atonce-style About hero: headline + image, stats row, "people first"
-// portrait + quote block, and a trusted-brands logo strip.
-// ─────────────────────────────────────────────────────────────────────────────
-
-import React from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
@@ -190,9 +182,9 @@ export default function AboutHero() {
             className="flex items-center gap-6 w-max px-6"
           >
             {doubledLogos.map((src, i) => (
-              <div key={i} className="shrink-0 w-40 h-24 bg-white border border-stone-200/80 rounded-2xl shadow-sm flex items-center justify-center p-3">
+              <div key={i} className="shrink-0 w-40 h-32 bg-white border border-stone-200/80 rounded-2xl shadow-sm flex items-center justify-center p-2">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={src} alt="Client logo" className="w-full h-full object-contain" />
+                <img src={src} alt="Client logo" className="w-full h-full object-cover" />
               </div>
             ))}
           </motion.div>

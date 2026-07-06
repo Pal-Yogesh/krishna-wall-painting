@@ -61,12 +61,10 @@ export default function Footer() {
           <div className="flex flex-col gap-5">
             <Link href="/" className="flex items-center gap-3 w-fit group">
               
-              <Image src="/logo.png" alt="Logo" className=" w-20 h-16 object-contain" width={1000} height={1000} />
+              <Image src="/logo.png" alt="Logo" className=" w-40 h-40 object-contain" width={1000} height={1000} />
             </Link>
 
-            <p className="text-sm leading-relaxed text-stone-500 max-w-[280px]" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
-              From industrial chemicals to Speciality coatings — serving India and global markets since 1998.
-            </p>
+           
 
             {/* Social icons */}
             <div className="flex gap-2.5">

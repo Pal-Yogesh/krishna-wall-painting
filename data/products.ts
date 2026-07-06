@@ -29,7 +29,7 @@ export const substrates = {
     color: "#16a34a",
     bg: "bg-emerald-50",
     border: "border-emerald-200",
-    description: "Premium coating solutions for wooden surfaces — from furniture and handicrafts to flooring and musical instruments. Our wood coatings deliver exceptional clarity, durability, and finish quality.",
+    description: "At Krishna Murari Organosys Pvt. Ltd. (KMOPL), we engineer world-class, industrial-grade wood coatings designed to enhance, protect, and extend the life of wooden surfaces. Backed by over two decades of expertise in chemical manufacturing and paint technology, our advanced formulations cater directly to furniture manufacturers, large-scale handicraft exporters, and premium OEMs across India. From deep interior aesthetics to extreme weather protection outdoors, our wood coatings bridge the gap between stunning craftsmanship and industrial-grade endurance. .",
   },
   metal: {
     label: "Metal Coatings",
@@ -37,7 +37,7 @@ export const substrates = {
     color: "#d97706",
     bg: "bg-amber-50",
     border: "border-amber-200",
-    description: "High-performance coatings for metal substrates providing corrosion protection, weather resistance, and decorative finishes for automotive, industrial, and consumer applications.",
+    description: "At Krishna Murari Organosys Pvt. Ltd., we engineer specialized industrial metal coatings designed to deliver superior surface protection, robust aesthetic finishes, and exceptional lifecycle extension. Whether protecting structural assets from heavy atmospheric corrosion or delivering high-gloss finishes for automotive and industrial equipment, our formulations provide the ultimate chemical and mechanical defense for all metal substrates.",
   },
   glass: {
     label: "Glass & Plastic Coatings",

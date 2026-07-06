@@ -121,14 +121,14 @@ export default function EventsPage() {
                   {/* Info */}
                   <div className="flex-1">
                     <div className="flex items-center gap-3 flex-wrap mb-2">
-                      {ev.eventDate && (
+                      {/* {ev.eventDate && (
                         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">
                           <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
                           </svg>
                           {formatDate(ev.eventDate)}
                         </span>
-                      )}
+                      )} */}
                       {ev.location && (
                         <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-stone-100 text-stone-600 border border-stone-200">
                           <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -145,9 +145,9 @@ export default function EventsPage() {
                     {ev.description && (
                       <p className="mt-3 text-[14.5px] text-stone-500 leading-relaxed">{ev.description}</p>
                     )}
-                    {ev.gallery?.length > 0 && (
+                    {/* {ev.gallery?.length > 0 && (
                       <p className="mt-3 text-[12px] font-semibold text-stone-400">{ev.gallery.length} photo{ev.gallery.length !== 1 ? "s" : ""} in this gallery</p>
-                    )}
+                    )} */}
                   </div>
                 </div>
 
