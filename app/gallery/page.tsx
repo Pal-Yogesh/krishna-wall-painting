@@ -10,6 +10,7 @@ if (typeof window !== "undefined") {
 }
 
 const GALLERY_IMAGES = [
+  "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426423/kmopl-gallery/vgs27kg1va27hl7qftvy.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426394/kmopl-gallery/vyt2gejregacju984dtd.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426396/kmopl-gallery/uhy67apojoclxgcjupeh.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426398/kmopl-gallery/jgecgnnrttkvjfuh3tzn.jpg",
@@ -17,13 +18,11 @@ const GALLERY_IMAGES = [
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426411/kmopl-gallery/qhu5a9okvwdavwquu0jp.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426413/kmopl-gallery/nmiefq0mvbdorpab6ydx.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426419/kmopl-gallery/pdqv4fb4zersjxfbvmai.jpg",
-  "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426423/kmopl-gallery/vgs27kg1va27hl7qftvy.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426424/kmopl-gallery/alnzcmxilsfkt12a7vim.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426434/kmopl-gallery/aecaisrnuq00ln0aktnt.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426436/kmopl-gallery/toqefr81rj71dwn9tmmt.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426437/kmopl-gallery/h6zhqdikgpb4hfmt5tbj.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426440/kmopl-gallery/oy02cwt9b1x7ygto57d5.jpg",
-  "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426444/kmopl-gallery/d6u6sxziccmym4pphrmj.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426446/kmopl-gallery/kwuwjyjy3iclquyb4mz4.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426454/kmopl-gallery/vdbibnxl8wj3q7wrz8ct.jpg",
   // "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426456/kmopl-gallery/njivu2s6yogwmpvipicl.jpg",
@@ -41,6 +40,7 @@ const GALLERY_IMAGES = [
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426479/kmopl-gallery/haxg7zhlnkymouxvfxve.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426481/kmopl-gallery/wtqxtjt0guohc6jsvaow.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426484/kmopl-gallery/fgh1ivgw5nlo3hwakigl.jpg",
+  "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426444/kmopl-gallery/d6u6sxziccmym4pphrmj.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426485/kmopl-gallery/k3hmssoidvlov1jh37eh.jpg",
 ];
 

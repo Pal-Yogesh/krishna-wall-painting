@@ -29,7 +29,7 @@ const GALLERY_ITEMS = [
 function GalleryCard({ item }: { item: typeof GALLERY_ITEMS[number] }) {
   return (
     <div className="relative rounded-2xl overflow-hidden group h-full">
-      <img src={item.image} alt={item.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+      <img src={item.image} alt={item.title} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
       <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
       <div className="absolute top-0 left-0 right-0 h-1" style={{ background: `linear-gradient(90deg, ${item.color}, ${item.color}60)` }} />
       <div className="absolute bottom-4 left-4">
@@ -156,7 +156,7 @@ export default function GallerySection() {
 
             {/* Gallery cards */}
             {GALLERY_ITEMS.map((item, i) => (
-              <div key={`desktop-${item.title}-${i}`} className="shrink-0 w-[35vw] h-[60vh] rounded-2xl overflow-hidden shadow-lg">
+              <div key={`desktop-${item.title}-${i}`} className="shrink-0 w-[500px] h-[340px] rounded-2xl overflow-hidden shadow-lg">
                 <GalleryCard item={item} />
               </div>
             ))}

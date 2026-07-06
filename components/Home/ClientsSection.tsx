@@ -74,13 +74,13 @@ export default function ClientsSection() {
               key={`logo-${i}`}
               whileHover={{ scale: 1.1 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="shrink-0 w-52 h-40 bg-white border object-cover border-stone-200/80 rounded-xl shadow-sm flex items-center justify-center p-1 hover:shadow-md hover:border-amber-200 cursor-pointer"
+              className="shrink-0 w-52  h-36 px-4  bg-white border  border-stone-200/80 rounded-xl shadow-sm flex items-center justify-center hover:shadow-md hover:border-amber-200 cursor-pointer"
             >
               <img
                 src={logo.src}
                 alt={logo.alt}
            
-                className="w-full h-full object-cover"
+                className="w-full h-full   object-cover"
               />
             </motion.div>
           ))}
