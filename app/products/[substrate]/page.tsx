@@ -143,7 +143,7 @@ export default function SubstratePage() {
             <motion.div initial={{ opacity: 0, x: 30 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.6, delay: 0.2 }} className="lg:col-span-2 hidden lg:block">
               <div className="relative rounded-3xl shadow-lg overflow-hidden">
                 {/* Full image or video */}
-                <div className="relative h-64 overflow-hidden">
+                <div className="relative h-72 overflow-hidden">
                   {substrate === "wood" ? (
                     <video
                       src="https://res.cloudinary.com/dxfkygu6e/video/upload/v1783163099/WhatsApp_Video_2026-07-04_at_4.33.57_PM_mf6omj.mp4"
@@ -163,7 +163,14 @@ export default function SubstratePage() {
                       className="w-full h-full object-cover"
                     />
                   ) : (
-                    <img src={`/coating/${substrate}-coating-product.jpeg`} alt={info.label} className="w-full h-full object-cover" />
+                    <video
+                      src="https://res.cloudinary.com/dxfkygu6e/video/upload/v1783357102/IMG_2147_mggzbi.mp4"
+                      autoPlay
+                      muted
+                      loop
+                      playsInline
+                      className="w-full h-full object-cover"
+                    />
                   )}
                   <div className="absolute inset-0 bg-linear-to-t from-black/60 via-black/10 to-transparent" />
                   {/* Shine effect */}
@@ -173,21 +180,7 @@ export default function SubstratePage() {
                     className="absolute inset-y-0 w-1/3 bg-linear-to-r from-transparent via-white/20 to-transparent skew-x-[-20deg]"
                   />
                 </div>
-                {/* Stats overlay at bottom */}
-                <div className="absolute bottom-0 left-0 right-0 p-5 grid grid-cols-3 gap-3">
-                  <div className="text-center">
-                    <div className="text-xl font-bold text-white drop-shadow-md">{items.length}</div>
-                    <div className="text-[10px] text-white/70 font-medium">Products</div>
-                  </div>
-                  <div className="text-center border-x border-white/20">
-                    <div className="text-xl font-bold text-white drop-shadow-md">{chemistries.length}</div>
-                    <div className="text-[10px] text-white/70 font-medium">Chemistries</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-xl font-bold text-white drop-shadow-md">{items.reduce((acc, p) => acc + (p.finishes?.length || 0), 0)}+</div>
-                    <div className="text-[10px] text-white/70 font-medium">Finishes</div>
-                  </div>
-                </div>
+            
               </div>
             </motion.div>
           </div>

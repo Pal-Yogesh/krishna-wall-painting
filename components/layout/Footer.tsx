@@ -61,7 +61,7 @@ export default function Footer() {
           <div className="flex flex-col gap-5">
             <Link href="/" className="flex items-center gap-3 w-fit group">
               
-              <Image src="/logo.png" alt="Logo" className=" w-40 h-40 object-contain" width={1000} height={1000} />
+              <Image src="/logo.png" alt="KMOPL Logo" className="w-40 h-28 object-contain" width={1000} height={1000} />
             </Link>
 
            
@@ -138,8 +138,8 @@ export default function Footer() {
           </div>
 
           {/* Col 4: Contact */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-stone-400 mb-5">Get in Touch</h4>
+          <div className="w-[280px]">
+            <h4 className="text-xs font-bold uppercase  tracking-[0.2em] text-stone-400 mb-5">Get in Touch</h4>
             <div className="flex flex-col gap-4">
               {[
                 { icon: <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>, label: "Phone", value: "+91 85888 30308", href: "tel:+918588830308" },

@@ -35,12 +35,12 @@ const MAX_RESUME_BYTES = 5 * 1024 * 1024;
 
 // ── Unsplash imagery (workplace / team / industrial themes) ─────────────────────
 const IMG = {
-  heroMain: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=600&q=80",
-  heroA: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80",
-  heroB: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=400&q=80",
+  heroMain: "/career/1.jpeg",
+  heroA: "/career/2.jpeg",
+  heroB: "/career/3.jpeg",
   talent: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=700&q=80",
-  access: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=700&q=80",
-  testimonial: "https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&w=400&q=80",
+  access: "/access.jpeg",
+  testimonial: "/about.jpg",
 };
 
 // ── Perks / benefits ────────────────────────────────────────────────────────────
@@ -129,7 +129,7 @@ function FramedPhoto({
       <div className="absolute inset-0 rounded-full" style={{ background: ringColor, transform: "scale(1.08)", opacity: 0.18 }} />
       <div className="absolute inset-0 rounded-full overflow-hidden border-[6px] border-white shadow-xl">
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={src} alt="" className="w-full h-full object-cover" />
+        <img src={src} alt="" className="w-full h-full object-contain" />
       </div>
     </div>
   );
@@ -373,7 +373,7 @@ export default function CareersPage() {
               <div aria-hidden className="absolute -top-6 -right-6 w-28 h-28 rounded-full" style={{ background: "#f59e0b", opacity: 0.15 }} />
               <div aria-hidden className="absolute -bottom-6 -left-6 w-32 h-32 rounded-3xl" style={{ background: "#16a34a", opacity: 0.12 }} />
 
-              <div className="relative grid grid-cols-2 grid-rows-2 gap-4 h-[440px]">
+              <div className="relative grid grid-cols-2 grid-rows-2 gap-2 h-[440px]">
                 {/* Tall main image (spans both rows) */}
                 <div className="row-span-2 rounded-[2rem] overflow-hidden shadow-lg border-4 border-white">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -403,10 +403,10 @@ export default function CareersPage() {
           <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
             className="relative h-80 order-2 lg:order-1">
             <div className="absolute left-10 top-4 w-64 h-64 rounded-full" style={{ background: "#16a34a", opacity: 0.1 }} />
-            <QuarterCircle className="absolute left-0 top-0 w-20 h-20" color="#f59e0b" />
-            <QuarterCircle className="absolute right-16 bottom-0 w-16 h-16" color="#16a34a" rotate={180} />
+            <QuarterCircle className="absolute left-10 -top-10 w-20 h-20" color="#f59e0b" />
+            <QuarterCircle className="absolute right-10 bottom-0 w-16 h-16" color="#16a34a" rotate={180} />
             <div className="absolute right-10 top-6 w-4 h-4 rounded-full bg-amber-400" />
-            <div className="relative w-72 h-72 mx-auto rounded-[2.5rem] overflow-hidden border-[6px] border-white shadow-xl">
+            <div className="relative w-[340px] h-72 mx-auto rounded-[2.5rem] overflow-hidden border-[6px] border-white shadow-xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={IMG.access} alt="Career growth at KMOPL" className="w-full h-full object-cover" />
             </div>
@@ -482,7 +482,7 @@ export default function CareersPage() {
             <div className="absolute left-2 bottom-12 w-5 h-5 rounded-full" style={{ background: "#f59e0b" }} />
             <QuarterCircle className="absolute right-8 bottom-6 w-16 h-16" color="#d97706" rotate={180} />
             <div className="absolute right-4 top-10 w-4 h-4 rounded-full" style={{ background: "#16a34a" }} />
-            <FramedPhoto src={IMG.testimonial} size={250} ringColor="#f59e0b" className="absolute left-1/2 -translate-x-1/2 top-4" />
+            <FramedPhoto src={IMG.testimonial} size={250} ringColor="#f59e0b" className="absolute left-1/2 -translate-x-1/2 top-4 " />
           </motion.div>
           {/* Quote */}
           <motion.div initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>

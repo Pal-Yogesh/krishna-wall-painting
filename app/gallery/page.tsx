@@ -139,7 +139,7 @@ export default function GalleryPage() {
               </span>
             </h1>
             <p className="mt-4 text-stone-500 text-[15px] max-w-lg mx-auto leading-relaxed">
-              A glimpse into our manufacturing facility, products, team events,
+              A glimpse into our manufacturing facility, KMOPL team events,
               and more.
             </p>
           </motion.div>

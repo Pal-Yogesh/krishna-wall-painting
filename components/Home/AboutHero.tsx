@@ -3,8 +3,8 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 
 const IMG = {
-  hero: "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?auto=format&fit=crop&w=800&q=80",
-  portrait: "https://images.unsplash.com/photo-1556157382-97eda2d62296?auto=format&fit=crop&w=600&q=80",
+  hero: "/image/1.jpeg",
+  portrait: "/about.jpg",
 };
 
 const STATS = [
@@ -76,12 +76,7 @@ export default function AboutHero() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={IMG.hero} alt="KMOPL team at work" className="w-full h-full object-cover" />
               </div>
-              {/* Floating since-badge */}
-              <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -bottom-5 right-6 bg-white rounded-2xl shadow-xl border border-stone-100 px-5 py-3">
-                <p className="text-2xl font-bold text-amber-500 leading-none" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>1998</p>
-                <p className="text-[11px] text-stone-400 font-semibold mt-1">Trusted since</p>
-              </motion.div>
+             
             </motion.div>
           </div>
 
@@ -128,7 +123,7 @@ export default function AboutHero() {
               <div aria-hidden className="absolute right-10 bottom-6 w-16 h-16 rounded-full" style={{ background: "#fcd34d", opacity: 0.7 }} />
               <div className="relative w-64 h-72 rounded-[2rem] overflow-hidden shadow-xl border-4 border-white">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={IMG.portrait} alt="Quality at KMOPL" className="w-full h-full object-cover" />
+                <img src={IMG.portrait} alt="Quality at KMOPL" className="w-full h-full object-contain" />
               </div>
             </motion.div>
 
@@ -182,7 +177,7 @@ export default function AboutHero() {
             className="flex items-center gap-6 w-max px-6"
           >
             {doubledLogos.map((src, i) => (
-              <div key={i} className="shrink-0 w-40 h-32 bg-white border border-stone-200/80 rounded-2xl shadow-sm flex items-center justify-center p-2">
+              <div key={i} className="shrink-0 w-44 h-36 bg-white border border-stone-200/80 rounded-2xl shadow-sm flex items-center justify-center p-2">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={src} alt="Client logo" className="w-full h-full object-cover" />
               </div>

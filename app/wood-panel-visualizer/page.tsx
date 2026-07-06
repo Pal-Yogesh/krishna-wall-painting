@@ -43,11 +43,23 @@ const METAL_PANELS = [
   { id: 15, name: "Titanium Silver PVD",   image: "/metal-panels/titanium-silver-pvd.png",   cover: "/cover-photos/titanium-silver-pvd.jpg",  color: "#A8A9AD" },
 ];
 
+const GLASS_PANELS = [
+  { id: 1, name: "Amber Orange",    image: "/glass/amber-orange.png",    color: "#D2691E" },
+  { id: 2, name: "Aqua Blue",       image: "/glass/aqua-blue.png",       color: "#00CED1" },
+  { id: 3, name: "Champagne Gold",  image: "/glass/champagne-gold.png",  color: "#D4AF6A" },
+  { id: 4, name: "Copper",          image: "/glass/copper.png",          color: "#B87333" },
+  { id: 5, name: "Emerald Green",   image: "/glass/emerald-green.png",   color: "#2E8B57" },
+  { id: 6, name: "Olive Gold",      image: "/glass/olive-gold.png",      color: "#808000" },
+  { id: 7, name: "Ruby Red",        image: "/glass/ruby-red.png",        color: "#9B111E" },
+];
+
 export default function WoodPanelVisualizer() {
   const [activePanel, setActivePanel] = useState(0);
   const current = WOOD_PANELS[activePanel];
   const [activeMetal, setActiveMetal] = useState(0);
   const currentMetal = METAL_PANELS[activeMetal];
+  const [activeGlass, setActiveGlass] = useState(0);
+  const currentGlass = GLASS_PANELS[activeGlass];
 
   return (
     <div className="min-h-screen bg-[#f5f2ed]">
@@ -423,6 +435,127 @@ export default function WoodPanelVisualizer() {
                       className={`w-12 h-12 shrink-0 rounded-lg overflow-hidden border-2 transition-all ${activeMetal === i ? "border-amber-500 scale-105" : "border-stone-200 hover:border-stone-300"}`}
                     >
                       <img src={panel.cover} alt={panel.name} className="w-full h-full object-cover" />
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+
+      {/* ═══ GLASS VISUALIZER (scoped sticky) ═══ */}
+      <section className="relative">
+        {/* Glass banner */}
+        <div className="relative h-[80vh] overflow-hidden">
+          <img src="/glass/glass-visualizer-banner.jpeg" alt="Glass Coatings" className="w-full h-full object-cover" />
+          <div className="absolute inset-0 bg-black/30 flex items-center justify-center">
+            <div className="text-center">
+              <span className="inline-block px-4 py-1.5 bg-white/20 backdrop-blur-sm text-white text-xs font-bold uppercase tracking-[0.2em] rounded-full mb-3 border border-white/30">
+                Glass Coating Visualizer
+              </span>
+              <h2 className="text-2xl sm:text-3xl font-bold text-white" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
+                Glass <span className="text-cyan-300">Finish</span> Collection
+              </h2>
+            </div>
+          </div>
+        </div>
+
+        {/* Glass selector strip */}
+        <div className="sticky top-20 z-30 bg-[#f5f2ed]/95 backdrop-blur-md border-b border-stone-200/50 mt-6 pt-3">
+          <div className="max-w-6xl mx-auto px-4">
+            <div
+              className="flex items-center gap-5 overflow-x-auto pb-3"
+              style={{ scrollbarWidth: "thin", scrollbarColor: "#0891b2 #e7e5e4" }}
+            >
+              {GLASS_PANELS.map((panel, i) => (
+                <button
+                  key={panel.id}
+                  onClick={() => setActiveGlass(i)}
+                  className="flex flex-col items-center gap-2 shrink-0 group"
+                >
+                  <div
+                    className={`w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-4 transition-all shadow-md ${
+                      activeGlass === i
+                        ? "border-cyan-500 scale-110 shadow-xl shadow-cyan-200/50"
+                        : "border-stone-300 hover:border-stone-400 hover:scale-105"
+                    }`}
+                  >
+                    <img src={panel.image} alt={panel.name} className="w-full h-full object-cover" />
+                  </div>
+                  <span
+                    className={`text-[11px] font-semibold whitespace-nowrap transition-colors ${
+                      activeGlass === i ? "text-cyan-700" : "text-stone-500"
+                    }`}
+                  >
+                    {panel.name}
+                  </span>
+                </button>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Glass main visualizer */}
+        <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-5 items-start">
+            {/* Large preview with color-morph effect */}
+            <div className="lg:col-span-2 lg:sticky lg:top-44 self-start">
+              <div className="relative rounded-2xl overflow-hidden shadow-xl min-h-[400px] sm:min-h-[480px] bg-stone-100">
+                {GLASS_PANELS.map((panel, i) => (
+                  <motion.img
+                    key={panel.id}
+                    src={panel.image}
+                    alt={panel.name}
+                    initial={false}
+                    animate={{ opacity: activeGlass === i ? 1 : 0 }}
+                    transition={{ duration: 0.6, ease: "easeInOut" }}
+                    className="absolute inset-0 w-full h-full object-cover"
+                  />
+                ))}
+                <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between z-10">
+                  <div className="px-4 py-2.5 bg-black/60 backdrop-blur-md rounded-xl">
+                    <p className="text-white font-bold text-sm">{currentGlass.name}</p>
+                    <p className="text-white/60 text-[11px]">Glass Coating Finish</p>
+                  </div>
+                  <div className="w-10 h-10 rounded-full border-2 border-white shadow-lg" style={{ background: currentGlass.color }} />
+                </div>
+              </div>
+
+           
+            </div>
+
+            {/* Right sidebar */}
+            <div className="flex flex-col gap-4">
+              {/* Info card */}
+              <div className="bg-white rounded-2xl p-5 shadow-sm border border-stone-200/80">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-12 h-12 rounded-xl flex items-center justify-center text-lg" style={{ background: `${currentGlass.color}20` }}>
+                    🔮
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-stone-900 text-[15px]">{currentGlass.name}</h3>
+                    <p className="text-[11px] text-stone-400">Glass Coating</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2 mt-3">
+                  <span className="text-[11px] text-stone-500">Color:</span>
+                  <span className="w-5 h-5 rounded-full border border-stone-200" style={{ background: currentGlass.color }} />
+                  <span className="text-[11px] text-stone-600 font-mono">{currentGlass.color}</span>
+                </div>
+              </div>
+
+              {/* Quick select */}
+              <div className="bg-white rounded-2xl p-4 shadow-sm border border-stone-200/80">
+                <p className="text-xs font-bold text-stone-400 uppercase tracking-wider mb-3">Quick Select</p>
+                <div className="flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: "thin", scrollbarColor: "#0891b2 #e7e5e4" }}>
+                  {GLASS_PANELS.map((panel, i) => (
+                    <button
+                      key={panel.id}
+                      onClick={() => setActiveGlass(i)}
+                      className={`w-12 h-12 shrink-0 rounded-lg overflow-hidden border-2 transition-all ${activeGlass === i ? "border-cyan-500 scale-105" : "border-stone-200 hover:border-stone-300"}`}
+                    >
+                      <img src={panel.image} alt={panel.name} className="w-full h-full object-cover" />
                     </button>
                   ))}
                 </div>

@@ -109,7 +109,7 @@ export default function ProductsPage() {
           {substrateKeys.map((key, i) => {
             const info = substrates[key];
             const count = products.filter(p => p.substrate === key).length;
-            const imgMap: Record<string, string> = { wood: "/products/wood.jpeg", metal: "/products/metal.jpeg", glass: "/products/glass.jpeg" };
+            const imgMap: Record<string, string> = { wood: "/image/wood.jpeg", metal: "/image/metal.jpeg", glass: "/products/glass.jpeg" };
             return (
               <motion.div
                 key={key}
@@ -119,8 +119,8 @@ export default function ProductsPage() {
                 transition={{ delay: i * 0.15, duration: 0.5 }}
               >
                 <Link href={`/products/${key}`} className="block group">
-                  <div className="relative overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl transition-all h-80">
-                    <img src={imgMap[key]} alt={info.label} className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  <div className="relative overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl transition-all h-[270px]">
+                    <img src={imgMap[key]} alt={info.label} className="absolute inset-0 w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
                     <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent" />
                     <div className="absolute top-0 left-0 right-0 h-1.5" style={{ background: `linear-gradient(90deg, ${info.color}, ${info.color}60)` }} />
                     <div className="absolute inset-y-0 -left-full w-1/2 bg-linear-to-r from-transparent via-white/15 to-transparent skew-x-[-20deg] group-hover:left-[150%] transition-all duration-700" />

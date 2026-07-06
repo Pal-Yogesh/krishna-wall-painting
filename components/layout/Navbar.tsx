@@ -44,6 +44,7 @@ export default function Navbar() {
   const [productsDropdown, setProductsDropdown] = useState(false);
   const [aboutDropdown, setAboutDropdown] = useState(false);
   const [mediaDropdown, setMediaDropdown] = useState(false);
+  const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const navRef = useRef<HTMLElement>(null);
   const pathname = usePathname();
   const { products } = useProducts();
@@ -183,16 +184,16 @@ export default function Navbar() {
         role="navigation"
         aria-label="Main navigation"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-18 lg:h-24">
+        <div className="max-w-7xl mx-auto px-4 ">
+          <div className="flex items-center justify-between  h-18 lg:h-24">
 
             {/* Logo */}
             <Link href="/" onClick={() => handleNavClick("")} className="shrink-0">
               <Image src="/logo.png" alt="KMOPL Logo" className="w-28 h-20 object-contain" width={1000} height={1000} />
             </Link>
 
-            {/* Desktop Nav Links */}
-            <div className="hidden lg:flex items-center gap-1.5">
+            {/* Desktop Nav Links - centered */}
+            <div className="hidden lg:flex items-center justify-center gap-2  lg:ml-20">
               {NAV_LINKS.map((link) => {
                 const active = isLinkActive(link);
                 const isProducts = link.href === "/products";
@@ -534,6 +535,8 @@ export default function Navbar() {
               <nav className="flex-1 overflow-y-auto px-4 py-4 flex flex-col gap-1">
                 {NAV_LINKS.map((link, i) => {
                   const active = isLinkActive(link);
+                  const hasDropdown = link.href === "/about" || link.href === "/products" || link.label === "Events";
+                  const isExpanded = mobileExpanded === link.href;
                   return (
                     <motion.div
                       key={link.href}
@@ -541,25 +544,38 @@ export default function Navbar() {
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.06, duration: 0.3, ease: "easeOut" }}
                     >
-                      <Link
-                        href={link.href}
-                        onClick={() => handleNavClick(link.sectionId)}
-                        className={`
-                          flex items-center gap-3 px-4 py-3.5 rounded-2xl transition-all duration-150
-                          ${active
-                            ? "bg-amber-50 text-amber-700"
-                            : "text-stone-600 hover:bg-stone-50 hover:text-stone-900"
-                          }
-                        `}
-                      >
-                        {active && <span className="w-1 h-5 rounded-full bg-amber-500 shrink-0" />}
-                        {!active && <span className="w-1 h-5 shrink-0" />}
-                        <span className="text-[15px] font-semibold" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
-                          {link.label}
-                        </span>
-                      </Link>
+                      <div className="flex items-center">
+                        <Link
+                          href={link.href}
+                          onClick={() => handleNavClick(link.sectionId)}
+                          className={`
+                            flex-1 flex items-center gap-3 px-4 py-3.5 rounded-2xl transition-all duration-150
+                            ${active
+                              ? "bg-amber-50 text-amber-700"
+                              : "text-stone-600 hover:bg-stone-50 hover:text-stone-900"
+                            }
+                          `}
+                        >
+                          {active && <span className="w-1 h-5 rounded-full bg-amber-500 shrink-0" />}
+                          {!active && <span className="w-1 h-5 shrink-0" />}
+                          <span className="text-[15px] font-semibold" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
+                            {link.label}
+                          </span>
+                        </Link>
+                        {hasDropdown && (
+                          <button
+                            onClick={() => setMobileExpanded(isExpanded ? null : link.href)}
+                            className="w-9 h-9 flex items-center justify-center rounded-xl hover:bg-stone-100 transition-colors"
+                          >
+                            <svg className={`w-4 h-4 text-stone-400 transition-transform duration-200 ${isExpanded ? "rotate-180" : ""}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 8.25l-7.5 7.5-7.5-7.5" />
+                            </svg>
+                          </button>
+                        )}
+                      </div>
+
                       {/* Products sub-links */}
-                      {link.href === "/products" && (
+                      {link.href === "/products" && isExpanded && (
                         <>
                           {[
                             { label: "Wood Coatings", href: "/products/wood", color: "#16a34a", items: woodProducts },
@@ -599,7 +615,7 @@ export default function Navbar() {
                         </>
                       )}
                       {/* About Us sub-link: Careers */}
-                      {link.href === "/about" && (
+                      {link.href === "/about" && isExpanded && (
                         <Link
                           href="/careers"
                           onClick={() => handleNavClick("")}
@@ -618,7 +634,7 @@ export default function Navbar() {
                         </Link>
                       )}
                       {/* Media sub-links: Events + Gallery */}
-                      {link.label === "Events" && (
+                      {link.label === "Events" && isExpanded && (
                         <>
                           {MEDIA_DROPDOWN.map((sub) => (
                             <Link

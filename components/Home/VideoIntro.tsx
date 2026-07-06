@@ -9,6 +9,7 @@ export default function VideoIntro() {
   const [isMuted, setIsMuted] = useState(true);
   const [hasInteracted, setHasInteracted] = useState(false);
   const [videoReady, setVideoReady] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
 
   // Wait for splash loader to finish (5s), then start video from beginning
   useEffect(() => {
@@ -39,6 +40,32 @@ export default function VideoIntro() {
     video.muted = true;
     setIsMuted(true);
   }, []);
+
+  // Toggle play/pause + mute on video click
+  const handleVideoClick = useCallback(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (!hasInteracted) {
+      // First click: unmute and mark as interacted
+      setHasInteracted(true);
+      video.muted = false;
+      setIsMuted(false);
+      return;
+    }
+
+    if (video.paused) {
+      video.play().catch(() => {});
+      video.muted = false;
+      setIsMuted(false);
+      setIsPaused(false);
+    } else {
+      video.pause();
+      video.muted = true;
+      setIsMuted(true);
+      setIsPaused(true);
+    }
+  }, [hasInteracted]);
 
   // On first user interaction anywhere on page, unmute and track
   useEffect(() => {
@@ -112,23 +139,15 @@ export default function VideoIntro() {
         loop
         playsInline
         preload="auto"
+        onClick={handleVideoClick}
         onEnded={() => {
           const video = videoRef.current;
           if (video) { video.currentTime = 0; video.play().catch(() => {}); }
         }}
-        className="w-full h-full object-cover"
+        className="w-full h-full object-cover cursor-pointer"
       />
 
-      {/* Sound indicator */}
-      {isMuted && (
-        <div className="absolute bottom-6 right-6 flex items-center gap-2 px-4 py-2.5 rounded-full bg-black/40 backdrop-blur-md border border-white/20 text-sm font-semibold text-white/70 z-10 pointer-events-none">
-          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M5.586 15H4a1 1 0 01-1-1v-4a1 1 0 011-1h1.586l4.707-4.707C10.923 3.663 12 4.109 12 5v14c0 .891-1.077 1.337-1.707.707L5.586 15z" />
-            <path strokeLinecap="round" strokeLinejoin="round" d="M17 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2" />
-          </svg>
-          {!hasInteracted ? "Tap to enable sound" : "Sound off"}
-        </div>
-      )}
+      {/* No visible controls — tap video to toggle */}
     </motion.section>
   );
 }

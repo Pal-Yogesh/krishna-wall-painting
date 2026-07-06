@@ -199,7 +199,12 @@ export default function ProductForm({ productId, onSaved, onCancel }: Props) {
                   {uploading ? "Uploading..." : "Choose Image"}
                   <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleImageUpload(f, "main"); }} />
                 </label>
-                {image && <img src={image} alt="preview" className="w-14 h-14 rounded-xl object-cover border-2 border-stone-200 shadow-sm" />}
+                {image && (
+                  <div className="relative">
+                    <img src={image} alt="preview" className="w-14 h-14 rounded-xl object-cover border-2 border-stone-200 shadow-sm" />
+                    <button type="button" onClick={() => setImage("")} className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600 transition-colors shadow-sm">×</button>
+                  </div>
+                )}
                 {uploading && <div className="w-14 h-14 rounded-xl bg-stone-100 border-2 border-stone-200 flex items-center justify-center"><div className="w-5 h-5 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" /></div>}
               </div>
             </div>
@@ -214,7 +219,12 @@ export default function ProductForm({ productId, onSaved, onCancel }: Props) {
                     Upload Front
                     <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleImageUpload(f, "front"); }} />
                   </label>
-                  {imageFront && <img src={imageFront} alt="Front" className="w-12 h-12 rounded-lg object-cover border border-stone-200" />}
+                  {imageFront && (
+                    <div className="relative">
+                      <img src={imageFront} alt="Front" className="w-12 h-12 rounded-lg object-cover border border-stone-200" />
+                      <button type="button" onClick={() => setImageFront("")} className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600 transition-colors shadow-sm">×</button>
+                    </div>
+                  )}
                 </div>
               </div>
               <div>
@@ -225,7 +235,12 @@ export default function ProductForm({ productId, onSaved, onCancel }: Props) {
                     Upload Back
                     <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleImageUpload(f, "back"); }} />
                   </label>
-                  {imageBack && <img src={imageBack} alt="Back" className="w-12 h-12 rounded-lg object-cover border border-stone-200" />}
+                  {imageBack && (
+                    <div className="relative">
+                      <img src={imageBack} alt="Back" className="w-12 h-12 rounded-lg object-cover border border-stone-200" />
+                      <button type="button" onClick={() => setImageBack("")} className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600 transition-colors shadow-sm">×</button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
