@@ -79,8 +79,7 @@ export default function ClientsSection() {
               <img
                 src={logo.src}
                 alt={logo.alt}
-           
-                className="w-full h-full   object-cover"
+                className={`object-cover ${logo.src.includes("client-logo-01") ? "w-20 h-20" : "w-full h-full"}`}
               />
             </motion.div>
           ))}

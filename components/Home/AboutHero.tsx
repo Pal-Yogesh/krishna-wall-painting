@@ -179,7 +179,7 @@ export default function AboutHero() {
             {doubledLogos.map((src, i) => (
               <div key={i} className="shrink-0 w-44 h-36 bg-white border border-stone-200/80 rounded-2xl shadow-sm flex items-center justify-center p-2">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={src} alt="Client logo" className="w-full h-full object-cover" />
+                <img src={src} alt="Client logo" className={`object-cover ${src.includes("client-logo-01") ? "w-20 h-20" : "w-full h-full"}`} />
               </div>
             ))}
           </motion.div>
