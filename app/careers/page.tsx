@@ -495,8 +495,8 @@ export default function CareersPage() {
               "At KMOPL, you get the opportunity to learn, build real connections, and grow a meaningful career. You truly get out what you put in."
             </p>
             <div className="mt-5">
-              <p className="font-bold text-stone-900">A Proud Team Member</p>
-              <p className="text-sm text-stone-400">Sales & Operations</p>
+              <p className="font-bold text-stone-900">Manager Compliances</p>
+              <p className="text-sm text-stone-400">HR & Admin</p>
             </div>
           </motion.div>
         </div>

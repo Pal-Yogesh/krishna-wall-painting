@@ -40,8 +40,8 @@ const GALLERY_IMAGES = [
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426479/kmopl-gallery/haxg7zhlnkymouxvfxve.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426481/kmopl-gallery/wtqxtjt0guohc6jsvaow.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426484/kmopl-gallery/fgh1ivgw5nlo3hwakigl.jpg",
-  "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426444/kmopl-gallery/d6u6sxziccmym4pphrmj.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426485/kmopl-gallery/k3hmssoidvlov1jh37eh.jpg",
+  "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426444/kmopl-gallery/d6u6sxziccmym4pphrmj.jpg",
 ];
 
 // Bento grid pattern - defines span for each position (repeating)

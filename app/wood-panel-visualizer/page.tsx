@@ -44,13 +44,18 @@ const METAL_PANELS = [
 ];
 
 const GLASS_PANELS = [
-  { id: 1, name: "Amber Orange",    image: "/glass/amber-orange.png",    color: "#D2691E" },
-  { id: 2, name: "Aqua Blue",       image: "/glass/aqua-blue.png",       color: "#00CED1" },
-  { id: 3, name: "Champagne Gold",  image: "/glass/champagne-gold.png",  color: "#D4AF6A" },
-  { id: 4, name: "Copper",          image: "/glass/copper.png",          color: "#B87333" },
-  { id: 5, name: "Emerald Green",   image: "/glass/emerald-green.png",   color: "#2E8B57" },
-  { id: 6, name: "Olive Gold",      image: "/glass/olive-gold.png",      color: "#808000" },
-  { id: 7, name: "Ruby Red",        image: "/glass/ruby-red.png",        color: "#9B111E" },
+  { id: 1,  name: "Amber Orange",    image: "/glass/amber-orange.png",    color: "#D2691E" },
+  { id: 2,  name: "Amethyst Purple", image: "/glass/amethyst-purple.png", color: "#9966CC" },
+  { id: 3,  name: "Aqua Blue",       image: "/glass/aqua-blue.png",       color: "#00CED1" },
+  { id: 4,  name: "Champagne Gold",  image: "/glass/champagne-gold.png",  color: "#D4AF6A" },
+  { id: 5,  name: "Copper",          image: "/glass/copper.png",          color: "#B87333" },
+  { id: 6,  name: "Crystal Clear",   image: "/glass/crystal-clear.png",   color: "#E8E8E8" },
+  { id: 7,  name: "Emerald Green",   image: "/glass/emerald-green.png",   color: "#2E8B57" },
+  { id: 8,  name: "Jet Black",       image: "/glass/jet-black.png",       color: "#1A1A1A" },
+  { id: 9,  name: "Olive Gold",      image: "/glass/olive-gold.png",      color: "#808000" },
+  { id: 10, name: "Royal Blue",      image: "/glass/royal-blue.png",      color: "#1E3A8A" },
+  { id: 11, name: "Ruby Red",        image: "/glass/ruby-red.png",        color: "#9B111E" },
+  { id: 12, name: "Smoke Grey",      image: "/glass/smoke-grey.png",      color: "#6B6B6B" },
 ];
 
 export default function WoodPanelVisualizer() {
@@ -466,7 +471,7 @@ export default function WoodPanelVisualizer() {
           <div className="max-w-6xl mx-auto px-4">
             <div
               className="flex items-center gap-5 overflow-x-auto pb-3"
-              style={{ scrollbarWidth: "thin", scrollbarColor: "#0891b2 #e7e5e4" }}
+              style={{ scrollbarWidth: "thin", scrollbarColor: "#d97706 #e7e5e4" }}
             >
               {GLASS_PANELS.map((panel, i) => (
                 <button
@@ -529,26 +534,72 @@ export default function WoodPanelVisualizer() {
             <div className="flex flex-col gap-4">
               {/* Info card */}
               <div className="bg-white rounded-2xl p-5 shadow-sm border border-stone-200/80">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-12 h-12 rounded-xl flex items-center justify-center text-lg" style={{ background: `${currentGlass.color}20` }}>
-                    🔮
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-14 h-14 rounded-xl overflow-hidden shadow-sm border border-stone-200">
+                    <img src={currentGlass.image} alt={currentGlass.name} className="w-full h-full object-cover" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-stone-900 text-[15px]">{currentGlass.name}</h3>
-                    <p className="text-[11px] text-stone-400">Glass Coating</p>
+                    <h3 className="text-[15px] font-bold text-stone-900" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
+                      {currentGlass.name}
+                    </h3>
+                    <p className="text-xs text-stone-400">Panel #{currentGlass.id} of {GLASS_PANELS.length}</p>
                   </div>
                 </div>
-                <div className="flex items-center gap-2 mt-3">
-                  <span className="text-[11px] text-stone-500">Color:</span>
-                  <span className="w-5 h-5 rounded-full border border-stone-200" style={{ background: currentGlass.color }} />
-                  <span className="text-[11px] text-stone-600 font-mono">{currentGlass.color}</span>
+                <div className="flex items-center gap-2 mb-4">
+                  <span className="w-4 h-4 rounded-full" style={{ background: currentGlass.color }} />
+                  <span className="text-xs font-mono text-stone-500">{currentGlass.color.toUpperCase()}</span>
+                </div>
+                <Link
+                  href="/contact-us"
+                  className="flex items-center justify-center gap-2 w-full py-3 rounded-xl text-white font-bold text-sm shadow-md hover:shadow-lg transition-all"
+                  style={{ background: "linear-gradient(135deg, #0891b2, #0e7490)" }}
+                >
+                  Enquire About This Panel
+                  <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                  </svg>
+                </Link>
+              </div>
+
+              {/* Close-up view */}
+              <div className="grid grid-cols-2 gap-2">
+                <div className="rounded-2xl overflow-hidden shadow-sm border border-stone-200/80 h-40 relative bg-stone-100">
+                  {GLASS_PANELS.map((panel, i) => (
+                    <motion.img
+                      key={panel.id + "-closeup"}
+                      initial={false}
+                      animate={{ opacity: activeGlass === i ? 1 : 0 }}
+                      transition={{ duration: 0.5, ease: "easeInOut" }}
+                      src={panel.image}
+                      alt={`${panel.name} close-up`}
+                      className="absolute inset-0 w-full h-full object-cover scale-150"
+                    />
+                  ))}
+                  <div className="absolute bottom-0 left-0 px-3 pb-2 z-10">
+                    <span className="px-2 py-1 bg-black/60 backdrop-blur-sm rounded-md text-[10px] font-bold text-white uppercase">
+                      Close-up Finish
+                    </span>
+                  </div>
+                </div>
+                <div className="rounded-2xl overflow-hidden shadow-sm border border-stone-200/80 h-40 relative bg-stone-100">
+                  {GLASS_PANELS.map((panel, i) => (
+                    <motion.img
+                      key={panel.id + "-detail"}
+                      initial={false}
+                      animate={{ opacity: activeGlass === i ? 1 : 0 }}
+                      transition={{ duration: 0.5, ease: "easeInOut" }}
+                      src={panel.image}
+                      alt={`${panel.name} detail`}
+                      className="absolute inset-0 w-full h-full object-cover object-center"
+                    />
+                  ))}
                 </div>
               </div>
 
               {/* Quick select */}
               <div className="bg-white rounded-2xl p-4 shadow-sm border border-stone-200/80">
                 <p className="text-xs font-bold text-stone-400 uppercase tracking-wider mb-3">Quick Select</p>
-                <div className="flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: "thin", scrollbarColor: "#0891b2 #e7e5e4" }}>
+                <div className="flex gap-2 overflow-x-auto pb-1" style={{ scrollbarWidth: "thin", scrollbarColor: "#d97706 #e7e5e4" }}>
                   {GLASS_PANELS.map((panel, i) => (
                     <button
                       key={panel.id}
