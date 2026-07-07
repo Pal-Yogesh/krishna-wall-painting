@@ -72,7 +72,7 @@ export default function AboutHero() {
               className="relative">
               <div aria-hidden className="absolute -top-6 -right-4 w-28 h-28 rounded-full" style={{ background: "#f59e0b", opacity: 0.18 }} />
               <div aria-hidden className="absolute -bottom-6 -left-6 w-36 h-36 rounded-[2.5rem]" style={{ background: "#16a34a", opacity: 0.12 }} />
-              <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white aspect-[4/3]">
+              <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-6  border-white aspect-[4/3]">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={IMG.hero} alt="KMOPL team at work" className="w-full h-full object-cover" />
               </div>
