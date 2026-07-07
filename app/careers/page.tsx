@@ -40,7 +40,7 @@ const IMG = {
   heroB: "/career/3.jpeg",
   talent: "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=700&q=80",
   access: "/access.jpeg",
-  testimonial: "/about.jpg",
+  testimonial: "/about2.jpeg",
 };
 
 // ── Perks / benefits ────────────────────────────────────────────────────────────
