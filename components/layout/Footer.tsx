@@ -173,14 +173,18 @@ export default function Footer() {
       <div className="border-t border-stone-300/99">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-center justify-between gap-4">
           <p className="text-xs text-stone-400 text-center sm:text-left" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
-            © {new Date().getFullYear()} Krishna Murari Organosys Pvt. Ltd. All rights reserved.          </p>
+            © {new Date().getFullYear()} Krishna Murari Organosys Pvt. Ltd. All rights reserved.
+          </p>
           <div className="flex items-center gap-5">
-            {["Privacy Policy", "Terms of Service"].map(label => (
+            {["Privacy Policy", "Terms & Conditions"].map(label => (
               <Link key={label} href="#" className="text-xs text-stone-400 hover:text-amber-600 transition-colors" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
                 {label}
               </Link>
             ))}
           </div>
+          <p className="text-xs text-stone-400 text-center sm:text-right" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
+            Designed by <a href="/" rel="noopener noreferrer" className="text-amber-600 hover:text-amber-700 font-semibold transition-colors">Bigleaf Media</a>
+          </p>
         </div>
       </div>
 
