@@ -6,10 +6,11 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 
 const NAV_LINKS = [
-  { label: "Home",             href: "/"            },
   { label: "Products",         href: "/products"    },
   { label: "Visualizer",       href: "/wood-panel-visualizer"  },
   { label: "About Us",         href: "/about"       },
+  { label: "Careers",         href: "/careers"       },
+  { label: "Gallery",         href: "/gallery"       },
   { label: "Contact Us",       href: "/contact-us"  },
 ];
 

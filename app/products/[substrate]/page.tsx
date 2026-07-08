@@ -69,6 +69,13 @@ export default function SubstratePage() {
 
   // Get unique chemistries for this substrate
   const chemistries = [...new Set(items.map(p => p.chemistry))];
+  // Fixed stats per substrate
+  const SUBSTRATE_STATS: Record<string, { products: string; chemistry: string; finishes: string }> = {
+    wood:  { products: "7", chemistry: "7", finishes: "14+" },
+    metal: { products: "5", chemistry: "5", finishes: "12+" },
+    glass: { products: "3", chemistry: "2", finishes: "5+" },
+  };
+  const stats = SUBSTRATE_STATS[substrate] || { products: String(items.length), chemistry: String(chemistries.length), finishes: "10+" };
   // Other substrates for cross-navigation
   const otherSubstrates = (Object.keys(substrates) as (keyof typeof substrates)[]).filter(k => k !== substrate);
 
@@ -112,7 +119,7 @@ export default function SubstratePage() {
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider mb-1"
                     style={{ background: `${info.color}12`, color: info.color, border: `1px solid ${info.color}25` }}>
                     <span className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: info.color }} />
-                    {items.length} Products Available
+                    {stats.products} Products Available
                   </span>
                   <h1 className="text-3xl sm:text-4xl lg:text-[2.8rem] font-bold text-stone-900 leading-tight"
                     style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.03em" }}>
@@ -196,14 +203,9 @@ export default function SubstratePage() {
             <h2 className="text-xl font-bold text-stone-900" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
               All {info.label}
             </h2>
-            <p className="text-[13px] text-stone-400 mt-0.5">{items.length} coating solutions for {substrate} substrates</p>
+            <p className="text-[13px] text-stone-400 mt-0.5">{stats.products} Products · {stats.chemistry} Chemistry · {stats.finishes} Finishes</p>
           </div>
-          <div className="hidden sm:flex items-center gap-2 text-[12px] text-stone-400">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 016 3.75h2.25A2.25 2.25 0 0110.5 6v2.25a2.25 2.25 0 01-2.25 2.25H6a2.25 2.25 0 01-2.25-2.25V6zM3.75 15.75A2.25 2.25 0 016 13.5h2.25a2.25 2.25 0 012.25 2.25V18a2.25 2.25 0 01-2.25 2.25H6A2.25 2.25 0 013.75 18v-2.25zM13.5 6a2.25 2.25 0 012.25-2.25H18A2.25 2.25 0 0120.25 6v2.25A2.25 2.25 0 0118 10.5h-2.25a2.25 2.25 0 01-2.25-2.25V6zM13.5 15.75a2.25 2.25 0 012.25-2.25H18a2.25 2.25 0 012.25 2.25V18A2.25 2.25 0 0118 20.25h-2.25A2.25 2.25 0 0113.5 18v-2.25z" />
-            </svg>
-            Grid View
-          </div>
+        
         </motion.div>
 
         {/* Grid */}
