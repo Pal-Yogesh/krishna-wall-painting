@@ -4,7 +4,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 
-const CLIENT_LOGOS = Array.from({ length: 13 }, (_, i) => ({
+const CLIENT_LOGOS = Array.from({ length: 15 }, (_, i) => ({
   id: i + 1,
   src: `/client-logos/client-logo-${String(i + 1).padStart(2, "0")}.jpg`,
   alt: `Client ${i + 1}`,
@@ -79,7 +79,7 @@ export default function ClientsSection() {
               <img
                 src={logo.src}
                 alt={logo.alt}
-                className={`object-cover ${logo.src.includes("client-logo-01") ? "w-20 h-20" : "w-full h-full"}`}
+                className={`object-cover ${logo.src.includes("client-logo-01") ? "w-20 h-20" : logo.src.includes("client-logo-14") ? "w-52" : logo.src.includes("client-logo-15") ? "w-48" : "w-full h-full"}`}
               />
             </motion.div>
           ))}

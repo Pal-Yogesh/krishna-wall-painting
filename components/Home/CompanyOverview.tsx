@@ -20,7 +20,7 @@ const MILESTONES = [
     color: "from-amber-500 to-orange-500",
     bg: "bg-amber-50",
     border: "border-amber-200",
-    image: "https://images.unsplash.com/photo-1532187863486-abf9dbad1b69?auto=format&fit=crop&w=700&q=80",
+    image:"/1998.jpeg",
   },
   {
     year: "2004",
@@ -32,7 +32,8 @@ const MILESTONES = [
     color: "from-emerald-500 to-green-600",
     bg: "bg-emerald-50",
     border: "border-emerald-200",
-    image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426437/kmopl-gallery/h6zhqdikgpb4hfmt5tbj.jpg",
+    image:"/2004-2.jpeg",
+    // image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426437/kmopl-gallery/h6zhqdikgpb4hfmt5tbj.jpg",
   },
   {
     year: "2008",

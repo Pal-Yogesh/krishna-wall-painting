@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const IMG = {
   hero: "/image/1.jpeg",
-  portrait: "/about.jpg",
+  portrait: "/about3.jpeg",
 };
 
 const STATS = [
@@ -14,7 +14,7 @@ const STATS = [
   { value: "4", label: "Manufacturing Units", color: "#7c3aed" },
 ];
 
-const CLIENT_LOGOS = Array.from({ length: 13 }, (_, i) => `/client-logos/client-logo-${String(i + 1).padStart(2, "0")}.jpg`);
+const CLIENT_LOGOS = Array.from({ length: 15 }, (_, i) => `/client-logos/client-logo-${String(i + 1).padStart(2, "0")}.jpg`);
 
 export default function AboutHero() {
   const doubledLogos = [...CLIENT_LOGOS, ...CLIENT_LOGOS];
@@ -70,11 +70,11 @@ export default function AboutHero() {
             {/* Right: image with blob */}
             <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.7, delay: 0.15 }}
               className="relative">
-              <div aria-hidden className="absolute -top-6 -right-4 w-28 h-28 rounded-full" style={{ background: "#f59e0b", opacity: 0.18 }} />
-              <div aria-hidden className="absolute -bottom-6 -left-6 w-36 h-36 rounded-[2.5rem]" style={{ background: "#16a34a", opacity: 0.12 }} />
-              <div className="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-6  border-white aspect-[4/3]">
+              <div aria-hidden className="absolute -top-6 right-20 w-28 h-28 rounded-full" style={{ background: "#f59e0b", opacity: 0.18 }} />
+              <div aria-hidden className="absolute -bottom-6  w-36 h-36 rounded-[2.5rem]" style={{ background: "#16a34a", opacity: 0.12 }} />
+              <div className="relative rounded-[2.5rem] md:ml-[20%] overflow-hidden shadow-2xl border-6 h-[400px] w-[270px]  border-white ">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={IMG.hero} alt="KMOPL team at work" className="w-full h-full object-cover" />
+                <img src={IMG.hero} alt="KMOPL team at work" className="w-full h-full object-contain" />
               </div>
              
             </motion.div>
@@ -118,12 +118,12 @@ export default function AboutHero() {
             {/* Portrait with colorful blobs */}
             <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}
               className="relative flex justify-center">
-              <div aria-hidden className="absolute left-1/2 -translate-x-1/2 bottom-0 w-72 h-56 rounded-[3rem]" style={{ background: "#f9a8c4", opacity: 0.5 }} />
-              <div aria-hidden className="absolute left-8 top-6 w-20 h-20 rounded-full" style={{ background: "#c4b5fd", opacity: 0.6 }} />
-              <div aria-hidden className="absolute right-10 bottom-6 w-16 h-16 rounded-full" style={{ background: "#fcd34d", opacity: 0.7 }} />
-              <div className="relative w-64 h-72 rounded-[2rem] overflow-hidden shadow-xl border-4 border-white">
+              <div aria-hidden className="absolute left-1/2 -translate-x-1/2 bottom-0 w-96 h-80 rounded-[3rem]" style={{ background: "#f9a8c4", opacity: 0.5 }} />
+              <div aria-hidden className="absolute -left-8 -top-8 w-20 h-20 rounded-full" style={{ background: "#c4b5fd", opacity: 0.6 }} />
+              <div aria-hidden className="absolute -right-5 -bottom-5 w-16 h-16 rounded-full" style={{ background: "#fcd34d", opacity: 0.7 }} />
+              <div className="relative w-full max-w-lg h-[300px] rounded-[2rem] overflow-hidden shadow-xl border-4 border-white">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={IMG.portrait} alt="Quality at KMOPL" className="w-full h-full object-contain" />
+                <img src={IMG.portrait} alt="Quality at KMOPL" className="w-full h-full object-cover" />
               </div>
             </motion.div>
 
@@ -142,8 +142,8 @@ export default function AboutHero() {
                   K
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-stone-900">KMOPL Quality Team</p>
-                  <p className="text-xs text-stone-400">Research &amp; Development</p>
+                  <p className="text-sm font-bold text-stone-900">KMOPL Team</p>
+                  <p className="text-xs text-stone-400">Customer & Product Team</p>
                 </div>
                 <svg className="w-9 h-9 text-amber-200 ml-auto" fill="currentColor" viewBox="0 0 24 24">
                   <path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z"/>
@@ -179,7 +179,7 @@ export default function AboutHero() {
             {doubledLogos.map((src, i) => (
               <div key={i} className="shrink-0 w-44 h-36 bg-white border border-stone-200/80 rounded-2xl shadow-sm flex items-center justify-center p-2">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={src} alt="Client logo" className={`object-cover ${src.includes("client-logo-01") ? "w-20 h-20" : "w-full h-full"}`} />
+                <img src={src} alt="Client logo" className={`object-cover ${src.includes("client-logo-01") ? "w-20 h-20" : src.includes("client-logo-14") ? "w-32" : src.includes("client-logo-15") ? "w-24" : "w-full h-full"}`} />
               </div>
             ))}
           </motion.div>

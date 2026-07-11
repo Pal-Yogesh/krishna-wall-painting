@@ -44,18 +44,18 @@ const METAL_PANELS = [
 ];
 
 const GLASS_PANELS = [
-  { id: 1,  name: "Amber Orange",    image: "/glass/amber-orange.png",    color: "#D2691E" },
-  { id: 2,  name: "Amethyst Purple", image: "/glass/amethyst-purple.png", color: "#9966CC" },
-  { id: 3,  name: "Aqua Blue",       image: "/glass/aqua-blue.png",       color: "#00CED1" },
-  { id: 4,  name: "Champagne Gold",  image: "/glass/champagne-gold.png",  color: "#D4AF6A" },
-  { id: 5,  name: "Copper",          image: "/glass/copper.png",          color: "#B87333" },
-  { id: 6,  name: "Crystal Clear",   image: "/glass/crystal-clear.png",   color: "#E8E8E8" },
-  { id: 7,  name: "Emerald Green",   image: "/glass/emerald-green.png",   color: "#2E8B57" },
-  { id: 8,  name: "Jet Black",       image: "/glass/jet-black.png",       color: "#1A1A1A" },
-  { id: 9,  name: "Olive Gold",      image: "/glass/olive-gold.png",      color: "#808000" },
-  { id: 10, name: "Royal Blue",      image: "/glass/royal-blue.png",      color: "#1E3A8A" },
-  { id: 11, name: "Ruby Red",        image: "/glass/ruby-red.png",        color: "#9B111E" },
-  { id: 12, name: "Smoke Grey",      image: "/glass/smoke-grey.png",      color: "#6B6B6B" },
+  { id: 1,  name: "Amber Orange",    image: "/glass-copy/amber-orange.png",    cover: "/glass-small-circle/glaas-cover-images-0.jpg",  color: "#D2691E" },
+  { id: 2,  name: "Amethyst Purple", image: "/glass-copy/amethyst-purple.png", cover: "/glass-small-circle/glaas-cover-images-1.jpg",  color: "#9966CC" },
+  { id: 3,  name: "Aqua Blue",       image: "/glass-copy/aqua-blue.png",       cover: "/glass-small-circle/glaas-cover-images-2.jpg",  color: "#00CED1" },
+  { id: 4,  name: "Champagne Gold",  image: "/glass-copy/champagne-gold.png",  cover: "/glass-small-circle/glaas-cover-images-3.jpg",  color: "#D4AF6A" },
+  { id: 5,  name: "Copper",          image: "/glass-copy/copper.png",          cover: "/glass-small-circle/glaas-cover-images-4.jpg",  color: "#B87333" },
+  { id: 6,  name: "Crystal Clear",   image: "/glass-copy/crystal-clear.png",   cover: "/glass-small-circle/glaas-cover-images-5.jpg",  color: "#E8E8E8" },
+  { id: 7,  name: "Emerald Green",   image: "/glass-copy/emerald-green.png",   cover: "/glass-small-circle/glaas-cover-images-6.jpg",  color: "#2E8B57" },
+  { id: 8,  name: "Jet Black",       image: "/glass-copy/jet-black.png",       cover: "/glass-small-circle/glaas-cover-images-7.jpg",  color: "#1A1A1A" },
+  { id: 9,  name: "Olive Gold",      image: "/glass-copy/olive-gold.png",      cover: "/glass-small-circle/glaas-cover-images-8.jpg",  color: "#808000" },
+  { id: 10, name: "Royal Blue",      image: "/glass-copy/royal-blue.png",      cover: "/glass-small-circle/glaas-cover-images-9.jpg",  color: "#1E3A8A" },
+  { id: 11, name: "Ruby Red",        image: "/glass-copy/ruby-red.png",        cover: "/glass-small-circle/glaas-cover-images-10.jpg", color: "#9B111E" },
+  { id: 12, name: "Smoke Grey",      image: "/glass-copy/smoke-grey.png",      cover: "/glass-small-circle/glaas-cover-images-11.jpg", color: "#6B6B6B" },
 ];
 
 export default function WoodPanelVisualizer() {
@@ -486,7 +486,7 @@ export default function WoodPanelVisualizer() {
                         : "border-stone-300 hover:border-stone-400 hover:scale-105"
                     }`}
                   >
-                    <img src={panel.image} alt={panel.name} className="w-full h-full object-cover" />
+                    <img src={panel.cover} alt={panel.name} className="w-full h-full object-cover" />
                   </div>
                   <span
                     className={`text-[11px] font-semibold whitespace-nowrap transition-colors ${
@@ -536,7 +536,7 @@ export default function WoodPanelVisualizer() {
               <div className="bg-white rounded-2xl p-5 shadow-sm border border-stone-200/80">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-14 h-14 rounded-xl overflow-hidden shadow-sm border border-stone-200">
-                    <img src={currentGlass.image} alt={currentGlass.name} className="w-full h-full object-cover" />
+                    <img src={currentGlass.cover} alt={currentGlass.name} className="w-full h-full object-cover" />
                   </div>
                   <div>
                     <h3 className="text-[15px] font-bold text-stone-900" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
@@ -606,7 +606,7 @@ export default function WoodPanelVisualizer() {
                       onClick={() => setActiveGlass(i)}
                       className={`w-12 h-12 shrink-0 rounded-lg overflow-hidden border-2 transition-all ${activeGlass === i ? "border-cyan-500 scale-105" : "border-stone-200 hover:border-stone-300"}`}
                     >
-                      <img src={panel.image} alt={panel.name} className="w-full h-full object-cover" />
+                      <img src={panel.cover} alt={panel.name} className="w-full h-full object-cover" />
                     </button>
                   ))}
                 </div>

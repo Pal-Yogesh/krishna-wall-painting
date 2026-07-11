@@ -16,6 +16,7 @@ const REASONS = [
     description:
       "With decades of experience, we develop coating solutions that combine durability, aesthetics, and performance for a wide range of industrial applications.",
     color: "#d97706",
+    image: "/about/why-choose-us/advance-coating.jpeg",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" stroke="currentColor" strokeWidth={1.8}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42" />
@@ -27,6 +28,7 @@ const REASONS = [
     description:
       "Every product is manufactured using high-quality raw materials and stringent quality control processes to ensure consistent results.",
     color: "#16a34a",
+    image: "/about/why-choose-us/premium-quality.jpeg",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" stroke="currentColor" strokeWidth={1.8}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
@@ -38,6 +40,7 @@ const REASONS = [
     description:
       "From PU, NC, Epoxy, UV, Acrylic, and Water-Based Coatings, we offer comprehensive solutions for wood, metal, glass, and other engineered surfaces.",
     color: "#0891b2",
+    image: "/about/why-choose-us/wide-product.jpeg",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" stroke="currentColor" strokeWidth={1.8}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
@@ -49,6 +52,7 @@ const REASONS = [
     description:
       "We understand that every project is unique. Our team works closely with customers to provide coating solutions tailored to their specific requirements.",
     color: "#7c3aed",
+    image: "/about/why-choose-us/customer-ceramic.jpeg",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" stroke="currentColor" strokeWidth={1.8}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 018.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0111.964-3.07M12 6.375a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zm8.25 2.25a2.625 2.625 0 11-5.25 0 2.625 2.625 0 015.25 0z" />
@@ -60,6 +64,7 @@ const REASONS = [
     description:
       "We continuously adopt advanced technologies and modern manufacturing practices to deliver products that meet evolving industry demands.",
     color: "#b45309",
+    image: "/about/why-choose-us/innovation-technology.jpeg",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" stroke="currentColor" strokeWidth={1.8}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 001.5-.189m-1.5.189a6.01 6.01 0 01-1.5-.189m3.75 7.478a12.06 12.06 0 01-4.5 0m3.75 2.383a14.406 14.406 0 01-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 10-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
@@ -71,6 +76,7 @@ const REASONS = [
     description:
       "Our commitment to reliability, technical support, and long-term customer relationships has made KMOPL a trusted name in the coatings industry.",
     color: "#be185d",
+    image: "/about/why-choose-us/trusted-industry.jpeg",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" stroke="currentColor" strokeWidth={1.8}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z" />
@@ -84,6 +90,7 @@ const PROCESS = [
   {
     step: "01",
     title: "Research & Product Development",
+    image: "/about/how-we-work/reasearch-product-development.jpeg",
     description:
       "Every formulation begins with extensive research to develop coatings that deliver superior performance, durability, and finish.",
     icon: (
@@ -95,6 +102,7 @@ const PROCESS = [
   {
     step: "02",
     title: "Raw Material Selection",
+    image: null,
     description:
       "We carefully source premium-quality raw materials to ensure consistency and high product standards.",
     icon: (
@@ -106,6 +114,7 @@ const PROCESS = [
   {
     step: "03",
     title: "Precision Manufacturing",
+    image: "/about/how-we-work/precision-manufacturing.jpeg",
     description:
       "Our manufacturing process follows controlled production methods using advanced equipment and strict quality parameters.",
     icon: (
@@ -117,6 +126,7 @@ const PROCESS = [
   {
     step: "04",
     title: "Quality Testing",
+    image: "/about/how-we-work/quality-testing.jpeg",
     description:
       "Each batch undergoes rigorous testing for finish, durability, adhesion, consistency, and overall performance before approval.",
     icon: (
@@ -128,6 +138,7 @@ const PROCESS = [
   {
     step: "05",
     title: "Packaging & Dispatch",
+    image: "/about/how-we-work/packaging-dispatch.jpeg",
     description:
       "After successful quality checks, products are securely packed and prepared for timely delivery while maintaining product integrity.",
     icon: (
@@ -139,6 +150,7 @@ const PROCESS = [
   {
     step: "06",
     title: "Customer Support",
+    image: null,
     description:
       "Our relationship continues beyond delivery through technical guidance and customer support to help achieve the best application results.",
     icon: (
@@ -156,29 +168,36 @@ function ReasonCard({ reason, index, trigger }: { reason: typeof REASONS[0]; ind
       initial={{ opacity: 0, y: 28 }}
       animate={trigger ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.5, delay: index * 0.08, ease: [0.22, 1, 0.36, 1] }}
-      className="group relative p-7 rounded-3xl bg-white border border-stone-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
+      className="group relative rounded-3xl bg-white border border-stone-200/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 overflow-hidden"
     >
       {/* Top accent on hover */}
       <div
         className="absolute top-0 left-0 right-0 h-1 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500"
         style={{ background: `linear-gradient(90deg, ${reason.color}, ${reason.color}40)` }}
       />
-      {/* Icon */}
-      <div
-        className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5 transition-transform duration-300 group-hover:scale-110"
-        style={{ background: `${reason.color}15`, color: reason.color }}
-      >
-        {reason.icon}
+      {/* Image */}
+      <div className="relative h-44 overflow-hidden">
+        <img src={reason.image} alt={reason.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/40 via-transparent to-transparent" />
+        <div
+          className="absolute bottom-3 left-4 w-10 h-10 rounded-xl flex items-center justify-center shadow-md"
+          style={{ background: reason.color, color: "#fff" }}
+        >
+          {reason.icon}
+        </div>
       </div>
-      <h3
-        className="text-[17px] font-bold text-stone-900 mb-2.5 leading-snug"
-        style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.02em" }}
-      >
-        {reason.title}
-      </h3>
-      <p className="text-[14px] text-stone-500 leading-relaxed">
-        {reason.description}
-      </p>
+      {/* Text */}
+      <div className="p-6">
+        <h3
+          className="text-[16px] font-bold text-stone-900 mb-2 leading-snug"
+          style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.02em" }}
+        >
+          {reason.title}
+        </h3>
+        <p className="text-[13px] text-stone-500 leading-relaxed">
+          {reason.description}
+        </p>
+      </div>
     </motion.div>
   );
 }
@@ -192,29 +211,46 @@ function ProcessStep({ step, index, trigger }: { step: typeof PROCESS[0]; index:
       transition={{ duration: 0.5, delay: index * 0.1, ease: [0.22, 1, 0.36, 1] }}
       className="relative"
     >
-      <div className="group relative h-full p-6 rounded-2xl bg-white border border-stone-200/80 shadow-sm hover:shadow-lg hover:border-amber-200 transition-all duration-300">
-        {/* Step number badge */}
-        <div className="flex items-center gap-3 mb-4">
-          <div
-            className="w-11 h-11 rounded-xl flex items-center justify-center text-white shadow-md"
-            style={{ background: "linear-gradient(135deg, #f59e0b, #d97706)" }}
-          >
-            {step.icon}
+      <div className="group relative h-full rounded-2xl bg-white border border-stone-200/80 shadow-sm hover:shadow-lg hover:border-amber-200 transition-all duration-300 overflow-hidden">
+        {/* Image (if available) */}
+        {step.image && (
+          <div className="h-40 overflow-hidden relative">
+            <img src={step.image} alt={step.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+            <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent" />
+            <div
+              className="absolute bottom-3 left-4 w-9 h-9 rounded-xl flex items-center justify-center shadow-md text-white"
+              style={{ background: "linear-gradient(135deg, #f59e0b, #d97706)" }}
+            >
+              {step.icon}
+            </div>
           </div>
-          <span
-            className="text-3xl font-bold leading-none tabular-nums"
-            style={{ fontFamily: "var(--font-raleway), sans-serif", color: "#f0ece4" }}
+        )}
+        {/* Content */}
+        <div className="p-5">
+          <div className="flex items-center gap-3 mb-3">
+            {!step.image && (
+              <div
+                className="w-10 h-10 rounded-xl flex items-center justify-center text-white shadow-md shrink-0"
+                style={{ background: "linear-gradient(135deg, #f59e0b, #d97706)" }}
+              >
+                {step.icon}
+              </div>
+            )}
+            <span
+              className="text-3xl font-bold leading-none tabular-nums"
+              style={{ fontFamily: "var(--font-raleway), sans-serif", color: "#f0ece4" }}
+            >
+              {step.step}
+            </span>
+          </div>
+          <h3
+            className="text-[15px] font-bold text-stone-900 mb-2 leading-snug"
+            style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.02em" }}
           >
-            {step.step}
-          </span>
+            {step.title}
+          </h3>
+          <p className="text-[13px] text-stone-500 leading-relaxed">{step.description}</p>
         </div>
-        <h3
-          className="text-[15px] font-bold text-stone-900 mb-2 leading-snug"
-          style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.02em" }}
-        >
-          {step.title}
-        </h3>
-        <p className="text-[13px] text-stone-500 leading-relaxed">{step.description}</p>
       </div>
     </motion.div>
   );
