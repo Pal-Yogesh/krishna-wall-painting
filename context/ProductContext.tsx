@@ -27,6 +27,8 @@ export interface Product {
   applicationProperties: TechnicalProperty[];
   filmProperties: TechnicalProperty[];
   delivery: TechnicalProperty[];
+  pdfUrl?: string;
+  pdfName?: string;
   active?: boolean;
 }
 

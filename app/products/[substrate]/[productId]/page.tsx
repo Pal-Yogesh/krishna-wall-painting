@@ -657,45 +657,55 @@ export default function ProductDetailPage() {
 
                 {/* Sidebar */}
                 <div className="space-y-5">
-                  {/* Finish swatches visual */}
-                  {product.finishes && product.finishes.length > 0 && (
+                  {/* PDF Download / Available Finishes */}
+                  {(product as any).pdfUrl ? (
                     <div className="p-5 bg-white rounded-2xl border border-stone-200/80 shadow-sm">
                       <h3 className="text-sm font-bold text-stone-700 mb-4 flex items-center gap-2">
-                        <svg
-                          className="w-4 h-4 text-stone-400"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          stroke="currentColor"
-                          strokeWidth={2}
+                        <svg className="w-4 h-4 text-stone-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                        </svg>
+                        Product Document
+                      </h3>
+                      <div className="flex items-center gap-4 p-4 bg-stone-50 border border-stone-200 rounded-xl">
+                        <div className="w-12 h-12 rounded-xl bg-stone-100 flex items-center justify-center shrink-0">
+                          <svg className="w-6 h-6 text-stone-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                          </svg>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <p className="text-[13px] font-semibold text-stone-800 truncate">{(product as any).pdfName || `${product.name} — Datasheet`}</p>
+                          <p className="text-[11px] text-stone-400 mt-0.5">PDF Document</p>
+                        </div>
+                        <a
+                          href={(product as any).pdfUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          download
+                          className="flex items-center gap-1.5 px-4 py-2 bg-stone-900 hover:bg-stone-700 text-white text-[12px] font-bold rounded-xl transition-colors shadow-sm shrink-0"
                         >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z"
-                          />
+                          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                          </svg>
+                          Download
+                        </a>
+                      </div>
+                    </div>
+                  ) : product.finishes && product.finishes.length > 0 && (
+                    <div className="p-5 bg-white rounded-2xl border border-stone-200/80 shadow-sm">
+                      <h3 className="text-sm font-bold text-stone-700 mb-4 flex items-center gap-2">
+                        <svg className="w-4 h-4 text-stone-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z" />
                         </svg>
                         Available Finishes
                       </h3>
                       <div className="grid grid-cols-2 gap-2">
                         {product.finishes.map((finish) => {
-                          const visual = FINISH_VISUALS[finish] || {
-                            gradient:
-                              "linear-gradient(135deg, #d6d3d1, #a8a29e)",
-                            label: finish,
-                          };
+                          const visual = FINISH_VISUALS[finish] || { gradient: "linear-gradient(135deg, #d6d3d1, #a8a29e)", label: finish };
                           return (
-                            <div
-                              key={finish}
-                              className="group/fin relative overflow-hidden rounded-xl border border-stone-200 hover:border-stone-300 transition-all hover:shadow-sm"
-                            >
-                              <div
-                                className="h-12 w-full"
-                                style={{ background: visual.gradient }}
-                              />
+                            <div key={finish} className="group/fin relative overflow-hidden rounded-xl border border-stone-200 hover:border-stone-300 transition-all hover:shadow-sm">
+                              <div className="h-12 w-full" style={{ background: visual.gradient }} />
                               <div className="px-2.5 py-2 bg-white">
-                                <span className="text-[11px] font-semibold text-stone-700 block">
-                                  {finish}
-                                </span>
+                                <span className="text-[11px] font-semibold text-stone-700 block">{finish}</span>
                                 <span className="text-[10px] text-stone-400">
                                   {visual.label}
                                 </span>
