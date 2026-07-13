@@ -22,14 +22,14 @@ const GALLERY_ITEMS = [
   { category: "Product Showcase", title: "Speciality Coatings", color: "#d97706", gradient: "linear-gradient(135deg, #0891b220, #06748540)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426463/kmopl-gallery/awnaaotvvt9r5grl2rzz.jpg" },
   { category: "Admin Block", title: "KMOPL HQ", color: "#d97706", gradient: "linear-gradient(135deg, #7c3aed20, #6d28d940)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426446/kmopl-gallery/kwuwjyjy3iclquyb4mz4.jpg" },
   { category: "Product Brand", title: "KMOPL", color: "#d97706", gradient: "linear-gradient(135deg, #be185d20, #9d174d40)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426444/kmopl-gallery/d6u6sxziccmym4pphrmj.jpg" },
-  { category: "Events", title: "Training Workshop", color: "#d97706", gradient: "linear-gradient(135deg, #ea580c20, #c2410c40)", image: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426440/kmopl-gallery/oy02cwt9b1x7ygto57d5.jpg" },
+  { category: "Events", title: "Training Workshop", color: "#d97706", gradient: "linear-gradient(135deg, #ea580c20, #c2410c40)", image: "/gallery-home.jpeg" },
 
 ];
 
 function GalleryCard({ item }: { item: typeof GALLERY_ITEMS[number] }) {
   return (
     <div className="relative rounded-2xl overflow-hidden group h-full">
-      <img src={item.image} alt={item.title} className="w-full h-full object-contain group-hover:scale-105 transition-transform duration-500" />
+      <img src={item.image} alt={item.title} className="w-full h-full object-contain group-hover:scale-115 scale-110 transition-transform duration-500" />
       <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent" />
       <div className="absolute top-0 left-0 right-0 h-1" style={{ background: `linear-gradient(90deg, ${item.color}, ${item.color}60)` }} />
       <div className="absolute bottom-4 left-4">

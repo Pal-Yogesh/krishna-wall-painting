@@ -16,7 +16,7 @@ const PRODUCTS = [
   {
     image: "/our-product/2.jpeg",
     title: "Expansion",
-    description: "We launched Krishna Organics, marking our entry into manufacturing. This expansion allowed us to produce industrial resins, solvents, and engage in petrochemical distillation.",
+    description: "We launched Krishna Organics, marking our entry into manufacturing ...",
     color: "#0891b2",
   },
   {
