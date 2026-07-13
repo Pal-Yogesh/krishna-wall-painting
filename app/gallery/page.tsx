@@ -14,15 +14,14 @@ const GALLERY_IMAGES = [
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426454/kmopl-gallery/vdbibnxl8wj3q7wrz8ct.jpg",
   // "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426456/kmopl-gallery/njivu2s6yogwmpvipicl.jpg",
   "/director.jpeg",
-  "/gallery.jpeg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426458/kmopl-gallery/tiqghmkm20clwo69mxyp.jpg",
-    "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426463/kmopl-gallery/awnaaotvvt9r5grl2rzz.jpg",
+  "/gallery.jpeg",
+  "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426463/kmopl-gallery/awnaaotvvt9r5grl2rzz.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426466/kmopl-gallery/qqmskkkvdtapsmrdn4hx.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426467/kmopl-gallery/xkfdnucqv8boq56ssvqp.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426476/kmopl-gallery/yqdkbkyuonwlefpojgie.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426446/kmopl-gallery/kwuwjyjy3iclquyb4mz4.jpg",
   "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426479/kmopl-gallery/haxg7zhlnkymouxvfxve.jpg",
-
 
   // "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426460/kmopl-gallery/ojolkntacwrhdd3yuxkl.jpg",
   // "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426461/kmopl-gallery/wtlufvbueql2f6fzqxsn.jpg",
@@ -141,8 +140,8 @@ export default function GalleryPage() {
               </span>
             </h1>
             <p className="mt-4 text-stone-500 text-[15px] max-w-lg mx-auto leading-relaxed">
-              A glimpse into our manufacturing facility, KMOPL team events,
-              and more.
+              A glimpse into our manufacturing facility, KMOPL team events, and
+              more.
             </p>
           </motion.div>
         </div>
