@@ -199,7 +199,7 @@ export async function POST(req: NextRequest) {
       const transporter = createTransporter();
       await transporter.sendMail({
         from: `"Krishna Visualizer" <${process.env.EMAIL_USER}>`,
-        to: process.env.EMAIL_TO ?? process.env.EMAIL_USER,
+        to: `${process.env.EMAIL_TO ?? process.env.EMAIL_USER}, sales@krishna-chemicals.com`,
         subject: `New Paint Enquiry — ${body.name} (${body.city})`,
         html: buildEmailHtml(body),
         text: [

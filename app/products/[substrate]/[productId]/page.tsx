@@ -677,9 +677,7 @@ export default function ProductDetailPage() {
                           <p className="text-[11px] text-stone-400 mt-0.5">PDF Document</p>
                         </div>
                         <a
-                          href={(product as any).pdfUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                          href={`/api/download-pdf?url=${encodeURIComponent((product as any).pdfUrl)}&name=${encodeURIComponent((product as any).pdfName || product.name + ".pdf")}`}
                           download
                           className="flex items-center gap-1.5 px-4 py-2 bg-stone-900 hover:bg-stone-700 text-white text-[12px] font-bold rounded-xl transition-colors shadow-sm shrink-0"
                         >

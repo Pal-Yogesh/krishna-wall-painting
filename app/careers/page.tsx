@@ -684,13 +684,13 @@ export default function CareersPage() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
-              className="relative h-full min-h-[400px] rounded-3xl overflow-hidden shadow-xl border-4 border-white"
+              className="relative h-[360px] rounded-3xl overflow-hidden shadow-xl border-4 border-white"
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src="/why-work-with-us/1.jpeg"
                 alt="A workplace that helps you thrive"
-                className="w-full h-full object-cover absolute inset-0"
+                className="w-full h-full object-contain absolute inset-0"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
             </motion.div>
@@ -990,16 +990,27 @@ export default function CareersPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: i * 0.06 }}
-                className="group relative bg-white border border-stone-200/80 rounded-3xl shadow-sm hover:shadow-lg hover:border-amber-200 transition-all overflow-hidden"
+                className="group relative bg-white border border-stone-200/80 rounded-3xl shadow-sm hover:shadow-xl hover:border-amber-300 transition-all overflow-hidden"
               >
-                <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-amber-400 to-amber-600 scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-300" />
-                <div className="p-6 sm:p-7">
+                <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-gradient-to-b from-amber-400 to-amber-600 scale-y-0 group-hover:scale-y-100 origin-top transition-transform duration-300" />
+                <div className="p-7 sm:p-9">
                   <div className="flex items-start justify-between gap-4 flex-wrap">
                     <div className="flex-1 min-w-0">
+                      {/* Designation — highlighted */}
+                      <div className="inline-flex items-center gap-2 mb-3">
+                        <span className="w-2 h-2 rounded-full bg-amber-500 shrink-0" />
+                        <span className="text-[11px] font-bold uppercase tracking-[0.18em] text-amber-600">
+                          Open Position
+                        </span>
+                      </div>
                       <h3
-                        className="text-xl font-bold text-stone-900"
+                        className="text-2xl font-extrabold leading-tight"
                         style={{
                           fontFamily: "var(--font-raleway), sans-serif",
+                          background: "linear-gradient(135deg, #1c1917 0%, #44403c 100%)",
+                          WebkitBackgroundClip: "text",
+                          WebkitTextFillColor: "transparent",
+                          backgroundClip: "text",
                         }}
                       >
                         {job.title}
@@ -1056,7 +1067,7 @@ export default function CareersPage() {
                     </p>
                   )}
 
-                  <div className="mt-5 flex items-center justify-between flex-wrap gap-3 pt-4 border-t border-stone-100">
+                  <div className="mt-6 flex items-center justify-between flex-wrap gap-3 pt-5 border-t border-stone-100">
                     {job.createdAt ? (
                       <span className="text-[12px] text-stone-400 font-medium">
                         Posted on {formatPostedDate(job.createdAt)}
@@ -1067,15 +1078,15 @@ export default function CareersPage() {
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => scrollToForm(job.title)}
-                        className="flex items-center gap-1.5 px-5 py-2.5 rounded-full text-white font-bold text-[13px] shadow-sm hover:shadow-md transition-all"
+                        className="flex items-center gap-2 px-7 py-3.5 rounded-2xl text-white font-bold text-[14px] shadow-md hover:shadow-xl hover:scale-105 transition-all duration-200"
                         style={{
                           background:
-                            "linear-gradient(135deg, #292524, #1c1917)",
+                            "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
                         }}
                       >
                         Apply Now
                         <svg
-                          className="w-3.5 h-3.5"
+                          className="w-4 h-4"
                           fill="none"
                           viewBox="0 0 24 24"
                           stroke="currentColor"

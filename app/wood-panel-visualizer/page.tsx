@@ -44,18 +44,18 @@ const METAL_PANELS = [
 ];
 
 const GLASS_PANELS = [
-  { id: 1,  name: "Amber Orange",    image: "/glass-copy/amber-orange.png",    cover: "/glass-small-circle/glaas-cover-images-0.jpg",  color: "#D2691E" },
-  { id: 2,  name: "Amethyst Purple", image: "/glass-copy/amethyst-purple.png", cover: "/glass-small-circle/glaas-cover-images-1.jpg",  color: "#9966CC" },
-  { id: 3,  name: "Aqua Blue",       image: "/glass-copy/aqua-blue.png",       cover: "/glass-small-circle/glaas-cover-images-2.jpg",  color: "#00CED1" },
-  { id: 4,  name: "Champagne Gold",  image: "/glass-copy/champagne-gold.png",  cover: "/glass-small-circle/glaas-cover-images-3.jpg",  color: "#D4AF6A" },
-  { id: 5,  name: "Copper",          image: "/glass-copy/copper.png",          cover: "/glass-small-circle/glaas-cover-images-4.jpg",  color: "#B87333" },
-  { id: 6,  name: "Crystal Clear",   image: "/glass-copy/crystal-clear.png",   cover: "/glass-small-circle/glaas-cover-images-5.jpg",  color: "#E8E8E8" },
-  { id: 7,  name: "Emerald Green",   image: "/glass-copy/emerald-green.png",   cover: "/glass-small-circle/glaas-cover-images-6.jpg",  color: "#2E8B57" },
-  { id: 8,  name: "Jet Black",       image: "/glass-copy/jet-black.png",       cover: "/glass-small-circle/glaas-cover-images-7.jpg",  color: "#1A1A1A" },
-  { id: 9,  name: "Olive Gold",      image: "/glass-copy/olive-gold.png",      cover: "/glass-small-circle/glaas-cover-images-8.jpg",  color: "#808000" },
-  { id: 10, name: "Royal Blue",      image: "/glass-copy/royal-blue.png",      cover: "/glass-small-circle/glaas-cover-images-9.jpg",  color: "#1E3A8A" },
-  { id: 11, name: "Ruby Red",        image: "/glass-copy/ruby-red.png",        cover: "/glass-small-circle/glaas-cover-images-10.jpg", color: "#9B111E" },
-  { id: 12, name: "Smoke Grey",      image: "/glass-copy/smoke-grey.png",      cover: "/glass-small-circle/glaas-cover-images-11.jpg", color: "#6B6B6B" },
+  { id: 1,  name: "Amber Orange",    image: "/glass-copy/amber-orange.png",    cover: "/glass-small-circle/amber-orange.jpg",    color: "#D2691E" },
+  { id: 2,  name: "Amethyst Purple", image: "/glass-copy/amethyst-purple.png", cover: "/glass-small-circle/amethyst-purple.jpg",  color: "#9966CC" },
+  { id: 3,  name: "Aqua Blue",       image: "/glass-copy/aqua-blue.png",       cover: "/glass-small-circle/aqua-blue.jpg",       color: "#00CED1" },
+  { id: 4,  name: "Champagne Gold",  image: "/glass-copy/champagne-gold.png",  cover: "/glass-small-circle/champagne-gold.jpg",  color: "#D4AF6A" },
+  { id: 5,  name: "Copper",          image: "/glass-copy/copper.png",          cover: "/glass-small-circle/copper.jpg",          color: "#B87333" },
+  { id: 6,  name: "Crystal Clear",   image: "/glass-copy/crystal-clear.png",   cover: "/glass-small-circle/crystal-clear.jpg",   color: "#E8E8E8" },
+  { id: 7,  name: "Emerald Green",   image: "/glass-copy/emerald-green.png",   cover: "/glass-small-circle/emerald-green.jpg",   color: "#2E8B57" },
+  { id: 8,  name: "Jet Black",       image: "/glass-copy/jet-black.png",       cover: "/glass-small-circle/jet-black.jpg",       color: "#1A1A1A" },
+  { id: 9,  name: "Olive Gold",      image: "/glass-copy/olive-gold.png",      cover: "/glass-small-circle/olive-green.jpg",     color: "#808000" },
+  { id: 10, name: "Royal Blue",      image: "/glass-copy/royal-blue.png",      cover: "/glass-small-circle/royal-blue.jpg",      color: "#1E3A8A" },
+  { id: 11, name: "Ruby Red",        image: "/glass-copy/ruby-red.png",        cover: "/glass-small-circle/ruby-red.jpg",        color: "#9B111E" },
+  { id: 12, name: "Smoke Grey",      image: "/glass-copy/smoke-grey.png",      cover: "/glass-small-circle/smoke.jpg",           color: "#6B6B6B" },
 ];
 
 export default function WoodPanelVisualizer() {

@@ -181,7 +181,7 @@ export default function CompanyOverview() {
                   <div className="hidden sm:block w-[calc(50%-40px)]">
                     <div className={`relative rounded-2xl overflow-hidden shadow-md border-4 border-white h-56 ${isLeft ? "sm:ml-4" : "sm:mr-4"}`}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={m.image} alt={m.title} className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" />
+                      <img src={m.image} alt={m.title} className="w-full h-full object-center hover:scale-105 transition-transform duration-500" />
                       <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 55%, rgba(0,0,0,0.35))" }} />
                       <span className="absolute bottom-3 left-4 text-white text-xs font-bold uppercase tracking-wider drop-shadow">{m.subtitle}</span>
                     </div>

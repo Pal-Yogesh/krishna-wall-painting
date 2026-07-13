@@ -134,7 +134,7 @@ export default function VideoIntro() {
     >
       <video
         ref={videoRef}
-        src="https://res.cloudinary.com/dxfkygu6e/video/upload/v1780423543/WhatsApp_Video_2026-05-24_at_4.53.28_PM_1_wu4dsc_npvxao.mp4"
+        src="https://res.cloudinary.com/dxfkygu6e/video/upload/v1783960295/WhatsApp_Video_2026-07-13_at_9.58.39_PM_uzbhha.mp4"
         muted
         loop
         playsInline

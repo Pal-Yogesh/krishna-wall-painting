@@ -16,6 +16,7 @@ const adminDb = getFirestore();
 
 // HR notification recipient for career applications
 const HR_EMAIL = "hr@kmopl.com";
+const SALES_EMAIL = "sales@krishna-chemicals.com";
 
 // ── Transporter setup ─────────────────────────────────────────────────────────
 function createTransporter() {
@@ -165,7 +166,7 @@ export async function POST(req: NextRequest) {
       const transporter = createTransporter();
       await transporter.sendMail({
         from: `"KMOPL Careers" <${process.env.EMAIL_USER}>`,
-        to: HR_EMAIL,
+        to: `${HR_EMAIL}, ${SALES_EMAIL}`,
         replyTo: applicationData.email,
         subject: `New Career Application — ${applicationData.name}${applicationData.jobTitle ? ` (${applicationData.jobTitle})` : ""}`,
         html: buildApplicationEmailHtml(applicationData),

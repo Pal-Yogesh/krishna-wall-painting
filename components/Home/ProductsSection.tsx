@@ -8,7 +8,9 @@ const PRODUCTS = [
   {
     image: "/our-product/1.jpeg",
     title: "Strong Foundation",
-    description: "We founded M/s Krishna Acid and Chemicals, our journey began with a strong foundation on trading industrial chemicals, primarily serving the automotive sector.",
+    description: "Solid base of knowledge, values, and skills ...",
+    // We founded M/s Krishna Acid and Chemicals, our journey began with... ",
+    // a strong foundation on trading industrial chemicals, primarily serving the automotive sector.",
     color: "#16a34a",
   },
   {
@@ -26,7 +28,7 @@ const PRODUCTS = [
   {
     image: "/our-product/4.jpeg",
     title: "Sustainability",
-    description: "Our unwavering focus on innovation and sustainability drives our continuous expansion and enhancement of services.",
+    description: "Our unwavering focus on innovation and sustainability drives ...",
     color: "#7c3aed",
   }, 
   {
