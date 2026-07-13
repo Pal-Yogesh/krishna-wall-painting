@@ -184,11 +184,11 @@ export default function MarketSegments() {
                   </p>
 
                   {/* Client tags */}
-                  <div className="flex flex-wrap gap-1.5 mb-4">
+                  <div className="flex flex-wrap gap-3 mb-4">
                     {segment.clients.map((client) => (
                       <span
                         key={client}
-                        className="px-2.5 py-1 text-[11px] font-semibold rounded-full"
+                        className="px-5 py-1 text-[11px] font-semibold rounded-full"
                         style={{
                           background: `${segment.color}10`,
                           color: segment.color,
