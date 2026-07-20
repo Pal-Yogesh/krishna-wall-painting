@@ -1,93 +1,140 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger);
+// ── Small reusable list-item icon ──────────────────────────────────────────────
+function ItemIcon({ color }: { color: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      className="w-4 h-4 shrink-0"
+      stroke={color}
+      strokeWidth={1.6}
+    >
+      <rect x="3" y="3" width="18" height="18" rx="3" />
+      <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h8M12 8v8" />
+    </svg>
+  );
 }
 
 const SEGMENTS = [
   {
-    icon: "🛡️",
-    title: "Metal Coating",
-    description:
-      "Anti-corrosion primers, base coats, and top coats for sheet metal, aluminium, brass, and copper substrates.",
-    clients: [
-      "Automotive Parts",
-      "Industrial Equipment",
-      "Consumer Appliances",
-    ],
-    color: "#d97706",
-    bg: "bg-amber-50",
-    border: "border-amber-200",
-    href: "/products/metal",
-    image: "/coating/metal-coating.jpeg",
-  },
-  {
-    icon: "🪵",
-    title: "Wood Coating",
-    description:
-      "Protective and decorative finishes for furniture, handicrafts, and wooden surfaces with UV-cured and PU chemistries.",
-    clients: ["Furniture Exporters", "IKEA", "Handicraft Industry"],
-    color: "#16a34a",
-    bg: "bg-emerald-50",
-    border: "border-emerald-200",
+    key: "wood",
+    title: "WOOD",
+    subtitle: "Coatings for Beauty, Strength & Durability",
+    color: "#ea580c",
+    bg: "#fff7ed",
     href: "/products/wood",
-    image: "/coating/wood-coating.jpeg",
+    image: "/new-images-update/wood.jpeg",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        className="w-7 h-7"
+        stroke="currentColor"
+        strokeWidth={1.8}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 3v18M8 5c0 3 0 11 0 14M16 5c0 3 0 11 0 14M5 7c1 2 1 8 0 10M19 7c-1 2-1 8 0 10"
+        />
+      </svg>
+    ),
+    items: [
+      "Furniture",
+      "Modular Kitchens",
+      "Doors & Windows",
+      "Veneers & Plywood",
+      "Interior Fit-outs",
+      "Office Furniture",
+      "Hotel Furniture",
+      "Wooden Handicrafts",
+    ],
   },
   {
-    icon: "🪟",
-    title: "Glass Coating",
-    description:
-      "Specialty coatings for glass articles, decorative glassware, and architectural glass with superior adhesion and clarity.",
-    clients: ["Glass Articles", "Decorative Ware", "Lighting Industry"],
-    color: "#0891b2",
-    bg: "bg-cyan-50",
-    border: "border-cyan-200",
+    key: "metal",
+    title: "METAL",
+    subtitle: "Coatings for Protection, Performance & Precision",
+    color: "#1e2a4a",
+    bg: "#eef1f6",
+    href: "/products/metal",
+    image: "/new-images-update/metal.jpeg",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        className="w-7 h-7"
+        stroke="currentColor"
+        strokeWidth={1.8}
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M11.42 15.17L17.25 21A2.652 2.652 0 0021 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 11-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 004.486-6.336l-3.276 3.277a3.004 3.004 0 01-2.25-2.25l3.276-3.276a4.5 4.5 0 00-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26"
+        />
+      </svg>
+    ),
+    items: [
+      "Steel Furniture",
+      "Home Appliances",
+      "Industrial Equipment",
+      "Architectural Metal",
+      "Electrical Panels",
+      "Aluminium Profiles",
+      "Automotive Components",
+      "Fabrication",
+    ],
+  },
+  {
+    key: "glass",
+    title: "GLASS",
+    subtitle: "Coatings for Clarity, Safety & Sophistication",
+    color: "#0d9488",
+    bg: "#f0fdfa",
     href: "/products/glass",
-    image: "/coating/glass-coating.jpeg",
+    image: "/new-images-update/glass.jpeg",
+    icon: (
+      <svg
+        viewBox="0 0 24 24"
+        fill="none"
+        className="w-7 h-7"
+        stroke="currentColor"
+        strokeWidth={1.8}
+      >
+        <rect x="4" y="3" width="16" height="18" rx="1.5" />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          d="M12 3v18M4 12h16"
+        />
+      </svg>
+    ),
+    items: [
+      "Decorative Glass",
+      "Display Units",
+      "Interior Glass",
+      "Architectural Glass",
+      "Shower Enclosures",
+      "Retail Fixtures",
+      "Glass Furniture",
+      "Glass Partitions",
+    ],
   },
 ];
 
 export default function MarketSegments() {
   const sectionRef = useRef<HTMLElement>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-60px" });
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      if (gridRef.current) {
-        gsap.fromTo(
-          gridRef.current.children,
-          { opacity: 0, y: 40, scale: 0.95 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.6,
-            stagger: 0.1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: gridRef.current,
-              start: "top 80%",
-              once: true,
-            },
-          },
-        );
-      }
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section
       ref={sectionRef}
       id="market-segments"
-      className="relative py-14 overflow-hidden"
+      className="relative py-16 overflow-hidden"
       style={{
         background:
           "linear-gradient(180deg, #fdfbf7 0%, #fefdfb 50%, #fdfbf7 100%)",
@@ -95,127 +142,188 @@ export default function MarketSegments() {
     >
       {/* Background */}
       <div aria-hidden className="absolute inset-0 pointer-events-none">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full bg-amber-100/30 blur-3xl" />
-        <svg className="absolute inset-0 w-full h-full opacity-[0.025]">
-          <defs>
-            <pattern
-              id="seg-dots"
-              width="32"
-              height="32"
-              patternUnits="userSpaceOnUse"
-            >
-              <circle cx="2" cy="2" r="1.5" fill="#78716c" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#seg-dots)" />
-        </svg>
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] rounded-full bg-amber-100/25 blur-3xl" />
       </div>
 
-      <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6 }}
-          className="text-center mb-10"
+          className="text-center mb-12"
         >
-          <span className="inline-block px-4 py-1.5 bg-amber-100 text-amber-700 text-xs font-bold uppercase tracking-[0.2em] rounded-full mb-5">
-            Industries We Serve
-          </span>
+          {/* Eyebrow with side lines */}
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <span className="h-px w-14 bg-orange-300" />
+            <span className="text-3xl font-bold uppercase  text-orange-500">
+              Industries We Serve
+            </span>
+            <span className="h-px w-14 bg-orange-300" />
+          </div>
+
           <h2
-            className="text-[clamp(2rem,4vw,3.2rem)] font-bold text-stone-900 leading-tight"
+            className="text-[clamp(2rem,4.2vw,3.2rem)] font-extrabold text-stone-900 leading-[1.12]"
             style={{
               fontFamily: "var(--font-raleway), sans-serif",
               letterSpacing: "-0.03em",
             }}
           >
-            Market Segments &
+            Advanced Coating Solutions for
             <br />
-            <span className="text-amber-500">Applications</span>
+            <span style={{ color: "#ea580c" }}>Wood</span>
+            <span className="text-stone-900">, </span>
+            <span style={{ color: "#1e2a4a" }}>Metal</span>
+            <span className="text-stone-900"> &amp; </span>
+            <span style={{ color: "#0d9488" }}>Glass</span>
+            <span className="text-stone-900"> Industries</span>
           </h2>
+
           <p
-            className="mt-4 text-stone-500 text-[15px] max-w-xl mx-auto leading-relaxed"
-            style={{ fontFamily: "var(--font-raleway), sans-serif" }}
+            className="mt-4 text-stone-800 text-[16px]  max-w-xl mx-auto leading-relaxed"
           >
-            From automotive to solar energy, our coatings serve diverse
-            industries with precision-engineered solutions.
+            High-performance coatings designed to enhance durability, aesthetics
+            and long-term value across diverse industries.
           </p>
         </motion.div>
 
-        {/* Cards grid */}
-        <div
-          ref={gridRef}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
-        >
-          {SEGMENTS.map((segment) => (
-            <Link
-              key={segment.title}
-              href={segment.href}
-              className="block opacity-0 group"
+        {/* 3 columns */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-4 pt-6">
+          {SEGMENTS.map((seg, idx) => (
+            <motion.div
+              key={seg.key}
+              initial={{ opacity: 0, y: 30 }}
+              animate={inView ? { opacity: 1, y: 0 } : {}}
+              transition={{ delay: idx * 0.12, duration: 0.5 }}
+              style={{ borderColor: seg.color }} 
+              className="group relative bg-white rounded-2xl border shadow-sm hover:shadow-xl transition-all flex flex-col pt-8"
             >
-              <motion.div
-                whileHover={{
-                  y: -8,
-                  boxShadow: "0 25px 50px rgba(0,0,0,0.12)",
-                }}
-                transition={{ type: "spring", stiffness: 300, damping: 25 }}
-                className="relative overflow-hidden bg-white border border-stone-200/80 rounded-3xl shadow-sm cursor-pointer h-full"
-              >
-                {/* Image with overlay */}
-                <div className="relative w-full h-44 overflow-hidden">
-                  <img src={segment.image} alt={segment.title} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500" />
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-linear-to-t from-black/50 via-black/10 to-transparent" />
-                  {/* Title on image */}
-                  <div className="absolute bottom-3 left-4 right-4">
-                    <h3 className="text-[17px] font-bold text-white drop-shadow-md" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
-                      {segment.title}
-                    </h3>
-                  </div>
-                  {/* Color accent top bar */}
-                  <div className="absolute top-0 left-0 right-0 h-1" style={{ background: `linear-gradient(90deg, ${segment.color}, ${segment.color}60)` }} />
+              {/* Circular icon badge — half outside card top */}
+              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20">
+                <div
+                  className="w-16 h-16 rounded-full flex items-center justify-center text-white shadow-lg border-4 border-white"
+                  style={{ background: seg.color }}
+                >
+                  {seg.icon}
                 </div>
+              </div>
 
-                {/* Content */}
-                <div className="p-5">
-                  {/* Description */}
-                  <p className="text-[13px] text-stone-500 leading-relaxed mb-4">
-                    {segment.description}
-                  </p>
+              {/* Image */}
+              <div className="relative h-52 overflow-hidden rounded-t-xl  -mt-8">
+                <img
+                  src={seg.image}
+                  alt={seg.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <div
+                  className="absolute inset-0"
+                  style={{
+                    background: `linear-gradient(180deg, transparent 40%, ${seg.color}30)`,
+                  }}
+                />
+              </div>
 
-                  {/* Client tags */}
-                  <div className="flex flex-wrap gap-3 mb-4">
-                    {segment.clients.map((client) => (
-                      <span
-                        key={client}
-                        className="px-5 py-1 text-[11px] font-semibold rounded-full"
-                        style={{
-                          background: `${segment.color}10`,
-                          color: segment.color,
-                          border: `1px solid ${segment.color}20`,
-                        }}
-                      >
-                        {client}
-                      </span>
+              {/* Content */}
+              <div className="px-1 pt-4 pb-6 flex-1 flex flex-col">
+                {/* Title with side lines */}
+                <div className="flex items-center gap-3 mb-1 px-10">
+                  <span className="flex-1 h-px" style={{ background: seg.color }} />
+                  <h3
+                    className="text-[22px] font-extrabold tracking-wide shrink-0"
+                    style={{
+                      fontFamily: "var(--font-raleway), sans-serif",
+                      color: seg.color,
+                    }}
+                  >
+                    {seg.title}
+                  </h3>
+                  <span className="flex-1 h-px" style={{ background: seg.color }} />
+                </div>
+                <p className="text-center text-[12px] text-stone-800 font-semibold mb-3">
+                  {seg.subtitle}
+                </p>
+
+                {/* Items — 2 column grid with borders */}
+                <div className="grid grid-cols-2 divide-x  divide-stone-200">
+                  {/* Left column */}
+                  <div className="divide-y divide-stone-200 px-1.5">
+                    {seg.items.filter((_, i) => i % 2 === 0).map((item) => (
+                      <div key={item} className="flex items-center gap-1 px-1 py-3">
+                        <ItemIcon color={seg.color} />
+                        <span className="text-[12px] text-stone-800 font-semibold">{item}</span>
+                      </div>
                     ))}
                   </div>
-
-                  {/* View Products link */}
-                  <div className="flex items-center justify-between pt-3 border-t border-stone-100">
-                    <span className="text-[12px] font-bold uppercase tracking-wider" style={{ color: segment.color }}>
-                      View Products
-                    </span>
-                    <div className="w-8 h-8 rounded-full flex items-center justify-center group-hover:translate-x-1 transition-transform" style={{ background: `${segment.color}12` }}>
-                      <svg className="w-4 h-4" style={{ color: segment.color }} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                      </svg>
-                    </div>
+                  {/* Right column */}
+                  <div className="divide-y divide-stone-200 px-1.5">
+                    {seg.items.filter((_, i) => i % 2 === 1).map((item) => (
+                      <div key={item} className="flex items-center gap-1 px-1 py-3">
+                        <ItemIcon color={seg.color} />
+                        <span className="text-[12px] text-stone-800 font-semibold">{item}</span>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </motion.div>
-            </Link>
+
+                {/* View products link */}
+                <Link
+                  href={seg.href}
+                  className="mt-6 inline-flex items-center justify-center gap-1.5 text-[12px] font-bold uppercase tracking-wider transition-colors"
+                  style={{ color: seg.color }}
+                >
+                  View Products
+                  <svg
+                    className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13 7l5 5m0 0l-5 5m5-5H6"
+                    />
+                  </svg>
+                </Link>
+              </div>
+
+              {/* Bottom color bar */}
+              <div className="h-2 w-full rounded-b-3xl" style={{ background: seg.color }} />
+            </motion.div>
           ))}
         </div>
+
+        {/* Bottom trust bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: 0.4, duration: 0.5 }}
+          className="mt-8 flex justify-center"
+        >
+          <div className="inline-flex items-center gap-3 px-6 py-3 bg-white border border-stone-200/80 rounded-full shadow-sm">
+            <div className="w-8 h-8 rounded-full bg-amber-50 flex items-center justify-center">
+              <svg
+                className="w-4 h-4 text-amber-600"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+                strokeWidth={1.8}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.971 5.971 0 00-.941-3.197m0 0A5.995 5.995 0 0012 12.75a5.995 5.995 0 00-5.058 2.772m0 0a3 3 0 00-4.681 2.72 8.986 8.986 0 003.74.477m.94-3.197a5.971 5.971 0 00-.94 3.197M15 6.75a3 3 0 11-6 0 3 3 0 016 0zm6 3a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0zm-13.5 0a2.25 2.25 0 11-4.5 0 2.25 2.25 0 014.5 0z"
+                />
+              </svg>
+            </div>
+            <p className="text-[14px] text-stone-800">
+              Trusted by{" "}
+              <span className="font-bold text-orange-500">500+ industries</span>{" "}
+              across India for exceptional quality and performance.
+            </p>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

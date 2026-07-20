@@ -14,7 +14,7 @@ const STATS = [
   { value: "4", label: "Manufacturing Units", color: "#7c3aed" },
 ];
 
-const CLIENT_LOGOS = Array.from({ length: 15 }, (_, i) => `/client-logos/client-logo-${String(i + 1).padStart(2, "0")}.jpg`);
+const CLIENT_LOGOS = Array.from({ length: 13 }, (_, i) => `/client-logos/client-logo-${String(i + 1).padStart(2, "0")}.jpg`);
 
 export default function AboutHero() {
   const doubledLogos = [...CLIENT_LOGOS, ...CLIENT_LOGOS];
@@ -179,7 +179,7 @@ export default function AboutHero() {
             {doubledLogos.map((src, i) => (
               <div key={i} className="shrink-0 w-44 h-36 bg-white border border-stone-200/80 rounded-2xl shadow-sm flex items-center justify-center p-2">
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={src} alt="Client logo" className={`object-cover ${src.includes("client-logo-01") ? "w-20 h-20" : src.includes("client-logo-14") ? "w-32" : src.includes("client-logo-15") ? "w-24" : "w-full h-full"}`} />
+                <img src={src} alt="Client logo" className={`object-cover ${src.includes("client-logo-01") ? "w-20 h-20" : "w-full h-full"}`} />
               </div>
             ))}
           </motion.div>

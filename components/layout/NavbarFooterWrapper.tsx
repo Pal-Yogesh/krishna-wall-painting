@@ -15,12 +15,12 @@ export default function NavbarFooterWrapper({ children }: { children: React.Reac
   if (isAdmin) return <>{children}</>;
 
   return (
-    <SplashLoader>
+    <>
       <Navbar />
       {children}
       {/* <ProductMarquee /> */}
       {isHomePage && <VideoShowcase />}
       <Footer />
-    </SplashLoader>
+    </>
   );
 }
