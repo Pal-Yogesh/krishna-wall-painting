@@ -165,6 +165,19 @@ export default function Footer() {
                 </div>
               ))}
 
+              {/* Google Maps link */}
+              <a
+                href="https://www.google.com/maps?q=28.5379126,77.4129656&z=17&hl=en"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 mt-3 text-[12px] font-semibold text-amber-600 hover:text-amber-700 transition-colors"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
+                </svg>
+                View on Google Maps
+              </a>
           
             </div>
           </div>

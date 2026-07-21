@@ -15,7 +15,6 @@ function ItemIcon({ color }: { color: string }) {
       strokeWidth={1.6}
     >
       <rect x="3" y="3" width="18" height="18" rx="3" />
-      <path strokeLinecap="round" strokeLinejoin="round" d="M8 12h8M12 8v8" />
     </svg>
   );
 }
@@ -45,14 +44,13 @@ const SEGMENTS = [
       </svg>
     ),
     items: [
-      "Furniture",
-      "Modular Kitchens",
-      "Doors & Windows",
-      "Veneers & Plywood",
-      "Interior Fit-outs",
-      "Office Furniture",
-      "Hotel Furniture",
-      "Wooden Handicrafts",
+      { title: "Custom Woodworking", desc: "Luxury kitchens, bathroom vanities, and premium executive desks (steam and scratch-proof)." },
+      { title: "Interior Design", desc: "Back-painted opaque glass panels for kitchen splashbacks and office whiteboards." },
+      { title: "Mass-Market Wood & Laminates", desc: "Flat-pack furniture (IKEA-style) and factory-finished engineered flooring." },
+      { title: "Musical Instruments", desc: "Acoustic and electric guitars, violins, and cellos (allows wood to vibrate and age naturally)." },
+      { title: "Artisanal Wood & Antiques", desc: "Traditional handicraft workshops, carved decor, and antique furniture restoration." },
+      { title: "Economy Furniture", desc: "Mid-to-low-tier residential doors, bed frames, and dining chairs." },
+      { title: "Fashion & Cosmetics", desc: "Base film for standard retail nail polishes and glossy top-finishes for consumer leather items (shoes, belts)." },
     ],
   },
   {
@@ -79,14 +77,11 @@ const SEGMENTS = [
       </svg>
     ),
     items: [
-      "Steel Furniture",
-      "Home Appliances",
-      "Industrial Equipment",
-      "Architectural Metal",
-      "Electrical Panels",
-      "Aluminium Profiles",
-      "Automotive Components",
-      "Fabrication",
+      { title: "Heavy Machinery & Industrial Equipment", desc: "Used on automated assembly gear, factory machinery, and material handling systems requiring high wear resistance." },
+      { title: "Fabricated Steel Structures", desc: "Applied to large-scale structural frames, infrastructure builds, and warehouses to prevent corrosion." },
+      { title: "Automobile & Agricultural Components", desc: "Protects critical engine parts, body frames, tractors, and harvesting gear from extreme outdoor environments." },
+      { title: "Engineering Products & Panels", desc: "Ideal for precision-machined electronics enclosures, power panels, and customized tooling assemblies." },
+      { title: "OEM Finishing Applications", desc: "Serves as the primary factory-applied protective layer for Original Equipment Manufacturers before final product delivery." },
     ],
   },
   {
@@ -114,14 +109,10 @@ const SEGMENTS = [
       </svg>
     ),
     items: [
-      "Decorative Glass",
-      "Display Units",
-      "Interior Glass",
-      "Architectural Glass",
-      "Shower Enclosures",
-      "Retail Fixtures",
-      "Glass Furniture",
-      "Glass Partitions",
+      { title: "Perfume, Cosmetics & Luxury Packaging", desc: "Creates premium frosted or coloured glass bottles that remain permanently pristine against aggressive perfume oils and alcohol leaks." },
+      { title: "Wine, Liquor & Beverage Bottling", desc: "Provides durable custom tints and frosting that withstand high-speed conveyor friction and continuous submersion in wet ice buckets." },
+      { title: "Architectural, Interior Design & Furniture", desc: "Bonds to back-painted glass panels for seamless kitchen splashbacks, office whiteboards, and luxury tabletops resisting heat and moisture." },
+      { title: "Home Decorative, Lighting & Handicrafts", desc: "Coats high-end glass pendant lamps, chandeliers, and vases to withstand high bulb temperatures without yellowing or cracking." },
     ],
   },
 ];
@@ -224,10 +215,12 @@ export default function MarketSegments() {
               </div>
 
               {/* Content */}
-              <div className="px-1 pt-4 pb-6 flex-1 flex flex-col">
+              <div className="px-1 pt-4 pb-6 flex-1 flex flex-col justify-between">
+                <div>
+
                 {/* Title with side lines */}
-                <div className="flex items-center gap-3 mb-1 px-10">
-                  <span className="flex-1 h-px" style={{ background: seg.color }} />
+                <div className="flex items-center justify-center gap-3 mb-1 px-4">
+                  <span className="w-10 h-px shrink-0" style={{ background: seg.color }} />
                   <h3
                     className="text-[22px] font-extrabold tracking-wide shrink-0"
                     style={{
@@ -237,32 +230,24 @@ export default function MarketSegments() {
                   >
                     {seg.title}
                   </h3>
-                  <span className="flex-1 h-px" style={{ background: seg.color }} />
+                  <span className="w-10 h-px shrink-0" style={{ background: seg.color }} />
                 </div>
                 <p className="text-center text-[12px] text-stone-800 font-semibold mb-3">
                   {seg.subtitle}
                 </p>
 
-                {/* Items — 2 column grid with borders */}
-                <div className="grid grid-cols-2 divide-x  divide-stone-200">
-                  {/* Left column */}
-                  <div className="divide-y divide-stone-200 px-1.5">
-                    {seg.items.filter((_, i) => i % 2 === 0).map((item) => (
-                      <div key={item} className="flex items-center gap-1 px-1 py-3">
-                        <ItemIcon color={seg.color} />
-                        <span className="text-[12px] text-stone-800 font-semibold">{item}</span>
+                {/* Items — full width list with borders */}
+                <div className="divide-y divide-stone-200 px-2">
+                  {seg.items.map((item) => (
+                    <div key={item.title} className="flex items-start gap-2.5 py-3">
+                      <ItemIcon color={seg.color} />
+                      <div>
+                        <p className="text-[12px] text-stone-900 font-bold leading-snug">{item.title}</p>
+                        <p className="text-[11px] text-stone-500 leading-snug mt-0.5">{item.desc}</p>
                       </div>
-                    ))}
-                  </div>
-                  {/* Right column */}
-                  <div className="divide-y divide-stone-200 px-1.5">
-                    {seg.items.filter((_, i) => i % 2 === 1).map((item) => (
-                      <div key={item} className="flex items-center gap-1 px-1 py-3">
-                        <ItemIcon color={seg.color} />
-                        <span className="text-[12px] text-stone-800 font-semibold">{item}</span>
-                      </div>
-                    ))}
-                  </div>
+                    </div>
+                  ))}
+                </div>
                 </div>
 
                 {/* View products link */}
