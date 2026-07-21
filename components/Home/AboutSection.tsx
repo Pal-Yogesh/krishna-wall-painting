@@ -290,7 +290,7 @@ export default function AboutSection() {
     <section
       ref={sectionRef}
       id="about-section"
-      className="relative overflow-hidden bg-[url('/new-images-update/products.png')] bg-cover bg-center h-full pt-14 w-full"
+      className="relative overflow-hidden bg-[url('/new-images-update/products.PNG')] bg-cover bg-center h-full pt-14 w-full"
     >
       {/* Main content grid */}
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 pb-8 ">
