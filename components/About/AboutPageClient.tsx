@@ -25,10 +25,11 @@ import {
 
 const TIMELINE = [
   { year: "1998", text: "Company Established", icon: Building2 },
-  { year: "2005", text: "Expanded Manufacturing", icon: Wrench },
-  { year: "2012", text: "In-House R&D Lab", icon: FlaskConical },
-  { year: "2017", text: "New Technologies Launched", icon: Target },
-  { year: "2021", text: "500+ Customers", icon: Users },
+  { year: "2004", text: "Manufacturing Expansion", icon: Wrench },
+  { year: "2008", text: "In-House R&D Laboratory", icon: FlaskConical },
+  { year: "2010", text: "Speciality Coatings Launched", icon: Target },
+  { year: "2019", text: "High Purity Electronic Grade Chemicals", icon: Users },
+  { year: "2021", text: "500+ Industrial Customers", icon: TestTube2 },
   { year: "Future", text: "Continuing to Innovate", icon: TrendingUp },
 ];
 
@@ -117,7 +118,7 @@ export default function AboutPageClient() {
       <section className="w-full max-w-7xl mx-auto bg-white mb-8 shadow-sm">
         <div className="flex flex-col lg:flex-row w-full">
           {/* Journey */}
-          <div className="w-full lg:w-1/2 p-6 sm:p-8 relative flex flex-col border-b lg:border-b-0 lg:border-r border-stone-200">
+          <div className="w-full lg:w-3/3 p-6 sm:p-8 relative flex flex-col border-b lg:border-b-0 lg:border-r border-stone-200">
             <div className="mb-8">
               <h3 className="text-lg sm:text-[22px] font-bold text-[#1e3a8a] uppercase tracking-wide">
                 Our Journey
@@ -295,15 +296,22 @@ export default function AboutPageClient() {
           <div className="flex-[2.2] flex flex-col sm:flex-row divide-y sm:divide-y-0 sm:divide-x divide-stone-200">
             {[
               {
-                name: "Vasundhra Arora",
+                name: "Ashok Arora",
                 img: "/about/about-new/vasundra.jpeg",
-                role: "Director - Operations",
+                role: "Chairman",
                 quote:
                   "Operations excellence comes from precision, people, and processes. We are committed to delivering seamless efficiency every day.",
               },
               {
-                name: "Vivek Arora",
-                img: "/director.jpeg",
+                name: "Alok Arora",
+                img: "/director2.png",
+                role: "Director - Strategy",
+                quote:
+                  "We believe in strategic growth, continuous improvement, and embracing change to shape a better and more innovative future.",
+              },
+              {
+                name: "Rohit Arora",
+                img: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426458/kmopl-gallery/tiqghmkm20clwo69mxyp.jpg",
                 role: "Director - Strategy",
                 quote:
                   "We believe in strategic growth, continuous improvement, and embracing change to shape a better and more innovative future.",
@@ -311,9 +319,9 @@ export default function AboutPageClient() {
             ].map((p, i) => (
               <div
                 key={i}
-                className="flex-1 flex flex-col sm:flex-row py-6 px-4 sm:px-6 gap-4 border-l border-r border-stone-200"
+                className="flex-1 flex flex-col sm:flex-row py-6 px-4 sm:px-6 gap-4 border border-stone-200"
               >
-                <div className="w-28 h-40 sm:w-[130px] sm:h-[200px] shrink-0 relative mx-auto sm:mx-0">
+                <div className="w-28 h-40 sm:w-[160px] sm:h-[200px] shrink-0 relative mx-auto sm:mx-0">
                   <Image
                     src={p.img}
                     alt={p.name}
@@ -325,14 +333,14 @@ export default function AboutPageClient() {
                   <h4 className="text-[#1e3a8a] font-bold text-sm sm:text-[16px] uppercase mb-1">
                     {p.name}
                   </h4>
-                  <span className="text-amber-600 text-xs sm:text-[13px] font-medium mb-3">
+                  <span className="text-amber-600 text-xs sm:text-[13px] font-medium mb-2">
                     {p.role}
                   </span>
                   <div className="relative flex flex-col">
                     <span className="text-amber-500 text-4xl leading-none font-serif">
                       "
                     </span>
-                    <p className="text-xs sm:text-[13px] text-stone-700 leading-relaxed font-medium px-1">
+                    <p className="text-xs sm:text-[12px] text-stone-700 leading-relaxed font-medium">
                       {p.quote}
                     </p>
                     <span className="text-amber-500 text-4xl leading-none font-serif self-end">
@@ -342,16 +350,6 @@ export default function AboutPageClient() {
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Side image */}
-          <div className="flex-[0.8] relative min-h-[200px] lg:min-h-0 mt-4 lg:mt-0">
-            <Image
-            src="https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426458/kmopl-gallery/tiqghmkm20clwo69mxyp.jpg"
-              alt="KMOPL Products"
-              fill
-              className="object-contain"
-            />
           </div>
         </div>
       </section>

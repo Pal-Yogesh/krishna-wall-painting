@@ -532,6 +532,17 @@ export default function EnquiryLeadForm() {
             </span>
             +91 85888 30308
           </a>
+          <a
+            href="tel:+01204278000"
+            className="flex items-center gap-2 font-bold text-stone-800 hover:text-amber-700 transition-colors text-[15px]"
+            style={{ fontFamily: "var(--font-raleway), sans-serif" }}
+          >
+            <span className="w-7 h-7 rounded-full flex items-center justify-center text-white text-xs"
+              style={{ background: "linear-gradient(135deg, #f59e0b, #d97706)" }}>
+              📞
+            </span>
+            0120-4278000
+          </a>
           <span className="text-stone-300 hidden sm:block">•</span>
           <p className="text-sm text-stone-400" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
             Mon - Sat, 9 AM - 6 PM
