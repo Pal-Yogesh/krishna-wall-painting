@@ -187,28 +187,29 @@ export default function MarketSegments() {
           </div>
 
           <h2
-            className="text-[clamp(2rem,4.2vw,3.2rem)] font-extrabold text-stone-900 leading-[1.12]"
+            className="text-[clamp(1rem,3.5vw,2rem)] font-bold text-stone-900 leading-[1.12]"
             style={{
               fontFamily: "var(--font-raleway), sans-serif",
               letterSpacing: "-0.03em",
             }}
           >
-            Advanced Coating Solutions for
-            <br />
-            <span style={{ color: "#ea580c" }}>Wood</span>
-            <span className="text-stone-900">, </span>
-            <span style={{ color: "#1e2a4a" }}>Metal</span>
+            
+            Delivering high-performance coating solutions for every industry engineered to protect, enhance, and add value across diverse applications.  
+            {/* <br />
+            <span style={{ color: "#ea580c" }}>solutions for</span>
+            <span className="text-stone-900"> every industry engineered to protect </span>
+            <span style={{ color: "#1e2a4a" }}>enhance</span>
             <span className="text-stone-900"> &amp; </span>
-            <span style={{ color: "#0d9488" }}>Glass</span>
-            <span className="text-stone-900"> Industries</span>
+            <span style={{ color: "#0d9488" }}> add value</span>
+            <span className="text-stone-900"> across diverse applications.</span> */}
           </h2>
 
-          <p
+          {/* <p
             className="mt-4 text-stone-800 text-[16px]  max-w-xl mx-auto leading-relaxed"
           >
             High-performance coatings designed to enhance durability, aesthetics
             and long-term value across diverse industries.
-          </p>
+          </p> */}
         </motion.div>
 
         {/* 3 columns */}
