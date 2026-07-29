@@ -44,13 +44,28 @@ const SEGMENTS = [
       </svg>
     ),
     items: [
-      { title: "Custom Woodworking", desc: "Luxury kitchens, bathroom vanities, and premium executive desks (steam and scratch-proof)." },
-      { title: "Interior Design", desc: "Back-painted opaque glass panels for kitchen splashbacks and office whiteboards." },
-      { title: "Mass-Market Wood & Laminates", desc: "Flat-pack furniture (IKEA-style) and factory-finished engineered flooring." },
-      { title: "Musical Instruments", desc: "Acoustic and electric guitars, violins, and cellos (allows wood to vibrate and age naturally)." },
-      { title: "Artisanal Wood & Antiques", desc: "Traditional handicraft workshops, carved decor, and antique furniture restoration." },
-      { title: "Economy Furniture", desc: "Mid-to-low-tier residential doors, bed frames, and dining chairs." },
-      { title: "Fashion & Cosmetics", desc: "Base film for standard retail nail polishes and glossy top-finishes for consumer leather items (shoes, belts)." },
+      { title: "Custom Woodworking", 
+        // desc: "Luxury kitchens, bathroom vanities, and premium executive desks (steam and scratch-proof)." 
+      },
+      { title: "Interior Design", 
+        // desc: "Back-painted opaque glass panels for kitchen splashbacks and office whiteboards." 
+
+      },
+      { title: "Mass-Market Wood & Laminates", 
+        // desc: "Flat-pack furniture (IKEA-style) and factory-finished engineered flooring." 
+      },
+      { title: "Musical Instruments",
+        //  desc: "Acoustic and electric guitars, violins, and cellos (allows wood to vibrate and age naturally)."
+         },
+      { title: "Artisanal Wood & Antiques", 
+        // desc: "Traditional handicraft workshops, carved decor, and antique furniture restoration." 
+      },
+      { title: "Economy Furniture",
+        //  desc: "Mid-to-low-tier residential doors, bed frames, and dining chairs."
+         },
+      { title: "Fashion & Cosmetics", 
+        // desc: "Base film for standard retail nail polishes and glossy top-finishes for consumer leather items (shoes, belts)." 
+      },
     ],
   },
   {
@@ -77,11 +92,21 @@ const SEGMENTS = [
       </svg>
     ),
     items: [
-      { title: "Heavy Machinery & Industrial Equipment", desc: "Used on automated assembly gear, factory machinery, and material handling systems requiring high wear resistance." },
-      { title: "Fabricated Steel Structures", desc: "Applied to large-scale structural frames, infrastructure builds, and warehouses to prevent corrosion." },
-      { title: "Automobile & Agricultural Components", desc: "Protects critical engine parts, body frames, tractors, and harvesting gear from extreme outdoor environments." },
-      { title: "Engineering Products & Panels", desc: "Ideal for precision-machined electronics enclosures, power panels, and customized tooling assemblies." },
-      { title: "OEM Finishing Applications", desc: "Serves as the primary factory-applied protective layer for Original Equipment Manufacturers before final product delivery." },
+      { title: "Heavy Machinery & Industrial Equipment", 
+        // desc: "Used on automated assembly gear, factory machinery, and material handling systems requiring high wear resistance." 
+      },
+      { title: "Fabricated Steel Structures", 
+        // desc: "Applied to large-scale structural frames, infrastructure builds, and warehouses to prevent corrosion." 
+      },
+      { title: "Automobile & Agricultural Components", 
+        // desc: "Protects critical engine parts, body frames, tractors, and harvesting gear from extreme outdoor environments." 
+      },
+      { title: "Engineering Products & Panels", 
+        // desc: "Ideal for precision-machined electronics enclosures, power panels, and customized tooling assemblies." 
+      },
+      { title: "OEM Finishing Applications", 
+        // desc: "Serves as the primary factory-applied protective layer for Original Equipment Manufacturers before final product delivery." 
+      },
     ],
   },
   {
@@ -109,10 +134,18 @@ const SEGMENTS = [
       </svg>
     ),
     items: [
-      { title: "Perfume, Cosmetics & Luxury Packaging", desc: "Creates premium frosted or coloured glass bottles that remain permanently pristine against aggressive perfume oils and alcohol leaks." },
-      { title: "Wine, Liquor & Beverage Bottling", desc: "Provides durable custom tints and frosting that withstand high-speed conveyor friction and continuous submersion in wet ice buckets." },
-      { title: "Architectural, Interior Design & Furniture", desc: "Bonds to back-painted glass panels for seamless kitchen splashbacks, office whiteboards, and luxury tabletops resisting heat and moisture." },
-      { title: "Home Decorative, Lighting & Handicrafts", desc: "Coats high-end glass pendant lamps, chandeliers, and vases to withstand high bulb temperatures without yellowing or cracking." },
+      { title: "Perfume, Cosmetics & Luxury Packaging", 
+        // desc: "Creates premium frosted or coloured glass bottles that remain permanently pristine against aggressive perfume oils and alcohol leaks." 
+      },
+      { title: "Wine, Liquor & Beverage Bottling", 
+        // desc: "Provides durable custom tints and frosting that withstand high-speed conveyor friction and continuous submersion in wet ice buckets." 
+      },
+      { title: "Architectural, Interior Design & Furniture", 
+        // desc: "Bonds to back-painted glass panels for seamless kitchen splashbacks, office whiteboards, and luxury tabletops resisting heat and moisture." 
+      },
+      { title: "Home Decorative, Lighting & Handicrafts", 
+        // desc: "Coats high-end glass pendant lamps, chandeliers, and vases to withstand high bulb temperatures without yellowing or cracking." 
+      },
     ],
   },
 ];
@@ -243,7 +276,7 @@ export default function MarketSegments() {
                       <ItemIcon color={seg.color} />
                       <div>
                         <p className="text-[12px] text-stone-900 font-bold leading-snug">{item.title}</p>
-                        <p className="text-[11px] text-stone-500 leading-snug mt-0.5">{item.desc}</p>
+                        {/* <p className="text-[11px] text-stone-500 leading-snug mt-0.5">{item.desc}</p> */}
                       </div>
                     </div>
                   ))}
