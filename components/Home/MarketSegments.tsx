@@ -27,7 +27,7 @@ const SEGMENTS = [
     color: "#ea580c",
     bg: "#fff7ed",
     href: "/products/wood",
-    image: "/new-images-update/wood.jpeg",
+    image: "/paint-images/wood2.jpeg",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -75,7 +75,7 @@ const SEGMENTS = [
     color: "#1e2a4a",
     bg: "#eef1f6",
     href: "/products/metal",
-    image: "/new-images-update/metal.jpeg",
+    image: "/paint-images/metal.jpeg",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -116,7 +116,7 @@ const SEGMENTS = [
     color: "#0d9488",
     bg: "#f0fdfa",
     href: "/products/glass",
-    image: "/new-images-update/glass.jpeg",
+    image: "/paint-images/glass.jpeg",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -187,10 +187,9 @@ export default function MarketSegments() {
           </div>
 
           <h2
-            className="text-[clamp(1rem,3.5vw,2rem)] font-bold text-stone-900 leading-[1.12]"
+            className="text-lg text-stone-900 flex justify-center items-center"
             style={{
               fontFamily: "var(--font-raleway), sans-serif",
-              letterSpacing: "-0.03em",
             }}
           >
             

@@ -1,293 +1,350 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { motion } from "framer-motion";
-import { substrates, useProducts } from "@/context/ProductContext";
 
-const substrateKeys = Object.keys(substrates) as (keyof typeof substrates)[];
+const ACCENT = "#C05A28";
+const NAVY = "#0B1D36";
 
-const CHEMISTRIES = [
-  { name: "Polyurethane", color: "#7c3aed" },
-  { name: "Nitrocellulose", color: "#dc2626" },
-  { name: "Epoxy", color: "#0891b2" },
-  { name: "Acrylic", color: "#2563eb" },
-  { name: "UV Curable", color: "#ea580c" },
-  { name: "Water-Based", color: "#0284c7" },
-  { name: "Heat Resistant", color: "#b91c1c" },
-  { name: "Polyester", color: "#7c2d12" },
+const CATEGORIES = [
+  {
+    key: "wood",
+    title: "Wood Coatings",
+    description:
+      "High-performance coatings for furniture, interiors, and industrial wood applications.",
+    href: "/products/wood",
+    image: "/paint-images/images/2.jpg",
+    color: "#C05A28",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 22V10M12 10c-2.5-1.5-4-4-4-7 0 0 2.5 1 4 3 1.5-2 4-3 4-3 0 3-1.5 5.5-4 7z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8 14c-2 1-3.5 3-3.5 5.5M16 14c2 1 3.5 3 3.5 5.5" />
+      </svg>
+    ),
+  },
+  {
+    key: "metal",
+    title: "Metal Coatings",
+    description:
+      "Protective and decorative coatings for industrial and automotive metal surfaces.",
+    href: "/products/metal",
+    image: "/paint-images/images/6.jpg",
+    color: "#0B1D36",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M4 20h16M8 20V8l4-5 4 5v12M8 12h8" />
+      </svg>
+    ),
+  },
+  {
+    key: "glass",
+    title: "Glass Coatings",
+    description:
+      "Specialised coatings for glass substrates offering clarity, colour, and durability.",
+    href: "/products/glass",
+    image: "/paint-images/images/3.jpg",
+    color: "#0d9488",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" stroke="currentColor" strokeWidth={1.8}>
+        <rect x="3" y="4" width="7" height="16" rx="1" />
+        <rect x="14" y="4" width="7" height="16" rx="1" />
+        <path strokeLinecap="round" d="M6.5 4v16M17.5 4v16" />
+      </svg>
+    ),
+  },
+  {
+    key: "dyestuff",
+    title: "Dyestuff Solutions",
+    description:
+      "Industrial dyes and colourants engineered for consistent, vibrant results.",
+    href: "/contact-us",
+    image: "/paint-images/images/4.jpg",
+    color: "#3b82f6",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 2.5c0 0-6 7.2-6 11.2a6 6 0 0012 0C18 9.7 12 2.5 12 2.5z" />
+      </svg>
+    ),
+  },
+  {
+    key: "auxiliaries",
+    title: "Wood Auxiliaries",
+    description:
+      "Complementary products that enhance coating performance and application.",
+    href: "/contact-us",
+    image: "/paint-images/images/5.jpg",
+    color: "#92400e",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" stroke="currentColor" strokeWidth={1.8}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 3h6v3H9zM8 6h8l-1 14H9L8 6z" />
+        <path strokeLinecap="round" d="M10 10h4M10 14h4" />
+      </svg>
+    ),
+  },
 ];
 
-export default function ProductsPage() {
-  const { products } = useProducts();
+const TRUST_ITEMS = [
+  {
+    label: "25+ Years of Expertise",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" stroke="currentColor" strokeWidth={1.6}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 15l-3.5 2 1-4L6.5 10l4.1-.3L12 6l1.4 3.7 4.1.3-3 2.9 1 4z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M8 20h8M9 17.5V20M15 17.5V20" />
+      </svg>
+    ),
+  },
+  {
+    label: "500+ Industrial Customers",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" stroke="currentColor" strokeWidth={1.6}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2" />
+        <circle cx="9" cy="7" r="3.5" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M22 21v-2a3.5 3.5 0 00-2.5-3.35M16.5 3.7a3.5 3.5 0 010 6.6" />
+      </svg>
+    ),
+  },
+  {
+    label: "In-house R&D Laboratory",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" stroke="currentColor" strokeWidth={1.6}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 3v7.5L4.5 19a2 2 0 001.7 3h11.6a2 2 0 001.7-3L14.5 10.5V3" />
+        <path strokeLinecap="round" d="M8 3h8M8.5 14h7" />
+      </svg>
+    ),
+  },
+  {
+    label: "Consistent Quality Assured",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-6 h-6" stroke="currentColor" strokeWidth={1.6}>
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3l7 3v5.5c0 4.5-3 7.8-7 9.5-4-1.7-7-5-7-9.5V6l7-3z" />
+        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4" />
+      </svg>
+    ),
+  },
+];
 
+function ArrowIcon({ className = "w-3.5 h-3.5" }: { className?: string }) {
   return (
-    <div className="min-h-screen bg-[#faf9f7]">
-      {/* ═══ HERO BANNER with right-side substrate cards ═══ */}
-      <section className="relative overflow-hidden">
-        <div className="absolute top-0 left-0 right-0 h-1.5 flex z-10">
-          {[
-            "#d97706",
-            "#16a34a",
-            "#0891b2",
-            "#7c3aed",
-            "#dc2626",
-            "#ea580c",
-            "#0284c7",
-            "#b91c1c",
-          ].map((c, i) => (
-            <div key={i} className="flex-1 h-full" style={{ background: c }} />
-          ))}
-        </div>
+    <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+      <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+    </svg>
+  );
+}
+
+export default function ProductsPage() {
+  return (
+    <div className="min-h-screen bg-white">
+      {/* ═══ HERO ═══ */}
+      <section
+        className="relative h-[300px] sm:h-[380px] lg:h-[440px] overflow-hidden bg-no-repeat"
+        style={{
+          backgroundImage: "url('/paint-images/images/banner.jpg')",
+          backgroundSize: "100% 100%",
+          backgroundPosition: "center",
+        }}
+        aria-label="Our Product Portfolio"
+      >
+        {/* Soft left overlay for text readability */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "linear-gradient(160deg, #fef3c720 0%, #fefdfb 25%, #f0fdf4 50%, #ecfeff 75%, #fefdfb 100%)",
+              "linear-gradient(90deg, rgba(20,12,8,0.78) 0%, rgba(20,12,8,0.5) 28%, rgba(20,12,8,0.18) 48%, transparent 68%)",
           }}
         />
-        <div
-          className="absolute inset-0 pointer-events-none overflow-hidden"
-          aria-hidden
-        >
+
+        <div className="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 flex items-center">
           <motion.div
-            animate={{ y: [0, -15, 0], x: [0, 5, 0] }}
-            transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-16 right-[8%] w-48 h-48 rounded-full bg-amber-200/30 blur-3xl"
-          />
-          <motion.div
-            animate={{ y: [0, 12, 0], x: [0, -8, 0] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-32 left-[5%] w-36 h-36 rounded-full bg-emerald-200/25 blur-3xl"
-          />
-        </div>
-
-        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-14 pb-16">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
-            {/* Left: Text */}
-            <motion.div
-              initial={{ opacity: 0, x: -30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, x: -28 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-[420px]"
+          >
+            <p
+              className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.22em] mb-3"
+              style={{ color: ACCENT, fontFamily: "var(--font-raleway), sans-serif" }}
             >
-              <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-100/80 text-amber-700 text-xs font-bold uppercase tracking-[0.2em] rounded-full mb-5 border border-amber-200/50">
-                <svg
-                  className="w-3.5 h-3.5"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2.5}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"
-                  />
-                </svg>
-                Coating Solutions
-              </span>
-              <h1
-                className="text-[clamp(2.2rem,4.5vw,3.5rem)] font-bold text-stone-900 leading-[1.1] mb-5"
-                style={{
-                  fontFamily: "var(--font-raleway), sans-serif",
-                  letterSpacing: "-0.03em",
-                }}
-              >
-                Premium{" "}
-                <span
-                  className="text-transparent bg-clip-text"
-                  style={{
-                    backgroundImage:
-                      "linear-gradient(135deg, #d97706, #16a34a, #0891b2)",
-                  }}
-                >
-                  Industrial Coatings
-                </span>{" "}
-                for Every Surface
-              </h1>
-              <p className="text-[15px] text-stone-500 leading-relaxed max-w-lg mb-8">
-                From wood furniture to automotive metal, glass decoratives to
-                ABS plastics — engineered coating solutions with 9+ chemistry
-                types and precision-tested formulations.
-              </p>
-
-              {/* Stats */}
-              <div className="flex items-center gap-6">
-                {[
-                  { value: `15+`, label: "Categories" },
-                  { value: "3", label: "Substrates" },
-                  { value: "9+", label: "Chemistries" },
-                ].map((stat, i) => (
-                  <motion.div
-                    key={i}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.3 + i * 0.1 }}
-                    className="text-center"
-                  >
-                    <div className="text-2xl font-bold text-stone-900">
-                      {stat.value}
-                    </div>
-                    <div className="text-[11px] text-stone-400 font-medium mt-0.5">
-                      {stat.label}
-                    </div>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
-
-            {/* Right: Single image */}
-            <motion.div
-              initial={{ opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="hidden lg:block"
+              Coating Solutions
+            </p>
+            <h1
+              className="text-[clamp(1.9rem,4.2vw,2.9rem)] font-bold text-white leading-[1.1] mb-3"
+              style={{
+                fontFamily: "var(--font-raleway), sans-serif",
+                letterSpacing: "-0.02em",
+              }}
             >
-              <div className="relative overflow-hidden rounded-3xl shadow-xl h-80">
-                <img
-                  src="/common.jpeg"
-                  alt="Industrial Coatings"
-                  className="w-full h-full object-cover"
-                />
-                <div className="absolute inset-0 bg-linear-to-t from-black/40 via-black/10 to-transparent" />
-              </div>
-            </motion.div>
-          </div>
+              Our Product Portfolio
+            </h1>
+            <div className="w-12 h-1 mb-4" style={{ background: ACCENT }} />
+            <p className="text-[13px] sm:text-[15px] text-white/90 leading-relaxed max-w-xs">
+              Explore our range of high-performance coating solutions engineered
+              for diverse industrial applications.
+            </p>
+          </motion.div>
         </div>
       </section>
 
-      {/* ═══ CHEMISTRY STRIP ═══ */}
-      <section className="border-y border-stone-200/80 bg-white/80 backdrop-blur-sm">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
-          <div className="flex items-center gap-4 overflow-x-auto scrollbar-hide pb-1">
-            <span className="text-[11px] font-bold text-stone-400 uppercase tracking-wider shrink-0">
-              Chemistries:
-            </span>
-            {CHEMISTRIES.map((chem) => (
-              <div
-                key={chem.name}
-                className="shrink-0 flex items-center gap-2 px-3.5 py-2 bg-stone-50 border border-stone-200/80 rounded-xl"
+      {/* ═══ PRODUCT CATEGORIES ═══ */}
+      <section className="bg-[#f7f8fa] py-14 sm:py-16 lg:py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.55 }}
+            className="text-center mb-10 sm:mb-12"
+          >
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <span className="h-0.5 w-8 sm:w-10 rounded-full" style={{ background: ACCENT }} />
+              <h2
+                className="text-xl sm:text-2xl lg:text-[1.75rem] font-bold"
+                style={{ color: NAVY, fontFamily: "var(--font-raleway), sans-serif" }}
               >
-                <span
-                  className="w-3 h-3 rounded-full shrink-0"
-                  style={{ background: chem.color }}
-                />
-                <span className="text-[12px] font-semibold text-stone-700 whitespace-nowrap">
-                  {chem.name}
-                </span>
-              </div>
+                Our Product Categories
+              </h2>
+              <span className="h-0.5 w-8 sm:w-10 rounded-full" style={{ background: ACCENT }} />
+            </div>
+            <p className="text-[13px] sm:text-sm text-stone-500 max-w-lg mx-auto">
+              Explore our complete range of high-performance coating solutions.
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-5 lg:gap-4">
+            {CATEGORIES.map((cat, i) => (
+              <motion.div
+                key={cat.key}
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-30px" }}
+                transition={{ delay: i * 0.08, duration: 0.5 }}
+              >
+                <Link
+                  href={cat.href}
+                  className="group flex flex-col h-full bg-white rounded-xl overflow-hidden shadow-[0_4px_20px_rgba(11,29,54,0.06)] hover:shadow-[0_10px_32px_rgba(11,29,54,0.12)] transition-shadow duration-300"
+                >
+                  <div className="relative h-40 sm:h-36 overflow-hidden">
+                    <Image
+                      src={cat.image}
+                      alt={cat.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 20vw"
+                    />
+                  </div>
+
+                  <div className="relative flex flex-col flex-1 px-4 pb-5 pt-7">
+                    <div
+                      className="absolute -top-5 left-4 w-10 h-10 rounded-full flex items-center justify-center text-white shadow-md"
+                      style={{ background: cat.color }}
+                    >
+                      {cat.icon}
+                    </div>
+
+                    <h3
+                      className="text-[15px] font-bold mb-2"
+                      style={{ color: NAVY, fontFamily: "var(--font-raleway), sans-serif" }}
+                    >
+                      {cat.title}
+                    </h3>
+                    <p className="text-[12px] text-stone-500 leading-relaxed mb-4 flex-1">
+                      {cat.description}
+                    </p>
+                    <span
+                      className="inline-flex items-center gap-1.5 text-[12px] font-bold group-hover:gap-2.5 transition-all"
+                      style={{ color: cat.color }}
+                    >
+                      Explore
+                      <ArrowIcon />
+                    </span>
+                  </div>
+                </Link>
+              </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ═══ 3 SUBSTRATE CARDS (main section) ═══ */}
-      <section
-        className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-14"
-        style={{
-          background:
-            "linear-gradient(160deg, #fef3c720 0%, #fefdfb 25%, #f0fdf4 50%, #ecfeff 75%, #fefdfb 100%)",
-        }}
-      >
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {substrateKeys.map((key, i) => {
-            const info = substrates[key];
-            const count = products.filter((p) => p.substrate === key).length;
-            const imgMap: Record<string, string> = {
-              wood: "/coating/wood-coating-product.jpeg",
-              metal: "/products/metal.jpeg",
-              glass: "/products/glass.jpeg",
-            };
-            return (
-              <motion.div
-                key={key}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: i * 0.15, duration: 0.5 }}
-              >
-                <Link href={`/products/${key}`} className="block group">
-                  <div className="relative overflow-hidden rounded-3xl shadow-lg hover:shadow-2xl transition-all h-80">
-                    <img
-                      src={imgMap[key]}
-                      alt={info.label}
-                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/30 to-transparent" />
-                    <div
-                      className="absolute top-0 left-0 right-0 h-1.5"
-                      style={{
-                        background: `linear-gradient(90deg, ${info.color}, ${info.color}60)`,
-                      }}
-                    />
-                    <div className="absolute inset-y-0 -left-full w-1/2 bg-linear-to-r from-transparent via-white/15 to-transparent skew-x-[-20deg] group-hover:left-[150%] transition-all duration-700" />
-                    <div className="absolute bottom-0 left-0 right-0 p-6">
-                      <h2
-                        className="text-xl font-bold text-white mb-1 drop-shadow-md"
-                        style={{
-                          fontFamily: "var(--font-raleway), sans-serif",
-                        }}
-                      >
-                        {info.label}
-                      </h2>
-                      <p className="text-[13px] text-white/80 leading-relaxed line-clamp-2 mb-4">
-                        {info.description}
-                      </p>
-                      <div className="flex items-center justify-between">
-                        <span className="px-3 py-1.5 rounded-lg text-[11px] font-bold bg-white/20 backdrop-blur-sm text-white">
-                          {count} products
-                        </span>
-                        <span className="flex items-center gap-1.5 text-[12px] font-bold text-white">
-                          Explore
-                          <svg
-                            className="w-4 h-4 group-hover:translate-x-1 transition-transform"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke="currentColor"
-                            strokeWidth={2.5}
-                          >
-                            <path
-                              strokeLinecap="round"
-                              strokeLinejoin="round"
-                              d="M13 7l5 5m0 0l-5 5m5-5H6"
-                            />
-                          </svg>
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* CTA */}
-        <div className="mt-14 text-center">
-          <motion.div whileHover={{ scale: 1.03 }} whileTap={{ scale: 0.97 }}>
-            <Link
-              href="/contact-us"
-              className="inline-flex items-center gap-2.5 px-8 py-3.5 rounded-xl text-white font-bold text-[14px] shadow-lg shadow-stone-900/15 hover:shadow-xl transition-all"
-              style={{
-                background: "linear-gradient(135deg, #292524, #1c1917)",
-                fontFamily: "var(--font-raleway), sans-serif",
-              }}
+      {/* ═══ TECHNICAL ASSISTANCE ═══ */}
+      <section className="bg-white py-10 sm:py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="bg-[#f0f1f3] rounded-2xl px-5 py-6 sm:px-7 sm:py-7 flex flex-col lg:flex-row items-start lg:items-center gap-5 lg:gap-6"
+          >
+            <div
+              className="w-14 h-14 rounded-full flex items-center justify-center shrink-0"
+              style={{ background: NAVY }}
             >
-              Get a Custom Quote
-              <svg
-                className="w-4 h-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2.5}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M13 7l5 5m0 0l-5 5m5-5H6"
-                />
+              <svg viewBox="0 0 24 24" fill="none" className="w-7 h-7" stroke={ACCENT} strokeWidth={1.7}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12a7.5 7.5 0 0115 0v5.25a1.5 1.5 0 01-1.5 1.5h-1.5V12a4.5 4.5 0 10-9 0v6.75H6a1.5 1.5 0 01-1.5-1.5V12z" />
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 21.75a2.25 2.25 0 002.25-2.25H9.75A2.25 2.25 0 0012 21.75z" />
               </svg>
-            </Link>
+            </div>
+
+            <div className="flex-1 min-w-0">
+              <h3
+                className="text-base sm:text-lg font-bold mb-1"
+                style={{ color: NAVY, fontFamily: "var(--font-raleway), sans-serif" }}
+              >
+                Need Technical Assistance?
+              </h3>
+              <p className="text-[13px] text-stone-500 leading-relaxed max-w-xl">
+                Our technical team is ready to help you select the ideal coating
+                solution for your application.
+              </p>
+            </div>
+
+            <div className="flex flex-col sm:flex-row flex-wrap gap-2.5 w-full lg:w-auto">
+              <Link
+                href="/contact-us"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg text-[12px] sm:text-[13px] font-bold text-white transition-opacity hover:opacity-90"
+                style={{ background: ACCENT }}
+              >
+                Talk to Our Technical Team
+                <ArrowIcon />
+              </Link>
+              <Link
+                href="/contact-us"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg text-[12px] sm:text-[13px] font-semibold text-stone-700 bg-white border border-stone-300 hover:border-stone-400 transition-colors"
+              >
+                Request a Sample
+                <ArrowIcon />
+              </Link>
+              <Link
+                href="/contact-us"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-lg text-[12px] sm:text-[13px] font-semibold text-stone-700 bg-white border border-stone-300 hover:border-stone-400 transition-colors"
+              >
+                Contact Us
+                <ArrowIcon />
+              </Link>
+            </div>
           </motion.div>
+        </div>
+      </section>
+
+      {/* ═══ TRUST BAR ═══ */}
+      <section style={{ background: NAVY }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 divide-y sm:divide-y-0 sm:divide-x divide-white/15">
+            {TRUST_ITEMS.map((item) => (
+              <div
+                key={item.label}
+                className="flex items-center justify-center gap-3 py-6 sm:py-7 px-4"
+              >
+                <span className="text-white/90 shrink-0">{item.icon}</span>
+                <span
+                  className="text-[13px] sm:text-sm font-medium text-white whitespace-nowrap"
+                  style={{ fontFamily: "var(--font-raleway), sans-serif" }}
+                >
+                  {item.label}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     </div>

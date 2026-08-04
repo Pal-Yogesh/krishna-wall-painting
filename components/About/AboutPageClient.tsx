@@ -1,36 +1,92 @@
 "use client";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Link from "next/link";
 import {
   Building2,
   Users,
   FlaskConical,
-  TestTube2,
   CheckCircle2,
-  ArrowRight,
   Microscope,
   Palette,
   ShieldCheck,
   Wrench,
   BadgeCheck,
   TrendingUp,
-  Globe,
   Heart,
   Lightbulb,
   Award,
   Target,
   Eye,
   Diamond,
+  Calendar,
+  MapPin,
+  Factory,
+  Pencil,
+  Package,
+  Beaker,
 } from "lucide-react";
 
+const ACCENT = "#C05A28";
+const NAVY = "#0B1D36";
+
+const CLIENT_LOGOS = Array.from({ length: 13 }, (_, i) => ({
+  id: i + 1,
+  src: `/client-logos/client-logo-${String(i + 1).padStart(2, "0")}.jpg`,
+  alt: `Client ${i + 1}`,
+}));
+
+const HERO_STATS = [
+  { value: "Since 1998", label: "Established", icon: Calendar },
+  { value: "25+ Years", label: "of Experience", icon: Users },
+  { value: "500+", label: "Industrial Customers", icon: Factory },
+  { value: "Pan India", label: "Presence", icon: MapPin },
+];
+
 const TIMELINE = [
-  { year: "1998", text: "Company Established", icon: Building2 },
-  { year: "2004", text: "Manufacturing Expansion", icon: Wrench },
-  { year: "2008", text: "In-House R&D Laboratory", icon: FlaskConical },
-  { year: "2010", text: "Speciality Coatings Launched", icon: Target },
-  { year: "2019", text: "High Purity Electronic Grade Chemicals", icon: Users },
-  { year: "2021", text: "500+ Industrial Customers", icon: TestTube2 },
-  { year: "Future", text: "Continuing to Innovate", icon: TrendingUp },
+  {
+    year: "1998",
+    title: "Company Established",
+    desc: "Laid the foundation with a commitment to quality.",
+    icon: Building2,
+  },
+  {
+    year: "2004",
+    title: "Manufacturing Expansion",
+    desc: "Expanded production capabilities.",
+    icon: Wrench,
+  },
+  {
+    year: "2008",
+    title: "In-House R&D Laboratory",
+    desc: "Invested in research for better solutions.",
+    icon: FlaskConical,
+  },
+  {
+    year: "2010",
+    title: "Speciality Coatings Launched",
+    desc: "Introduced advanced coating technologies.",
+    icon: Target,
+  },
+  {
+    year: "2019",
+    title: "High Purity Electronic Grade Chemicals",
+    desc: "Diversified into high purity chemical solutions.",
+    icon: Users,
+  },
+  {
+    year: "2021",
+    title: "500+ Industrial Customers",
+    desc: "Crossed a major milestone of customer trust.",
+    icon: Pencil,
+  },
+  {
+    year: "Future",
+    title: "Continuing to Innovate",
+    desc: "Next milestone: Global Expansion.",
+    icon: TrendingUp,
+    accent: true,
+  },
 ];
 
 const EXPERTISE = [
@@ -43,9 +99,9 @@ const EXPERTISE = [
 
 const HIGHLIGHTS = [
   { value: "20,000+", label: "Sq. Ft. Facility Area", icon: Building2 },
-  { value: "6,000+", label: "MT Annual Capacity", icon: TrendingUp },
-  { value: "15+", label: "Product Categories", icon: Target },
-  { value: "9", label: "Chemistry Platforms", icon: FlaskConical },
+  { value: "6,000+", label: "MT Annual Capacity", icon: Factory },
+  { value: "15+", label: "Product Categories", icon: Package },
+  { value: "9", label: "Chemistry Platforms", icon: Beaker },
   { value: "500+", label: "Industrial Customers", icon: Users },
   { value: "25+", label: "Years Experience", icon: Award },
 ];
@@ -69,168 +125,241 @@ const CORE_VALUES = [
 ];
 
 export default function AboutPageClient() {
+  // Double for seamless loop
+  const doubledLogos = [...CLIENT_LOGOS, ...CLIENT_LOGOS];
+
   return (
-    <div className="min-h-screen bg-stone-50">
+    <div className="min-h-screen bg-white">
       {/* ═══ HERO ═══ */}
-      <section className="relative w-full min-h-[60vh] sm:min-h-[75vh] flex items-center pt-20 pb-10 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div className="absolute inset-0 bg-gradient-to-r from-stone-50 via-stone-50/80 sm:via-stone-50/60 to-transparent z-10" />
-          <Image
-            src="/about/about-new/banner.png"
-            alt="KMOPL Facility"
-            fill
-            className="object-cover sm:object-contain object-right"
-            priority
-          />
-        </div>
-        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8 }}
-            className="max-w-xl"
-          >
-            <h1
-              className="text-4xl sm:text-5xl md:text-7xl font-bold text-stone-900 tracking-tight leading-none mb-3"
-              style={{ fontFamily: "var(--font-raleway)" }}
+      <section className="w-full bg-[#f7f8fa] pt-6 sm:pt-10 pb-10 sm:pb-14">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center">
+            {/* Left: copy + stats */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
-              <span className="text-[#1e3a8a]">ABOUT</span>{" "}
-              <span className="text-amber-500">US</span>
-            </h1>
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-[#1e3a8a] mb-2 leading-tight">
-              KRISHNA MURARI
-              <br />
-              ORGANOSYS PVT. LTD.
-            </h2>
-            <h3 className="text-base sm:text-xl text-stone-600 italic mb-4">
-              Innovating Coating Solutions Since 1998
-            </h3>
-            <p className="text-stone-700 text-sm sm:text-base leading-relaxed border-l-4 border-amber-500 pl-4 max-w-sm">
-              KMOPL is a leading provider of high-performance coating solutions
-              for Wood, Metal, Glass & Plastic industries. Driven by innovation,
-              quality, and customer trust for over 25+ years.
-            </p>
-          </motion.div>
-        </div>
-      </section>
+              <p
+                className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.22em] mb-3 text-[#C05A28]"
+                style={{ fontFamily: "var(--font-raleway), sans-serif" }}
+              >
+                About Us
+              </p>
+              <h1
+                className="text-[clamp(1.75rem,3.8vw,2.75rem)] font-bold leading-[1.15] mb-4 text-[#0B1D36]"
+                style={{
+                  fontFamily: "var(--font-raleway), sans-serif",
+                  letterSpacing: "-0.02em",
+                }}
+              >
+                Innovating Coating Solutions Since 1998
+              </h1>
+              <p className="text-[13px] sm:text-[15px] text-stone-600 leading-relaxed mb-8 max-w-xl">
+                Krishna Murari Organosys Pvt. Ltd. (KMOPL) is a leading
+                manufacturer of high performance coating solutions for Wood,
+                Metal, Glass &amp; Plastic industries. Driven by innovation,
+                quality and customer trust for over 25+ years.
+              </p>
 
-      {/* ═══ JOURNEY & QUOTE ═══ */}
-      <section className="w-full max-w-7xl mx-auto bg-white mb-8 shadow-sm">
-        <div className="flex flex-col lg:flex-row w-full">
-          {/* Journey */}
-          <div className="w-full lg:w-3/3 p-6 sm:p-8 relative flex flex-col border-b lg:border-b-0 lg:border-r border-stone-200">
-            <div className="mb-8">
-              <h3 className="text-lg sm:text-[22px] font-bold text-[#1e3a8a] uppercase tracking-wide">
-                Our Journey
-              </h3>
-              <div className="h-0.5 w-12 bg-amber-500 mt-2" />
-            </div>
-
-            {/* Desktop timeline — horizontal */}
-            <div className="hidden sm:block relative">
-              <div className="absolute top-[32px] left-[5%] right-[5%] h-[2px] bg-[#1e3a8a] z-0" />
-              <div className="flex justify-between items-start">
-                {TIMELINE.map((item, idx) => (
-                  <div
-                    key={idx}
-                    className="flex flex-col items-center relative z-10 w-[14%]"
-                  >
-                    <div className="w-14 h-14 rounded-full bg-white border-[1.5px] border-amber-500 flex items-center justify-center z-20">
-                      <item.icon
-                        className="w-6 h-6 text-[#1e3a8a]"
-                        strokeWidth={1.5}
-                      />
-                    </div>
-                    <div className="w-[2px] h-5 bg-[#1e3a8a] -mt-[1px]" />
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#1e3a8a] -mt-[5px]" />
-                    <div className="mt-3 text-center">
-                      <span className="font-bold text-[#1e3a8a] text-[13px] block mb-1">
-                        {item.year}
-                      </span>
-                      <p className="text-[10px] font-medium text-stone-600 leading-tight">
-                        {item.text}
-                      </p>
-                    </div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-5 sm:gap-4">
+                {HERO_STATS.map((stat) => (
+                  <div key={stat.value} className="flex flex-col items-start">
+                    <stat.icon
+                      className="w-6 h-6 sm:w-7 sm:h-7 text-stone-400 mb-2"
+                      strokeWidth={1.4}
+                    />
+                    <span
+                      className="text-[13px] sm:text-sm font-bold leading-tight text-[#0B1D36]"
+                      style={{ fontFamily: "var(--font-raleway), sans-serif" }}
+                    >
+                      {stat.value}
+                    </span>
+                    <span className="text-[11px] sm:text-xs text-stone-500 mt-0.5">
+                      {stat.label}
+                    </span>
                   </div>
                 ))}
               </div>
-            </div>
 
-            {/* Mobile timeline — vertical */}
-            <div className="sm:hidden space-y-4">
-              {TIMELINE.map((item, idx) => (
-                <div key={idx} className="flex items-center gap-4">
-                  <div className="w-10 h-10 rounded-full bg-white border border-amber-500 flex items-center justify-center shrink-0">
-                    <item.icon
-                      className="w-5 h-5 text-[#1e3a8a]"
-                      strokeWidth={1.5}
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-8">
+                <Link
+                  href="/products"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-[13px] sm:text-[14px] text-white shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-200"
+                  style={{
+                    background: "linear-gradient(135deg, #f97316, #ef4444)",
+                    fontFamily: "var(--font-raleway), sans-serif",
+                  }}
+                >
+                  <svg
+                    className="w-4 h-4 shrink-0"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
                     />
+                  </svg>
+                  Download Product Catalogue
+                </Link>
+                <Link
+                  href="/contact-us"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-[13px] sm:text-[14px] text-white shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-200"
+                  style={{
+                    background: "#0B1D36",
+                    fontFamily: "var(--font-raleway), sans-serif",
+                  }}
+                >
+                  Request Technical Consultation
+                  <svg
+                    className="w-4 h-4 shrink-0"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13 7l5 5m0 0l-5 5m5-5H6"
+                    />
+                  </svg>
+                </Link>
+              </div>
+            </motion.div>
+
+            {/* Right: facility image */}
+            <motion.div
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
+              className="relative w-full h-[240px] sm:h-[320px] lg:h-[380px] rounded-2xl overflow-hidden shadow-[0_8px_30px_rgba(11,29,54,0.12)]"
+            >
+              <Image
+                src="/paint-images/banner.jpeg"
+                alt="KMOPL Facility"
+                fill
+                className="object-cover object-center"
+                priority
+                sizes="(max-width: 1024px) 100vw, 50vw"
+              />
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ OUR JOURNEY ═══ */}
+      <section className="w-full bg-white py-12 sm:py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h2
+            className="text-center text-lg sm:text-xl font-bold uppercase tracking-[0.12em] mb-10 sm:mb-12"
+            style={{ color: NAVY, fontFamily: "var(--font-raleway), sans-serif" }}
+          >
+            Our Journey
+          </h2>
+
+          {/* Desktop timeline */}
+          <div className="hidden md:block relative">
+            <div
+              className="absolute top-7 left-[5%] right-[5%] h-[2px]"
+              style={{ background: NAVY }}
+            />
+            <div className="flex justify-between items-start">
+              {TIMELINE.map((item) => (
+                <div
+                  key={item.year}
+                  className="flex flex-col items-center relative z-10 w-[14%]"
+                >
+                  <div
+                    className="w-14 h-14 rounded-full flex items-center justify-center shadow-sm"
+                    style={{ background: item.accent ? ACCENT : NAVY }}
+                  >
+                    <item.icon className="w-6 h-6 text-white" strokeWidth={1.5} />
                   </div>
-                  <div>
-                    <span className="font-bold text-[#1e3a8a] text-sm">
+                  <div className="mt-4 text-center px-1">
+                    <span
+                      className="font-bold text-sm block mb-1"
+                      style={{ color: NAVY }}
+                    >
                       {item.year}
                     </span>
-                    <p className="text-xs text-stone-600">{item.text}</p>
+                    <p
+                      className="text-[11px] font-bold leading-snug mb-1"
+                      style={{ color: NAVY }}
+                    >
+                      {item.title}
+                    </p>
+                    <p className="text-[10px] text-stone-500 leading-snug">
+                      {item.desc}
+                    </p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Quote */}
-          <div className="w-full lg:w-1/2 bg-[#0f1f45] flex items-center justify-center relative p-8 sm:p-10 min-h-[180px]">
-            <span className="text-amber-500 text-5xl leading-none font-serif absolute top-4 left-6 opacity-90">
-              "
-            </span>
-            <p className="text-white text-base sm:text-lg font-medium leading-relaxed text-center px-4 sm:px-8">
-              Building long-term partnerships through innovation, quality, and
-              performance-driven coating solutions.
-            </p>
-            <span className="text-amber-500 text-5xl leading-none font-serif absolute bottom-2 right-6 opacity-90">
-              "
-            </span>
+          {/* Mobile timeline */}
+          <div className="md:hidden space-y-5">
+            {TIMELINE.map((item) => (
+              <div key={item.year} className="flex items-start gap-4">
+                <div
+                  className="w-11 h-11 rounded-full flex items-center justify-center shrink-0"
+                  style={{ background: item.accent ? ACCENT : NAVY }}
+                >
+                  <item.icon className="w-5 h-5 text-white" strokeWidth={1.5} />
+                </div>
+                <div>
+                  <span className="font-bold text-sm" style={{ color: NAVY }}>
+                    {item.year}
+                  </span>
+                  <p className="text-sm font-semibold" style={{ color: NAVY }}>
+                    {item.title}
+                  </p>
+                  <p className="text-xs text-stone-500 mt-0.5">{item.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ═══ STATS BAR ═══ */}
+      <section style={{ background: NAVY }}>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-6 py-7 sm:py-8">
+            {HIGHLIGHTS.map((item) => (
+              <div key={item.label} className="flex items-center gap-3">
+                <item.icon
+                  className="w-7 h-7 shrink-0"
+                  style={{ color: ACCENT }}
+                  strokeWidth={1.4}
+                />
+                <div>
+                  <div
+                    className="text-white font-bold text-base sm:text-lg leading-none"
+                    style={{ fontFamily: "var(--font-raleway), sans-serif" }}
+                  >
+                    {item.value}
+                  </div>
+                  <div className="text-white/75 text-[11px] sm:text-xs mt-1 leading-snug">
+                    {item.label}
+                  </div>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
       {/* ═══ EXPERTISE, HIGHLIGHTS, STRENGTHS ═══ */}
-      <section className="w-full max-w-7xl mx-auto bg-white border-y border-stone-200 mb-12">
+      <section className="w-full max-w-7xl mx-auto bg-white border-y border-stone-200 mb-12 mt-12">
         <div className="flex flex-col lg:flex-row w-full divide-y lg:divide-y-0 lg:divide-x divide-stone-200">
-          {/* Expertise */}
-          <div className="flex-1 p-6 sm:p-8 lg:p-10">
-            <div className="mb-6">
-              <h3 className="text-lg font-bold text-[#1e3a8a] uppercase tracking-wide">
-                Our Expertise
-              </h3>
-              <div className="h-0.5 w-12 bg-amber-500 mt-2" />
-            </div>
-            <div className="grid grid-cols-3 sm:flex  sm:flex-nowrap justify-between items-start mb-6 gap-3">
-              {EXPERTISE.map((item, i) => (
-                <div
-                  key={i}
-                  className="flex flex-col items-center text-center group w-[18%] min-w-[56px]"
-                >
-                  <div className="w-10 h-10 rounded-full border border-stone-400 flex items-center justify-center mb-2 group-hover:border-[#1e3a8a] transition-colors">
-                    <item.icon
-                      className="w-5 h-5 text-[#1e3a8a]"
-                      strokeWidth={1.5}
-                    />
-                  </div>
-                  <span className="text-[10px] uppercase font-bold text-[#1e3a8a] leading-tight whitespace-pre-line">
-                    {item.title}
-                  </span>
-                </div>
-              ))}
-            </div>
-            <p className="text-xs sm:text-[13px] text-stone-700 leading-relaxed font-medium">
-              From formulation and colour matching to application support and
-              quality assurance, our expertise spans the complete coating
-              lifecycle.
-            </p>
-          </div>
-
           {/* Highlights */}
-          <div className="flex-1 p-6 sm:p-8 lg:p-10">
+          <div className="w-full lg:w-[60%] p-6 sm:p-8 lg:p-10">
             <div className="mb-6">
               <h3 className="text-lg font-bold text-[#1e3a8a] uppercase tracking-wide">
                 Key Highlights
@@ -297,24 +426,22 @@ export default function AboutPageClient() {
             {[
               {
                 name: "Ashok Arora",
-                img: "/about/about-new/vasundra.jpeg",
+                img: "/paint-images/ashok.png",
                 role: "Chairman",
-                quote:
-                  "Operations excellence comes from precision, people, and processes. We are committed to delivering seamless efficiency every day.",
+                quote: "Building a legacy of trust, quality, and excellence.",
               },
               {
                 name: "Alok Arora",
-                img: "/director2.png",
-                role: "Director - Strategy",
-                quote:
-                  "We believe in strategic growth, continuous improvement, and embracing change to shape a better and more innovative future.",
+                img: "/paint-images/alok.png",
+                role: "Director",
+                quote: "nspiring innovation and shaping the future of coatings",
               },
               {
                 name: "Rohit Arora",
                 img: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426458/kmopl-gallery/tiqghmkm20clwo69mxyp.jpg",
-                role: "Director - Strategy",
+                role: "Director",
                 quote:
-                  "We believe in strategic growth, continuous improvement, and embracing change to shape a better and more innovative future.",
+                  "Creating lasting value through commitment and leadership.",
               },
             ].map((p, i) => (
               <div
@@ -385,36 +512,6 @@ export default function AboutPageClient() {
                   </span>
                 </div>
               ))}
-            </div>
-          </div>
-
-          {/* Image grid */}
-          <div className="flex-1 flex flex-col h-[280px] sm:h-[380px] lg:h-full">
-            <div className="flex-[1.3] relative w-full border-b-4 border-white">
-              <Image
-                src="/about/about-new/1.jpeg"
-                alt="Meeting"
-                fill
-                className="object-cover"
-              />
-            </div>
-            <div className="flex-1 flex">
-              <div className="flex-1 relative border-r-4 border-white">
-                <Image
-                  src="/about/about-new/2.jpeg"
-                  alt="Lab Work"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-              <div className="flex-1 relative">
-                <Image
-                  src="/about/about-new/3.jpeg"
-                  alt="Products"
-                  fill
-                  className="object-cover"
-                />
-              </div>
             </div>
           </div>
         </div>
@@ -491,8 +588,9 @@ export default function AboutPageClient() {
                   </span>
                 </div>
                 <p className="text-xs sm:text-[13px] text-stone-700 leading-relaxed font-medium">
-                  To be a globally recognized leader in innovative coating
-                  solutions.
+                  To be a trusted global leader in innovative coating solutions,
+                  setting benchmarks in quality, sustainability, and customer
+                  satisfaction.
                 </p>
               </div>
               {/* Mission */}
@@ -507,8 +605,9 @@ export default function AboutPageClient() {
                   </span>
                 </div>
                 <p className="text-xs sm:text-[13px] text-stone-700 leading-relaxed font-medium">
-                  To deliver high-quality, sustainable and cost-effective
-                  coating solutions that create long-term value.
+                  To deliver high-performance coating solutions through
+                  innovation, consistent quality, advanced technology, and
+                  lasting customer partnerships.
                 </p>
               </div>
               {/* Values */}
@@ -543,6 +642,38 @@ export default function AboutPageClient() {
           </div>
         </div>
       </section>
+
+            <section className="w-full max-w-7xl mx-auto bg-white mb-12 border-b border-stone-200">
+  {/* Single row marquee with logos */}
+      <div className="relative overflow-visible py-4">
+        {/* Fade edges */}
+        <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, #fdfbf7, transparent)" }} />
+        <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, #fdfbf7, transparent)" }} />
+
+        <div className="overflow-hidden">
+          <motion.div
+            animate={{ x: [0, -(CLIENT_LOGOS.length * 180)] }}
+            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+            className="flex items-center gap-8 w-max px-8 py-4"
+          >
+          {doubledLogos.map((logo, i) => (
+            <motion.div
+              key={`logo-${i}`}
+              whileHover={{ scale: 1.1 }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              className="shrink-0 w-52  h-36 px-4  bg-white border  border-stone-200/80 rounded-xl shadow-sm flex items-center justify-center hover:shadow-md hover:border-amber-200 cursor-pointer"
+            >
+              <img
+                src={logo.src}
+                alt={logo.alt}
+                className={`object-cover ${logo.src.includes("client-logo-01") ? "w-20 h-20" : "w-full h-full"}`}
+              />
+            </motion.div>
+          ))}
+          </motion.div>
+        </div>
+      </div>
+</section>
     </div>
   );
 }

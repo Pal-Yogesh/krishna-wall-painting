@@ -44,7 +44,7 @@ export default function ClientsSection() {
             className="text-[clamp(2rem,4vw,3.2rem)] font-bold text-stone-900 leading-tight"
             style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.03em" }}
           >
-            Clients Who Trust
+            Trusted by Brands That Demand Excellence
             <br />
             <span className="text-amber-500">Our Expertise</span>
           </h2>
