@@ -22,7 +22,10 @@ export default function ClientsSection() {
       ref={sectionRef}
       id="clients"
       className="relative py-14 overflow-hidden"
-      style={{ background: "linear-gradient(180deg, #fcfaf6 0%, #fefdfb 50%, #fcfaf6 100%)" }}
+      style={{
+        background:
+          "linear-gradient(180deg, #fcfaf6 0%, #fefdfb 50%, #fcfaf6 100%)",
+      }}
     >
       {/* Background */}
       <div aria-hidden className="absolute inset-0 pointer-events-none">
@@ -42,27 +45,40 @@ export default function ClientsSection() {
           </span>
           <h2
             className="text-4xl font-bold text-stone-900 leading-tight"
-            style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.03em" }}
+            style={{
+              fontFamily: "var(--font-raleway), sans-serif",
+              letterSpacing: "-0.03em",
+            }}
           >
             Trusted by Brands That Demand Excellence
             <br />
-            <span className="text-amber-500 text-3xl">Delivering innovative coating solutions that combine performance, durability, and exceptional finishes across industries.
-</span>
+            <span style={{
+              fontFamily: "var(--font-raleway), sans-serif",
+              letterSpacing: "-0.03em",
+            }} className="text-xl font-medium">
+              Delivering innovative coating solutions that combine performance,
+              durability, and exceptional finishes across industries.
+            </span>
           </h2>
-          {/* <p
-            className="mt-4 text-stone-500 text-[15px] max-w-lg mx-auto leading-relaxed"
-            style={{ fontFamily: "var(--font-raleway), sans-serif" }}
-          >
-            Serving industry leaders across automotive, consumer goods, solar energy, and more.
-          </p> */}
+         
         </motion.div>
       </div>
 
       {/* Single row marquee with logos */}
       <div className="relative overflow-visible py-4">
         {/* Fade edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, #fdfbf7, transparent)" }} />
-        <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, #fdfbf7, transparent)" }} />
+        <div
+          className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+          style={{
+            background: "linear-gradient(to right, #fdfbf7, transparent)",
+          }}
+        />
+        <div
+          className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+          style={{
+            background: "linear-gradient(to left, #fdfbf7, transparent)",
+          }}
+        />
 
         <div className="overflow-hidden">
           <motion.div
@@ -70,20 +86,20 @@ export default function ClientsSection() {
             transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
             className="flex items-center gap-8 w-max px-8 py-4"
           >
-          {doubledLogos.map((logo, i) => (
-            <motion.div
-              key={`logo-${i}`}
-              whileHover={{ scale: 1.1 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="shrink-0 w-52  h-36 px-4  bg-white border  border-stone-200/80 rounded-xl shadow-sm flex items-center justify-center hover:shadow-md hover:border-amber-200 cursor-pointer"
-            >
-              <img
-                src={logo.src}
-                alt={logo.alt}
-                className={`object-cover ${logo.src.includes("client-logo-01") ? "w-20 h-20" : "w-full h-full"}`}
-              />
-            </motion.div>
-          ))}
+            {doubledLogos.map((logo, i) => (
+              <motion.div
+                key={`logo-${i}`}
+                whileHover={{ scale: 1.1 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className="shrink-0 w-52  h-36 px-4  bg-white border  border-stone-200/80 rounded-xl shadow-sm flex items-center justify-center hover:shadow-md hover:border-amber-200 cursor-pointer"
+              >
+                <img
+                  src={logo.src}
+                  alt={logo.alt}
+                  className={`object-cover ${logo.src.includes("client-logo-01") ? "w-20 h-20" : "w-full h-full"}`}
+                />
+              </motion.div>
+            ))}
           </motion.div>
         </div>
       </div>

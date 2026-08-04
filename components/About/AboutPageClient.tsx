@@ -434,7 +434,7 @@ export default function AboutPageClient() {
                 name: "Alok Arora",
                 img: "/paint-images/alok.png",
                 role: "Director",
-                quote: "Inspiring innovation and shaping the future of coatings",
+                quote: "Inspiring innovation and shaping the future of coatings.",
               },
               {
                 name: "Rohit Arora",
@@ -463,16 +463,12 @@ export default function AboutPageClient() {
                   <span className="text-amber-600 text-xs sm:text-[13px] font-medium mb-2">
                     {p.role}
                   </span>
-                  <div className="relative flex flex-col">
-                    <span className="text-amber-500 text-4xl leading-none font-serif ">
-                      "
-                    </span>
-                    <p className="text-xs sm:text-[12px] text-stone-700 leading-relaxed font-medium lg:-mt-3">
+                  <div className="relative mt-1">
+                    <p className="text-xs sm:text-[12px] text-stone-700 leading-relaxed font-medium">
+                      <span className="text-amber-500 text-2xl font-serif align-bottom leading-none lg:pr-3">"</span>
                       {p.quote}
+                      <span className="text-amber-500 text-2xl font-serif align-bottom leading-none ml-3 ">"</span>
                     </p>
-                    <span className="text-amber-500 text-4xl leading-none font-serif self-end">
-                      "
-                    </span>
                   </div>
                 </div>
               </div>
