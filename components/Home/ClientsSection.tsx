@@ -41,19 +41,20 @@ export default function ClientsSection() {
             Trusted Partners
           </span>
           <h2
-            className="text-[clamp(2rem,4vw,3.2rem)] font-bold text-stone-900 leading-tight"
+            className="text-4xl font-bold text-stone-900 leading-tight"
             style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.03em" }}
           >
             Trusted by Brands That Demand Excellence
             <br />
-            <span className="text-amber-500">Our Expertise</span>
+            <span className="text-amber-500 text-3xl">Delivering innovative coating solutions that combine performance, durability, and exceptional finishes across industries.
+</span>
           </h2>
-          <p
+          {/* <p
             className="mt-4 text-stone-500 text-[15px] max-w-lg mx-auto leading-relaxed"
             style={{ fontFamily: "var(--font-raleway), sans-serif" }}
           >
             Serving industry leaders across automotive, consumer goods, solar energy, and more.
-          </p>
+          </p> */}
         </motion.div>
       </div>
 

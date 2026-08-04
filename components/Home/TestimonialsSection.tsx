@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 
 const TESTIMONIALS = [
@@ -38,6 +38,8 @@ const TESTIMONIALS = [
   },
 ];
 
+const AUTO_ADVANCE_MS = 5000;
+
 export default function TestimonialsSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-80px" });
@@ -45,6 +47,14 @@ export default function TestimonialsSection() {
 
   const prev = () => setActive((a) => (a - 1 + TESTIMONIALS.length) % TESTIMONIALS.length);
   const next = () => setActive((a) => (a + 1) % TESTIMONIALS.length);
+
+  // Auto-advance every 5 seconds
+  useEffect(() => {
+    const id = setInterval(() => {
+      setActive((a) => (a + 1) % TESTIMONIALS.length);
+    }, AUTO_ADVANCE_MS);
+    return () => clearInterval(id);
+  }, [active]);
 
   const t = TESTIMONIALS[active];
 
