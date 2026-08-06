@@ -261,6 +261,8 @@ export default function EnquiryLeadForm() {
 
             {/* Headline */}
             <div>
+              {/* Company Logo */}
+              <img src="/logo.png" alt="KMOPL" className="w-full h-20 object-contain mb-4 invert flex justify-center items-center" />
               <h3
                 className="text-[1.75rem] font-bold text-white leading-tight mb-3"
                 style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.03em" }}
