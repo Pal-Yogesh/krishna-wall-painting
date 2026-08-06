@@ -139,7 +139,7 @@ export default function ProductsPage() {
       <section
         className="relative h-[300px] sm:h-[380px] lg:h-[440px] overflow-hidden bg-no-repeat"
         style={{
-          backgroundImage: "url('/paint-images/images/banner.jpg')",
+          backgroundImage: "url('/paint-images/images/banner.jpeg')",
           backgroundSize: "100% 100%",
           backgroundPosition: "center",
         }}

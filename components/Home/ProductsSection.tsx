@@ -135,7 +135,7 @@ export default function ProductsSection() {
 
             {/* CTA button — dark navy, outlined */}
             <Link
-              href="/about"
+              href="/about#manufacturing"
               className="inline-flex items-center gap-3 px-6 py-3.5 rounded-lg font-bold text-[11.5px] uppercase tracking-[0.18em] self-start transition-all hover:bg-opacity-90"
               style={{ background: NAVY, color: GOLD }}
             >

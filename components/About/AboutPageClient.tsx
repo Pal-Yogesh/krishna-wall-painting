@@ -155,7 +155,7 @@ export default function AboutPageClient() {
               >
                 Innovating Coating Solutions Since 1998
               </h1>
-              <p className="text-[15px] sm:text-[22px] text-stone-600 leading-relaxed mb-8 max-w-xl">
+              <p className="text-[15px] sm:text-[18px] text-stone-600 leading-relaxed mb-8 max-w-xl">
                 Krishna Murari Organosys Pvt. Ltd. (KMOPL) is a leading
                 manufacturer of high performance coating solutions for Wood,
                 Metal, Glass &amp; Plastic industries. Driven by innovation,
@@ -373,7 +373,7 @@ export default function AboutPageClient() {
               </h3>
               <div className="h-0.5 w-12 bg-amber-500 mt-2" />
             </div>
-            <ul className="space-y-3">
+            <ul className="space-y-3 grid grid-cols-1 lg:grid-cols-3">
               {STRENGTHS.map((str, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <div className="w-5 h-5 rounded-full bg-orange-500 flex items-center justify-center shrink-0 mt-[1px]">
@@ -626,7 +626,7 @@ export default function AboutPageClient() {
       </section>
 
       {/* ═══ INSIDE OUR MANUFACTURING ═══ */}
-      <section className="w-full bg-white py-14 sm:py-16">
+      <section id="manufacturing" className="w-full bg-white py-14 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <div className="flex items-center justify-center gap-3 mb-3">
