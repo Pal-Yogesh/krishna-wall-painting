@@ -43,7 +43,7 @@ const CATEGORIES = [
     description:
       "Specialised coatings for glass substrates offering clarity, colour, and durability.",
     href: "/products/glass",
-    image: "/paint-images/images/3.jpg",
+    image: "/new/glass-product.jpeg",
     color: "#0d9488",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" stroke="currentColor" strokeWidth={1.8}>
@@ -162,7 +162,7 @@ export default function ProductsPage() {
             className="max-w-[420px]"
           >
             <p
-              className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.22em] mb-3"
+              className="text-[11px] sm:text-xl font-bold uppercase tracking-[0.22em] mb-3"
               style={{ color: ACCENT, fontFamily: "var(--font-raleway), sans-serif" }}
             >
               Coating Solutions
@@ -177,7 +177,7 @@ export default function ProductsPage() {
               Our Product Portfolio
             </h1>
             <div className="w-12 h-1 mb-4" style={{ background: ACCENT }} />
-            <p className="text-[13px] sm:text-[15px] text-white/90 leading-relaxed max-w-xs">
+            <p className="text-[13px] sm:text-[18px] text-white/90 leading-relaxed max-w-xs">
               Explore our range of high-performance coating solutions engineered
               for diverse industrial applications.
             </p>
@@ -198,14 +198,14 @@ export default function ProductsPage() {
             <div className="flex items-center justify-center gap-3 mb-3">
               <span className="h-0.5 w-8 sm:w-10 rounded-full" style={{ background: ACCENT }} />
               <h2
-                className="text-xl sm:text-2xl lg:text-[1.75rem] font-bold"
+                className="text-xl sm:text-3xl lg:text-[1.75rem] font-bold"
                 style={{ color: NAVY, fontFamily: "var(--font-raleway), sans-serif" }}
               >
                 Our Product Categories
               </h2>
               <span className="h-0.5 w-8 sm:w-10 rounded-full" style={{ background: ACCENT }} />
             </div>
-            <p className="text-[13px] sm:text-sm text-stone-500 max-w-lg mx-auto">
+            <p className="text-[13px] sm:text-xl text-stone-500 max-w-lg mx-auto">
               Explore our complete range of high-performance coating solutions.
             </p>
           </motion.div>
@@ -235,23 +235,23 @@ export default function ProductsPage() {
 
                   <div className="relative flex flex-col flex-1 px-4 pb-5 pt-7">
                     <div
-                      className="absolute -top-5 left-4 w-10 h-10 rounded-full flex items-center justify-center text-white shadow-md"
+                      className="absolute -top-8 left-4 w-14 h-14 rounded-full flex items-center justify-center text-white shadow-md"
                       style={{ background: cat.color }}
                     >
                       {cat.icon}
                     </div>
 
                     <h3
-                      className="text-[15px] font-bold mb-2"
+                      className="text-[15px] sm:text-xl font-bold my-2"
                       style={{ color: NAVY, fontFamily: "var(--font-raleway), sans-serif" }}
                     >
                       {cat.title}
                     </h3>
-                    <p className="text-[12px] text-stone-500 leading-relaxed mb-4 flex-1">
+                    <p className="text-[12px] sm:text-sm text-stone-500 leading-relaxed mb-4 flex-1">
                       {cat.description}
                     </p>
                     <span
-                      className="inline-flex items-center gap-1.5 text-[12px] font-bold group-hover:gap-2.5 transition-all"
+                      className="inline-flex items-center gap-1.5 text-[14px] font-bold group-hover:gap-2.5 transition-all"
                       style={{ color: cat.color }}
                     >
                       Explore
@@ -287,12 +287,12 @@ export default function ProductsPage() {
 
             <div className="flex-1 min-w-0">
               <h3
-                className="text-base sm:text-lg font-bold mb-1"
+                className="text-base sm:text-2xl font-bold mb-1"
                 style={{ color: NAVY, fontFamily: "var(--font-raleway), sans-serif" }}
               >
                 Need Technical Assistance?
               </h3>
-              <p className="text-[13px] text-stone-500 leading-relaxed max-w-xl">
+              <p className="text-[13px] sm:text-lg text-stone-500 leading-relaxed max-w-xl">
                 Our technical team is ready to help you select the ideal coating
                 solution for your application.
               </p>

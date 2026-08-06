@@ -159,7 +159,7 @@ function TechnicalTable({
             {icon}
           </div>
           <h3
-            className="text-[14px] font-bold text-stone-800"
+            className="text-[16px] font-bold text-stone-800"
             style={{ fontFamily: "var(--font-raleway), sans-serif" }}
           >
             {title}
@@ -175,10 +175,10 @@ function TechnicalTable({
               transition={{ delay: i * 0.05 }}
               className="flex items-center justify-between px-5 py-3.5 hover:bg-stone-50/50 transition-colors"
             >
-              <span className="text-[13px] text-stone-500 font-medium">
+              <span className="text-[15px] text-stone-500 font-medium">
                 {item.label}
               </span>
-              <span className="text-[13px] font-bold text-stone-800 bg-stone-100 px-3 py-1 rounded-lg">
+              <span className="text-[15px] font-bold text-stone-800 bg-stone-100 px-3 py-1 rounded-lg">
                 {item.value}
               </span>
             </motion.div>
@@ -305,7 +305,7 @@ export default function ProductDetailPage() {
             >
               <div className="flex items-center gap-3 mb-4">
                 <span
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider"
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-[15px] font-bold uppercase tracking-wider"
                   style={{
                     background: `${info.color}15`,
                     color: info.color,
@@ -318,7 +318,7 @@ export default function ProductDetailPage() {
                   />
                   {product.chemistry}
                 </span>
-                <span className="px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-stone-100 text-stone-500 border border-stone-200">
+                <span className="px-3 py-1.5 rounded-full text-[15px] font-bold uppercase tracking-wider bg-stone-100 text-stone-500 border border-stone-200">
                   {info.label}
                 </span>
               </div>
@@ -354,7 +354,7 @@ export default function ProductDetailPage() {
                         d="M9.53 16.122a3 3 0 00-5.78 1.128 2.25 2.25 0 01-2.4 2.245 4.5 4.5 0 008.4-2.245c0-.399-.078-.78-.22-1.128zm0 0a15.998 15.998 0 003.388-1.62m-5.043-.025a15.994 15.994 0 011.622-3.395m3.42 3.42a15.995 15.995 0 004.764-4.648l3.876-5.814a1.151 1.151 0 00-1.597-1.597L14.146 6.32a15.996 15.996 0 00-4.649 4.763m3.42 3.42a6.776 6.776 0 00-3.42-3.42"
                       />
                     </svg>
-                    <span className="text-[12px] font-semibold text-stone-700">
+                    <span className="text-[16px] font-semibold text-stone-700">
                       {product.finishes.length} Finishes
                     </span>
                   </div>
@@ -374,7 +374,7 @@ export default function ProductDetailPage() {
                         d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"
                       />
                     </svg>
-                    <span className="text-[12px] font-semibold text-stone-700">
+                    <span className="text-[16px] font-semibold text-stone-700">
                       {product.applications.length}+ Industries
                     </span>
                   </div>
@@ -394,7 +394,7 @@ export default function ProductDetailPage() {
                         d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z"
                       />
                     </svg>
-                    <span className="text-[12px] font-semibold text-stone-700">
+                    <span className="text-[16px] font-semibold text-stone-700">
                       {product.features.length} Features
                     </span>
                   </div>
@@ -403,7 +403,7 @@ export default function ProductDetailPage() {
               <div className="p-5 space-y-4">
                 {product.finishes && product.finishes.length > 0 && (
                   <div>
-                    <span className="text-[11px] font-semibold text-stone-400 uppercase tracking-wider">
+                    <span className="text-[15px] font-semibold text-stone-400 uppercase tracking-wider">
                       Finish Types
                     </span>
                     <div className="flex gap-2 mt-2 flex-wrap">
@@ -418,7 +418,7 @@ export default function ProductDetailPage() {
                               className="w-9 h-9 rounded-lg border border-stone-200 shadow-sm cursor-default transition-transform hover:scale-110"
                               style={{ background: visual.gradient }}
                             />
-                            <div className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-stone-900 text-white text-[10px] font-medium rounded-md opacity-0 group-hover/swatch:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
+                            <div className="absolute -top-8 left-1/2 -translate-x-1/2 px-2 py-1 bg-stone-900 text-white text-[16px] font-medium rounded-md opacity-0 group-hover/swatch:opacity-100 transition-opacity whitespace-nowrap pointer-events-none z-10">
                               {finish}
                             </div>
                           </div>
@@ -514,7 +514,7 @@ export default function ProductDetailPage() {
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
-                className={`relative flex items-center gap-2 px-5 py-2.5 rounded-xl text-[13px] font-semibold transition-all ${
+                className={`relative flex items-center gap-2 px-5 py-2.5 rounded-xl text-[15px] font-semibold transition-all ${
                   activeTab === tab.key
                     ? "text-white shadow-md"
                     : "text-stone-500 hover:text-stone-800 hover:bg-stone-100"
@@ -581,7 +581,7 @@ export default function ProductDetailPage() {
                         Product Description
                       </h2>
                     </div>
-                    <p className="text-[14px] text-stone-600 leading-[1.8]">
+                    <p className="text-[16px] text-stone-600 leading-[1.8]">
                       {product.fullDescription}
                     </p>
                   </div>
@@ -646,7 +646,7 @@ export default function ProductDetailPage() {
                               />
                             </svg>
                           </div>
-                          <span className="text-[13px] text-stone-700 leading-relaxed group-hover:text-stone-900 transition-colors">
+                          <span className="text-[15px] text-stone-700 leading-relaxed group-hover:text-stone-900 transition-colors">
                             {feature}
                           </span>
                         </motion.div>
@@ -673,13 +673,13 @@ export default function ProductDetailPage() {
                           </svg>
                         </div>
                         <div className="flex-1 min-w-0">
-                          <p className="text-[13px] font-semibold text-stone-800 truncate">{(product as any).pdfName || `${product.name} — Datasheet`}</p>
-                          <p className="text-[11px] text-stone-400 mt-0.5">PDF Document</p>
+                          <p className="text-[15px] font-semibold text-stone-800 truncate">{(product as any).pdfName || `${product.name} — Datasheet`}</p>
+                          <p className="text-[15px] text-stone-400 mt-0.5">PDF Document</p>
                         </div>
                         <a
                           href={`/api/download-pdf?url=${encodeURIComponent((product as any).pdfUrl)}&name=${encodeURIComponent((product as any).pdfName || product.name + ".pdf")}`}
                           download
-                          className="flex items-center gap-1.5 px-4 py-2 bg-stone-900 hover:bg-stone-700 text-white text-[12px] font-bold rounded-xl transition-colors shadow-sm shrink-0"
+                          className="flex items-center gap-1.5 px-4 py-2 bg-stone-900 hover:bg-stone-700 text-white text-[16px] font-bold rounded-xl transition-colors shadow-sm shrink-0"
                         >
                           <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
                             <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
@@ -703,8 +703,8 @@ export default function ProductDetailPage() {
                             <div key={finish} className="group/fin relative overflow-hidden rounded-xl border border-stone-200 hover:border-stone-300 transition-all hover:shadow-sm">
                               <div className="h-12 w-full" style={{ background: visual.gradient }} />
                               <div className="px-2.5 py-2 bg-white">
-                                <span className="text-[11px] font-semibold text-stone-700 block">{finish}</span>
-                                <span className="text-[10px] text-stone-400">
+                                <span className="text-[15px] font-semibold text-stone-700 block">{finish}</span>
+                                <span className="text-[16px] text-stone-400">
                                   {visual.label}
                                 </span>
                               </div>
@@ -737,7 +737,7 @@ export default function ProductDetailPage() {
                       {product.applications.map((app, i) => (
                         <span
                           key={i}
-                          className="px-3 py-1.5 text-[11px] font-semibold rounded-lg border transition-colors hover:border-amber-200 hover:bg-amber-50"
+                          className="px-3 py-1.5 text-[15px] font-semibold rounded-lg border transition-colors hover:border-amber-200 hover:bg-amber-50"
                           style={{
                             background: `${info.color}06`,
                             color: info.color,
@@ -825,12 +825,12 @@ export default function ProductDetailPage() {
                         >
                           Technical Data Sheet
                         </h2>
-                        <p className="text-[13px] text-stone-400">
+                        <p className="text-[15px] text-stone-400">
                           Laboratory tested specifications
                         </p>
                       </div>
                     </div>
-                    <span className="px-3 py-1.5 rounded-full text-[11px] font-bold uppercase tracking-wider bg-green-50 text-green-700 border border-green-200">
+                    <span className="px-3 py-1.5 rounded-full text-[15px] font-bold uppercase tracking-wider bg-green-50 text-green-700 border border-green-200">
                       ✓ Verified Data
                     </span>
                   </div>
@@ -1025,7 +1025,7 @@ export default function ProductDetailPage() {
                       >
                         Application Guidelines
                       </h2>
-                      <p className="text-[13px] text-stone-400">
+                      <p className="text-[15px] text-stone-400">
                         Surface preparation & application method
                       </p>
                     </div>
@@ -1041,7 +1041,7 @@ export default function ProductDetailPage() {
                         }}
                       />
                       <div className="pl-4">
-                        <p className="text-[14px] text-stone-600 leading-[1.8]">
+                        <p className="text-[16px] text-stone-600 leading-[1.8]">
                           {product.applicationGuidelines}
                         </p>
                       </div>
@@ -1080,7 +1080,7 @@ export default function ProductDetailPage() {
                           </svg>
                           Recommended Use
                         </h3>
-                        <p className="text-[14px] text-stone-600 leading-[1.8]">
+                        <p className="text-[16px] text-stone-600 leading-[1.8]">
                           {product.recommendedUse}
                         </p>
                       </div>
@@ -1122,7 +1122,7 @@ export default function ProductDetailPage() {
                             className="w-2 h-2 rounded-full shrink-0"
                             style={{ background: info.color }}
                           />
-                          <span className="text-[13px] text-stone-700 font-medium">
+                          <span className="text-[15px] text-stone-700 font-medium">
                             {app}
                           </span>
                         </motion.div>
@@ -1135,7 +1135,7 @@ export default function ProductDetailPage() {
                     <h3 className="text-sm font-bold text-stone-700 mb-4">
                       Product Specifications
                     </h3>
-                    <div className="space-y-3 text-[13px]">
+                    <div className="space-y-3 text-[15px]">
                       <div className="flex justify-between items-center py-2 border-b border-stone-100">
                         <span className="text-stone-400">Chemistry</span>
                         <span
@@ -1183,7 +1183,7 @@ export default function ProductDetailPage() {
         <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
           <div className="flex items-center gap-3 mb-6">
             <div className="w-1.5 h-8 rounded-full bg-amber-500" />
-            <h2 className="text-xs font-bold uppercase tracking-[0.2em] text-stone-800" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
+            <h2 className="text-sm font-bold uppercase tracking-[0.2em] text-stone-800" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
               Product Gallery
             </h2>
           </div>
@@ -1204,7 +1204,7 @@ export default function ProductDetailPage() {
                 </div>
                 {img.name && (
                   <div className="absolute bottom-0 left-0 right-0 p-2.5 bg-linear-to-t from-black/70 to-transparent">
-                    <span className="text-[11px] font-semibold text-white drop-shadow-sm">{img.name}</span>
+                    <span className="text-[15px] font-semibold text-white drop-shadow-sm">{img.name}</span>
                   </div>
                 )}
               </motion.div>
@@ -1271,7 +1271,7 @@ export default function ProductDetailPage() {
               style={{ background: info.color }}
             />
             <h2
-              className="text-xs font-bold uppercase tracking-[0.2em] text-stone-800"
+              className="text-sm font-bold uppercase tracking-[0.2em] text-stone-800"
               style={{ fontFamily: "var(--font-raleway), sans-serif" }}
             >
               Product Benefits / Advantages section
@@ -1295,7 +1295,7 @@ export default function ProductDetailPage() {
                 >
                   {i + 1}
                 </div>
-                <span className="text-[13px] font-medium text-stone-700 leading-relaxed">
+                <span className="text-[15px] font-medium text-stone-700 leading-relaxed">
                   {feature}
                 </span>
               </motion.div>
@@ -1312,7 +1312,7 @@ export default function ProductDetailPage() {
             style={{ background: info.color }}
           />
           <h2
-            className="text-xs font-bold uppercase tracking-[0.2em] text-stone-800"
+            className="text-sm font-bold uppercase tracking-[0.2em] text-stone-800"
             style={{ fontFamily: "var(--font-raleway), sans-serif" }}
           >
             Recommended Substrates
@@ -1341,7 +1341,7 @@ export default function ProductDetailPage() {
                     background: `linear-gradient(135deg, ${info.color}, ${info.color}80)`,
                   }}
                 />
-                <span className="text-[12px] font-semibold text-stone-700">
+                <span className="text-[16px] font-semibold text-stone-700">
                   {app}
                 </span>
               </div>
@@ -1359,7 +1359,7 @@ export default function ProductDetailPage() {
               style={{ background: info.color }}
             />
             <h2
-              className="text-xs font-bold uppercase tracking-[0.2em] text-stone-800"
+              className="text-sm font-bold uppercase tracking-[0.2em] text-stone-800"
               style={{ fontFamily: "var(--font-raleway), sans-serif" }}
             >
               Related Products
@@ -1367,7 +1367,7 @@ export default function ProductDetailPage() {
           </div>
           <Link
             href={`/products/${substrate}`}
-            className="text-xs font-bold uppercase tracking-[0.15em] hover:text-amber-700 transition-colors flex items-center gap-1"
+            className="text-sm font-bold uppercase tracking-[0.15em] hover:text-amber-700 transition-colors flex items-center gap-1"
             style={{ color: info.color }}
           >
             View All
@@ -1447,25 +1447,25 @@ export default function ProductDetailPage() {
                           style={{ background: info.color }}
                         />
                         <span
-                          className="text-[10px] font-bold uppercase tracking-wider"
+                          className="text-[16px] font-bold uppercase tracking-wider"
                           style={{ color: info.color }}
                         >
                           {relProduct.chemistry}
                         </span>
                       </div>
                       <h4
-                        className="text-[14px] font-bold text-stone-800 mb-2 group-hover:text-amber-700 transition-colors"
+                        className="text-[16px] font-bold text-stone-800 mb-2 group-hover:text-amber-700 transition-colors"
                         style={{
                           fontFamily: "var(--font-raleway), sans-serif",
                         }}
                       >
                         {relProduct.name}
                       </h4>
-                      <p className="text-[12px] text-stone-500 line-clamp-2 leading-relaxed">
+                      <p className="text-[16px] text-stone-500 line-clamp-2 leading-relaxed">
                         {relProduct.description}
                       </p>
                       <div
-                        className="mt-3 flex items-center gap-1 text-[11px] font-semibold"
+                        className="mt-3 flex items-center gap-1 text-[15px] font-semibold"
                         style={{ color: info.color }}
                       >
                         Learn More
@@ -1520,7 +1520,7 @@ export default function ProductDetailPage() {
               >
                 Interested in {product.name}?
               </h3>
-              <p className="text-[14px] text-stone-500">
+              <p className="text-[16px] text-stone-500">
                 Get pricing, samples, and technical support from our team.
               </p>
             </div>

@@ -75,7 +75,7 @@ const SEGMENTS = [
     color: "#1e2a4a",
     bg: "#eef1f6",
     href: "/products/metal",
-    image: "/paint-images/metal.jpeg",
+    image: "/new/metal-home.jpeg",
     icon: (
       <svg
         viewBox="0 0 24 24"
@@ -116,7 +116,7 @@ const SEGMENTS = [
     color: "#0d9488",
     bg: "#f0fdfa",
     href: "/products/glass",
-    image: "/paint-images/glass.jpeg",
+    image: "/new/glass-home.jpeg",
     icon: (
       <svg
         viewBox="0 0 24 24"

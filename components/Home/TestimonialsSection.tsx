@@ -87,7 +87,7 @@ export default function TestimonialsSection() {
             className="text-[clamp(2rem,4vw,3rem)] font-bold text-stone-900 leading-tight"
             style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.03em" }}
           >
-            Trusted by Industries <span className="text-amber-500">Across India</span>
+            Trusted by Industries <span className="text-orange-500">Across India</span>
           </h2>
         </motion.div>
 

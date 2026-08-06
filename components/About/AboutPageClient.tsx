@@ -85,7 +85,7 @@ const TIMELINE = [
     title: "Continuing to Innovate",
     desc: "Next milestone: Global Expansion.",
     icon: TrendingUp,
-    accent: true,
+    // accent: true,
   },
 ];
 
@@ -141,7 +141,7 @@ export default function AboutPageClient() {
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
               <p
-                className="text-[11px] sm:text-xs font-bold uppercase tracking-[0.22em] mb-3 text-[#C05A28]"
+                className="text-[15px] sm:text-sm font-bold uppercase tracking-[0.22em] mb-3 text-[#C05A28]"
                 style={{ fontFamily: "var(--font-raleway), sans-serif" }}
               >
                 About Us
@@ -155,7 +155,7 @@ export default function AboutPageClient() {
               >
                 Innovating Coating Solutions Since 1998
               </h1>
-              <p className="text-[13px] sm:text-[15px] text-stone-600 leading-relaxed mb-8 max-w-xl">
+              <p className="text-[15px] sm:text-[22px] text-stone-600 leading-relaxed mb-8 max-w-xl">
                 Krishna Murari Organosys Pvt. Ltd. (KMOPL) is a leading
                 manufacturer of high performance coating solutions for Wood,
                 Metal, Glass &amp; Plastic industries. Driven by innovation,
@@ -166,16 +166,16 @@ export default function AboutPageClient() {
                 {HERO_STATS.map((stat) => (
                   <div key={stat.value} className="flex flex-col items-start">
                     <stat.icon
-                      className="w-6 h-6 sm:w-7 sm:h-7 text-stone-400 mb-2"
+                      className="w-6 h-6 sm:w-7 sm:h-7 text-orange-500 mb-2"
                       strokeWidth={1.4}
                     />
                     <span
-                      className="text-[13px] sm:text-sm font-bold leading-tight text-[#0B1D36]"
+                      className="text-[15px] sm:text-md font-bold leading-tight text-[#0B1D36]"
                       style={{ fontFamily: "var(--font-raleway), sans-serif" }}
                     >
                       {stat.value}
                     </span>
-                    <span className="text-[11px] sm:text-xs text-stone-500 mt-0.5">
+                    <span className="text-[15px] sm:text-sm text-stone-500 mt-0.5">
                       {stat.label}
                     </span>
                   </div>
@@ -185,7 +185,7 @@ export default function AboutPageClient() {
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 mt-8">
                 <Link
                   href="/products"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-[13px] sm:text-[14px] text-white shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-200"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-[11px] sm:text-[13px] text-white shadow-lg hover:shadow-xl hover:scale-[1.02] transition-all duration-200"
                   style={{
                     background: "linear-gradient(135deg, #f97316, #ef4444)",
                     fontFamily: "var(--font-raleway), sans-serif",
@@ -208,7 +208,7 @@ export default function AboutPageClient() {
                 </Link>
                 <Link
                   href="/contact-us"
-                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-[13px] sm:text-[14px] text-white shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-200"
+                  className="inline-flex items-center justify-center gap-2 px-5 py-3.5 rounded-xl font-bold text-[11px] sm:text-[13px] text-white shadow-md hover:shadow-lg hover:scale-[1.02] transition-all duration-200"
                   style={{
                     background: "#0B1D36",
                     fontFamily: "var(--font-raleway), sans-serif",
@@ -236,8 +236,12 @@ export default function AboutPageClient() {
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.12, ease: [0.22, 1, 0.36, 1] }}
-              className="relative w-full h-[240px] sm:h-[320px] lg:h-[380px] rounded-2xl overflow-hidden shadow-[0_8px_30px_rgba(11,29,54,0.12)]"
+              transition={{
+                duration: 0.5,
+                delay: 0.12,
+                ease: [0.22, 1, 0.36, 1],
+              }}
+              className="relative w-full h-[240px] sm:h-[320px] lg:h-[480px] rounded-2xl overflow-hidden shadow-[0_8px_30px_rgba(11,29,54,0.12)]"
             >
               <Image
                 src="/paint-images/banner.jpeg"
@@ -256,8 +260,11 @@ export default function AboutPageClient() {
       <section className="w-full bg-white py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2
-            className="text-center text-lg sm:text-xl font-bold uppercase tracking-[0.12em] mb-10 sm:mb-12"
-            style={{ color: NAVY, fontFamily: "var(--font-raleway), sans-serif" }}
+            className="text-center text-lg sm:text-3xl font-bold uppercase tracking-[0.12em] mb-10 sm:mb-12"
+            style={{
+              color: NAVY,
+              fontFamily: "var(--font-raleway), sans-serif",
+            }}
           >
             Our Journey
           </h2>
@@ -265,7 +272,7 @@ export default function AboutPageClient() {
           {/* Desktop timeline */}
           <div className="hidden md:block relative">
             <div
-              className="absolute top-7 left-[5%] right-[5%] h-[2px]"
+              className="absolute top-10 left-[5%] right-[5%] h-[2px]"
               style={{ background: NAVY }}
             />
             <div className="flex justify-between items-start">
@@ -275,25 +282,25 @@ export default function AboutPageClient() {
                   className="flex flex-col items-center relative z-10 w-[14%]"
                 >
                   <div
-                    className="w-14 h-14 rounded-full flex items-center justify-center shadow-sm"
-                    style={{ background: item.accent ? ACCENT : NAVY }}
+                    className="w-20 h-20 rounded-full flex items-center justify-center shadow-sm"
+                    style={{ background: NAVY }}
                   >
-                    <item.icon className="w-6 h-6 text-white" strokeWidth={1.5} />
+                    <item.icon
+                      className="w-6 h-6 text-orange-500"
+                      strokeWidth={1.5}
+                    />
                   </div>
                   <div className="mt-4 text-center px-1">
-                    <span
-                      className="font-bold text-sm block mb-1"
-                      style={{ color: NAVY }}
-                    >
+                    <span className="font-bold text-xl block mb-1 text-orange-500">
                       {item.year}
                     </span>
                     <p
-                      className="text-[11px] font-bold leading-snug mb-1"
+                      className="text-[16px] font-bold leading-snug mb-1"
                       style={{ color: NAVY }}
                     >
                       {item.title}
                     </p>
-                    <p className="text-[10px] text-stone-500 leading-snug">
+                    <p className="text-[16px] text-stone-500 leading-snug">
                       {item.desc}
                     </p>
                   </div>
@@ -308,7 +315,7 @@ export default function AboutPageClient() {
               <div key={item.year} className="flex items-start gap-4">
                 <div
                   className="w-11 h-11 rounded-full flex items-center justify-center shrink-0"
-                  style={{ background: item.accent ? ACCENT : NAVY }}
+                  style={{ background: NAVY }}
                 >
                   <item.icon className="w-5 h-5 text-white" strokeWidth={1.5} />
                 </div>
@@ -319,7 +326,7 @@ export default function AboutPageClient() {
                   <p className="text-sm font-semibold" style={{ color: NAVY }}>
                     {item.title}
                   </p>
-                  <p className="text-xs text-stone-500 mt-0.5">{item.desc}</p>
+                  <p className="text-sm text-stone-500 mt-0.5">{item.desc}</p>
                 </div>
               </div>
             ))}
@@ -345,7 +352,7 @@ export default function AboutPageClient() {
                   >
                     {item.value}
                   </div>
-                  <div className="text-white/75 text-[11px] sm:text-xs mt-1 leading-snug">
+                  <div className="text-white/75 text-[15px] sm:text-sm mt-1 leading-snug">
                     {item.label}
                   </div>
                 </div>
@@ -358,36 +365,10 @@ export default function AboutPageClient() {
       {/* ═══ EXPERTISE, HIGHLIGHTS, STRENGTHS ═══ */}
       <section className="w-full max-w-7xl mx-auto bg-white border-y border-stone-200 mb-12 mt-12">
         <div className="flex flex-col lg:flex-row w-full divide-y lg:divide-y-0 lg:divide-x divide-stone-200">
-          {/* Highlights */}
-          <div className="w-full lg:w-[60%] p-6 sm:p-8 lg:p-10">
-            <div className="mb-6">
-              <h3 className="text-lg font-bold text-[#1e3a8a] uppercase tracking-wide">
-                Key Highlights
-              </h3>
-              <div className="h-0.5 w-12 bg-amber-500 mt-2" />
-            </div>
-            <div className="grid grid-cols-3 gap-4">
-              {HIGHLIGHTS.map((item, i) => (
-                <div key={i} className="flex flex-col items-start">
-                  <item.icon
-                    className="w-7 h-7 text-[#1e3a8a] mb-2 opacity-90"
-                    strokeWidth={1.2}
-                  />
-                  <span className="font-bold text-[#1e3a8a] text-sm leading-none mb-1">
-                    {item.value}
-                  </span>
-                  <span className="text-[10px] text-[#1e3a8a] font-medium leading-snug">
-                    {item.label}
-                  </span>
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* Strengths */}
           <div className="flex-1 p-6 sm:p-8 lg:p-10">
             <div className="mb-6">
-              <h3 className="text-lg font-bold text-[#1e3a8a] uppercase tracking-wide">
+              <h3 className="text-xl sm:text-2xl font-bold text-[#1e3a8a] uppercase tracking-wide">
                 Our Strengths
               </h3>
               <div className="h-0.5 w-12 bg-amber-500 mt-2" />
@@ -395,13 +376,13 @@ export default function AboutPageClient() {
             <ul className="space-y-3">
               {STRENGTHS.map((str, i) => (
                 <li key={i} className="flex items-start gap-3">
-                  <div className="w-5 h-5 rounded-full bg-[#1e3a8a] flex items-center justify-center shrink-0 mt-[1px]">
+                  <div className="w-5 h-5 rounded-full bg-orange-500 flex items-center justify-center shrink-0 mt-[1px]">
                     <CheckCircle2
                       className="w-[13px] h-[13px] text-white"
                       strokeWidth={2.5}
                     />
                   </div>
-                  <span className="text-xs sm:text-[13px] text-[#1e3a8a] font-medium leading-snug">
+                  <span className="text-sm sm:text-[15px] text-[#1e3a8a] font-medium leading-snug">
                     {str}
                   </span>
                 </li>
@@ -414,7 +395,7 @@ export default function AboutPageClient() {
       {/* ═══ LEADERSHIP ═══ */}
       <section className="w-full max-w-7xl mx-auto bg-white mb-12 px-4 sm:px-6 lg:px-8 py-8">
         <div className="text-center mb-8">
-          <h3 className="text-xl sm:text-[22px] font-bold text-[#1e3a8a] uppercase tracking-wide">
+          <h3 className=" font-bold text-[#1e3a8a] text-lg sm:text-3xl uppercase tracking-[0.12em]">
             Our Leadership
           </h3>
           <div className="h-0.5 w-12 bg-amber-500 mt-2 mx-auto" />
@@ -434,7 +415,8 @@ export default function AboutPageClient() {
                 name: "Alok Arora",
                 img: "/paint-images/alok.png",
                 role: "Director",
-                quote: "Inspiring innovation and shaping the future of coatings.",
+                quote:
+                  "Inspiring innovation and shaping the future of coatings.",
               },
               {
                 name: "Rohit Arora",
@@ -457,17 +439,21 @@ export default function AboutPageClient() {
                   />
                 </div>
                 <div className="flex flex-col flex-1">
-                  <h4 className="text-[#1e3a8a] font-bold text-sm sm:text-[16px] uppercase mb-1">
+                  <h4 className="text-[#1e3a8a] font-bold text-sm sm:text-[18px] uppercase mb-1">
                     {p.name}
                   </h4>
-                  <span className="text-amber-600 text-xs sm:text-[13px] font-medium mb-2">
+                  <span className="text-amber-600 text-sm sm:text-[16px] font-medium mb-2">
                     {p.role}
                   </span>
                   <div className="relative mt-1">
-                    <p className="text-xs sm:text-[12px] text-stone-700 leading-relaxed font-medium">
-                      <span className="text-amber-500 text-2xl font-serif align-bottom leading-none lg:pr-3">"</span>
+                    <p className="text-sm sm:text-[16px] text-stone-700 leading-relaxed font-medium">
+                      <span className="text-amber-500 text-2xl font-serif align-bottom leading-none lg:pr-3">
+                        "
+                      </span>
                       {p.quote}
-                      <span className="text-amber-500 text-2xl font-serif align-bottom leading-none ml-3 ">"</span>
+                      <span className="text-amber-500 text-2xl font-serif align-bottom leading-none ml-3 ">
+                        "
+                      </span>
                     </p>
                   </div>
                 </div>
@@ -480,7 +466,7 @@ export default function AboutPageClient() {
       {/* ═══ TEAM & VISION ═══ */}
       <section className="w-full max-w-7xl mx-auto bg-white mb-12 border-y border-stone-200">
         <div className="text-center py-6">
-          <h3 className="text-xl sm:text-[24px] font-bold text-[#1e3a8a] uppercase tracking-wide">
+          <h3 className=" font-bold text-[#1e3a8a] text-lg sm:text-3xl uppercase tracking-[0.12em]">
             One Team. One Vision.
           </h3>
         </div>
@@ -490,7 +476,7 @@ export default function AboutPageClient() {
           <div className="flex-[1.6] flex flex-col">
             <div className="flex-1 relative w-full min-h-[200px] sm:min-h-[300px]">
               <Image
-                src="/about3.jpeg"
+                src="/new/team-image.jpeg"
                 alt="KMOPL Team"
                 fill
                 className="object-cover object-center"
@@ -500,10 +486,10 @@ export default function AboutPageClient() {
               {CORE_VALUES.map((val, i) => (
                 <div key={i} className="flex items-center gap-1.5 text-white">
                   <val.icon
-                    className="w-4 h-4 text-stone-100 shrink-0"
+                    className="w-4 h-4 text-orange-500 shrink-0"
                     strokeWidth={1.2}
                   />
-                  <span className="text-[11px] sm:text-[13px] font-medium tracking-wide">
+                  <span className="text-[15px] sm:text-[15px] font-medium tracking-wide">
                     {val.label}
                   </span>
                 </div>
@@ -519,7 +505,7 @@ export default function AboutPageClient() {
           {/* Innovation & R&D */}
           <div className="flex-1 p-6 sm:p-8 lg:p-10">
             <div className="mb-6">
-              <h3 className="text-lg font-bold text-[#1e3a8a] uppercase tracking-wide">
+              <h3 className="text-xl sm:text-2xl font-bold text-[#1e3a8a] uppercase tracking-wide">
                 Innovation & R&D
               </h3>
               <div className="h-0.5 w-12 bg-amber-500 mt-2" />
@@ -546,10 +532,10 @@ export default function AboutPageClient() {
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-3">
                     <item.icon
-                      className="w-7 h-7 text-[#1e3a8a] shrink-0 mt-0.5 opacity-90"
+                      className="w-7 h-7 text-orange-500 shrink-0 mt-0.5 opacity-90"
                       strokeWidth={1.2}
                     />
-                    <span className="text-xs sm:text-[13px] text-stone-800 leading-snug font-medium">
+                    <span className="text-sm sm:text-[15px] text-stone-800 leading-snug font-medium">
                       {item.text}
                     </span>
                   </li>
@@ -557,7 +543,7 @@ export default function AboutPageClient() {
               </ul>
               <div className="flex-1 relative min-h-[200px] sm:min-h-[220px]">
                 <Image
-                  src="/paint-images/rd.jpeg"
+                  src="/Inside-our-manufacturing/rd.jpeg"
                   alt="R&D Lab"
                   fill
                   className="object-cover"
@@ -569,7 +555,7 @@ export default function AboutPageClient() {
           {/* Vision, Mission, Values */}
           <div className="flex-[1.2] p-6 sm:p-8 lg:p-10">
             <div className="mb-6">
-              <h3 className="text-lg font-bold text-[#1e3a8a] uppercase tracking-wide">
+              <h3 className="text-xl sm:text-2xl font-bold text-[#1e3a8a] uppercase tracking-wide">
                 Vision, Mission & Values
               </h3>
               <div className="h-0.5 w-12 bg-amber-500 mt-2" />
@@ -583,7 +569,7 @@ export default function AboutPageClient() {
                     Vision
                   </span>
                 </div>
-                <p className="text-xs sm:text-[13px] text-stone-700 leading-relaxed font-medium">
+                <p className="text-sm sm:text-[15px] text-stone-700 leading-relaxed font-medium">
                   To be a trusted global leader in innovative coating solutions,
                   setting benchmarks in quality, sustainability, and customer
                   satisfaction.
@@ -600,7 +586,7 @@ export default function AboutPageClient() {
                     Mission
                   </span>
                 </div>
-                <p className="text-xs sm:text-[13px] text-stone-700 leading-relaxed font-medium">
+                <p className="text-sm sm:text-[15px] text-stone-700 leading-relaxed font-medium">
                   To deliver high-performance coating solutions through
                   innovation, consistent quality, advanced technology, and
                   lasting customer partnerships.
@@ -627,7 +613,7 @@ export default function AboutPageClient() {
                   ].map((val, i) => (
                     <li key={i} className="flex items-center gap-2">
                       <div className="w-1.5 h-1.5 rounded-full bg-[#1e3a8a] shrink-0" />
-                      <span className="text-xs sm:text-[13px] text-stone-800 font-medium">
+                      <span className="text-sm sm:text-[15px] text-stone-800 font-medium">
                         {val}
                       </span>
                     </li>
@@ -639,37 +625,179 @@ export default function AboutPageClient() {
         </div>
       </section>
 
-            <section className="w-full max-w-7xl mx-auto bg-white mb-12 border-b border-stone-200">
-  {/* Single row marquee with logos */}
-      <div className="relative overflow-visible py-4">
-        {/* Fade edges */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to right, #fdfbf7, transparent)" }} />
-        <div className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none" style={{ background: "linear-gradient(to left, #fdfbf7, transparent)" }} />
-
-        <div className="overflow-hidden">
-          <motion.div
-            animate={{ x: [0, -(CLIENT_LOGOS.length * 180)] }}
-            transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-            className="flex items-center gap-8 w-max px-8 py-4"
-          >
-          {doubledLogos.map((logo, i) => (
-            <motion.div
-              key={`logo-${i}`}
-              whileHover={{ scale: 1.1 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="shrink-0 w-52  h-36 px-4  bg-white border  border-stone-200/80 rounded-xl shadow-sm flex items-center justify-center hover:shadow-md hover:border-amber-200 cursor-pointer"
+      {/* ═══ INSIDE OUR MANUFACTURING ═══ */}
+      <section className="w-full bg-white py-14 sm:py-16">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <div className="flex items-center justify-center gap-3 mb-3">
+              <span className="h-px w-10 bg-[#C05A28]" />
+              <span
+                className="text-sm font-bold uppercase tracking-[0.2em]"
+                style={{ color: "#C05A28" }}
+              >
+                Inside Our Manufacturing
+              </span>
+              <span className="h-px w-10 bg-[#C05A28]" />
+            </div>
+            <h2
+              className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-[#0B1D36] leading-tight"
+              style={{
+                fontFamily: "var(--font-raleway), sans-serif",
+                letterSpacing: "-0.02em",
+              }}
             >
-              <img
-                src={logo.src}
-                alt={logo.alt}
-                className={`object-cover ${logo.src.includes("client-logo-01") ? "w-20 h-20" : "w-full h-full"}`}
-              />
-            </motion.div>
-          ))}
-          </motion.div>
+              Technology. Precision. Quality.
+            </h2>
+            <p className="mt-3 text-stone-500 text-sm sm:text-[15px] max-w-2xl mx-auto leading-relaxed">
+              Our state-of-the-art facilities, advanced equipment and rigorous
+              quality control ensure consistent, high-performance coating
+              solutions.
+            </p>
+          </div>
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
+            {[
+              {
+                img: "/Inside-our-manufacturing/production-facility.png",
+                title: "Production Facility",
+                desc: "Modern infrastructure designed for safe, efficient and scalable production.",
+              },
+              {
+                img: "/Inside-our-manufacturing/rd.jpeg",
+                title: "R&D Laboratory",
+                desc: "In-house R&D driving innovation and formulation of advanced solutions.",
+              },
+              {
+                img: "/Inside-our-manufacturing/advanced-equipment.png",
+                title: "Advanced Equipment",
+                desc: "High-performance mixing and dispersion systems for consistent quality.",
+              },
+              {
+                img: "/Inside-our-manufacturing/quality-control-testing.jpeg",
+                title: "Quality Control & Testing",
+                desc: "Multi-stage testing at every step to ensure performance, safety and reliability.",
+              },
+              {
+                img: "/Inside-our-manufacturing/packaging.jpeg",
+                title: "Packaging",
+                desc: "Automated, secure and environment-friendly packaging solutions.",
+              },
+              {
+                img: "/Inside-our-manufacturing/warehouse-dispatch.png",
+                title: "Warehouse & Dispatch",
+                desc: "Efficient storage and pan-India dispatch network for timely deliveries.",
+              },
+            ].map((item, i) => (
+              <div
+                key={i}
+                className="flex flex-col items-center text-center group"
+              >
+                <div className="w-full h-40 sm:h-80 rounded-2xl overflow-hidden mb-4 border border-stone-200 shadow-sm">
+                  <img
+                    src={item.img}
+                    alt={item.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                <div className="w-10 h-10 rounded-full border-2 border-[#C05A28] flex items-center justify-center -mt-9 mb-2 bg-white relative z-10 shadow-sm">
+                  <svg
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    className="w-5 h-5"
+                    stroke="#C05A28"
+                    strokeWidth={1.6}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.108-1.204l-.526-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z"
+                    />
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                    />
+                  </svg>
+                </div>
+                <h4
+                  className="text-sm font-bold text-[#0B1D36] mb-1"
+                  style={{ fontFamily: "var(--font-raleway), sans-serif" }}
+                >
+                  {item.title}
+                </h4>
+                <p className="text-[12px] text-stone-500 leading-snug px-1">
+                  {item.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+          <div className="bg-[#f5f6f8] border border-stone-200 rounded-2xl px-6 py-4 flex flex-wrap items-center justify-between gap-4">
+            {[
+              { title: "Advanced Infrastructure", icon: "🏭" },
+              { title: "In-house R&D", icon: "🔬" },
+              { title: "Precision Manufacturing", icon: "⚙️" },
+              { title: "Multi-stage Quality Checks", icon: "✅" },
+              { title: "Reliable Dispatch", icon: "🚛" },
+            ].map((badge, i) => (
+              <div key={i} className="flex items-center gap-2.5">
+                <div className="w-9 h-9 rounded-full bg-white border border-stone-200 flex items-center justify-center text-base shadow-sm">
+                  {badge.icon}
+                </div>
+                <span
+                  className="text-[13px] font-bold text-[#0B1D36]"
+                  style={{ fontFamily: "var(--font-raleway), sans-serif" }}
+                >
+                  {badge.title}
+                </span>
+                {i < 4 && (
+                  <span className="hidden lg:block w-px h-6 bg-stone-300 ml-3" />
+                )}
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
-</section>
+      </section>
+
+      <section className="w-full max-w-7xl mx-auto bg-white mb-12 border-b border-stone-200">
+        {/* Single row marquee with logos */}
+        <div className="relative overflow-visible py-4">
+          {/* Fade edges */}
+          <div
+            className="absolute left-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+            style={{
+              background: "linear-gradient(to right, #fdfbf7, transparent)",
+            }}
+          />
+          <div
+            className="absolute right-0 top-0 bottom-0 w-24 z-10 pointer-events-none"
+            style={{
+              background: "linear-gradient(to left, #fdfbf7, transparent)",
+            }}
+          />
+
+          <div className="overflow-hidden">
+            <motion.div
+              animate={{ x: [0, -(CLIENT_LOGOS.length * 180)] }}
+              transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+              className="flex items-center gap-8 w-max px-8 py-4"
+            >
+              {doubledLogos.map((logo, i) => (
+                <motion.div
+                  key={`logo-${i}`}
+                  whileHover={{ scale: 1.1 }}
+                  transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  className="shrink-0 w-52  h-36 px-4  bg-white border  border-stone-200/80 rounded-xl shadow-sm flex items-center justify-center hover:shadow-md hover:border-amber-200 cursor-pointer"
+                >
+                  <img
+                    src={logo.src}
+                    alt={logo.alt}
+                    className={`object-cover ${logo.src.includes("client-logo-01") ? "w-20 h-20" : "w-full h-full"}`}
+                  />
+                </motion.div>
+              ))}
+            </motion.div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

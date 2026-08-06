@@ -44,7 +44,7 @@ export default function ClientsSection() {
             Trusted Partners
           </span>
           <h2
-            className="text-4xl font-bold text-stone-900 leading-tight"
+            className="text-4xl font-bold text-orange-500 leading-tight"
             style={{
               fontFamily: "var(--font-raleway), sans-serif",
               letterSpacing: "-0.03em",
@@ -55,7 +55,7 @@ export default function ClientsSection() {
             <span style={{
               fontFamily: "var(--font-raleway), sans-serif",
               letterSpacing: "-0.03em",
-            }} className="text-xl font-medium">
+            }} className="text-xl font-medium text-stone-800">
               Delivering innovative coating solutions that combine performance,
               durability, and exceptional finishes across industries.
             </span>
