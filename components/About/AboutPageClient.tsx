@@ -267,6 +267,7 @@ export default function AboutPageClient() {
             }}
           >
             Our Journey
+            <div className="h-0.5 w-12 bg-amber-500 mt-2 mx-auto" />
           </h2>
 
           {/* Desktop timeline */}
@@ -469,6 +470,7 @@ export default function AboutPageClient() {
           <h3 className=" font-bold text-[#1e3a8a] text-lg sm:text-3xl uppercase tracking-[0.12em]">
             One Team. One Vision.
           </h3>
+          <div className="h-0.5 w-12 bg-amber-500 mt-2 mx-auto" />
         </div>
 
         <div className="flex flex-col lg:flex-row w-full lg:h-[480px]">
@@ -543,7 +545,7 @@ export default function AboutPageClient() {
               </ul>
               <div className="flex-1 relative min-h-[200px] sm:min-h-[220px]">
                 <Image
-                  src="/Inside-our-manufacturing/rd.jpeg"
+                  src="/paint-images/rd.jpeg"
                   alt="R&D Lab"
                   fill
                   className="object-cover"
@@ -691,7 +693,7 @@ export default function AboutPageClient() {
                 key={i}
                 className="flex flex-col items-center text-center group"
               >
-                <div className="w-full h-40 sm:h-80 rounded-2xl overflow-hidden mb-4 border border-stone-200 shadow-sm">
+                <div className="w-full h-40 sm:h-72 rounded-2xl overflow-hidden mb-4 border border-stone-200 shadow-sm">
                   <img
                     src={item.img}
                     alt={item.title}

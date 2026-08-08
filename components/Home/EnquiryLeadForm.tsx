@@ -50,12 +50,13 @@ interface FormState {
   email: string;
   mobile: string;
   city: string;
+  companyName: string;
   coatingType: string;
   colorInterest: string;
   message: string;
 }
 
-const INITIAL_FORM: FormState = { name: "", email: "", mobile: "", city: "", coatingType: "", colorInterest: "", message: "" };
+const INITIAL_FORM: FormState = { name: "", email: "", mobile: "", city: "", companyName: "", coatingType: "", colorInterest: "", message: "" };
 
 // ── Validation ────────────────────────────────────────────────────────────────
 function validate(form: FormState): Partial<Record<keyof FormState, string>> {
@@ -261,8 +262,6 @@ export default function EnquiryLeadForm() {
 
             {/* Headline */}
             <div>
-              {/* Company Logo */}
-              <img src="/logo.png" alt="KMOPL" className="w-full h-20 object-contain mb-4 invert flex justify-center items-center" />
               <h3
                 className="text-[1.75rem] font-bold text-white leading-tight mb-3"
                 style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.03em" }}
@@ -406,6 +405,14 @@ export default function EnquiryLeadForm() {
                       onChange={setField("city")}
                       error={errors.city}
                       autoComplete="address-level2"
+                    />
+                    {/* Company Name */}
+                    <FloatInput
+                      label="Company Name"
+                      name="companyName"
+                      value={form.companyName}
+                      onChange={setField("companyName")}
+                      autoComplete="organization"
                     />
                     {/* Coating Type */}
                     <div className="relative sm:col-span-2">

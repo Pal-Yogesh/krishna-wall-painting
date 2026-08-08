@@ -21,6 +21,7 @@ interface EnquiryPayload {
   email?: string;
   mobile: string;
   city: string;
+  companyName?: string;
   roomType?: string;
   coatingType?: string;
   colorInterest?: string;
@@ -121,6 +122,7 @@ function buildEmailHtml(data: EnquiryPayload): string {
                 ${detailRow("📱", "Mobile Number", `<a href="tel:+91${data.mobile}" style="color:#1c1917;text-decoration:none;">+91 ${data.mobile.slice(0,5)} ${data.mobile.slice(5)}</a>`)}
                 ${data.email ? detailRow("📧", "Email", `<a href="mailto:${data.email}" style="color:#1c1917;text-decoration:none;">${data.email}</a>`) : ""}
                 ${detailRow("📍", "City", data.city)}
+                ${data.companyName ? detailRow("🏢", "Company", data.companyName) : ""}
                 ${data.coatingType ? detailRow("🪵", "Coating Type", data.coatingType) : ""}
                 ${data.roomType ? detailRow("🏠", "Room Type", data.roomType) : ""}
                 ${data.finish && !colorName ? detailRow("✨", "Finish", data.finish.charAt(0).toUpperCase() + data.finish.slice(1)) : ""}
@@ -207,6 +209,7 @@ export async function POST(req: NextRequest) {
           body.email ? `Email: ${body.email}` : "",
           `Mobile: ${body.mobile}`,
           `City: ${body.city}`,
+          body.companyName ? `Company: ${body.companyName}` : "",
           body.coatingType ? `Coating: ${body.coatingType}` : "",
           body.roomType ? `Room: ${body.roomType}` : "",
           body.colorInterest ? `Color: ${body.colorInterest}` : "",

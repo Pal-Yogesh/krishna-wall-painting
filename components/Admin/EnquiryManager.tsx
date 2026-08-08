@@ -25,9 +25,9 @@ function timeAgo(ts?: { seconds: number }) {
 }
 
 function downloadCSV(data: EnquiryDoc[], filename: string) {
-  const headers = ["Name", "Email", "Mobile", "City", "Coating Type", "Color Interest", "Color Name", "Message", "Date"];
+  const headers = ["Name", "Company", "Email", "Mobile", "City", "Coating Type", "Color Interest", "Color Name", "Message", "Date"];
   const rows = data.map((e) => [
-    e.name, e.email || "", e.mobile, e.city,
+    e.name, e.companyName || "", e.email || "", e.mobile, e.city,
     e.coatingType || "", e.colorInterest || "",
     e.colorName || "", e.message || "",
     formatDate(e.createdAt as unknown as { seconds: number }),
@@ -148,6 +148,10 @@ export default function EnquiryManager() {
                             <div>
                               <p className="text-[10px] text-stone-400 font-semibold uppercase tracking-wider mb-1">Email</p>
                               <p className="text-sm text-stone-700 break-all">{e.email || "—"}</p>
+                            </div>
+                            <div>
+                              <p className="text-[10px] text-stone-400 font-semibold uppercase tracking-wider mb-1">Company</p>
+                              <p className="text-sm text-stone-700">{e.companyName || "—"}</p>
                             </div>
                             <div>
                               <p className="text-[10px] text-stone-400 font-semibold uppercase tracking-wider mb-1">Date</p>

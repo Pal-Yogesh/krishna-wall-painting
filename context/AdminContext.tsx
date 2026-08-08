@@ -27,6 +27,7 @@ export interface EnquiryDoc {
   mobile: string;
   city: string;
   coatingType?: string;
+  companyName?: string;
   roomType?: string;
   colorInterest?: string;
   colorName?: string;
