@@ -263,13 +263,13 @@ export default function EnquiryLeadForm() {
             {/* Headline */}
             <div>
               <h3
-                className="text-[1.75rem] font-bold text-white leading-tight mb-3"
+                className="text-[2.5rem] font-bold text-white leading-tight mb-3"
                 style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.03em" }}
               >
                 Let's Coat Your World{" "}
                 <span style={{ color: "#f59e0b" }}>Right.</span>
               </h3>
-              <p className="text-sm text-white/45 leading-relaxed" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
+              <p className="text-lg text-white/50 leading-relaxed" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
                 Our coating consultants have helped 500+ clients find their perfect finish. You're next.
               </p>
             </div>
@@ -284,10 +284,10 @@ export default function EnquiryLeadForm() {
                   transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
                   className="flex items-start gap-3.5"
                 >
-                  <span className="text-xl flex-shrink-0 mt-0.5">{pt.icon}</span>
+                  <span className="text-2xl flex-shrink-0 mt-0.5">{pt.icon}</span>
                   <div>
-                    <p className="text-[13px] font-bold text-white/85" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>{pt.title}</p>
-                    <p className="text-xs text-white/40 leading-snug mt-0.5">{pt.desc}</p>
+                    <p className="text-[15px] font-bold text-white/90" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>{pt.title}</p>
+                    <p className="text-sm text-white/45 leading-snug mt-0.5">{pt.desc}</p>
                   </div>
                 </motion.div>
               ))}
