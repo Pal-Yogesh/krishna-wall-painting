@@ -10,7 +10,7 @@ export interface TechnicalProperty {
 export interface Product {
   id: string;
   name: string;
-  substrate: "wood" | "metal" | "glass";
+  substrate: "wood" | "metal" | "glass" | "dyestuff" | "auxiliaries" | "paint-removers";
   chemistry: string;
   description: string;
   fullDescription: string;
@@ -29,6 +29,8 @@ export interface Product {
   delivery: TechnicalProperty[];
   pdfUrl?: string;
   pdfName?: string;
+  tdsUrl?: string;
+  tdsName?: string;
   active?: boolean;
 }
 
@@ -56,6 +58,30 @@ export const substrates = {
     bg: "bg-cyan-50",
     border: "border-cyan-200",
     description: "At KMOPL, we extend our surface engineering expertise into highly specialized substrates like glass and engineering plastics. Because non-porous surfaces present unique adhesion challenges, our advanced formulations utilize molecular-level bonding technology. They deliver stunning visual aesthetics, scratch defense, and durability for high-end consumer goods, architectural glass, and automotive components.",
+  },
+  dyestuff: {
+    label: "Dyestuff Solutions",
+    icon: "🎨",
+    color: "#3b82f6",
+    bg: "bg-blue-50",
+    border: "border-blue-200",
+    description: "Industrial dyes and colourants engineered for consistent, vibrant results across diverse substrates and applications.",
+  },
+  auxiliaries: {
+    label: "Wood Auxiliaries",
+    icon: "🧪",
+    color: "#92400e",
+    bg: "bg-amber-50",
+    border: "border-amber-200",
+    description: "Complementary products that enhance coating performance, application ease, and final finish quality for wood substrates.",
+  },
+  "paint-removers": {
+    label: "Paint Removers",
+    icon: "🔄",
+    color: "#dc2626",
+    bg: "bg-red-50",
+    border: "border-red-200",
+    description: "Effective paint removers formulated as per substrate requirements for wood, metal, and glass surfaces.",
   },
 };
 

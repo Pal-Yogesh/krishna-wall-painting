@@ -14,15 +14,19 @@ export async function POST(req: NextRequest) {
 
     const formData = await req.formData();
     const file = formData.get("file") as File;
-    // Always use kmopl-tds-pdfs folder for product technical datasheets
-    const folder = "kmopl-tds-pdfs";
+    const folder = (formData.get("folder") as string) || "kmopl-tds-pdfs";
 
     if (!file) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
-    if (file.type !== "application/pdf") {
-      return NextResponse.json({ error: "Only PDF files are allowed" }, { status: 400 });
+    const allowedTypes = [
+      "application/pdf",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "application/msword",
+    ];
+    if (!allowedTypes.includes(file.type)) {
+      return NextResponse.json({ error: "Only PDF and DOCX files are allowed" }, { status: 400 });
     }
 
     if (file.size > MAX_SIZE) {
@@ -31,7 +35,8 @@ export async function POST(req: NextRequest) {
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    const base64 = `data:application/pdf;base64,${buffer.toString("base64")}`;
+    const mimeType = file.type || "application/octet-stream";
+    const base64 = `data:${mimeType};base64,${buffer.toString("base64")}`;
 
     // Sign only folder + timestamp + use_filename (no resource_type in signature)
     const timestamp = Math.round(Date.now() / 1000);

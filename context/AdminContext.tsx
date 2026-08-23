@@ -40,7 +40,7 @@ export interface EnquiryDoc {
 export interface ProductDoc {
   id: string;
   name: string;
-  substrate: "wood" | "metal" | "glass";
+  substrate: "wood" | "metal" | "glass" | "dyestuff" | "auxiliaries" | "paint-removers";
   chemistry: string;
   description: string;
   fullDescription: string;
@@ -49,12 +49,19 @@ export interface ProductDoc {
   finishes: string[];
   icon: string;
   image: string;
+  imageFront?: string;
+  imageBack?: string;
+  gallery?: { url: string; name: string }[];
   recommendedUse: string;
   applicationGuidelines: string;
   inCanProperties: { label: string; value: string }[];
   applicationProperties: { label: string; value: string }[];
   filmProperties: { label: string; value: string }[];
   delivery: { label: string; value: string }[];
+  pdfUrl?: string;
+  pdfName?: string;
+  tdsUrl?: string;
+  tdsName?: string;
   active: boolean;
   createdAt?: Timestamp;
 }
