@@ -7,15 +7,19 @@ const fs = require("fs");
 const path = require("path");
 const { execSync } = require("child_process");
 
-const CLOUD_NAME = "dxfkygu6e";
-const API_KEY = "587545699538465";
-// ⚠️  PASTE YOUR API SECRET BELOW (from Cloudinary → Settings → Access Keys)
-const API_SECRET1 = "Y4iNDLC_qI8BNn4ef0_qahA1fQo";
-// const API_KEY = "Y4iNDLC_qI8BNn4ef0_qahA1fQo";
-const API_SECRET = API_SECRET1 || (() => {
-  try { return fs.readFileSync(path.join(__dirname, ".cloudinary-secret"), "utf-8").trim(); }
-  catch { return ""; }
-})();
+const CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || "";
+const API_KEY = process.env.CLOUDINARY_API_KEY || "";
+const API_SECRET =
+  process.env.CLOUDINARY_API_SECRET ||
+  (() => {
+    try {
+      return fs
+        .readFileSync(path.join(__dirname, ".cloudinary-secret"), "utf-8")
+        .trim();
+    } catch {
+      return "";
+    }
+  })();
 
 const GALLERY_DIR = path.join(__dirname, "../public/gallery-photos");
 const TEMP_DIR = path.join(__dirname, "../.temp-gallery");
@@ -85,10 +89,10 @@ async function uploadToCloudinary(filePath) {
 }
 
 async function main() {
-  if (!API_SECRET) {
-    console.error("❌ Set your API secret. Either:");
-    console.error("   1. Create file: scripts/.cloudinary-secret (paste secret inside)");
-    console.error("   2. Or run: CLOUDINARY_SECRET=your_secret node scripts/upload-gallery.js");
+  if (!CLOUD_NAME || !API_KEY || !API_SECRET) {
+    console.error("❌ Missing Cloudinary credentials. Set:");
+    console.error("   CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET");
+    console.error("   Or put only the API secret in scripts/.cloudinary-secret (gitignored).");
     process.exit(1);
   }
 

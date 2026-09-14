@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";
 
-const CLOUD_NAME = "dxfkygu6e";
-const API_KEY = process.env.CLOUDINARY_API_KEY || "Y4iNDLC_qI8BNn4ef0_qahA1fQo";
+const CLOUD_NAME = process.env.CLOUDINARY_CLOUD_NAME || "";
+const API_KEY = process.env.CLOUDINARY_API_KEY || "";
 const API_SECRET = process.env.CLOUDINARY_API_SECRET || "";
 
 const MAX_SIZE_BYTES = 5 * 1024 * 1024; // 5 MB limit
@@ -14,8 +14,8 @@ const ALLOWED_TYPES = [
 
 export async function POST(req: NextRequest) {
   try {
-    if (!API_SECRET) {
-      return NextResponse.json({ error: "Cloudinary API secret not configured" }, { status: 500 });
+    if (!CLOUD_NAME || !API_KEY || !API_SECRET) {
+      return NextResponse.json({ error: "Cloudinary is not configured" }, { status: 500 });
     }
 
     const formData = await req.formData();
