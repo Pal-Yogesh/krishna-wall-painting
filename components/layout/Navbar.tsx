@@ -19,6 +19,16 @@ const NAV_LINKS = [
   { label: "Events",     href: "/events",        sectionId: "" },
 ];
 
+// Sub-links shown in the "Products" dropdown
+const PRODUCTS_DROPDOWN = [
+  { label: "Wood Coatings",      href: "/products/wood",           color: "#16a34a" },
+  { label: "Metal Coatings",     href: "/products/metal",          color: "#d97706" },
+  { label: "Glass Coatings",     href: "/products/glass",          color: "#0891b2" },
+  { label: "Dyestuff Solutions", href: "/products/dyestuff",       color: "#C1623F" },
+  { label: "Wood Auxiliaries",   href: "/products/auxiliaries",    color: "#8FAF7E" },
+  { label: "Paint Removers",     href: "/products/paint-removers", color: "#5C3A5E" },
+];
+
 // Sub-links shown in the "About Us" dropdown
 const ABOUT_DROPDOWN = [
   { label: "Careers",  href: "/careers", color: "#16a34a" },
@@ -226,52 +236,15 @@ export default function Navbar() {
                       {/* Dropdown */}
                       {productsDropdown && (
                         <div className="absolute top-full left-0 pt-2 z-50">
-                          <div className="bg-white rounded-xl border border-stone-200/80 shadow-xl p-4 min-w-[520px]">
-                            <div className="grid grid-cols-3 gap-4">
-                              {/* Wood */}
-                              <div>
-                                <Link href="/products/wood" onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
-                                  className="flex items-center gap-2 mb-2 group">
-                                  <span className="w-2.5 h-2.5 rounded-full shrink-0 bg-[#16a34a]" />
-                                  <span className="text-[12px] font-bold text-stone-800 group-hover:text-amber-600 transition-colors">Wood Coatings</span>
-                                </Link>
-                                {woodProducts.map((p) => (
-                                  <Link key={p.id} href={`/products/wood/${p.id}`} onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
-                                    className="block px-3 py-1.5 text-[11px] text-stone-500 hover:text-stone-900 hover:bg-stone-50 rounded-md transition-colors truncate">
-                                    {p.name}
-                                  </Link>
-                                ))}
-                              </div>
-                              {/* Metal */}
-                              <div>
-                                <Link href="/products/metal" onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
-                                  className="flex items-center gap-2 mb-2 group">
-                                  <span className="w-2.5 h-2.5 rounded-full shrink-0 bg-[#d97706]" />
-                                  <span className="text-[12px] font-bold text-stone-800 group-hover:text-amber-600 transition-colors">Metal Coatings</span>
-                                </Link>
-                                {metalProducts.map((p) => (
-                                  <Link key={p.id} href={`/products/metal/${p.id}`} onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
-                                    className="block px-3 py-1.5 text-[11px] text-stone-500 hover:text-stone-900 hover:bg-stone-50 rounded-md transition-colors truncate">
-                                    {p.name}
-                                  </Link>
-                                ))}
-                              </div>
-                              {/* Glass */}
-                              <div>
-                                <Link href="/products/glass" onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
-                                  className="flex items-center gap-2 mb-2 group">
-                                  <span className="w-2.5 h-2.5 rounded-full shrink-0 bg-[#0891b2]" />
-                                  <span className="text-[12px] font-bold text-stone-800 group-hover:text-amber-600 transition-colors">Glass & Plastic</span>
-                                </Link>
-                                {glassProducts.map((p) => (
-                                  <Link key={p.id} href={`/products/glass/${p.id}`} onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
-                                    className="block px-3 py-1.5 text-[11px] text-stone-500 hover:text-stone-900 hover:bg-stone-50 rounded-md transition-colors truncate">
-                                    {p.name}
-                                  </Link>
-                                ))}
-                              </div>
-                            </div>
-                            <div className="border-t border-stone-100 mt-3 pt-2">
+                          <div className="bg-white rounded-xl border border-stone-200/80 shadow-xl p-2 min-w-[200px]">
+                            {PRODUCTS_DROPDOWN.map((sub) => (
+                              <Link key={sub.href} href={sub.href} onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
+                                className="flex items-center gap-3 px-3 py-2.5 rounded-lg hover:bg-stone-50 transition-colors">
+                                <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ background: sub.color }} />
+                                <span className="text-[12px] font-semibold text-stone-600 hover:text-stone-900 transition-colors">{sub.label}</span>
+                              </Link>
+                            ))}
+                            <div className="border-t border-stone-100 mt-2 pt-2">
                               <Link href="/products" onClick={() => { handleNavClick(""); setProductsDropdown(false); }}
                                 className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-amber-50 transition-colors">
                                 <span className="text-[11px] font-bold text-amber-600">View All Products →</span>
