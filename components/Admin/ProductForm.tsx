@@ -1,528 +1,267 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { useAdmin, ProductDoc } from "@/context/AdminContext";
+import { useEffect, useState } from "react";
+import { useAdmin, type ProductDoc } from "@/context/AdminContext";
+import { useToast } from "@/context/Toast";
+import type { ProductItem } from "@/context/ProductContext";
+import { CATEGORY_OPTIONS, splitHeading, sectionTitleFor } from "@/lib/product-display";
 
-const SUBSTRATES = ["wood", "metal", "glass", "dyestuff", "auxiliaries", "paint-removers"] as const;
-const CHEMISTRIES = ["Nitrocellulose", "Polyurethane", "Epoxy", "Acrylic (1K)", "UV Curable", "Water-Based (1K)", "Water-Based (2K)", "Heat Resistant", "Unsaturated Polyester"];
-
-interface TechProp { label: string; value: string; }
 interface Props { productId?: string; onSaved: () => void; onCancel: () => void; }
 
-const STEPS = [
-  { key: "basic", label: "Basic Info", icon: "1" },
-  { key: "details", label: "Description & Features", icon: "2" },
-  { key: "technical", label: "Technical Data", icon: "3" },
-  { key: "gallery", label: "Product Gallery", icon: "4" },
-];
+const INPUT = "w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-200 focus:bg-white transition-all";
+const LABEL = "text-xs font-semibold text-stone-600 mb-1.5 block";
 
-function TechPropsEditor({ label, items, onChange }: { label: string; items: TechProp[]; onChange: (items: TechProp[]) => void }) {
-  return (
-    <div className="space-y-2">
-      <div className="flex items-center justify-between">
-        <span className="text-sm font-semibold text-stone-700">{label}</span>
-        <button type="button" onClick={() => onChange([...items, { label: "", value: "" }])} className="text-xs font-semibold text-amber-600 hover:text-amber-700 px-2 py-1 rounded-lg hover:bg-amber-50">+ Add Row</button>
-      </div>
-      {items.length === 0 && <p className="text-xs text-stone-400 italic">No data yet. Click "Add Row" to start.</p>}
-      {items.map((item, i) => (
-        <div key={i} className="flex items-center gap-2">
-          <input value={item.label} onChange={(e) => { const u = [...items]; u[i] = {...u[i], label: e.target.value}; onChange(u); }} placeholder="Property name" className="flex-1 px-3 py-2.5 bg-white border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-200" />
-          <input value={item.value} onChange={(e) => { const u = [...items]; u[i] = {...u[i], value: e.target.value}; onChange(u); }} placeholder="Value" className="flex-1 px-3 py-2.5 bg-white border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-200" />
-          <button type="button" onClick={() => onChange(items.filter((_, idx) => idx !== i))} className="p-2 rounded-lg text-red-400 hover:text-red-600 hover:bg-red-50 transition-colors">
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
-          </button>
-        </div>
-      ))}
-    </div>
-  );
+const newItem = (): ProductItem => ({ id: Math.random().toString(36).slice(2, 10), name: "", image: "", tdsUrl: "", tdsName: "" });
+
+async function upload(file: File, kind: "image" | "document") {
+  const fd = new FormData();
+  fd.append("file", file);
+  fd.append("kind", kind);
+  const res = await fetch("/api/storage-upload", { method: "POST", body: fd });
+  const data = await res.json();
+  if (!res.ok || !data.url) throw new Error(data.error || "Upload failed");
+  return data as { url: string; name: string };
+}
+
+function Spinner({ className = "w-4 h-4" }: { className?: string }) {
+  return <span className={`${className} border-2 border-amber-500 border-t-transparent rounded-full animate-spin inline-block`} />;
 }
 
 export default function ProductForm({ productId, onSaved, onCancel }: Props) {
   const { products, addProduct, updateProduct } = useAdmin();
-  const [step, setStep] = useState(0);
-  const [saving, setSaving] = useState(false);
-  const [uploading, setUploading] = useState(false);
+  const { showToast } = useToast();
 
+  const [substrate, setSubstrate] = useState<ProductDoc["substrate"]>("wood");
+  const [banner, setBanner] = useState("");
   const [name, setName] = useState("");
-  const [substrate, setSubstrate] = useState<"wood"|"metal"|"glass"|"dyestuff"|"auxiliaries"|"paint-removers">("wood");
-  const [chemistry, setChemistry] = useState("Polyurethane");
-  const [icon, setIcon] = useState("🎨");
-  const [image, setImage] = useState("");
-  const [imageFront, setImageFront] = useState("");
-  const [imageBack, setImageBack] = useState("");
   const [description, setDescription] = useState("");
-  const [finishes, setFinishes] = useState("");
-  const [fullDescription, setFullDescription] = useState("");
-  const [features, setFeatures] = useState("");
-  const [applications, setApplications] = useState("");
-  const [recommendedUse, setRecommendedUse] = useState("");
-  const [applicationGuidelines, setApplicationGuidelines] = useState("");
-  const [inCanProperties, setInCanProperties] = useState<TechProp[]>([]);
-  const [applicationProperties, setApplicationProperties] = useState<TechProp[]>([]);
-  const [filmProperties, setFilmProperties] = useState<TechProp[]>([]);
-  const [delivery, setDelivery] = useState<TechProp[]>([]);
-  const [gallery, setGallery] = useState<{ url: string; name: string }[]>([]);
-  const [galleryUploading, setGalleryUploading] = useState(false);
-  const [galleryProgress, setGalleryProgress] = useState({ current: 0, total: 0 });
-  const [pdfUrl, setPdfUrl] = useState("");
-  const [pdfName, setPdfName] = useState("");
-  const [pdfUploading, setPdfUploading] = useState(false);
-  const [tdsUrl, setTdsUrl] = useState("");
-  const [tdsName, setTdsName] = useState("");
-  const [tdsUploading, setTdsUploading] = useState(false);
+  const [sectionTitle, setSectionTitle] = useState("");
+  const [items, setItems] = useState<ProductItem[]>([]);
+  const [busy, setBusy] = useState<Record<string, boolean>>({});
+  const [saving, setSaving] = useState(false);
 
-  // Load existing product data for editing
   useEffect(() => {
-    if (productId) {
-      const p = products.find(pr => pr.id === productId);
-      if (p) {
-        setName(p.name); setSubstrate(p.substrate); setChemistry(p.chemistry);
-        setIcon(p.icon); setImage(p.image || ""); setImageFront((p as any).imageFront || ""); setImageBack((p as any).imageBack || ""); setDescription(p.description);
-        setFinishes((p.finishes || []).join(", ")); setFullDescription(p.fullDescription);
-        setFeatures((p.features || []).join("\n")); setApplications((p.applications || []).join("\n"));
-        setRecommendedUse(p.recommendedUse || ""); setApplicationGuidelines(p.applicationGuidelines || "");
-        setInCanProperties(p.inCanProperties || []); setApplicationProperties(p.applicationProperties || []);
-        setFilmProperties(p.filmProperties || []); setDelivery(p.delivery || []);
-        setGallery((p as any).gallery || []);
-        setPdfUrl((p as any).pdfUrl || ""); setPdfName((p as any).pdfName || "");
-        setTdsUrl((p as any).tdsUrl || ""); setTdsName((p as any).tdsName || "");
-      }
-    }
+    if (!productId) return;
+    const p = products.find((x) => x.id === productId);
+    if (!p) return;
+    setSubstrate(p.substrate);
+    setBanner(p.banner || p.image || "");
+    setName(p.name || "");
+    setDescription(p.description || "");
+    setSectionTitle(p.sectionTitle || "");
+    setItems(p.items?.length ? p.items : []);
   }, [productId, products]);
 
-  const handleImageUpload = async (file: File, target: "main" | "front" | "back" = "main") => {
-    setUploading(true);
+  const uploading = Object.values(busy).some(Boolean);
+
+  const runUpload = async (key: string, file: File, kind: "image" | "document", apply: (r: { url: string; name: string }) => void) => {
+    setBusy((b) => ({ ...b, [key]: true }));
     try {
-      const fd = new FormData();
-      fd.append("file", file);
-      fd.append("folder", "kmopl-products");
-      const res = await fetch("/api/upload", { method: "POST", body: fd });
-      const data = await res.json();
-      if (data.url) {
-        if (target === "main") setImage(data.url);
-        else if (target === "front") setImageFront(data.url);
-        else if (target === "back") setImageBack(data.url);
-      } else alert("Upload failed: " + (data.error || "Unknown error"));
-    } catch { alert("Upload failed"); }
-    finally { setUploading(false); }
+      apply(await upload(file, kind));
+    } catch (err) {
+      showToast(err instanceof Error ? err.message : "Upload failed", "error");
+    } finally {
+      setBusy((b) => ({ ...b, [key]: false }));
+    }
   };
 
-  const handlePdfUpload = async (file: File) => {
-    if (file.type !== "application/pdf") { alert("Only PDF files are allowed"); return; }
-    if (file.size > 5 * 1024 * 1024) { alert("PDF size must not exceed 5 MB"); return; }
-    setPdfUploading(true);
-    try {
-      const fd = new FormData();
-      fd.append("file", file);
-      fd.append("folder", "kmopl-product-pdfs");
-      const res = await fetch("/api/upload-product-pdf", { method: "POST", body: fd });
-      const data = await res.json();
-      if (data.url) {
-        setPdfUrl(data.url);
-        setPdfName(file.name);
-      } else alert("PDF upload failed: " + (data.error || "Unknown error"));
-    } catch { alert("PDF upload failed"); }
-    finally { setPdfUploading(false); }
-  };
+  const patchItem = (id: string, patch: Partial<ProductItem>) =>
+    setItems((list) => list.map((i) => (i.id === id ? { ...i, ...patch } : i)));
 
-  const handleTdsUpload = async (file: File) => {
-    const allowedTypes = ["application/pdf", "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "application/msword"];
-    if (!allowedTypes.includes(file.type)) { alert("Only PDF and DOCX files are allowed"); return; }
-    if (file.size > 5 * 1024 * 1024) { alert("TDS file size must not exceed 5 MB"); return; }
-    setTdsUploading(true);
-    try {
-      const fd = new FormData();
-      fd.append("file", file);
-      fd.append("folder", "kmopl-tds-files");
-      const res = await fetch("/api/upload-product-pdf", { method: "POST", body: fd });
-      const data = await res.json();
-      if (data.url) {
-        setTdsUrl(data.url);
-        setTdsName(file.name);
-      } else alert("TDS upload failed: " + (data.error || "Unknown error"));
-    } catch { alert("TDS upload failed"); }
-    finally { setTdsUploading(false); }
-  };
+  const moveItem = (index: number, dir: -1 | 1) =>
+    setItems((list) => {
+      const next = [...list];
+      const target = index + dir;
+      if (target < 0 || target >= next.length) return list;
+      [next[index], next[target]] = [next[target], next[index]];
+      return next;
+    });
 
   const handleSave = async () => {
+    if (!name.trim()) return showToast("Please enter a heading", "error");
+    if (items.some((i) => !i.name.trim())) return showToast("Every product needs a name (or remove the empty one)", "error");
     setSaving(true);
     try {
-      const productData = {
-        name, substrate, chemistry, icon, image, imageFront, imageBack, description,
-        fullDescription,
-        features: features.split("\n").map(s => s.trim()).filter(Boolean),
-        applications: applications.split("\n").map(s => s.trim()).filter(Boolean),
-        finishes: finishes.split(",").map(s => s.trim()).filter(Boolean),
-        recommendedUse, applicationGuidelines,
-        inCanProperties: inCanProperties.filter(p => p.label && p.value),
-        applicationProperties: applicationProperties.filter(p => p.label && p.value),
-        filmProperties: filmProperties.filter(p => p.label && p.value),
-        delivery: delivery.filter(p => p.label && p.value),
-        gallery,
-        pdfUrl,
-        pdfName,
-        tdsUrl,
-        tdsName,
-        active: true,
-      };
-      if (productId) await updateProduct(productId, productData);
-      else await addProduct(productData as Omit<ProductDoc, "id">);
+      const payload = { substrate, banner, name, description, sectionTitle, items };
+      if (productId) await updateProduct(productId, payload);
+      else await addProduct(payload);
+      showToast(productId ? "Product updated" : "Product created", "success");
       onSaved();
     } catch (err) {
-      alert(`Error: ${err instanceof Error ? err.message : "Failed to save"}`);
-    } finally { setSaving(false); }
+      showToast(err instanceof Error ? err.message : "Save failed", "error");
+    } finally {
+      setSaving(false);
+    }
   };
 
+  const heading = splitHeading(name || "1K Acrylic Coatings for Wood");
+
   return (
-    <div className="max-w-3xl mx-auto">
-      {/* Back button */}
-      <button onClick={onCancel} className="flex items-center gap-2 text-sm text-stone-500 hover:text-stone-700 mb-6 transition-colors">
+    <div className="max-w-4xl">
+      <button onClick={onCancel} className="flex items-center gap-2 text-sm text-stone-500 hover:text-stone-800 mb-6 transition-colors">
         <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" /></svg>
         Back to Products
       </button>
 
-      {/* Step indicator */}
-      <div className="flex items-center gap-2 mb-8">
-        {STEPS.map((s, i) => (
-          <button key={s.key} onClick={() => setStep(i)} className="flex-1 group">
-            <div className={`flex items-center gap-2 px-4 py-3 rounded-xl border transition-all ${
-              step === i ? "bg-stone-900 text-white border-stone-900 shadow-md" :
-              step > i ? "bg-emerald-50 text-emerald-700 border-emerald-200" :
-              "bg-white text-stone-400 border-stone-200 hover:border-stone-300"
-            }`}>
-              <span className={`w-6 h-6 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
-                step === i ? "bg-white text-stone-900" :
-                step > i ? "bg-emerald-500 text-white" :
-                "bg-stone-100 text-stone-500"
-              }`}>
-                {step > i ? "✓" : s.icon}
-              </span>
-              <span className="text-xs font-semibold hidden sm:block">{s.label}</span>
-            </div>
-          </button>
-        ))}
-      </div>
-
-      {/* Form content */}
-      <div className="bg-white rounded-2xl border border-stone-200 shadow-sm p-6 sm:p-8 mb-6">
-        {/* STEP 1: Basic Info */}
-        {step === 0 && (
-          <div className="space-y-5">
-            <h3 className="text-lg font-bold text-stone-800 mb-1">Basic Information</h3>
-            <p className="text-sm text-stone-400 mb-6">Product name, type, and image</p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="text-xs font-semibold text-stone-600 mb-1.5 block">Product Name *</label>
-                <input value={name} onChange={(e) => setName(e.target.value)} className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-200 focus:bg-white transition-all" placeholder="e.g. PU Coatings for Wood" />
-              </div>
-              <div>
-                <label className="text-xs font-semibold text-stone-600 mb-1.5 block">Chemistry *</label>
-                <select value={chemistry} onChange={(e) => setChemistry(e.target.value)} className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-200">
-                  {CHEMISTRIES.map(c => <option key={c} value={c}>{c}</option>)}
-                </select>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-1">
-              <div>
-                <label className="text-xs font-semibold text-stone-600 mb-1.5 block">Substrate *</label>
-                <div className="flex gap-4">
-                  {SUBSTRATES.map(s => (
-                    <button key={s} type="button" onClick={() => setSubstrate(s)}
-                      className={`flex-1 px-6 py-2 rounded-xl text-sm font-semibold capitalize transition-all border ${
-                        substrate === s ? "bg-stone-900 text-white border-stone-900" : "bg-stone-50 text-stone-600 border-stone-200 hover:border-stone-300"
-                      }`}>{s}</button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Image upload */}
-            <div>
-              <label className="text-xs font-semibold text-stone-600 mb-1.5 block">Product Image (Main)</label>
-              <div className="flex items-center gap-4">
-                <label className="flex items-center gap-2 px-5 py-3 bg-stone-50 border-2 border-dashed border-stone-300 rounded-xl text-sm font-medium text-stone-600 hover:border-amber-400 hover:bg-amber-50 cursor-pointer transition-all">
-                  <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>
-                  {uploading ? "Uploading..." : "Choose Image"}
-                  <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleImageUpload(f, "main"); }} />
-                </label>
-                {image && (
-                  <div className="relative">
-                    <img src={image} alt="preview" className="w-14 h-14 rounded-xl object-cover border-2 border-stone-200 shadow-sm" />
-                    <button type="button" onClick={() => setImage("")} className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600 transition-colors shadow-sm">×</button>
-                  </div>
-                )}
-                {uploading && <div className="w-14 h-14 rounded-xl bg-stone-100 border-2 border-stone-200 flex items-center justify-center"><div className="w-5 h-5 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" /></div>}
-              </div>
-            </div>
-
-            {/* Front & Back images */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="text-xs font-semibold text-stone-600 mb-1.5 block">Front Image</label>
-                <div className="flex items-center gap-3">
-                  <label className="flex items-center gap-2 px-4 py-2.5 bg-stone-50 border-2 border-dashed border-stone-300 rounded-xl text-xs font-medium text-stone-600 hover:border-emerald-400 hover:bg-emerald-50 cursor-pointer transition-all">
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>
-                    Upload Front
-                    <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleImageUpload(f, "front"); }} />
-                  </label>
-                  {imageFront && (
-                    <div className="relative">
-                      <img src={imageFront} alt="Front" className="w-12 h-12 rounded-lg object-cover border border-stone-200" />
-                      <button type="button" onClick={() => setImageFront("")} className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600 transition-colors shadow-sm">×</button>
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div>
-                <label className="text-xs font-semibold text-stone-600 mb-1.5 block">Back Image</label>
-                <div className="flex items-center gap-3">
-                  <label className="flex items-center gap-2 px-4 py-2.5 bg-stone-50 border-2 border-dashed border-stone-300 rounded-xl text-xs font-medium text-stone-600 hover:border-blue-400 hover:bg-blue-50 cursor-pointer transition-all">
-                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" /></svg>
-                    Upload Back
-                    <input type="file" accept="image/*" className="hidden" onChange={(e) => { const f = e.target.files?.[0]; if (f) handleImageUpload(f, "back"); }} />
-                  </label>
-                  {imageBack && (
-                    <div className="relative">
-                      <img src={imageBack} alt="Back" className="w-12 h-12 rounded-lg object-cover border border-stone-200" />
-                      <button type="button" onClick={() => setImageBack("")} className="absolute -top-1.5 -right-1.5 w-5 h-5 bg-red-500 text-white rounded-full flex items-center justify-center text-xs hover:bg-red-600 transition-colors shadow-sm">×</button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <label className="text-xs font-semibold text-stone-600 mb-1.5 block">Short Description</label>
-              <textarea value={description} onChange={(e) => setDescription(e.target.value)} className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm resize-none h-20 focus:outline-none focus:ring-2 focus:ring-amber-200" placeholder="Brief 1-2 line description of the product" />
-            </div>
-
-            <div>
-              <label className="text-xs font-semibold text-stone-600 mb-1.5 block">Finishes (comma separated)</label>
-              <input value={finishes} onChange={(e) => setFinishes(e.target.value)} className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-200" placeholder="Matte, Satin, Gloss, High Gloss" />
-            </div>
-
-            {/* PDF & TDS Upload */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div>
-                <label className="text-xs font-semibold text-stone-600 mb-1.5 block">Product PDF (max 5 MB)</label>
-                <div className="flex items-center gap-3 flex-wrap">
-                  <label className={`flex items-center gap-2 px-4 py-2.5 border-2 border-dashed rounded-xl text-xs font-medium cursor-pointer transition-all ${pdfUploading ? "opacity-50 pointer-events-none" : "hover:border-amber-400 hover:bg-amber-50"} border-stone-300 bg-stone-50 text-stone-600`}>
-                    <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                    </svg>
-                    {pdfUploading ? "Uploading..." : pdfUrl ? "Replace PDF" : "Upload PDF"}
-                    <input type="file" accept="application/pdf" className="hidden"
-                      onChange={(e) => { const f = e.target.files?.[0]; if (f) handlePdfUpload(f); e.currentTarget.value = ""; }} />
-                  </label>
-
-                  {pdfUrl && (
-                    <div className="flex items-center gap-2 px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl">
-                      <svg className="w-4 h-4 text-red-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                      </svg>
-                      <div className="min-w-0">
-                        <p className="text-[11px] font-semibold text-stone-700 truncate max-w-[120px]">{pdfName || "Uploaded PDF"}</p>
-                        <a href={pdfUrl} target="_blank" rel="noopener noreferrer" className="text-[10px] text-stone-500 hover:underline">Preview ↗</a>
-                      </div>
-                      <button type="button" onClick={() => { setPdfUrl(""); setPdfName(""); }}
-                        className="w-4 h-4 bg-red-500 text-white rounded-full flex items-center justify-center text-[10px] hover:bg-red-600 transition-colors shrink-0">×</button>
-                    </div>
-                  )}
-                </div>
-              </div>
-
-              <div>
-                <label className="text-xs font-semibold text-stone-600 mb-1.5 block">TDS File (PDF/DOCX, max 5 MB)</label>
-                <div className="flex items-center gap-3 flex-wrap">
-                  <label className={`flex items-center gap-2 px-4 py-2.5 border-2 border-dashed rounded-xl text-xs font-medium cursor-pointer transition-all ${tdsUploading ? "opacity-50 pointer-events-none" : "hover:border-blue-400 hover:bg-blue-50"} border-stone-300 bg-stone-50 text-stone-600`}>
-                    <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                    </svg>
-                    {tdsUploading ? "Uploading..." : tdsUrl ? "Replace TDS" : "Upload TDS"}
-                    <input type="file" accept="application/pdf,.docx,.doc" className="hidden"
-                      onChange={(e) => { const f = e.target.files?.[0]; if (f) handleTdsUpload(f); e.currentTarget.value = ""; }} />
-                  </label>
-
-                  {tdsUrl && (
-                    <div className="flex items-center gap-2 px-3 py-2 bg-stone-50 border border-stone-200 rounded-xl">
-                      <svg className="w-4 h-4 text-blue-500 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
-                      </svg>
-                      <div className="min-w-0">
-                        <p className="text-[11px] font-semibold text-stone-700 truncate max-w-[120px]">{tdsName || "Uploaded TDS"}</p>
-                        <a href={tdsUrl} target="_blank" rel="noopener noreferrer" className="text-[10px] text-stone-500 hover:underline">Preview ↗</a>
-                      </div>
-                      <button type="button" onClick={() => { setTdsUrl(""); setTdsName(""); }}
-                        className="w-4 h-4 bg-red-500 text-white rounded-full flex items-center justify-center text-[10px] hover:bg-red-600 transition-colors shrink-0">×</button>
-                    </div>
-                  )}
-                </div>
-              </div>
-            </div>
+      <div className="space-y-6">
+        {/* Category */}
+        <section className="bg-white rounded-2xl border border-stone-200 shadow-sm p-6 sm:p-8">
+          <h3 className="text-lg font-bold text-stone-800 mb-1">Category</h3>
+          <p className="text-sm text-stone-400 mb-5">Which products page this appears on</p>
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+            {CATEGORY_OPTIONS.map((c) => (
+              <button key={c.value} type="button" onClick={() => setSubstrate(c.value)}
+                className={`px-4 py-2.5 rounded-xl text-sm font-semibold transition-all border ${
+                  substrate === c.value ? "bg-stone-900 text-white border-stone-900" : "bg-stone-50 text-stone-600 border-stone-200 hover:border-stone-300"
+                }`}>{c.label}</button>
+            ))}
           </div>
-        )}
+        </section>
 
-        {/* STEP 2: Details */}
-        {step === 1 && (
-          <div className="space-y-5">
-            <h3 className="text-lg font-bold text-stone-800 mb-1">Description & Features</h3>
-            <p className="text-sm text-stone-400 mb-6">Full description, features list, and application guidelines</p>
-
-            <div>
-              <label className="text-xs font-semibold text-stone-600 mb-1.5 block">Full Description</label>
-              <textarea value={fullDescription} onChange={(e) => setFullDescription(e.target.value)} className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm resize-none h-32 focus:outline-none focus:ring-2 focus:ring-amber-200" placeholder="Detailed product description paragraph..." />
-            </div>
-
-            <div>
-              <label className="text-xs font-semibold text-stone-600 mb-1.5 block">Key Features (one per line)</label>
-              <textarea value={features} onChange={(e) => setFeatures(e.target.value)} className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm resize-none h-32 focus:outline-none focus:ring-2 focus:ring-amber-200" placeholder="Fast drying (touch dry in 15-20 minutes)&#10;Excellent clarity and transparency&#10;Easy sanding between coats" />
-            </div>
-
-            <div>
-              <label className="text-xs font-semibold text-stone-600 mb-1.5 block">Applications (one per line)</label>
-              <textarea value={applications} onChange={(e) => setApplications(e.target.value)} className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm resize-none h-24 focus:outline-none focus:ring-2 focus:ring-amber-200" placeholder="Wooden furniture&#10;Kitchen cabinets&#10;Office furniture" />
-            </div>
-
-            <div>
-              <label className="text-xs font-semibold text-stone-600 mb-1.5 block">Recommended Use</label>
-              <textarea value={recommendedUse} onChange={(e) => setRecommendedUse(e.target.value)} className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm resize-none h-20 focus:outline-none focus:ring-2 focus:ring-amber-200" placeholder="High performance coating recommended for..." />
-            </div>
-
-            <div>
-              <label className="text-xs font-semibold text-stone-600 mb-1.5 block">Application Guidelines</label>
-              <textarea value={applicationGuidelines} onChange={(e) => setApplicationGuidelines(e.target.value)} className="w-full px-4 py-3 bg-stone-50 border border-stone-200 rounded-xl text-sm resize-none h-20 focus:outline-none focus:ring-2 focus:ring-amber-200" placeholder="Surface preparation and application instructions..." />
-            </div>
+        {/* Banner + heading + description */}
+        <section className="bg-white rounded-2xl border border-stone-200 shadow-sm p-6 sm:p-8 space-y-5">
+          <div>
+            <h3 className="text-lg font-bold text-stone-800 mb-1">Banner &amp; Heading</h3>
+            <p className="text-sm text-stone-400">The top section of the product page</p>
           </div>
-        )}
 
-        {/* STEP 3: Technical Data */}
-        {step === 2 && (
-          <div className="space-y-8">
-            <div>
-              <h3 className="text-lg font-bold text-stone-800 mb-1">Technical Data Sheet</h3>
-              <p className="text-sm text-stone-400 mb-6">Add lab-tested specifications (optional)</p>
-            </div>
-            <TechPropsEditor label="In Can Properties" items={inCanProperties} onChange={setInCanProperties} />
-            <TechPropsEditor label="Application Properties" items={applicationProperties} onChange={setApplicationProperties} />
-            <TechPropsEditor label="Film Properties" items={filmProperties} onChange={setFilmProperties} />
-            <TechPropsEditor label="Delivery Information" items={delivery} onChange={setDelivery} />
-          </div>
-        )}
-
-        {/* STEP 4: Gallery */}
-        {step === 3 && (
-          <div className="space-y-5">
-            <div>
-              <h3 className="text-lg font-bold text-stone-800 mb-1">Product Gallery</h3>
-              <p className="text-sm text-stone-400 mb-6">Upload up to 30 product images with names (drag & drop or click)</p>
-            </div>
-
-            {/* Upload area */}
-            {gallery.length < 30 && (
-              <label className={`flex flex-col items-center justify-center gap-3 p-8 border-2 border-dashed rounded-2xl transition-all ${galleryUploading ? "border-amber-400 bg-amber-50/30 pointer-events-none" : "border-stone-300 hover:border-amber-400 hover:bg-amber-50/30 cursor-pointer"}`}>
-                {galleryUploading ? (
+          <div>
+            <label className={LABEL}>Banner Image</label>
+            {banner ? (
+              <div className="relative rounded-xl overflow-hidden border border-stone-200 aspect-3/1 bg-stone-100">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={banner} alt="Banner" className="w-full h-full object-cover" />
+                <div className="absolute top-2 right-2 flex gap-2">
+                  <label className="px-3 py-1.5 bg-white/90 rounded-lg text-xs font-semibold text-stone-700 shadow cursor-pointer hover:bg-white">
+                    {busy.banner ? <Spinner className="w-3.5 h-3.5" /> : "Replace"}
+                    <input type="file" accept="image/*" className="hidden" disabled={busy.banner}
+                      onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) runUpload("banner", f, "image", (r) => setBanner(r.url)); }} />
+                  </label>
+                  <button type="button" onClick={() => setBanner("")} className="px-3 py-1.5 bg-white/90 rounded-lg text-xs font-semibold text-red-600 shadow hover:bg-white">Remove</button>
+                </div>
+              </div>
+            ) : (
+              <label className="flex flex-col items-center justify-center gap-2 aspect-3/1 bg-stone-50 border-2 border-dashed border-stone-300 rounded-xl text-sm font-medium text-stone-500 hover:border-amber-400 hover:bg-amber-50 cursor-pointer transition-all">
+                {busy.banner ? <Spinner className="w-6 h-6" /> : (
                   <>
-                    <div className="w-10 h-10 border-3 border-amber-500 border-t-transparent rounded-full animate-spin" />
-                    <span className="text-sm font-semibold text-amber-700">Uploading {galleryProgress.current}/{galleryProgress.total}</span>
-                    {/* Progress bar */}
-                    <div className="w-48 h-2 bg-stone-200 rounded-full overflow-hidden">
-                      <div className="h-full bg-amber-500 rounded-full transition-all duration-300" style={{ width: `${galleryProgress.total > 0 ? (galleryProgress.current / galleryProgress.total) * 100 : 0}%` }} />
-                    </div>
-                    <span className="text-xs text-stone-400">Please wait...</span>
-                  </>
-                ) : (
-                  <>
-                    <svg className="w-8 h-8 text-stone-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
-                    </svg>
-                    <span className="text-sm font-medium text-stone-500">Click to upload images (multiple allowed)</span>
-                    <span className="text-xs text-stone-400">{gallery.length}/30 images uploaded</span>
+                    <svg className="w-7 h-7 text-stone-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v13.5a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V9.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></svg>
+                    Click to upload banner (wide image, max 10 MB)
                   </>
                 )}
-                <input type="file" accept="image/*" multiple className="hidden" disabled={galleryUploading} onChange={async (e) => {
-                  const files = e.target.files;
-                  if (!files || files.length === 0) return;
-                  const totalToUpload = Math.min(files.length, 30 - gallery.length);
-                  setGalleryUploading(true);
-                  setGalleryProgress({ current: 0, total: totalToUpload });
-                  const newImages: { url: string; name: string }[] = [];
-                  for (let i = 0; i < totalToUpload; i++) {
-                    setGalleryProgress({ current: i + 1, total: totalToUpload });
-                    try {
-                      const fd = new FormData();
-                      fd.append("file", files[i]);
-                      fd.append("folder", "kmopl-products/gallery");
-                      const res = await fetch("/api/upload", { method: "POST", body: fd });
-                      const data = await res.json();
-                      if (data.url) newImages.push({ url: data.url, name: files[i].name.replace(/\.[^/.]+$/, "") });
-                    } catch {}
-                  }
-                  setGallery([...gallery, ...newImages]);
-                  setGalleryUploading(false);
-                  setGalleryProgress({ current: 0, total: 0 });
-                }} />
+                <input type="file" accept="image/*" className="hidden" disabled={busy.banner}
+                  onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) runUpload("banner", f, "image", (r) => setBanner(r.url)); }} />
               </label>
             )}
-
-            {/* Gallery preview grid */}
-            {gallery.length > 0 && (
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                {gallery.map((img, i) => (
-                  <div key={i} className="relative group rounded-xl overflow-hidden border border-stone-200 bg-stone-50">
-                    <img src={img.url} alt={img.name} className="w-full h-28 object-cover" />
-                    {/* Remove button */}
-                    <button type="button" onClick={() => setGallery(gallery.filter((_, idx) => idx !== i))}
-                      className="absolute top-2 right-2 w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center text-xs opacity-0 group-hover:opacity-100 transition-opacity shadow-md">
-                      ✕
-                    </button>
-                    {/* Name input */}
-                    <div className="p-2">
-                      <input
-                        value={img.name}
-                        onChange={(e) => { const updated = [...gallery]; updated[i] = { ...updated[i], name: e.target.value }; setGallery(updated); }}
-                        placeholder="Image name"
-                        className="w-full px-2 py-1.5 text-xs border border-stone-200 rounded-lg bg-white focus:outline-none focus:ring-1 focus:ring-amber-300"
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-
-            {gallery.length === 0 && (
-              <p className="text-center text-sm text-stone-400 py-4">No gallery images uploaded yet.</p>
-            )}
           </div>
-        )}
+
+          <div>
+            <label className={LABEL}>Heading *</label>
+            <input value={name} onChange={(e) => setName(e.target.value)} className={INPUT} placeholder="e.g. 1K Acrylic Coatings for Wood" />
+            <p className="text-[11px] text-stone-400 mt-1.5">
+              Shows as <span className="font-bold text-stone-700 uppercase">{heading.main}</span>
+              {heading.highlight && <> <span className="font-bold text-orange-600 uppercase">{heading.highlight}</span></>}
+              {" "}— anything from &ldquo;for …&rdquo; is shown in orange.
+            </p>
+          </div>
+
+          <div>
+            <label className={LABEL}>Description</label>
+            <textarea value={description} onChange={(e) => setDescription(e.target.value)} rows={4} className={`${INPUT} resize-y`}
+              placeholder="Our 1K Acrylic Coatings are advanced, single-component solutions…" />
+          </div>
+        </section>
+
+        {/* Products */}
+        <section className="bg-white rounded-2xl border border-stone-200 shadow-sm p-6 sm:p-8 space-y-5">
+          <div>
+            <h3 className="text-lg font-bold text-stone-800 mb-1">Products</h3>
+            <p className="text-sm text-stone-400">Each product shows as a card with its image, name and a Request TDS button</p>
+          </div>
+
+          <div>
+            <label className={LABEL}>Section Heading</label>
+            <div className="flex items-center gap-2">
+              <span className="text-sm font-bold text-stone-500 shrink-0">OUR</span>
+              <input value={sectionTitle} onChange={(e) => setSectionTitle(e.target.value)} className={INPUT}
+                placeholder={sectionTitleFor({ name: name || "1K Acrylic Coatings for Wood" })} />
+            </div>
+            <p className="text-[11px] text-stone-400 mt-1.5">Leave empty to use the heading without its &ldquo;for …&rdquo; part.</p>
+          </div>
+
+          {items.length === 0 && (
+            <p className="text-center text-sm text-stone-400 py-6 bg-stone-50 rounded-xl border border-dashed border-stone-200">No products yet. Click &ldquo;+ Add Product&rdquo; below.</p>
+          )}
+
+          <div className="space-y-3">
+            {items.map((item, idx) => (
+              <div key={item.id} className="flex flex-col sm:flex-row gap-4 p-4 rounded-xl border border-stone-200 bg-stone-50/60">
+                {/* Image */}
+                <label className="relative shrink-0 w-full sm:w-36 aspect-4/3 rounded-lg overflow-hidden border-2 border-dashed border-stone-300 bg-white flex items-center justify-center cursor-pointer hover:border-amber-400 transition-colors">
+                  {busy[`img-${item.id}`] ? <Spinner className="w-5 h-5" /> : item.image ? (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={item.image} alt={item.name} className="absolute inset-0 w-full h-full object-cover" />
+                  ) : (
+                    <span className="text-[11px] font-medium text-stone-400 text-center px-2">+ Image</span>
+                  )}
+                  <input type="file" accept="image/*" className="hidden"
+                    onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) runUpload(`img-${item.id}`, f, "image", (r) => patchItem(item.id, { image: r.url })); }} />
+                </label>
+
+                <div className="flex-1 min-w-0 space-y-3">
+                  <div>
+                    <label className={LABEL}>Product Name *</label>
+                    <textarea value={item.name} rows={2} onChange={(e) => patchItem(item.id, { name: e.target.value })} className={`${INPUT} resize-none`}
+                      placeholder={"1K Acrylic\nAcrylic Sanding Sealer"} />
+                    <p className="text-[11px] text-stone-400 mt-1">Press Enter to put part of the name on a second line.</p>
+                  </div>
+
+                  <div className="flex flex-wrap items-center gap-2">
+                    <label className="inline-flex items-center gap-2 px-3 py-2 bg-white border border-stone-200 rounded-lg text-xs font-semibold text-stone-600 hover:border-amber-400 cursor-pointer transition-colors">
+                      {busy[`tds-${item.id}`] ? <Spinner className="w-3.5 h-3.5" /> : (
+                        <svg className="w-4 h-4 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.8}><path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" /></svg>
+                      )}
+                      {item.tdsUrl ? "Replace TDS" : "Upload TDS (PDF / Word)"}
+                      <input type="file" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document" className="hidden"
+                        onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) runUpload(`tds-${item.id}`, f, "document", (r) => patchItem(item.id, { tdsUrl: r.url, tdsName: r.name })); }} />
+                    </label>
+                    {item.tdsUrl && (
+                      <span className="inline-flex items-center gap-2 text-xs text-emerald-700 bg-emerald-50 border border-emerald-200 rounded-lg px-2.5 py-1.5 max-w-full">
+                        <a href={item.tdsUrl} target="_blank" rel="noopener noreferrer" className="truncate hover:underline">{item.tdsName || "TDS file"}</a>
+                        <button type="button" onClick={() => patchItem(item.id, { tdsUrl: "", tdsName: "" })} className="text-emerald-700 hover:text-red-600" title="Remove TDS">✕</button>
+                      </span>
+                    )}
+                  </div>
+                </div>
+
+                <div className="flex sm:flex-col gap-1 justify-end sm:justify-start">
+                  <button type="button" onClick={() => moveItem(idx, -1)} disabled={idx === 0} className="p-2 rounded-lg text-stone-400 hover:bg-white hover:text-stone-700 disabled:opacity-30" title="Move up">↑</button>
+                  <button type="button" onClick={() => moveItem(idx, 1)} disabled={idx === items.length - 1} className="p-2 rounded-lg text-stone-400 hover:bg-white hover:text-stone-700 disabled:opacity-30" title="Move down">↓</button>
+                  <button type="button" onClick={() => setItems((l) => l.filter((i) => i.id !== item.id))} className="p-2 rounded-lg text-stone-400 hover:bg-red-50 hover:text-red-600" title="Remove">
+                    <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <button type="button" onClick={() => setItems((l) => [...l, newItem()])}
+            className="w-full flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-amber-300 rounded-xl text-sm font-semibold text-amber-700 hover:bg-amber-50 transition-colors">
+            + Add Product
+          </button>
+
+          <p className="text-[11px] text-stone-400">
+            The &ldquo;Request TDS for All&rdquo; bar and the four feature boxes are added to the page automatically.
+          </p>
+        </section>
       </div>
 
-      {/* Navigation buttons */}
-      <div className="flex items-center justify-between">
-        <div>
-          {step > 0 && (
-            <button onClick={() => setStep(step - 1)} className="flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-stone-600 hover:text-stone-800 border border-stone-200 bg-white rounded-xl hover:bg-stone-50 transition-all">
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" /></svg>
-              Previous
-            </button>
-          )}
-        </div>
-        <div className="flex items-center gap-3">
-          <button onClick={onCancel} className="px-5 py-2.5 text-sm font-semibold text-stone-500 hover:text-stone-700 transition-colors">Cancel</button>
-          {step < 3 ? (
-            <button onClick={() => setStep(step + 1)} className="flex items-center gap-2 px-6 py-2.5 bg-stone-800 text-white rounded-xl text-sm font-semibold hover:bg-stone-700 transition-colors shadow-md">
-              Next Step
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
-            </button>
-          ) : (
-            <button onClick={handleSave} disabled={saving} className="flex items-center gap-2 px-6 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-semibold hover:bg-emerald-700 transition-colors shadow-md disabled:opacity-50">
-              {saving && <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />}
-              {productId ? "Update Product" : "Create Product"}
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M4.5 12.75l6 6 9-13.5" /></svg>
-            </button>
-          )}
-        </div>
+      <div className="flex items-center justify-end gap-3 mt-6">
+        <button onClick={onCancel} className="px-5 py-2.5 text-sm font-semibold text-stone-500 hover:text-stone-700 transition-colors">Cancel</button>
+        <button onClick={handleSave} disabled={saving || uploading}
+          className="flex items-center gap-2 px-6 py-2.5 bg-emerald-600 text-white rounded-xl text-sm font-semibold hover:bg-emerald-700 transition-colors shadow-md disabled:opacity-50">
+          {saving && <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />}
+          {uploading ? "Uploading…" : productId ? "Update Product" : "Create Product"}
+        </button>
       </div>
     </div>
   );

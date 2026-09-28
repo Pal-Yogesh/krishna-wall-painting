@@ -18,6 +18,8 @@ import {
   FileText,
   type LucideIcon,
 } from "lucide-react";
+import { useProducts } from "@/context/ProductContext";
+import { productsFor } from "@/lib/product-display";
 
 const NAVY = "#1e3a5f";
 const ORANGE = "#ea580c";
@@ -49,50 +51,19 @@ function IBeam({
 type Substrate = {
   key: string;
   label: string;
-  title: string;
-  text: string;
   color: string;
   tint: string;
   icon: LucideIcon | typeof IBeam;
-  // Replace these with your own image URLs
-  image: string;
 };
 
+// Hero badges, and the colour/icon of each Applications card (matched by name)
 const SUBSTRATES: Substrate[] = [
-  {
-    key: "metal",
-    label: "Metal",
-    title: "For Metals",
-    color: "#1d4ed8",
-    tint: "from-blue-50",
-    text: "Safely removes heavy enamels, acrylics and lacquers from steel, iron, aluminium and brass without causing corrosion or etching.",
-    icon: IBeam,
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F10.jpg?alt=media&token=942a159f-f3a9-4469-b15c-4769e0e52a38",
-  },
-  {
-    key: "plastic",
-    label: "Plastic",
-    title: "For Plastics",
-    color: "#16a34a",
-    tint: "from-green-50",
-    text: "Specially formulated to remove paint films from rigid plastics and composites without melting, warping or weakening the substrate.",
-    icon: Milk,
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F11.jpg?alt=media&token=e00f27be-1019-4641-a1c4-fdc4340a28d3",
-  },
-  {
-    key: "glass",
-    label: "Glass",
-    title: "For Glass",
-    color: "#7e22ce",
-    tint: "from-purple-50",
-    text: "Quickly dissolves overspray, dried varnishes and baked-on coatings from glass panels, mirrors and windows, leaving a clean, scratch-free finish.",
-    icon: Grid2x2,
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F8.jpg?alt=media&token=f6deae19-5a42-4f18-96ea-9b0a021a2505",
-  },
+  { key: "metal", label: "Metal", color: "#1d4ed8", tint: "from-blue-50", icon: IBeam },
+  { key: "plastic", label: "Plastic", color: "#16a34a", tint: "from-green-50", icon: Milk },
+  { key: "glass", label: "Glass", color: "#7e22ce", tint: "from-purple-50", icon: Grid2x2 },
 ];
+const FALLBACK_THEME: Substrate = { key: "other", label: "", color: NAVY, tint: "from-stone-50", icon: FlaskConical };
+const themeFor = (name: string) => SUBSTRATES.find((s) => new RegExp(s.key, "i").test(name)) ?? FALLBACK_THEME;
 
 const FEATURES = [
   {
@@ -166,6 +137,8 @@ const fadeUp = {
 };
 
 export default function PaintRemoversPage() {
+  const { products, loading } = useProducts();
+  const groups = productsFor(products, "paint-removers");
   return (
     <div className="min-h-screen bg-white">
       {/* Hero — the background image already contains the navy area and the three substrate panels */}
@@ -272,45 +245,43 @@ export default function PaintRemoversPage() {
       {/* Applications */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <SectionTitle>Applications</SectionTitle>
-        <div className="grid md:grid-cols-3 gap-5">
-          {SUBSTRATES.map((s, i) => (
-            <motion.div
-              key={s.key}
-              {...fadeUp}
-              transition={{ duration: 0.45, delay: i * 0.08 }}
-              className={`rounded-2xl border border-stone-200 bg-linear-to-b ${s.tint} to-white overflow-hidden flex flex-col shadow-sm hover:shadow-lg transition-shadow`}
-            >
-              <div className="flex items-start gap-4 p-5 sm:p-6">
-                <span
-                  className="shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-white shadow-md"
-                  style={{ background: s.color }}
-                >
-                  <s.icon className="w-6 h-6" />
-                </span>
-                <div>
-                  <h3
-                    className="text-[16px] font-extrabold uppercase tracking-wide mb-2 mt-2.5"
-                    style={{ ...FONT, color: s.color }}
-                  >
-                    {s.title}
-                  </h3>
-                  <p className="text-[13px] text-stone-600 leading-relaxed">
-                    {s.text}
-                  </p>
-                </div>
-              </div>
-              <div className="relative mt-auto h-64 sm:h-72 md:h-56">
-                <Image
-                  src={s.image}
-                  alt={s.title}
-                  fill
-                  sizes="(min-width: 768px) 33vw, 100vw"
-                  className="object-cover object-center"
-                />
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        {loading ? (
+          <div className="py-12 flex justify-center">
+            <div className="w-8 h-8 border-3 border-orange-500 border-t-transparent rounded-full animate-spin" />
+          </div>
+        ) : groups.length === 0 ? (
+          <p className="text-center text-stone-500 py-10">Products coming soon. <Link href="/contact-us" className="font-bold" style={{ color: ORANGE }}>Contact us →</Link></p>
+        ) : (
+          <div className="grid md:grid-cols-3 gap-5">
+            {groups.map((g, i) => {
+              const t = themeFor(g.name);
+              return (
+                <motion.div key={g.id} {...fadeUp} transition={{ duration: 0.45, delay: i * 0.08 }}>
+                <Link href={`/products/paint-removers/${g.id}`}
+                  className={`group rounded-2xl border border-stone-200 bg-linear-to-b ${t.tint} to-white overflow-hidden flex flex-col h-full shadow-sm hover:shadow-lg transition-shadow`}>
+                  <div className="flex items-start gap-4 p-5 sm:p-6">
+                    <span className="shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-white shadow-md" style={{ background: t.color }}>
+                      <t.icon className="w-6 h-6" />
+                    </span>
+                    <div>
+                      <h3 className="text-[16px] font-extrabold uppercase tracking-wide mb-2 mt-2.5" style={{ ...FONT, color: t.color }}>{g.name}</h3>
+                      {g.description && <p className="text-[13px] text-stone-600 leading-relaxed whitespace-pre-line">{g.description}</p>}
+                      <span className="inline-flex items-center gap-1.5 mt-3 text-[12px] font-bold" style={{ color: t.color }}>
+                        View Products <span className="transition-transform group-hover:translate-x-1">→</span>
+                      </span>
+                    </div>
+                  </div>
+                  {(g.banner || g.image) && (
+                    <div className="relative mt-auto h-64 sm:h-72 md:h-56">
+                      <Image src={g.banner || g.image} alt={g.name} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover object-center" />
+                    </div>
+                  )}
+                </Link>
+                </motion.div>
+              );
+            })}
+          </div>
+        )}
       </section>
 
       {/* Key features */}

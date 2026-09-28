@@ -1,6 +1,7 @@
 "use client";
 
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from "react";
+import type { ProductItem } from "@/context/ProductContext";
 import { db, auth } from "@/lib/firebase";
 import {
   collection, getDocs, addDoc, updateDoc, deleteDoc, doc, query, orderBy, Timestamp,
@@ -40,6 +41,9 @@ export interface EnquiryDoc {
 export interface ProductDoc {
   id: string;
   name: string;
+  banner?: string;
+  sectionTitle?: string;
+  items?: ProductItem[];
   substrate: "wood" | "metal" | "glass" | "dyestuff" | "auxiliaries" | "paint-removers";
   chemistry: string;
   description: string;
@@ -129,7 +133,7 @@ interface AdminContextType {
   products: ProductDoc[];
   productsLoading: boolean;
   fetchProducts: () => Promise<void>;
-  addProduct: (product: Omit<ProductDoc, "id">) => Promise<void>;
+  addProduct: (product: Partial<Omit<ProductDoc, "id">>) => Promise<void>;
   updateProduct: (id: string, data: Partial<ProductDoc>) => Promise<void>;
   deleteProduct: (id: string) => Promise<void>;
 
@@ -264,7 +268,7 @@ export function AdminProvider({ children }: { children: ReactNode }) {
     }
   }, []);
 
-  const addProduct = async (product: Omit<ProductDoc, "id">) => {
+  const addProduct = async (product: Partial<Omit<ProductDoc, "id">>) => {
     const res = await fetch("/api/products", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

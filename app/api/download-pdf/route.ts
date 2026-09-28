@@ -23,7 +23,8 @@ export async function GET(req: NextRequest) {
     return new NextResponse(buffer, {
       status: 200,
       headers: {
-        "Content-Type": "application/pdf",
+        // Word TDS files are served too, so keep the upstream type
+        "Content-Type": response.headers.get("content-type") || "application/pdf",
         "Content-Disposition": `attachment; filename="${safeFilename}"`,
         "Content-Length": String(buffer.byteLength),
       },

@@ -15,32 +15,29 @@ import {
   Atom,
   ArrowRight,
   ChevronRight,
+  FileText,
 } from "lucide-react";
 import Image from "next/image";
+import { useProducts, type ProductItem } from "@/context/ProductContext";
+import { dyeColor, productsFor } from "@/lib/product-display";
 
 const NAVY = "#1e3a5f";
 const ORANGE = "#ea580c";
 const BLUE = "#1d4ed8";
 const FONT = { fontFamily: "var(--font-raleway), sans-serif" };
 
-const SOLVENT_BASED = [
-  { name: "Green 4160", color: "#2e7d32" },
-  { name: "Brown 4130", color: "#7b4a12" },
-  { name: "Orange 4170", color: "#f47c20" },
-  { name: "Turquoise 4111", color: "#3fa7b5" },
-  { name: "Light Yellow 4142", color: "#f2d43a" },
-  { name: "Fire Red 4151", color: "#d9261c" },
-  { name: "Jet Black 4121", color: "#0b0b0b" },
-  { name: "Black 4120", color: "#1f1f1f" },
-];
+// Water-based groups get the blue treatment, everything else orange
+function groupTheme(name: string) {
+  return /water/i.test(name)
+    ? { icon: Droplet, iconColor: BLUE, titleColor: NAVY, subColor: BLUE, border: "border-blue-100", bg: "from-blue-50 via-white to-sky-100/70", blob: "bg-sky-200/50" }
+    : { icon: FlaskConical, iconColor: ORANGE, titleColor: ORANGE, subColor: ORANGE, border: "border-orange-100", bg: "from-orange-50 via-white to-orange-100/70", blob: "bg-orange-200/40" };
+}
 
-const WATER_BASED = [
-  { name: "Red", color: "#d62828" },
-  { name: "Blue", color: "#2f4fc4" },
-  { name: "Black", color: "#111111" },
-  { name: "Yellow", color: "#f5d731" },
-  { name: "Brown", color: "#6b4226" },
-];
+/** "Solvent Based Dyestuff Solutions" -> "Solvent Based" / "Dyestuff Solutions" */
+function splitGroupName(name: string) {
+  const m = name.match(/^(.*?)\s+(dyestuff.*)$/i);
+  return m ? { main: m[1], rest: m[2] } : { main: name, rest: "" };
+}
 
 const APPLICATIONS = [
   {
@@ -97,6 +94,8 @@ const fadeUp = {
 };
 
 export default function DyestuffPage() {
+  const { products, loading } = useProducts();
+  const groups = productsFor(products, "dyestuff");
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
@@ -174,112 +173,70 @@ export default function DyestuffPage() {
         </div>
       </section>
 
-      {/* Solvent / Water based */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
-        <div className="grid md:grid-cols-2 gap-5">
-          <motion.div
-            {...fadeUp}
-            className="relative overflow-hidden rounded-2xl border border-orange-100 bg-linear-to-br from-orange-50 via-white to-orange-100/70 p-6 sm:p-8 flex items-center gap-6"
-          >
-            <div
-              aria-hidden
-              className="absolute -right-10 -bottom-12 w-56 h-56 rounded-full bg-orange-200/40 blur-2xl"
-            />
-            <div className="relative shrink-0 w-20 h-20 rounded-full bg-white shadow-md flex items-center justify-center">
-              <FlaskConical
-                className="w-9 h-9"
-                style={{ color: ORANGE }}
-                strokeWidth={1.6}
-              />
-            </div>
-            <div className="relative">
-              <h3
-                className="text-[17px] font-extrabold uppercase tracking-wide leading-tight mb-2"
-                style={{ ...FONT, color: ORANGE }}
-              >
-                Solvent-Based
-                <br />
-                Dyestuff Solutions
-              </h3>
-              <p className="text-[13px] text-stone-600 leading-relaxed max-w-xs">
-                For applications requiring excellent solubility, colour strength
-                and consistent performance.
-              </p>
-            </div>
-          </motion.div>
-
-          <motion.div
-            {...fadeUp}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="relative overflow-hidden rounded-2xl border border-blue-100 bg-linear-to-br from-blue-50 via-white to-sky-100/70 p-6 sm:p-8 flex items-center gap-6"
-          >
-            <div
-              aria-hidden
-              className="absolute -right-10 -bottom-12 w-56 h-56 rounded-full bg-sky-200/50 blur-2xl"
-            />
-            <div className="relative shrink-0 w-20 h-20 rounded-full bg-white shadow-md flex items-center justify-center">
-              <Droplet
-                className="w-9 h-9"
-                style={{ color: BLUE }}
-                strokeWidth={1.6}
-              />
-            </div>
-            <div className="relative">
-              <h3
-                className="text-[17px] font-extrabold uppercase tracking-wide leading-tight mb-2"
-                style={{ ...FONT, color: NAVY }}
-              >
-                Water-Based
-                <br />
-                Dyestuff Solutions
-              </h3>
-              <p className="text-[13px] text-stone-600 leading-relaxed max-w-xs">
-                Reliable colour solutions designed for water-based systems and
-                diverse industrial applications.
-              </p>
-            </div>
-          </motion.div>
+      {/* Groups (managed in admin: category "Dyestuff Solutions") */}
+      {loading ? (
+        <div className="py-20 flex justify-center">
+          <div className="w-8 h-8 border-3 border-orange-500 border-t-transparent rounded-full animate-spin" />
         </div>
-      </section>
+      ) : groups.length === 0 ? (
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
+          <p className="text-stone-500">Products coming soon. Contact us for more details.</p>
+          <Link href="/contact-us" className="mt-3 inline-block text-sm font-bold" style={{ color: ORANGE }}>Contact Us →</Link>
+        </section>
+      ) : (
+        <>
+          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+            <div className="grid md:grid-cols-2 gap-5">
+              {groups.map((g, i) => {
+                const t = groupTheme(g.name);
+                const { main, rest } = splitGroupName(g.name);
+                return (
+                  <motion.div key={g.id} {...fadeUp} transition={{ duration: 0.5, delay: i * 0.1 }}>
+                  <Link href={`/products/dyestuff/${g.id}`}
+                    className={`group relative overflow-hidden rounded-2xl border ${t.border} bg-linear-to-br ${t.bg} p-6 sm:p-8 flex items-center gap-6 h-full hover:shadow-lg transition-shadow`}>
+                    <div aria-hidden className={`absolute -right-10 -bottom-12 w-56 h-56 rounded-full ${t.blob} blur-2xl`} />
+                    <div className="relative shrink-0 w-20 h-20 rounded-full bg-white shadow-md flex items-center justify-center">
+                      <t.icon className="w-9 h-9" style={{ color: t.iconColor }} strokeWidth={1.6} />
+                    </div>
+                    <div className="relative">
+                      <h3 className="text-[17px] font-extrabold uppercase tracking-wide leading-tight mb-2" style={{ ...FONT, color: t.titleColor }}>
+                        {main}{rest && <><br />{rest}</>}
+                      </h3>
+                      {g.description && <p className="text-[13px] text-stone-600 leading-relaxed max-w-xs">{g.description}</p>}
+                      <span className="inline-flex items-center gap-1.5 mt-3 text-[12px] font-bold" style={{ color: t.iconColor }}>
+                        View Products <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                      </span>
+                    </div>
+                  </Link>
+                  </motion.div>
+                );
+              })}
+            </div>
+          </section>
 
-      {/* Portfolio */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-        <motion.h2
-          {...fadeUp}
-          className="text-center text-2xl sm:text-3xl font-extrabold uppercase tracking-wide mb-6"
-          style={{ ...FONT, color: NAVY }}
-        >
-          Our <span style={{ color: ORANGE }}>Dyestuff</span> Portfolio
-        </motion.h2>
+          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+            <motion.h2 {...fadeUp} className="text-center text-2xl sm:text-3xl font-extrabold uppercase tracking-wide mb-6" style={{ ...FONT, color: NAVY }}>
+              Our <span style={{ color: ORANGE }}>Dyestuff</span> Portfolio
+            </motion.h2>
 
-        <SubHeading color={ORANGE}>Solvent-Based Dyestuff Solutions</SubHeading>
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-10">
-          {SOLVENT_BASED.map((d, i) => (
-            <Swatch
-              key={d.name}
-              prefix="SB"
-              name={d.name}
-              color={d.color}
-              index={i}
-            />
-          ))}
-        </div>
-
-        <div className="border-t border-stone-200 mb-6" />
-
-        <SubHeading color={BLUE}>Water-Based Dyestuff Solutions</SubHeading>
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
-          {WATER_BASED.map((d, i) => (
-            <Swatch
-              key={d.name}
-              prefix="WB"
-              name={d.name}
-              color={d.color}
-              index={i}
-            />
-          ))}
-        </div>
-      </section>
+            {groups.map((g, gi) => {
+              const items = g.items || [];
+              const fiveCols = items.length % 5 === 0 && items.length <= 10;
+              return (
+                <div key={g.id}>
+                  {gi > 0 && <div className="border-t border-stone-200 mb-6" />}
+                  <SubHeading color={groupTheme(g.name).subColor}>{g.name}</SubHeading>
+                  <div className={`grid grid-cols-2 gap-3 sm:gap-4 mb-10 ${fiveCols ? "sm:grid-cols-3 lg:grid-cols-5" : "lg:grid-cols-4"}`}>
+                    {items.map((item, i) => (
+                      <Swatch key={item.id} item={item} index={i} href={`/products/dyestuff/${g.id}`} />
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </section>
+        </>
+      )}
 
       {/* Applications */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
@@ -460,38 +417,37 @@ function SubHeading({
   );
 }
 
-function Swatch({
-  prefix,
-  name,
-  color,
-  index,
-}: {
-  prefix: string;
-  name: string;
-  color: string;
-  index: number;
-}) {
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.4, delay: index * 0.04 }}
-      className="flex items-center gap-3 sm:gap-4 rounded-xl border border-stone-200 bg-white px-3 sm:px-4 py-3 sm:py-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all"
-    >
-      <span
-        className="shrink-0 w-9 h-9 sm:w-11 sm:h-11 rounded-full shadow-inner ring-1 ring-black/5"
-        style={{
-          background: `radial-gradient(circle at 35% 30%, ${color}cc, ${color} 60%)`,
-        }}
-      />
-      <div className="text-[11px] sm:text-[12px] leading-snug min-w-0">
-        <p className="font-semibold text-stone-700">{prefix} Dyestuff</p>
-        <p className="font-semibold text-stone-700">Solution</p>
-        <p className="font-extrabold wrap-break-word" style={{ color: NAVY }}>
-          {name}
-        </p>
+/** "SB Dyestuff Solution Green 4160" -> "SB Dyestuff Solution" / "Green 4160" */
+function Swatch({ item, index, href }: { item: ProductItem; index: number; href: string }) {
+  const m = item.name.match(/^([\s\S]*?solution)\s+([\s\S]+)$/i);
+  const color = dyeColor(item.name);
+  const body = (
+    <>
+      {item.image ? (
+        <span className="relative shrink-0 w-9 h-9 sm:w-11 sm:h-11 rounded-full overflow-hidden ring-1 ring-black/5">
+          <Image src={item.image} alt="" fill sizes="44px" className="object-cover" />
+        </span>
+      ) : (
+        <span className="shrink-0 w-9 h-9 sm:w-11 sm:h-11 rounded-full shadow-inner ring-1 ring-black/5"
+          style={{ background: `radial-gradient(circle at 35% 30%, ${color}cc, ${color} 60%)` }} />
+      )}
+      <div className="text-[11px] sm:text-[12px] leading-snug min-w-0 flex-1">
+        {m ? (
+          <>
+            <p className="font-semibold text-stone-700">{m[1]}</p>
+            <p className="font-extrabold wrap-break-word" style={{ color: NAVY }}>{m[2]}</p>
+          </>
+        ) : (
+          <p className="font-extrabold wrap-break-word whitespace-pre-line" style={{ color: NAVY }}>{item.name}</p>
+        )}
       </div>
+      {item.tdsUrl && <FileText className="w-4 h-4 shrink-0" style={{ color: ORANGE }} aria-label="TDS available" />}
+    </>
+  );
+  const cls = "flex items-center gap-3 sm:gap-4 rounded-xl border border-stone-200 bg-white px-3 sm:px-4 py-3 sm:py-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all h-full";
+  return (
+    <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.4, delay: index * 0.04 }}>
+      <Link href={href} className={cls}>{body}</Link>
     </motion.div>
   );
 }

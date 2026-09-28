@@ -3,7 +3,8 @@ import nodemailer from "nodemailer";
 import { initializeApp, getApps, cert } from "firebase-admin/app";
 import { getFirestore, Timestamp } from "firebase-admin/firestore";
 
-if (getApps().length === 0) {
+// Check for the default app by name: lib/storage-server.ts registers a second, storage-only app
+if (!getApps().some((a) => a.name === "[DEFAULT]")) {
   initializeApp({
     credential: cert({
       projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,

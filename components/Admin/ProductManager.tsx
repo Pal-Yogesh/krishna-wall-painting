@@ -1,7 +1,8 @@
 "use client";
 
 import { useState } from "react";
-import { useAdmin, ProductDoc } from "@/context/AdminContext";
+import { useAdmin } from "@/context/AdminContext";
+import { CATEGORY_OPTIONS, categoryLabel } from "@/lib/product-display";
 
 interface ProductManagerProps {
   onEdit: (id: string) => void;
@@ -29,11 +30,11 @@ export default function ProductManager({ onEdit, onAdd }: ProductManagerProps) {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-6">
         <div className="flex items-center gap-3 flex-wrap">
-          <div className="flex items-center gap-1 bg-white border border-stone-200 p-1 rounded-xl">
-            {["All", "wood", "metal", "glass"].map((s) => (
-              <button key={s} onClick={() => setFilterSubstrate(s)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all capitalize ${filterSubstrate === s ? "bg-stone-800 text-white shadow-sm" : "text-stone-500 hover:bg-stone-50"}`}>
-                {s}
+          <div className="flex flex-wrap items-center gap-1 bg-white border border-stone-200 p-1 rounded-xl">
+            {[{ value: "All", label: "All" }, ...CATEGORY_OPTIONS].map((s) => (
+              <button key={s.value} onClick={() => setFilterSubstrate(s.value)}
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${filterSubstrate === s.value ? "bg-stone-800 text-white shadow-sm" : "text-stone-500 hover:bg-stone-50"}`}>
+                {s.label}
               </button>
             ))}
           </div>
@@ -60,7 +61,7 @@ export default function ProductManager({ onEdit, onAdd }: ProductManagerProps) {
             <thead><tr className="border-b border-stone-100 bg-stone-50/50">
               <th className="text-left px-5 py-3.5 text-xs font-semibold text-stone-500 uppercase tracking-wider">Product</th>
               <th className="text-left px-5 py-3.5 text-xs font-semibold text-stone-500 uppercase tracking-wider hidden sm:table-cell">Substrate</th>
-              <th className="text-left px-5 py-3.5 text-xs font-semibold text-stone-500 uppercase tracking-wider hidden md:table-cell">Chemistry</th>
+              <th className="text-left px-5 py-3.5 text-xs font-semibold text-stone-500 uppercase tracking-wider hidden md:table-cell">Products</th>
               <th className="text-right px-5 py-3.5 text-xs font-semibold text-stone-500 uppercase tracking-wider">Actions</th>
             </tr></thead>
             <tbody className="divide-y divide-stone-100">
@@ -68,8 +69,8 @@ export default function ProductManager({ onEdit, onAdd }: ProductManagerProps) {
                 <tr key={p.id} className="hover:bg-amber-50/30 transition-colors">
                   <td className="px-5 py-4">
                     <div className="flex items-center gap-3">
-                      {p.image ? (
-                        <img src={p.image} alt={p.name} className="w-11 h-11 rounded-xl object-cover border border-stone-200 shadow-sm" />
+                      {p.banner || p.image ? (
+                        <img src={p.banner || p.image} alt={p.name} className="w-11 h-11 rounded-xl object-cover border border-stone-200 shadow-sm" />
                       ) : (
                         <span className="w-11 h-11 rounded-xl bg-stone-100 border border-stone-200 flex items-center justify-center text-lg">{p.icon}</span>
                       )}
@@ -80,13 +81,17 @@ export default function ProductManager({ onEdit, onAdd }: ProductManagerProps) {
                     </div>
                   </td>
                   <td className="px-5 py-4 hidden sm:table-cell">
-                    <span className={`px-2.5 py-1 rounded-lg text-xs font-semibold capitalize ${
+                    <span className={`px-2.5 py-1 rounded-lg text-xs font-semibold whitespace-nowrap ${
                       p.substrate === "wood" ? "bg-emerald-50 text-emerald-700" :
                       p.substrate === "metal" ? "bg-amber-50 text-amber-700" :
-                      "bg-cyan-50 text-cyan-700"
-                    }`}>{p.substrate}</span>
+                      p.substrate === "glass" ? "bg-cyan-50 text-cyan-700" :
+                      "bg-violet-50 text-violet-700"
+                    }`}>{categoryLabel(p.substrate)}</span>
                   </td>
-                  <td className="px-5 py-4 hidden md:table-cell text-stone-600">{p.chemistry}</td>
+                  <td className="px-5 py-4 hidden md:table-cell text-stone-600">
+                    {p.items?.length ?? 0}
+                    <span className="text-xs text-stone-400"> · {(p.items || []).filter((i) => i.tdsUrl).length} TDS</span>
+                  </td>
                   <td className="px-5 py-4 text-right">
                     <div className="flex items-center justify-end gap-1">
                       <button onClick={() => onEdit(p.id)} className="p-2 rounded-lg hover:bg-stone-100 text-stone-400 hover:text-amber-600 transition-colors" title="Edit">

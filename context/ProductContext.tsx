@@ -7,9 +7,22 @@ export interface TechnicalProperty {
   value: string;
 }
 
+export interface ProductItem {
+  id: string;
+  name: string;
+  image: string;
+  tdsUrl: string;
+  tdsName: string;
+}
+
 export interface Product {
   id: string;
   name: string;
+  banner?: string;
+  sectionTitle?: string;
+  items?: ProductItem[];
+  /** Position within its category page; set by the seed script, unset products go last */
+  order?: number;
   substrate: "wood" | "metal" | "glass" | "dyestuff" | "auxiliaries" | "paint-removers";
   chemistry: string;
   description: string;

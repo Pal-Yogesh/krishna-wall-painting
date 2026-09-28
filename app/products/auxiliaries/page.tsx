@@ -7,6 +7,8 @@ import {
   CircleDot, Armchair, DoorOpen, Palette, BadgeCheck, ThumbsUp, Leaf, Users,
   ArrowRight, ChevronRight,
 } from "lucide-react";
+import { useProducts } from "@/context/ProductContext";
+import { productsFor } from "@/lib/product-display";
 
 const NAVY = "#1e3a5f";
 const ORANGE = "#ea580c";
@@ -23,15 +25,9 @@ const HIGHLIGHTS = [
   { title: "Enhanced Finish", text: "Delivers superior appearance and smooth finish.", icon: Sparkles, color: "#16a34a", bg: "bg-green-50" },
 ];
 
-const AUXILIARIES = [
-  {
-    title: "Oil Based Glazes", icon: Droplet,
-    items: ["Vandyke Brown Glaze", "Burnt Amber Glaze", "Burnt Sienna Glaze", "White Glaze", "Red Glaze", "Yellow Glaze", "Black Glaze"],
-  },
-  { title: "Wood Equilizer", icon: Layers, items: ["Water Base Wood Equilizer"] },
-  { title: "Oil Based Patina", icon: PaintBucket, items: ["White Patina", "Black Patina"] },
-  { title: "Wood Wax", icon: CircleDot, items: ["Wood Wax"] },
-];
+// Icon for each auxiliaries group (managed in admin), picked from its name
+const groupIcon = (name: string) =>
+  /glaze/i.test(name) ? Droplet : /equali|equili/i.test(name) ? Layers : /patina/i.test(name) ? PaintBucket : /wax/i.test(name) ? CircleDot : Sparkles;
 
 // Replace these with your own image URLs
 const APPLICATIONS = [
@@ -58,6 +54,8 @@ const fadeUp = {
 };
 
 export default function WoodAuxiliariesPage() {
+  const { products, loading } = useProducts();
+  const groups = productsFor(products, "auxiliaries");
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
@@ -116,27 +114,43 @@ export default function WoodAuxiliariesPage() {
         <SectionTitle>
           Our <span style={{ color: ORANGE }}>Wood Auxiliaries</span>
         </SectionTitle>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {AUXILIARIES.map((a, i) => (
-            <motion.div key={a.title} {...fadeUp} transition={{ duration: 0.45, delay: i * 0.06 }}
-              className="rounded-2xl bg-[#f8f2eb] border border-[#efe3d6] p-5 sm:p-6 flex items-start gap-4 hover:shadow-md transition-shadow">
-              <span className="shrink-0 w-11 h-11 rounded-full flex items-center justify-center text-white shadow-sm" style={{ background: BROWN }}>
-                <a.icon className="w-5 h-5" strokeWidth={2} />
-              </span>
-              <div>
-                <h3 className="text-[14px] font-extrabold uppercase tracking-wide mb-3 mt-2" style={{ ...FONT, color: NAVY }}>{a.title}</h3>
-                <ul className="space-y-2">
-                  {a.items.map((item) => (
-                    <li key={item} className="flex items-center gap-2.5 text-[13px] text-stone-600">
-                      <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: ORANGE }} />
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </motion.div>
-          ))}
-        </div>
+        {loading ? (
+          <div className="py-12 flex justify-center">
+            <div className="w-8 h-8 border-3 border-orange-500 border-t-transparent rounded-full animate-spin" />
+          </div>
+        ) : groups.length === 0 ? (
+          <p className="text-center text-stone-500 py-10">Products coming soon. <Link href="/contact-us" className="font-bold" style={{ color: ORANGE }}>Contact us →</Link></p>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {groups.map((g, i) => {
+              const Icon = groupIcon(g.name);
+              return (
+                <motion.div key={g.id} {...fadeUp} transition={{ duration: 0.45, delay: i * 0.06 }}>
+                <Link href={`/products/auxiliaries/${g.id}`}
+                  className="group rounded-2xl bg-[#f8f2eb] border border-[#efe3d6] p-5 sm:p-6 flex items-start gap-4 h-full hover:shadow-md transition-shadow">
+                  <span className="shrink-0 w-11 h-11 rounded-full flex items-center justify-center text-white shadow-sm" style={{ background: BROWN }}>
+                    <Icon className="w-5 h-5" strokeWidth={2} />
+                  </span>
+                  <div className="min-w-0">
+                    <h3 className="text-[14px] font-extrabold uppercase tracking-wide mb-3 mt-2" style={{ ...FONT, color: NAVY }}>{g.name}</h3>
+                    <ul className="space-y-2">
+                      {(g.items || []).map((item) => (
+                        <li key={item.id} className="flex items-center gap-2.5 text-[13px] text-stone-600">
+                          <span className="w-1.5 h-1.5 rounded-full shrink-0" style={{ background: ORANGE }} />
+                          {item.name}
+                        </li>
+                      ))}
+                    </ul>
+                    <span className="inline-flex items-center gap-1.5 mt-4 text-[12px] font-bold" style={{ color: ORANGE }}>
+                      View Products <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                    </span>
+                  </div>
+                </Link>
+                </motion.div>
+              );
+            })}
+          </div>
+        )}
       </section>
 
       {/* Applications */}

@@ -2,7 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { initializeApp, getApps, cert } from "firebase-admin/app";
 import { getFirestore, Timestamp } from "firebase-admin/firestore";
 
-if (getApps().length === 0) {
+// Check for the default app by name: lib/storage-server.ts registers a second, storage-only app
+if (!getApps().some((a) => a.name === "[DEFAULT]")) {
   initializeApp({
     credential: cert({
       projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
@@ -25,41 +26,56 @@ export async function GET() {
   }
 }
 
+type ProductItem = { id: string; name: string; image: string; tdsUrl: string; tdsName: string };
+
+// Builds the stored product from the admin form. Also fills the older fields
+// (image, chemistry, features, ...) that the listing pages still read.
+function toProductData(body: Record<string, unknown>) {
+  const str = (v: unknown) => (typeof v === "string" ? v.trim() : "");
+  const items: ProductItem[] = Array.isArray(body.items)
+    ? body.items
+        .map((i: Record<string, unknown>) => ({
+          id: str(i.id) || Math.random().toString(36).slice(2, 10),
+          name: str(i.name),
+          image: str(i.image),
+          tdsUrl: str(i.tdsUrl),
+          tdsName: str(i.tdsName),
+        }))
+        .filter((i) => i.name)
+    : [];
+  const banner = str(body.banner);
+  return {
+    name: str(body.name),
+    substrate: str(body.substrate),
+    description: str(body.description),
+    banner,
+    sectionTitle: str(body.sectionTitle),
+    items,
+    image: banner,
+    chemistry: "",
+    features: [],
+    applications: [],
+    finishes: [],
+  };
+}
+
 // POST - create a new product
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, substrate, chemistry, description, fullDescription, features, applications, finishes, icon, image, recommendedUse, applicationGuidelines, inCanProperties, applicationProperties, filmProperties, delivery } = body;
+    const data = toProductData(body);
 
-    if (!name || !substrate || !chemistry) {
-      return NextResponse.json({ error: "Name, substrate, and chemistry are required" }, { status: 400 });
+    if (!data.name || !data.substrate) {
+      return NextResponse.json({ error: "Heading and category are required" }, { status: 400 });
     }
 
-    // Generate slug ID
-    const slug = name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
+    // Generate slug ID; never overwrite an existing product
+    const base = data.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "") || "product";
+    let slug = base;
+    for (let n = 2; (await adminDb.collection("products").doc(slug).get()).exists; n++) slug = `${base}-${n}`;
 
-    const productData = {
-      name,
-      substrate,
-      chemistry,
-      description: description || "",
-      fullDescription: fullDescription || "",
-      features: features || [],
-      applications: applications || [],
-      finishes: finishes || [],
-      icon: icon || "🎨",
-      image: image || "",
-      recommendedUse: recommendedUse || "",
-      applicationGuidelines: applicationGuidelines || "",
-      inCanProperties: inCanProperties || [],
-      applicationProperties: applicationProperties || [],
-      filmProperties: filmProperties || [],
-      delivery: delivery || [],
-      active: true,
-      createdAt: Timestamp.now(),
-    };
-
-    const docRef = await adminDb.collection("products").doc(slug).set(productData);
+    const productData = { ...data, active: true, createdAt: Timestamp.now() };
+    await adminDb.collection("products").doc(slug).set(productData);
     return NextResponse.json({ id: slug, ...productData }, { status: 201 });
   } catch (err) {
     console.error("[Products POST Error]", err);
@@ -67,16 +83,17 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// PUT - update a product
+// PUT - update a product (full form save, or a partial change such as { active })
 export async function PUT(req: NextRequest) {
   try {
     const body = await req.json();
-    const { id, ...data } = body;
+    const { id, ...rest } = body;
 
     if (!id) {
       return NextResponse.json({ error: "Product ID is required" }, { status: 400 });
     }
 
+    const data = "items" in rest ? toProductData(rest) : rest;
     await adminDb.collection("products").doc(id).update(data);
     return NextResponse.json({ success: true }, { status: 200 });
   } catch (err) {
