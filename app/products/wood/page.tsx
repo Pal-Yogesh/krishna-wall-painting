@@ -256,93 +256,25 @@ export default function WoodProductsPage() {
       {/* ═══ EXPLORE OTHER SUBSTRATES ═══ */}
       <section className="bg-white pb-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h3
-            className="text-3xl font-extrabold mb-6"
-            style={{
-              color: NAVY,
-              fontFamily: "var(--font-raleway), sans-serif",
-            }}
-          >
+          <h3 className="text-3xl font-extrabold mb-6" style={{ color: NAVY, fontFamily: "var(--font-raleway), sans-serif" }}>
             Explore Other Substrates
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            {/* Metal */}
-            <Link
-              href="/products/metal"
-              className="flex items-center gap-3 p-4 rounded-xl border border-stone-200 hover:border-orange-300 hover:shadow-md transition-all"
-            >
-              <img
-                src="/new-images-update/metal.jpeg"
-                alt="Metal"
-                className="w-14 h-14 rounded-lg object-cover"
-              />
-              <div>
-                <p className="font-bold text-xl" style={{ color: NAVY }}>
-                  Metal Coatings
-                </p>
-                <p className="text-[14px] text-stone-400">
-                  High performance coatings for metal substrates.
-                </p>
-                <span
-                  className="text-[12px] font-bold mt-1 inline-block"
-                  style={{ color: ORANGE }}
-                >
-                  Explore →
-                </span>
-              </div>
-            </Link>
-            {/* Glass */}
-            <Link
-              href="/products/glass"
-              className="flex items-center gap-3 p-4 rounded-xl border border-stone-200 hover:border-orange-300 hover:shadow-md transition-all"
-            >
-              <img
-                src="/new-images-update/glass.jpeg"
-                alt="Glass"
-                className="w-14 h-14 rounded-lg object-cover"
-              />
-              <div>
-                <p className="font-bold text-xl" style={{ color: NAVY }}>
-                  Glass & Plastic Coatings
-                </p>
-                <p className="text-[14px] text-stone-400">
-                  Advanced coating solutions for glass and plastic substrates.
-                </p>
-                <span
-                  className="text-[14px] font-bold mt-1 inline-block"
-                  style={{ color: ORANGE }}
-                >
-                  Explore →
-                </span>
-              </div>
-            </Link>
-            {/* Feature badges */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              {
-                icon: "🔬",
-                title: "Advanced R&D",
-                desc: "Innovative coating solutions",
-              },
-              {
-                icon: "✅",
-                title: "Consistent Quality",
-                desc: "Stringent quality control",
-              },
-            ].map((b, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-3 p-4 rounded-xl border border-stone-200"
-              >
-                <div className="w-10 h-10 rounded-full bg-stone-50 flex items-center justify-center text-lg shrink-0">
-                  {b.icon}
-                </div>
+              { href: "/products/metal", img: "/new-images-update/metal.jpeg", title: "Metal Coatings", desc: "High performance coatings for metal substrates." },
+              { href: "/products/glass", img: "/new-images-update/glass.jpeg", title: "Glass Coatings", desc: "Advanced coating solutions for glass and plastic." },
+              { href: "/products/dyestuff", img: "/paint-images/images/4.jpg", title: "Dyestuff Solutions", desc: "Industrial dyes and colourants for vibrant results." },
+              { href: "/products/auxiliaries", img: "/paint-images/images/5.jpg", title: "Wood Auxiliaries", desc: "Complementary products that enhance coating performance." },
+              { href: "/products/paint-removers", img: "/paint-images/images/4.jpg", title: "Paint Removers", desc: "Effective paint removers for wood, metal, and glass." },
+            ].map((s) => (
+              <Link key={s.href} href={s.href} className="flex items-center gap-3 p-4 rounded-xl border border-stone-200 hover:border-orange-300 hover:shadow-md transition-all">
+                <img src={s.img} alt={s.title} className="w-14 h-14 rounded-lg object-cover shrink-0" />
                 <div>
-                  <p className="font-bold text-[12px]" style={{ color: NAVY }}>
-                    {b.title}
-                  </p>
-                  <p className="text-[10px] text-stone-400">{b.desc}</p>
+                  <p className="font-bold text-[14px]" style={{ color: NAVY }}>{s.title}</p>
+                  <p className="text-[12px] text-stone-400">{s.desc}</p>
+                  <span className="text-[12px] font-bold mt-1 inline-block" style={{ color: ORANGE }}>Explore →</span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -374,9 +306,9 @@ function ProductCard({
       {/* Image */}
       <div className="relative h-44 overflow-hidden z-20">
         <img
-          src={product.image || "/coating/wood-coating.jpeg"}
+          src={product.image}
           alt={product.name}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+          className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-500"
         />
         {/* Icon badge */}
         {/* <div
@@ -403,7 +335,7 @@ function ProductCard({
         >
           {product.chemistry ? `Best for ${product.chemistry}` : ""}
         </p>
-        <p className="text-[16px] text-stone-500 leading-relaxed mb-3 line-clamp-3 flex-1">
+        <p className="text-[14px] text-stone-500 leading-relaxed mb-3 whitespace-pre-line line-clamp-6 flex-1">
           {product.description}
         </p>
 

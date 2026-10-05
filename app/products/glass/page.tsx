@@ -166,90 +166,26 @@ export default function GlassProductsPage() {
       {/* ═══ EXPLORE OTHER SUBSTRATES ═══ */}
       <section className="bg-white py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h3
-            className="text-2xl font-extrabold mb-6"
-            style={{
-              color: NAVY,
-              fontFamily: "var(--font-raleway), sans-serif",
-            }}
-          >
+          <h3 className="text-3xl font-extrabold mb-6" style={{ color: NAVY, fontFamily: "var(--font-raleway), sans-serif" }}>
             Explore Other Substrates
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <Link
-              href="/products/wood"
-              className="flex items-center gap-4 p-5 rounded-xl border border-stone-200 hover:border-orange-300 hover:shadow-md transition-all"
-            >
-              <img
-                src="/new-images-update/wood.jpeg"
-                alt="Wood"
-                className="w-20 h-16 rounded-lg object-cover"
-              />
-              <div className="flex-1">
-                <p className="font-bold text-xl" style={{ color: NAVY }}>
-                  Wood Coatings
-                </p>
-                <p className="text-[14px] text-stone-400">
-                  Premium coatings for furniture & interiors.
-                </p>
-                <span
-                  className="text-[14px] font-bold mt-1 inline-block"
-                  style={{ color: ORANGE }}
-                >
-                  View Products →
-                </span>
-              </div>
-              <svg
-                className="w-5 h-5 text-stone-300"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                />
-              </svg>
-            </Link>
-            <Link
-              href="/products/metal"
-              className="flex items-center gap-4 p-5 rounded-xl border border-stone-200 hover:border-orange-300 hover:shadow-md transition-all"
-            >
-              <img
-                src="/new-images-update/metal.jpeg"
-                alt="Metal"
-                className="w-20 h-16 rounded-lg object-cover"
-              />
-              <div className="flex-1">
-                <p className="font-bold text-xl" style={{ color: NAVY }}>
-                  Metal Coatings
-                </p>
-                <p className="text-[14px] text-stone-400">
-                  Industrial protection for metal surfaces.
-                </p>
-                <span
-                  className="text-[14px] font-bold mt-1 inline-block"
-                  style={{ color: ORANGE }}
-                >
-                  View Products →
-                </span>
-              </div>
-              <svg
-                className="w-5 h-5 text-stone-300"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                />
-              </svg>
-            </Link>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              { href: "/products/wood", img: "/new-images-update/wood.jpeg", title: "Wood Coatings", desc: "Premium coatings for beautiful and durable wood finishes." },
+              { href: "/products/metal", img: "/new-images-update/metal.jpeg", title: "Metal Coatings", desc: "High performance coatings for metal substrates." },
+              { href: "/products/dyestuff", img: "/paint-images/images/4.jpg", title: "Dyestuff Solutions", desc: "Industrial dyes and colourants for vibrant results." },
+              { href: "/products/auxiliaries", img: "/paint-images/images/5.jpg", title: "Wood Auxiliaries", desc: "Complementary products that enhance coating performance." },
+              { href: "/products/paint-removers", img: "/paint-images/images/4.jpg", title: "Paint Removers", desc: "Effective paint removers for wood, metal, and glass." },
+            ].map((s) => (
+              <Link key={s.href} href={s.href} className="flex items-center gap-3 p-4 rounded-xl border border-stone-200 hover:border-orange-300 hover:shadow-md transition-all">
+                <img src={s.img} alt={s.title} className="w-14 h-14 rounded-lg object-cover shrink-0" />
+                <div>
+                  <p className="font-bold text-[14px]" style={{ color: NAVY }}>{s.title}</p>
+                  <p className="text-[12px] text-stone-400">{s.desc}</p>
+                  <span className="text-[12px] font-bold mt-1 inline-block" style={{ color: ORANGE }}>Explore →</span>
+                </div>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -459,7 +395,7 @@ function ProductCard({
         >
           {product.chemistry ? `Best for ${product.chemistry}` : ""}
         </p>
-        <p className="text-[16px] text-stone-500 leading-relaxed mb-3 line-clamp-3 flex-1">
+        <p className="text-[14px] text-stone-500 leading-relaxed mb-3 whitespace-pre-line line-clamp-6 flex-1">
           {product.description}
         </p>
 

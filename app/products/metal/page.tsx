@@ -279,81 +279,22 @@ export default function MetalProductsPage() {
           >
             Explore Other Substrates
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <Link
-              href="/products/wood"
-              className="flex items-center gap-3 p-4 rounded-xl border border-stone-200 hover:border-orange-300 hover:shadow-md transition-all"
-            >
-              <img
-                src="/new-images-update/wood.jpeg"
-                alt="Wood"
-                className="w-14 h-14 rounded-lg object-cover"
-              />
-              <div>
-                <p className="font-bold text-xl" style={{ color: NAVY }}>
-                  Wood Coatings
-                </p>
-                <p className="text-[14px] text-stone-400">
-                  Premium coatings for beautiful and durable wood finishes.
-                </p>
-                <span
-                  className="text-[12px] font-bold mt-1 inline-block"
-                  style={{ color: ORANGE }}
-                >
-                  Explore →
-                </span>
-              </div>
-            </Link>
-            <Link
-              href="/products/glass"
-              className="flex items-center gap-3 p-4 rounded-xl border border-stone-200 hover:border-orange-300 hover:shadow-md transition-all"
-            >
-              <img
-                src="/new-images-update/glass.jpeg"
-                alt="Glass"
-                className="w-14 h-14 rounded-lg object-cover"
-              />
-              <div>
-                <p className="font-bold text-xl" style={{ color: NAVY }}>
-                  Glass & Plastic Coatings
-                </p>
-                <p className="text-[14px] text-stone-400">
-                  Advanced coating solutions for glass and plastic substrates.
-                </p>
-                <span
-                  className="text-[14px] font-bold mt-1 inline-block"
-                  style={{ color: ORANGE }}
-                >
-                  Explore →
-                </span>
-              </div>
-            </Link>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              {
-                icon: "🔬",
-                title: "Advanced R&D",
-                desc: "Innovative coating solutions",
-              },
-              {
-                icon: "🚛",
-                title: "Pan India Supply",
-                desc: "Timely delivery across India",
-              },
-            ].map((b, i) => (
-              <div
-                key={i}
-                className="flex items-center gap-3 p-4 rounded-xl border border-stone-200"
-              >
-                <div className="w-10 h-10 rounded-full bg-stone-50 flex items-center justify-center text-lg shrink-0">
-                  {b.icon}
-                </div>
+              { href: "/products/wood", img: "/new-images-update/wood.jpeg", title: "Wood Coatings", desc: "Premium coatings for beautiful and durable wood finishes." },
+              { href: "/products/glass", img: "/new-images-update/glass.jpeg", title: "Glass Coatings", desc: "Advanced coating solutions for glass and plastic." },
+              { href: "/products/dyestuff", img: "/paint-images/images/4.jpg", title: "Dyestuff Solutions", desc: "Industrial dyes and colourants for vibrant results." },
+              { href: "/products/auxiliaries", img: "/paint-images/images/5.jpg", title: "Wood Auxiliaries", desc: "Complementary products that enhance coating performance." },
+              { href: "/products/paint-removers", img: "/paint-images/images/4.jpg", title: "Paint Removers", desc: "Effective paint removers for wood, metal, and glass." },
+            ].map((s) => (
+              <Link key={s.href} href={s.href} className="flex items-center gap-3 p-4 rounded-xl border border-stone-200 hover:border-orange-300 hover:shadow-md transition-all">
+                <img src={s.img} alt={s.title} className="w-14 h-14 rounded-lg object-cover shrink-0" />
                 <div>
-                  <p className="font-bold text-[12px]" style={{ color: NAVY }}>
-                    {b.title}
-                  </p>
-                  <p className="text-[10px] text-stone-400">{b.desc}</p>
+                  <p className="font-bold text-[14px]" style={{ color: NAVY }}>{s.title}</p>
+                  <p className="text-[12px] text-stone-400">{s.desc}</p>
+                  <span className="text-[12px] font-bold mt-1 inline-block" style={{ color: ORANGE }}>Explore →</span>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -425,7 +366,7 @@ function ProductCard({
         >
           {product.chemistry ? `Best for ${product.chemistry}` : ""}
         </p>
-        <p className="text-[16px] text-stone-500 leading-relaxed mb-3 line-clamp-3 flex-1">
+        <p className="text-[14px] text-stone-500 leading-relaxed mb-3 whitespace-pre-line line-clamp-6 flex-1">
           {product.description}
         </p>
 

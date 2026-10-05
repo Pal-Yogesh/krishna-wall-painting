@@ -33,6 +33,7 @@ export default function ProductForm({ productId, onSaved, onCancel }: Props) {
 
   const [substrate, setSubstrate] = useState<ProductDoc["substrate"]>("wood");
   const [banner, setBanner] = useState("");
+  const [cardImage, setCardImage] = useState("");
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [sectionTitle, setSectionTitle] = useState("");
@@ -45,7 +46,8 @@ export default function ProductForm({ productId, onSaved, onCancel }: Props) {
     const p = products.find((x) => x.id === productId);
     if (!p) return;
     setSubstrate(p.substrate);
-    setBanner(p.banner || p.image || "");
+    setBanner(p.banner || "");
+    setCardImage(p.image || "");
     setName(p.name || "");
     setDescription(p.description || "");
     setSectionTitle(p.sectionTitle || "");
@@ -82,7 +84,7 @@ export default function ProductForm({ productId, onSaved, onCancel }: Props) {
     if (items.some((i) => !i.name.trim())) return showToast("Every product needs a name (or remove the empty one)", "error");
     setSaving(true);
     try {
-      const payload = { substrate, banner, name, description, sectionTitle, items };
+      const payload = { substrate, banner, image: cardImage, name, description, sectionTitle, items };
       if (productId) await updateProduct(productId, payload);
       else await addProduct(payload);
       showToast(productId ? "Product updated" : "Product created", "success");
@@ -125,33 +127,68 @@ export default function ProductForm({ productId, onSaved, onCancel }: Props) {
             <p className="text-sm text-stone-400">The top section of the product page</p>
           </div>
 
-          <div>
-            <label className={LABEL}>Banner Image</label>
-            {banner ? (
-              <div className="relative rounded-xl overflow-hidden border border-stone-200 aspect-3/1 bg-stone-100">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={banner} alt="Banner" className="w-full h-full object-cover" />
-                <div className="absolute top-2 right-2 flex gap-2">
-                  <label className="px-3 py-1.5 bg-white/90 rounded-lg text-xs font-semibold text-stone-700 shadow cursor-pointer hover:bg-white">
-                    {busy.banner ? <Spinner className="w-3.5 h-3.5" /> : "Replace"}
-                    <input type="file" accept="image/*" className="hidden" disabled={busy.banner}
-                      onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) runUpload("banner", f, "image", (r) => setBanner(r.url)); }} />
-                  </label>
-                  <button type="button" onClick={() => setBanner("")} className="px-3 py-1.5 bg-white/90 rounded-lg text-xs font-semibold text-red-600 shadow hover:bg-white">Remove</button>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {/* Card Image */}
+            <div>
+              <label className={LABEL}>Card Image (listing page)</label>
+              {cardImage ? (
+                <div className="relative rounded-xl overflow-hidden border border-stone-200 aspect-4/5 bg-stone-100">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={cardImage} alt="Card" className="w-full h-full object-cover" />
+                  <div className="absolute top-2 right-2 flex gap-2">
+                    <label className="px-3 py-1.5 bg-white/90 rounded-lg text-xs font-semibold text-stone-700 shadow cursor-pointer hover:bg-white">
+                      {busy.cardImage ? <Spinner className="w-3.5 h-3.5" /> : "Replace"}
+                      <input type="file" accept="image/*" className="hidden" disabled={busy.cardImage}
+                        onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) runUpload("cardImage", f, "image", (r) => setCardImage(r.url)); }} />
+                    </label>
+                    <button type="button" onClick={() => setCardImage("")} className="px-3 py-1.5 bg-white/90 rounded-lg text-xs font-semibold text-red-600 shadow hover:bg-white">Remove</button>
+                  </div>
                 </div>
-              </div>
-            ) : (
-              <label className="flex flex-col items-center justify-center gap-2 aspect-3/1 bg-stone-50 border-2 border-dashed border-stone-300 rounded-xl text-sm font-medium text-stone-500 hover:border-amber-400 hover:bg-amber-50 cursor-pointer transition-all">
-                {busy.banner ? <Spinner className="w-6 h-6" /> : (
-                  <>
-                    <svg className="w-7 h-7 text-stone-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v13.5a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V9.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></svg>
-                    Click to upload banner (wide image, max 10 MB)
-                  </>
-                )}
-                <input type="file" accept="image/*" className="hidden" disabled={busy.banner}
-                  onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) runUpload("banner", f, "image", (r) => setBanner(r.url)); }} />
-              </label>
-            )}
+              ) : (
+                <label className="flex flex-col items-center justify-center gap-2 aspect-4/5 bg-stone-50 border-2 border-dashed border-stone-300 rounded-xl text-sm font-medium text-stone-500 hover:border-amber-400 hover:bg-amber-50 cursor-pointer transition-all">
+                  {busy.cardImage ? <Spinner className="w-6 h-6" /> : (
+                    <>
+                      <svg className="w-7 h-7 text-stone-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v13.5a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V9.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></svg>
+                      Upload card image
+                    </>
+                  )}
+                  <input type="file" accept="image/*" className="hidden" disabled={busy.cardImage}
+                    onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) runUpload("cardImage", f, "image", (r) => setCardImage(r.url)); }} />
+                </label>
+              )}
+              <p className="text-[11px] text-stone-400 mt-1.5">Shown on the category listing page</p>
+            </div>
+
+            {/* Banner Image */}
+            <div>
+              <label className={LABEL}>Banner Image (detail page)</label>
+              {banner ? (
+                <div className="relative rounded-xl overflow-hidden border border-stone-200 aspect-3/1 bg-stone-100">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={banner} alt="Banner" className="w-full h-full object-cover" />
+                  <div className="absolute top-2 right-2 flex gap-2">
+                    <label className="px-3 py-1.5 bg-white/90 rounded-lg text-xs font-semibold text-stone-700 shadow cursor-pointer hover:bg-white">
+                      {busy.banner ? <Spinner className="w-3.5 h-3.5" /> : "Replace"}
+                      <input type="file" accept="image/*" className="hidden" disabled={busy.banner}
+                        onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) runUpload("banner", f, "image", (r) => setBanner(r.url)); }} />
+                    </label>
+                    <button type="button" onClick={() => setBanner("")} className="px-3 py-1.5 bg-white/90 rounded-lg text-xs font-semibold text-red-600 shadow hover:bg-white">Remove</button>
+                  </div>
+                </div>
+              ) : (
+                <label className="flex flex-col items-center justify-center gap-2 aspect-3/1 bg-stone-50 border-2 border-dashed border-stone-300 rounded-xl text-sm font-medium text-stone-500 hover:border-amber-400 hover:bg-amber-50 cursor-pointer transition-all">
+                  {busy.banner ? <Spinner className="w-6 h-6" /> : (
+                    <>
+                      <svg className="w-7 h-7 text-stone-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v13.5a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V9.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></svg>
+                      Upload banner image
+                    </>
+                  )}
+                  <input type="file" accept="image/*" className="hidden" disabled={busy.banner}
+                    onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) runUpload("banner", f, "image", (r) => setBanner(r.url)); }} />
+                </label>
+              )}
+              <p className="text-[11px] text-stone-400 mt-1.5">Shown as hero on the product detail page</p>
+            </div>
           </div>
 
           <div>

@@ -746,8 +746,8 @@ export default function CareersPage() {
                 letterSpacing: "-0.03em",
               }}
             >
-              Access to a{" "}
-              <span className="text-amber-500">Life-Long Career</span>
+              Build a Long-Term {" "}
+              <span className="text-amber-500">Career With Us</span>
             </h2>
             <p className="mt-4 text-[15px] text-stone-500 leading-relaxed max-w-md">
               Turn your skills and ambition into a lasting career. We pair
@@ -815,8 +815,8 @@ export default function CareersPage() {
               act as mentors rather than bosses."{" "}
             </p>
             <div className="mt-5">
-              <p className="font-bold text-stone-900">Manager Compliances</p>
-              <p className="text-sm text-stone-400">HR & Admin</p>
+              <p className="font-bold text-stone-900">Akash Raghav</p>
+
             </div>
           </motion.div>
           {/* Photo with shapes */}
@@ -1068,13 +1068,13 @@ export default function CareersPage() {
                   )}
 
                   <div className="mt-6 flex items-center justify-between flex-wrap gap-3 pt-5 border-t border-stone-100">
-                    {job.createdAt ? (
+                    {/* {job.createdAt ? (
                       <span className="text-[12px] text-stone-400 font-medium">
                         Posted on {formatPostedDate(job.createdAt)}
                       </span>
                     ) : (
                       <span />
-                    )}
+                    )} */}
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => scrollToForm(job.title)}
