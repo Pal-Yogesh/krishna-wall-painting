@@ -68,9 +68,9 @@ export default function ProductPage() {
       {/* Hero */}
       <section className="relative overflow-hidden bg-[#f7f3ef]">
         {banner && (
-          <div className="absolute inset-y-0 right-0 w-full md:w-[65%]">
-            <Image src={banner} alt={product.name} fill priority sizes="(min-width: 768px) 65vw, 100vw" className="object-cover object-center" />
-            <div className="absolute inset-0 bg-linear-to-r from-[#f7f3ef] via-[#f7f3ef]/85 to-[#f7f3ef]/30 md:via-[#f7f3ef]/40 md:to-transparent" />
+          <div className="absolute inset-0">
+            <Image src={banner} alt={product.name} fill priority sizes="100vw" className="object-cover object-center" />
+            {/* <div className="absolute inset-0 bg-gradient-to-r from-[#f7f3ef] via-[#f7f3ef]/80 to-transparent" /> */}
           </div>
         )}
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-14 lg:pb-20">
