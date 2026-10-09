@@ -1,7 +1,12 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
+
+const NAVY = "#1e3a5f";
+const ORANGE = "#ea580c";
+const FONT = { fontFamily: "var(--font-raleway), sans-serif" };
 
 interface GalleryImage { url: string; name: string; }
 interface EventItem {
@@ -15,18 +20,76 @@ interface EventItem {
   active?: boolean;
 }
 
-function formatDate(dateStr?: string) {
-  if (!dateStr) return "";
-  const d = new Date(dateStr);
-  if (isNaN(d.getTime())) return dateStr;
-  return d.toLocaleDateString("en-GB", { day: "2-digit", month: "long", year: "numeric" });
+function EventGallery({ images, title, onOpen }: { images: GalleryImage[]; title: string; onOpen: (idx: number) => void }) {
+  const scrollRef = React.useRef<HTMLDivElement>(null);
+  const [canLeft, setCanLeft] = React.useState(false);
+  const [canRight, setCanRight] = React.useState(false);
+
+  const checkScroll = () => {
+    const el = scrollRef.current;
+    if (!el) return;
+    setCanLeft(el.scrollLeft > 4);
+    setCanRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+  };
+
+  React.useEffect(() => {
+    checkScroll();
+    const el = scrollRef.current;
+    el?.addEventListener("scroll", checkScroll, { passive: true });
+    window.addEventListener("resize", checkScroll);
+    return () => { el?.removeEventListener("scroll", checkScroll); window.removeEventListener("resize", checkScroll); };
+  }, [images]);
+
+  const scroll = (dir: -1 | 1) => {
+    scrollRef.current?.scrollBy({ left: dir * 260, behavior: "smooth" });
+  };
+
+  return (
+    <div className="flex-1 relative min-w-0">
+      {/* Left arrow */}
+      {canLeft && (
+        <button
+          onClick={() => scroll(-1)}
+          className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 z-10 w-8 h-8 rounded-full bg-white border border-stone-200 shadow-md flex items-center justify-center text-stone-600 hover:bg-stone-50 transition-colors"
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" /></svg>
+        </button>
+      )}
+      {/* Right arrow */}
+      {canRight && (
+        <button
+          onClick={() => scroll(1)}
+          className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 z-10 w-8 h-8 rounded-full bg-white border border-stone-200 shadow-md flex items-center justify-center text-stone-600 hover:bg-stone-50 transition-colors"
+        >
+          <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+        </button>
+      )}
+
+      <div ref={scrollRef} className="flex gap-2.5 overflow-x-auto scrollbar-hide scroll-smooth" style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}>
+        {images.map((img, idx) => (
+          <div
+            key={idx}
+            className="relative overflow-hidden rounded-xl cursor-pointer group shrink-0 w-[200px] h-[150px]"
+            onClick={() => onOpen(idx)}
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={img.url}
+              alt={img.name || `${title} ${idx + 1}`}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              loading="lazy"
+            />
+            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300" />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
 }
 
 export default function EventsPage() {
   const [events, setEvents] = useState<EventItem[]>([]);
   const [loading, setLoading] = useState(true);
-
-  // Lightbox: holds the active event's gallery + current index
   const [lightbox, setLightbox] = useState<{ images: GalleryImage[]; index: number } | null>(null);
 
   useEffect(() => {
@@ -43,7 +106,6 @@ export default function EventsPage() {
     })();
   }, []);
 
-  // Keyboard navigation for lightbox
   useEffect(() => {
     if (!lightbox) return;
     const onKey = (e: KeyboardEvent) => {
@@ -58,31 +120,22 @@ export default function EventsPage() {
   return (
     <div className="min-h-screen bg-[#faf9f7]">
       {/* ═══ HERO ═══ */}
-      <section className="relative overflow-hidden">
-        <div className="absolute inset-0" style={{ background: "linear-gradient(160deg, #fef3c720 0%, #fefdfb 40%, #faf9f7 100%)" }} />
-        <div className="absolute top-0 left-0 right-0 h-1.5" style={{ background: "linear-gradient(90deg, #f59e0b, #d97706, #f59e0b)" }} />
-        <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden>
-          <motion.div animate={{ y: [0, -14, 0] }} transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-16 right-[10%] w-56 h-56 rounded-full bg-amber-200/30 blur-3xl" />
-        </div>
-        <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-12 text-center">
+      <section className="relative overflow-hidden" style={{ background: "linear-gradient(160deg, #fff8ee 0%, #fefdfb 50%, #faf9f7 100%)" }}>
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-10">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <span className="inline-flex items-center gap-2 px-4 py-1.5 bg-amber-100/80 text-amber-700 text-xs font-bold uppercase tracking-[0.2em] rounded-full mb-5 border border-amber-200/50">
-              Our Events
-            </span>
-            <h1 className="text-[clamp(2.2rem,4.5vw,3.4rem)] font-bold text-stone-900 leading-tight"
-              style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.03em" }}>
-              Moments & <span className="text-amber-500">Milestones</span>
+            <p className="text-[11px] font-bold uppercase tracking-[0.25em] mb-3" style={{ color: ORANGE }}>Our Events</p>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-stone-900 leading-tight" style={FONT}>
+              Moments & <span style={{ color: ORANGE }}>Milestones</span>
             </h1>
-            <p className="mt-4 text-[15px] text-stone-500 max-w-xl mx-auto leading-relaxed">
-              A look back at our dealer meets, exhibitions, launches, and celebrations. Explore the galleries from each event.
+            <p className="mt-3 text-[15px] text-stone-500 max-w-xl leading-relaxed">
+              A look back at our dealer meets, trainings, celebrations and team activities that bring our people together and drive our journey forward.
             </p>
           </motion.div>
         </div>
       </section>
 
       {/* ═══ EVENTS LIST ═══ */}
-      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <section className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {loading ? (
           <div className="flex justify-center py-20">
             <div className="w-8 h-8 border-3 border-amber-500 border-t-transparent rounded-full animate-spin" />
@@ -94,98 +147,84 @@ export default function EventsPage() {
             <p className="text-sm text-stone-400 mt-1">Check back soon for highlights from our latest events.</p>
           </div>
         ) : (
-          <div className="space-y-16">
+          <div className="space-y-0">
             {events.map((ev, i) => (
               <motion.div
                 key={ev.id}
-                initial={{ opacity: 0, y: 30 }}
+                initial={{ opacity: 0, y: 24 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.5 }}
+                viewport={{ once: true, margin: "-60px" }}
+                transition={{ duration: 0.45, delay: i * 0.05 }}
+                className="py-8 border-b border-stone-200/70 last:border-b-0"
               >
-                {/* Event header */}
-                <div className="flex flex-col lg:flex-row gap-6 mb-6">
-                  {/* Cover */}
-                  {(ev.coverImage || ev.gallery?.[0]?.url) && (
-                    <div
-                      className="relative w-full lg:w-80 h-56 rounded-2xl overflow-hidden shadow-md shrink-0 cursor-pointer group"
-                      onClick={() => ev.gallery?.length && setLightbox({ images: ev.gallery, index: 0 })}
-                    >
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={ev.coverImage || ev.gallery[0].url} alt={ev.title}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                      <div className="absolute inset-0 bg-linear-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                    </div>
-                  )}
+                {/* Tag */}
+                {ev.location && (
+                  <span className="inline-flex items-center px-3 py-1 rounded-full text-[11px] font-bold border mb-3" style={{ background: "#fff7ed", color: ORANGE, borderColor: "#fed7aa" }}>
+                    {ev.location}
+                  </span>
+                )}
 
-                  {/* Info */}
-                  <div className="flex-1">
-                    <div className="flex items-center gap-3 flex-wrap mb-2">
-                      {/* {ev.eventDate && (
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-amber-50 text-amber-700 border border-amber-200">
-                          <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 012.25-2.25h13.5A2.25 2.25 0 0121 7.5v11.25m-18 0A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75m-18 0v-7.5A2.25 2.25 0 015.25 9h13.5A2.25 2.25 0 0121 11.25v7.5" />
-                          </svg>
-                          {formatDate(ev.eventDate)}
-                        </span>
-                      )} */}
-                      {ev.location && (
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-semibold bg-stone-100 text-stone-600 border border-stone-200">
-                          <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-                          </svg>
-                          {ev.location}
-                        </span>
-                      )}
-                    </div>
-                    <h2 className="text-2xl font-bold text-stone-900 leading-tight" style={{ fontFamily: "var(--font-raleway), sans-serif", letterSpacing: "-0.02em" }}>
+                {/* Content row: text left, images right */}
+                <div className="flex flex-col lg:flex-row gap-5 items-start">
+                  {/* Left: title + description */}
+                  <div className="lg:w-[240px] shrink-0">
+                    <h2 className="text-[17px] font-extrabold text-stone-900 leading-snug mb-2" style={FONT}>
                       {ev.title}
                     </h2>
                     {ev.description && (
-                      <p className="mt-3 text-[14.5px] text-stone-500 leading-relaxed">{ev.description}</p>
+                      <p className="text-[12px] text-stone-500 leading-relaxed line-clamp-5">{ev.description}</p>
                     )}
-                    {/* {ev.gallery?.length > 0 && (
-                      <p className="mt-3 text-[12px] font-semibold text-stone-400">{ev.gallery.length} photo{ev.gallery.length !== 1 ? "s" : ""} in this gallery</p>
-                    )} */}
                   </div>
+
+                  {/* Right: scrollable gallery with arrows */}
+                  {ev.gallery?.length > 0 && (
+                    <EventGallery images={ev.gallery} title={ev.title} onOpen={(idx) => setLightbox({ images: ev.gallery, index: idx })} />
+                  )}
                 </div>
-
-                {/* Gallery grid */}
-                {ev.gallery?.length > 0 && (
-                  <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3">
-                    {ev.gallery.map((img, idx) => (
-                      <motion.div
-                        key={idx}
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: idx * 0.04 }}
-                        onClick={() => setLightbox({ images: ev.gallery, index: idx })}
-                        className="relative group overflow-hidden rounded-xl shadow-sm hover:shadow-lg transition-all cursor-pointer aspect-[4/3]"
-                      >
-                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={img.url} alt={img.name || `${ev.title} ${idx + 1}`}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                        <div className="absolute inset-0 bg-linear-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                        <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                          <div className="w-9 h-9 rounded-full bg-white/90 flex items-center justify-center shadow-lg">
-                            <svg className="w-4 h-4 text-stone-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                              <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607zM10.5 7.5v6m3-3h-6" />
-                            </svg>
-                          </div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
-                )}
-
-                {/* Divider */}
-                {i < events.length - 1 && <div className="mt-14 border-t border-stone-200/70" />}
               </motion.div>
             ))}
           </div>
         )}
+      </section>
+
+      {/* ═══ CTA FOOTER ═══ */}
+      <section className="bg-[#fef3c7]/40 border-t border-amber-100">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+          <div className="flex flex-col lg:flex-row items-center gap-8">
+            <div className="flex-1">
+              <h3 className="text-2xl font-extrabold text-stone-900 leading-tight" style={FONT}>
+                Be a Part of Our Journey
+              </h3>
+              <p className="mt-2 text-[14px] text-stone-500 max-w-md leading-relaxed">
+                Our people are the strength behind our success. Join a team that values learning, collaboration and celebration.
+              </p>
+              <Link
+                href="/careers"
+                className="mt-5 inline-flex items-center gap-2 px-6 py-3 rounded-lg text-white font-bold text-[14px] shadow-md hover:opacity-90 transition-opacity"
+                style={{ background: ORANGE }}
+              >
+                Explore Career Opportunities
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </Link>
+            </div>
+            <div className="flex gap-8 text-center">
+              {[
+                { icon: "👥", label: "Learn\nTogether" },
+                { icon: "📈", label: "Grow\nTogether" },
+                { icon: "🎉", label: "Celebrate\nTogether" },
+              ].map((item, idx) => (
+                <div key={idx} className="flex flex-col items-center gap-2">
+                  <div className="w-14 h-14 rounded-xl bg-white border border-stone-200 flex items-center justify-center text-2xl shadow-sm">
+                    {item.icon}
+                  </div>
+                  <p className="text-[12px] font-bold text-stone-700 whitespace-pre-line leading-tight">{item.label}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
       </section>
 
       {/* ═══ LIGHTBOX ═══ */}

@@ -28,9 +28,9 @@ export default function GlassProductsPage() {
       <section className="relative overflow-hidden min-h-[420px]">
         <div className="absolute inset-0">
           <img
-            src="/new-images/banner-glass.jpeg"
+            src="https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fglass-banner.jpg?alt=media&token=4d4f9b16-bd43-42a8-8c6a-78e37d945781"
             alt="Glass Coatings"
-            className="w-full h-full object-cover"
+            className="absolute right-0 top-0 w-full md:w-[55%] h-full object-cover object-center"
           />
         </div>
 

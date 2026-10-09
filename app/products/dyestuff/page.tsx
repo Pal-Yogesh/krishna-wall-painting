@@ -99,16 +99,15 @@ export default function DyestuffPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero */}
-      <section className="relative overflow-hidden bg-linear-to-r from-white via-white to-sky-50">
-        <div className="absolute inset-y-0 right-0 w-full md:w-[60%]">
+      <section className="relative overflow-hidden bg-[#f7f3ef]">
+        <div className="absolute inset-0">
           <Image
             width={1000}
             height={1000}
-            src="https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F17.jpg?alt=media&token=a18bcea0-12fb-4927-82d0-79072f948ec0"
+            src="https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fdye-banner.jpg?alt=media&token=5bae6857-12f7-4e0f-8d3f-36c350decff4"
             alt="Dyestuff solution"
             className="w-full h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-linear-to-r from-white via-white/85 to-white/40 md:via-white/70 md:to-transparent" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-16 lg:pb-20">
           <nav

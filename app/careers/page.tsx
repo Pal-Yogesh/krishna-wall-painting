@@ -256,6 +256,7 @@ function FloatInput({
         placeholder={floated ? placeholder : ""}
         className="w-full px-4 pt-5 pb-2.5 rounded-2xl text-[15px] text-stone-800 bg-white outline-none transition-all duration-200"
         style={{
+          fontFamily: "var(--font-raleway), 'Raleway', sans-serif",
           border: `1.5px solid ${error ? "#ef4444" : focused ? "#d97706" : "#e7e5e4"}`,
           boxShadow:
             focused && !error ? "0 0 0 3px rgba(217,119,6,0.12)" : "none",
@@ -447,7 +448,7 @@ export default function CareersPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#faf9f7] overflow-x-hidden">
+    <div className="min-h-screen bg-[#faf9f7] overflow-x-hidden" style={{ fontFamily: "var(--font-raleway), 'Raleway', sans-serif" }}>
       {/* ═══════════════ HERO ═══════════════ */}
       <section className="relative overflow-hidden">
         <div
@@ -816,7 +817,8 @@ export default function CareersPage() {
             </p>
             <div className="mt-5">
               <p className="font-bold text-stone-900">Akash Raghav</p>
-
+              <p className="text-[14px] font-semibold text-stone-700">Manager Compliances</p>
+              <p className="text-[13px] text-stone-400">HR & Admin</p>
             </div>
           </motion.div>
           {/* Photo with shapes */}

@@ -44,6 +44,7 @@ function toProductData(body: Record<string, unknown>) {
         .filter((i) => i.name)
     : [];
   const banner = str(body.banner);
+  const image = str(body.image);
   return {
     name: str(body.name),
     substrate: str(body.substrate),
@@ -51,7 +52,7 @@ function toProductData(body: Record<string, unknown>) {
     banner,
     sectionTitle: str(body.sectionTitle),
     items,
-    image: banner,
+    image: image || banner,
     chemistry: "",
     features: [],
     applications: [],

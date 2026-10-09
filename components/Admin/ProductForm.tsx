@@ -132,7 +132,7 @@ export default function ProductForm({ productId, onSaved, onCancel }: Props) {
             <div>
               <label className={LABEL}>Card Image (listing page)</label>
               {cardImage ? (
-                <div className="relative rounded-xl overflow-hidden border border-stone-200 aspect-4/5 bg-stone-100">
+                <div className="relative rounded-xl overflow-hidden border border-stone-200 bg-stone-100" style={{ aspectRatio: "5/3" }}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={cardImage} alt="Card" className="w-full h-full object-cover" />
                   <div className="absolute top-2 right-2 flex gap-2">
@@ -145,7 +145,7 @@ export default function ProductForm({ productId, onSaved, onCancel }: Props) {
                   </div>
                 </div>
               ) : (
-                <label className="flex flex-col items-center justify-center gap-2 aspect-4/5 bg-stone-50 border-2 border-dashed border-stone-300 rounded-xl text-sm font-medium text-stone-500 hover:border-amber-400 hover:bg-amber-50 cursor-pointer transition-all">
+                <label className="flex flex-col items-center justify-center gap-2 bg-stone-50 border-2 border-dashed border-stone-300 rounded-xl text-sm font-medium text-stone-500 hover:border-amber-400 hover:bg-amber-50 cursor-pointer transition-all" style={{ aspectRatio: "5/3" }}>
                   {busy.cardImage ? <Spinner className="w-6 h-6" /> : (
                     <>
                       <svg className="w-7 h-7 text-stone-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.6}><path strokeLinecap="round" strokeLinejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v13.5a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V9.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" /></svg>
@@ -156,7 +156,7 @@ export default function ProductForm({ productId, onSaved, onCancel }: Props) {
                     onChange={(e) => { const f = e.target.files?.[0]; e.target.value = ""; if (f) runUpload("cardImage", f, "image", (r) => setCardImage(r.url)); }} />
                 </label>
               )}
-              <p className="text-[11px] text-stone-400 mt-1.5">Shown on the category listing page</p>
+              <p className="text-[11px] text-stone-400 mt-1.5">Recommended: 600 × 360 px (5:3 ratio)</p>
             </div>
 
             {/* Banner Image */}
