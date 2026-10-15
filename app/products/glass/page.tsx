@@ -32,7 +32,10 @@ export default function GlassProductsPage() {
             alt="Glass Coatings"
             className="absolute right-0 top-0 w-full md:w-[55%] h-full object-cover object-center"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-transparent" />
+          {/* Vertical fade on the left edge of the image */}
+          <div className="absolute inset-y-0 right-[40%] w-[20%] md:w-[15%] bg-gradient-to-r from-white to-transparent" />
+          {/* Bottom fade */}
+          {/* <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-white to-transparent" /> */}
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">

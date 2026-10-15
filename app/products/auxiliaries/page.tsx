@@ -218,6 +218,90 @@ export default function WoodAuxiliariesPage() {
         </motion.div>
       </section> */}
 
+      {/* ═══ BOTTOM CTA BAR ═══ */}
+      <section className="bg-white py-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-stone-50 border border-stone-200 rounded-2xl p-6 sm:p-8 space-y-5 items-center gap-6">
+            <div className="flex items-center  gap-4 flex-1">
+              <div
+                className="w-14 h-14 rounded-full flex items-center justify-center text-3xl shrink-0"
+                style={{ background: `${NAVY}10` }}
+              >
+                🎯
+              </div>
+              <div>
+                <h3
+                  className="font-extrabold text-2xl"
+                  style={{
+                    color: NAVY,
+                    fontFamily: "var(--font-raleway), sans-serif",
+                  }}
+                >
+                  Need Help Selecting The Right Coating?
+                </h3>
+                <p className="text-stone-500 text-[16px] mt-0.5">
+                  Our technical experts can recommend the ideal coating system
+                  based on your substrate, finish, durability and production
+                  process.
+                </p>
+              </div>
+            </div>
+
+            {/* CTA buttons */}
+            <div className="flex gap-3 justify-center items-center">
+              {[
+                {
+                  label: "Request TDS",
+                  desc: "Get Technical Datasheet for your required product.",
+                  icon: "📄",
+                },
+                {
+                  label: "Request a Sample",
+                  desc: "Test our coatings and experience the difference.",
+                  icon: "🧪",
+                },
+                {
+                  label: "Talk to an Expert",
+                  desc: "Speak with our technical specialist today.",
+                  icon: "💬",
+                },
+              ].map((cta, i) => (
+                <Link
+                  key={i}
+                  href="/contact-us"
+                  className="flex items-center gap-3 px-5 py-3.5 rounded-xl border border-stone-200 bg-white hover:border-orange-300 hover:shadow-md transition-all group"
+                >
+                  <span className="text-xl">{cta.icon}</span>
+                  <div>
+                    <span
+                      className="text-[16px] font-bold block"
+                      style={{ color: NAVY }}
+                    >
+                      {cta.label}
+                    </span>
+                    <span className="text-[14px] text-stone-400">
+                      {cta.desc}
+                    </span>
+                  </div>
+                  <svg
+                    className="w-3.5 h-3.5 text-stone-300 group-hover:text-orange-500 transition-colors ml-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13 7l5 5m0 0l-5 5m5-5H6"
+                    />
+                  </svg>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
       {/* ═══ EXPLORE OTHER SUBSTRATES ═══ */}
       <section className="bg-white pb-14">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

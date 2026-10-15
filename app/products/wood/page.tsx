@@ -376,7 +376,7 @@ function ProductCard({
           >
             Explore →
           </span>
-          {((product as any).tdsUrl) && (
+          {/* {((product as any).tdsUrl) && (
             <span
               onClick={(e) => { e.preventDefault(); e.stopPropagation(); window.open((product as any).tdsUrl, '_blank'); }}
               className="text-[14px] font-bold flex items-center gap-1 cursor-pointer"
@@ -397,7 +397,7 @@ function ProductCard({
               </svg>
               Request TDS
             </span>
-          )}
+          )} */}
         </div>
       </div>
     </motion.div>

@@ -659,7 +659,7 @@ export default function CareersPage() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.08, duration: 0.5 }}
-                  className="group flex items-start gap-5 p-5 rounded-2xl bg-white border border-stone-200/80 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
+                  className="group flex cursor-pointer items-start gap-5 p-5 rounded-2xl bg-white border border-stone-200/80 shadow-sm hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300"
                 >
                   <div
                     className="w-12 h-12 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-110"
@@ -692,7 +692,8 @@ export default function CareersPage() {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fcareer-%20why%20work%20with%20us%20section.jpeg?alt=media&token=9268d265-11ad-48d9-aa7c-8d82953cf133"
+              src="https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F97.png?alt=media&token=18a629e3-acad-43a9-a5ec-0c72b3a98653"
+                // src="https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fcareer-%20why%20work%20with%20us%20section.jpeg?alt=media&token=9268d265-11ad-48d9-aa7c-8d82953cf133"
                 alt="A workplace that helps you thrive"
                 className="w-full h-full object-cover absolute inset-0 hover:scale-110 transition-transform duration-700"
               />
@@ -759,7 +760,7 @@ export default function CareersPage() {
             </p>
             <button
               onClick={scrollToOpenings}
-              className="mt-6 inline-flex items-center gap-2 px-6 py-3 rounded-full text-white font-bold text-sm shadow-md hover:shadow-lg transition-all"
+              className="mt-6 inline-flex cursor-pointer items-center gap-2 px-6 py-3 rounded-full text-white font-bold text-sm shadow-md hover:shadow-lg transition-all"
               style={{
                 background: "linear-gradient(135deg, #f59e0b, #d97706)",
               }}
@@ -1082,7 +1083,7 @@ export default function CareersPage() {
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => scrollToForm(job.title)}
-                        className="flex items-center gap-2 px-7 py-3.5 rounded-2xl text-white font-bold text-[14px] shadow-md hover:shadow-xl hover:scale-105 transition-all duration-200"
+                        className="flex items-center cursor-pointer gap-2 px-7 py-3.5 rounded-2xl text-white font-bold text-[14px] shadow-md hover:shadow-xl hover:scale-105 transition-all duration-200"
                         style={{
                           background: "#1e3a5f",
                         }}
@@ -1386,7 +1387,7 @@ export default function CareersPage() {
                       whileTap={{ scale: 0.98 }}
                       onClick={handleSubmit}
                       disabled={status === "loading"}
-                      className="flex items-center gap-3 px-8 py-4 rounded-full text-white font-bold text-[15px] transition-all disabled:opacity-70"
+                      className="flex items-center cursor-pointer gap-3 px-8 py-4 rounded-full text-white font-bold text-[15px] transition-all disabled:opacity-70"
                       style={{
                         background: "linear-gradient(135deg, #f59e0b, #d97706)",
                         boxShadow: "0 8px 24px rgba(217,119,6,0.38)",

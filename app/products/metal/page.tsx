@@ -153,31 +153,19 @@ export default function MetalProductsPage() {
             </p>
           </motion.div>
 
-          {/* Product cards - first row 4, second row remaining */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-            {metalProducts.slice(0, 4).map((product, i) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                index={i}
-                inView={inView}
-                substrate="metal"
-              />
-            ))}
-          </div>
-          {metalProducts.length > 4 && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-              {metalProducts.slice(4).map((product, i) => (
+          {/* Product cards */}
+          <div className="flex flex-wrap justify-center gap-5">
+            {metalProducts.map((product, i) => (
+              <div key={product.id} className="w-full sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)]">
                 <ProductCard
-                  key={product.id}
                   product={product}
-                  index={i + 4}
+                  index={i}
                   inView={inView}
                   substrate="metal"
                 />
-              ))}
-            </div>
-          )}
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -326,7 +314,7 @@ function ProductCard({
       className="bg-white rounded-2xl border border-stone-200 shadow-sm hover:shadow-xl transition-all overflow-hidden flex flex-col group cursor-pointer"
     >
       {/* Image */}
-      <div className="relative h-44 overflow-hidden">
+      <div className="relative h-72 overflow-hidden">
         <img
           src={product.image || "/coating/metal-coating.jpeg"}
           alt={product.name}

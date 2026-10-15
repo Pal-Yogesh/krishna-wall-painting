@@ -257,7 +257,7 @@ export default function PaintRemoversPage() {
               const t = themeFor(g.name);
               return (
                 <motion.div key={g.id} {...fadeUp} transition={{ duration: 0.45, delay: i * 0.08 }}>
-                <Link href={`/products/paint-removers/${g.id}`}
+                <Link href={``}
                   className={`group rounded-2xl border border-stone-200 bg-linear-to-b ${t.tint} to-white overflow-hidden flex flex-col h-full shadow-sm hover:shadow-lg transition-shadow`}>
                   <div className="flex items-start gap-4 p-5 sm:p-6">
                     <span className="shrink-0 w-12 h-12 rounded-full flex items-center justify-center text-white shadow-md" style={{ background: t.color }}>
@@ -266,9 +266,9 @@ export default function PaintRemoversPage() {
                     <div>
                       <h3 className="text-[16px] font-extrabold uppercase tracking-wide mb-2 mt-2.5" style={{ ...FONT, color: t.color }}>{g.name}</h3>
                       {g.description && <p className="text-[13px] text-stone-600 leading-relaxed whitespace-pre-line">{g.description}</p>}
-                      <span className="inline-flex items-center gap-1.5 mt-3 text-[12px] font-bold" style={{ color: t.color }}>
+                      {/* <span className="inline-flex items-center gap-1.5 mt-3 text-[12px] font-bold" style={{ color: t.color }}>
                         View Products <span className="transition-transform group-hover:translate-x-1">→</span>
-                      </span>
+                      </span> */}
                     </div>
                   </div>
                   {(g.banner || g.image || /plastic/i.test(g.name)) && (
@@ -324,91 +324,94 @@ export default function PaintRemoversPage() {
           </div>
         </div>
       </section>
-
-      {/* CTA band */}
-      <section
-        className="relative overflow-hidden"
-        style={{
-          background: `linear-gradient(90deg, #0f2440, ${NAVY} 45%, #1e40af)`,
-        }}
-      >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col md:flex-row items-center gap-6">
-          <div className="relative shrink-0 w-24 h-20 rounded-xl overflow-hidden hidden sm:block">
-            <Image
-              src={CTA_IMAGE}
-              alt=""
-              fill
-              sizes="96px"
-              className="object-cover"
-            />
-          </div>
-          <h2
-            className="flex-1 text-center md:text-left text-xl sm:text-2xl font-extrabold uppercase tracking-wide leading-tight text-white"
-            style={FONT}
-          >
-            Find the right paint remover
-            <br />
-            <span className="text-sky-300">for your application</span>
-          </h2>
-          <div className="flex flex-wrap justify-center gap-3">
-            <Link
-              href="/contact-us"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg bg-white font-bold text-[13px] hover:bg-stone-100 transition-colors"
-              style={{ color: NAVY }}
-            >
-              Talk to an Expert <MessageCircle className="w-4 h-4" />
-            </Link>
-            <Link
-              href="/contact-us"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-lg text-white font-bold text-[13px] shadow-md hover:opacity-90 transition-opacity"
-              style={{ background: ORANGE }}
-            >
-              Request TDS <FileText className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Trust strip */}
-      <section className="bg-stone-50 border-b border-stone-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 items-center">
-          {TRUST.map((t, i) => (
-            <div
-              key={t.title}
-              className={`flex items-center gap-4 ${i > 0 ? "lg:border-l lg:border-stone-200 lg:pl-6" : ""}`}
-            >
-              <t.icon
-                className="w-9 h-9 shrink-0"
-                style={{ color: NAVY }}
-                strokeWidth={1.4}
-              />
+      
+      {/* ═══ BOTTOM CTA BAR ═══ */}
+      <section className="bg-white py-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="bg-stone-50 border border-stone-200 rounded-2xl p-6 sm:p-8 space-y-5 items-center gap-6">
+            <div className="flex items-center  gap-4 flex-1">
+              <div
+                className="w-14 h-14 rounded-full flex items-center justify-center text-3xl shrink-0"
+                style={{ background: `${NAVY}10` }}
+              >
+                🎯
+              </div>
               <div>
-                <p
-                  className="text-[12px] font-extrabold uppercase"
-                  style={{ ...FONT, color: NAVY }}
+                <h3
+                  className="font-extrabold text-2xl"
+                  style={{
+                    color: NAVY,
+                    fontFamily: "var(--font-raleway), sans-serif",
+                  }}
                 >
-                  {t.title}
-                </p>
-                <p className="text-[12px] text-stone-600 leading-snug">
-                  {t.text}
+                  Need Help Selecting The Right Coating?
+                </h3>
+                <p className="text-stone-500 text-[16px] mt-0.5">
+                  Our technical experts can recommend the ideal coating system
+                  based on your substrate, finish, durability and production
+                  process.
                 </p>
               </div>
             </div>
-          ))}
-          <div className="flex justify-center lg:justify-end lg:border-l lg:border-stone-200 lg:pl-6">
-            <Image
-              src="/logo.png"
-              alt="Krishna"
-              width={160}
-              height={80}
-              className="h-14 w-auto object-contain"
-            />
+
+            {/* CTA buttons */}
+            <div className="flex gap-3 justify-center items-center">
+              {[
+                {
+                  label: "Request TDS",
+                  desc: "Get Technical Datasheet for your required product.",
+                  icon: "📄",
+                },
+                {
+                  label: "Request a Sample",
+                  desc: "Test our coatings and experience the difference.",
+                  icon: "🧪",
+                },
+                {
+                  label: "Talk to an Expert",
+                  desc: "Speak with our technical specialist today.",
+                  icon: "💬",
+                },
+              ].map((cta, i) => (
+                <Link
+                  key={i}
+                  href="/contact-us"
+                  className="flex items-center gap-3 px-5 py-3.5 rounded-xl border border-stone-200 bg-white hover:border-orange-300 hover:shadow-md transition-all group"
+                >
+                  <span className="text-xl">{cta.icon}</span>
+                  <div>
+                    <span
+                      className="text-[16px] font-bold block"
+                      style={{ color: NAVY }}
+                    >
+                      {cta.label}
+                    </span>
+                    <span className="text-[14px] text-stone-400">
+                      {cta.desc}
+                    </span>
+                  </div>
+                  <svg
+                    className="w-3.5 h-3.5 text-stone-300 group-hover:text-orange-500 transition-colors ml-1"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2.5}
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M13 7l5 5m0 0l-5 5m5-5H6"
+                    />
+                  </svg>
+                </Link>
+              ))}
+            </div>
           </div>
         </div>
       </section>
 
       {/* ═══ EXPLORE OTHER SUBSTRATES ═══ */}
-      <section className="bg-white py-14">
+      <section className="bg-white py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h3 className="text-3xl font-extrabold mb-6" style={{ ...FONT, color: NAVY }}>
             Explore Other Substrates

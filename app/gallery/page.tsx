@@ -63,40 +63,49 @@ export default function GalleryPage() {
   return (
     <div className="min-h-screen bg-[#faf9f7]">
       {/* Hero header */}
-      <section className="pt-8 pb-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Breadcrumb */}
-        <nav className="flex items-center gap-1.5 text-[12px] text-stone-400 mb-4">
-          <Link href="/" className="hover:text-stone-700">Home</Link>
-          <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
-          <span className="text-stone-700 font-semibold">Gallery</span>
-        </nav>
+      <section className="relative overflow-hidden min-h-[60vh]">
+        <div className="absolute inset-0">
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F1792056179741-Gallery_banner_image.PNG?alt=media&token=9dd2d0ee-2275-4133-a110-8173e726158b"
+            alt="Gallery banner"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-white/90 via-white/30 to-transparent" />
+        </div>
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-8">
+          {/* Breadcrumb */}
+          <nav className="flex items-center gap-1.5 text-[12px] text-stone-400 mb-4">
+            <Link href="/" className="hover:text-black text-stone-500">Home</Link>
+            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" /></svg>
+            <span className="text-stone-700 font-semibold">Gallery</span>
+          </nav>
 
-        <div className="flex items-start justify-between gap-6">
-          <div>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-stone-900 leading-tight" style={FONT}>
-              Inside <span style={{ color: ORANGE }}>Krishna</span>
-            </h1>
-            <p className="mt-2 text-stone-500 text-[15px] max-w-lg leading-relaxed">
-              Explore our facility, people, products and manufacturing journey.
-            </p>
+          <div className="flex items-start justify-between gap-6">
+            <div>
+              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-stone-900 leading-tight" style={FONT}>
+                Inside <span style={{ color: ORANGE }}>Krishna</span>
+              </h1>
+              <p className="mt-2 text-stone-600 text-[15px] max-w-lg leading-relaxed">
+                Explore our facility, people, products and manufacturing journey.
+              </p>
+            </div>
+            <Image src="/logo.png" alt="Krishna Logo" width={100} height={100} className="hidden sm:block shrink-0 object-contain" />
           </div>
-          <Image src="/logo.png" alt="Krishna Logo" width={100} height={100} className="hidden sm:block shrink-0 object-contain" />
         </div>
       </section>
 
       {/* Filter tabs */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-6">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-7">
         <div className="flex flex-wrap gap-2">
           {CATEGORIES.map((cat) => (
             <button
               key={cat}
               onClick={() => { setActive(cat); setLightboxIndex(null); }}
-              className="px-5 py-2 rounded-full text-[13px] font-semibold transition-all border"
-              style={
+              className={`px-5 py-2 rounded-full text-[13px] font-semibold transition-all border ${
                 active === cat
-                  ? { background: ORANGE, color: "#fff", borderColor: ORANGE }
-                  : { background: "#fff", color: "#57534e", borderColor: "#e7e5e4" }
-              }
+                  ? "text-white border-[#ea580c] bg-[#ea580c]"
+                  : "bg-white text-stone-600 border-stone-200 hover:bg-[#ea580c] hover:text-white hover:border-[#ea580c]"
+              }`}
             >
               {cat}
             </button>
