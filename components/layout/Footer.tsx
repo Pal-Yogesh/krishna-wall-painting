@@ -115,25 +115,23 @@ export default function Footer() {
             <h4 className="text-xs font-bold uppercase tracking-[0.2em] text-stone-400 mb-5">Popular Coatings</h4>
             <ul className="flex flex-col gap-3">
               {[
-                { name: "NC Coatings", href: "/products/wood/nc-coatings-for-wood", img: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0001.jpg" },
-                { name: "PU Coatings", href: "/products/wood/pu-coatings-for-wood", img: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0002.jpg" },
-                { name: "Polyester Coatings", href: "/products/wood/unsaturated-polyester-coatings-for-wood", img: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0003.jpg" },
-                { name: "1K Acrylic Coatings", href: "/products/wood/1k-acrylic-coatings-for-wood", img: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0004.jpg" },
-                { name: "UV Coatings", href: "/products/wood/uv-coatings-for-wood", img: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0005.jpg" },
-                { name: "1K Water-Based", href: "/products/wood/1k-wb-coatings-for-wood", img: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0006.jpg" },
-                { name: "2K Water-Based", href: "/products/wood/2k-wb-coatings-for-wood", img: "/wood/KMOPL WOOD PANEL NAMES_compressed_page-0007.jpg" },
+                { name: "Wood Coatings", href: "/products/wood" },
+                { name: "Metal Coatings", href: "/products/metal" },
+                { name: "Glass Coatings", href: "/products/glass" },
+                { name: "Dyestuff Solutions", href: "/products/dyestuff" },
+                { name: "Wood Auxiliaries", href: "/products/auxiliaries" },
+                { name: "Paint Removers", href: "/products/paint-removers" },
               ].map(item => (
                 <li key={item.name}>
                   <Link href={item.href}
                     className="group flex items-center gap-2.5 text-sm text-stone-500 hover:text-amber-700 transition-colors" style={{ fontFamily: "var(--font-raleway), sans-serif" }}>
-                    <Image src={item.img} alt={item.name} width={24} height={24} className="w-6 h-6 rounded-full object-cover shrink-0 border border-stone-200" />
                     <span className="group-hover:translate-x-0.5 transition-transform">{item.name}</span>
                   </Link>
                 </li>
               ))}
               <li>
-                <Link href="/products/wood" className="text-xs font-bold text-amber-600 hover:text-amber-700 transition-colors mt-1 inline-block">
-                  View all Wood Coatings →
+                <Link href="/products" className="text-xs font-bold text-amber-600 hover:text-amber-700 transition-colors mt-1 inline-block">
+                  View all Products →
                 </Link>
               </li>
             </ul>
@@ -147,7 +145,7 @@ export default function Footer() {
                 { icon: <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>, label: "Phone", value: "+91 85888 30308, +91 98101 50049" },
                 // { icon: <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>, label: "Phone 2", value: "+91 98101 50049", href: "tel:+919810150049" },
                 { icon: <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>, label: "Email", value: "sales@krishna-chemicals.com", href: "mailto:sales@krishna-chemicals.com" },
-                { icon: <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>, label: "Address", value: "B-169 & B-170, Industrial Area Phase-II, Noida, G.B. Nagar, U.P.-201305", href: null },
+                { icon: <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>, label: "Address", value: "B-169, Industrial Area Phase-II, Noida, G.B. Nagar, U.P.-201305", href: null },
               ].map(item => (
                 <div key={item.label} className="flex items-start gap-3">
                   <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0 mt-0.5 bg-amber-50 border border-amber-100 text-amber-600">

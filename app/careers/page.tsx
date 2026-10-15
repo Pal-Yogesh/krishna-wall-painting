@@ -42,10 +42,11 @@ const MAX_RESUME_BYTES = 5 * 1024 * 1024;
 const IMG = {
   heroMain: "/career/4.jpeg",
   heroA: "/career/2.jpeg",
-  heroB: "/career/3.jpeg",
+  heroB: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fbuild%20a%20career.jpeg?alt=media&token=e484df72-50ef-4e61-9d73-d4510ab25b4e",
   talent:
     "https://images.unsplash.com/photo-1521791136064-7986c2920216?auto=format&fit=crop&w=700&q=80",
-  access: "/access.jpeg",
+    access:"https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fimage%20or%20career%20page%203rd%20part%20build%20a%20long%20term%20career.png?alt=media&token=c4754063-570d-4eb6-a92f-dae1ecab549c",
+  // access: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fcareer%20page%20build%20a%20long%20term%20career.png?alt=media&token=5353f1bb-e4bc-4876-8714-d23f7b94f1a0",
   testimonial: "/about2.jpeg",
 };
 
@@ -111,26 +112,26 @@ const PERKS = [
       </svg>
     ),
   },
-  {
-    title: "Stability & Trust",
-    desc: "Build your future with an established, growing brand trusted across India.",
-    color: "#7c3aed",
-    icon: (
-      <svg
-        viewBox="0 0 24 24"
-        fill="none"
-        className="w-6 h-6"
-        stroke="currentColor"
-        strokeWidth={1.8}
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
-        />
-      </svg>
-    ),
-  },
+  // {
+  //   title: "Stability & Trust",
+  //   desc: "Build your future with an established, growing brand trusted across India.",
+  //   color: "#7c3aed",
+  //   icon: (
+  //     <svg
+  //       viewBox="0 0 24 24"
+  //       fill="none"
+  //       className="w-6 h-6"
+  //       stroke="currentColor"
+  //       strokeWidth={1.8}
+  //     >
+  //       <path
+  //         strokeLinecap="round"
+  //         strokeLinejoin="round"
+  //         d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+  //       />
+  //     </svg>
+  //   ),
+  // },
 ];
 
 // ── Stats ───────────────────────────────────────────────────────────────────────
@@ -574,8 +575,10 @@ export default function CareersPage() {
               transition={{ duration: 0.7, delay: 0.15 }}
               className="relative hidden lg:block"
             >
-              {/* Soft shape accents behind the grid */}
-              <div
+             
+                  
+                 
+                 <div
                 aria-hidden
                 className="absolute -top-6 -right-6 w-28 h-28 rounded-full"
                 style={{ background: "#f59e0b", opacity: 0.15 }}
@@ -689,9 +692,9 @@ export default function CareersPage() {
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src="/why-work-with-us/1.jpeg"
+                src="https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fcareer-%20why%20work%20with%20us%20section.jpeg?alt=media&token=9268d265-11ad-48d9-aa7c-8d82953cf133"
                 alt="A workplace that helps you thrive"
-                className="w-full h-full object-contain absolute inset-0"
+                className="w-full h-full object-cover absolute inset-0 hover:scale-110 transition-transform duration-700"
               />
               <div className="absolute inset-0 bg-linear-to-t from-black/30 via-transparent to-transparent" />
             </motion.div>
@@ -723,7 +726,6 @@ export default function CareersPage() {
               />
             </div>
           </motion.div>
-          {/* Copy */}
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
@@ -1082,8 +1084,7 @@ export default function CareersPage() {
                         onClick={() => scrollToForm(job.title)}
                         className="flex items-center gap-2 px-7 py-3.5 rounded-2xl text-white font-bold text-[14px] shadow-md hover:shadow-xl hover:scale-105 transition-all duration-200"
                         style={{
-                          background:
-                            "linear-gradient(135deg, #f59e0b 0%, #d97706 100%)",
+                          background: "#1e3a5f",
                         }}
                       >
                         Apply Now

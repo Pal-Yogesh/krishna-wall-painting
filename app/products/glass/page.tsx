@@ -32,6 +32,7 @@ export default function GlassProductsPage() {
             alt="Glass Coatings"
             className="absolute right-0 top-0 w-full md:w-[55%] h-full object-cover object-center"
           />
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 to-transparent" />
         </div>
 
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14">
@@ -150,45 +151,21 @@ export default function GlassProductsPage() {
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <div className="flex flex-wrap justify-center gap-5">
             {glassProducts.map((product, i) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                index={i}
-                inView={inView}
-              />
+              <div key={product.id} className="w-full sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)]">
+                <ProductCard
+                  product={product}
+                  index={i}
+                  inView={inView}
+                />
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ═══ EXPLORE OTHER SUBSTRATES ═══ */}
-      <section className="bg-white py-10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h3 className="text-3xl font-extrabold mb-6" style={{ color: NAVY, fontFamily: "var(--font-raleway), sans-serif" }}>
-            Explore Other Substrates
-          </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {[
-              { href: "/products/wood", img: "/new-images-update/wood.jpeg", title: "Wood Coatings", desc: "Premium coatings for beautiful and durable wood finishes." },
-              { href: "/products/metal", img: "/new-images-update/metal.jpeg", title: "Metal Coatings", desc: "High performance coatings for metal substrates." },
-              { href: "/products/dyestuff", img: "/paint-images/images/4.jpg", title: "Dyestuff Solutions", desc: "Industrial dyes and colourants for vibrant results." },
-              { href: "/products/auxiliaries", img: "/paint-images/images/5.jpg", title: "Wood Auxiliaries", desc: "Complementary products that enhance coating performance." },
-              { href: "/products/paint-removers", img: "/paint-images/images/4.jpg", title: "Paint Removers", desc: "Effective paint removers for wood, metal, and glass." },
-            ].map((s) => (
-              <Link key={s.href} href={s.href} className="flex items-center gap-3 p-4 rounded-xl border border-stone-200 hover:border-orange-300 hover:shadow-md transition-all">
-                <img src={s.img} alt={s.title} className="w-14 h-14 rounded-lg object-cover shrink-0" />
-                <div>
-                  <p className="font-bold text-[14px]" style={{ color: NAVY }}>{s.title}</p>
-                  <p className="text-[12px] text-stone-400">{s.desc}</p>
-                  <span className="text-[12px] font-bold mt-1 inline-block" style={{ color: ORANGE }}>Explore →</span>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+     
 
            {/* ═══ BOTTOM CTA BAR ═══ */}
       <section className="bg-white py-10">
@@ -275,60 +252,28 @@ export default function GlassProductsPage() {
         </div>
       </section>
 
-      {/* ═══ WHY CHOOSE KRISHNA ═══ */}
-      <section className="bg-white pb-14">
+       {/* ═══ EXPLORE OTHER SUBSTRATES ═══ */}
+      <section className="bg-white py-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h3
-            className="text-2xl font-extrabold text-center mb-6"
-            style={{
-              color: NAVY,
-              fontFamily: "var(--font-raleway), sans-serif",
-            }}
-          >
-            Why Choose Krishna Coatings?
+          <h3 className="text-3xl font-extrabold mb-6" style={{ color: NAVY, fontFamily: "var(--font-raleway), sans-serif" }}>
+            Explore Other Substrates
           </h3>
-          <div className="flex items-center justify-between gap-4 px-4 py-4 bg-stone-50 border border-stone-200 rounded-2xl">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {[
-              {
-                icon: "🔬",
-                title: "Advanced R&D",
-                desc: "Innovative formulations for specialized surfaces",
-              },
-              {
-                icon: "💪",
-                title: "Strong Adhesion Technology",
-                desc: "Engineered for non-porous substrates",
-              },
-              {
-                icon: "✅",
-                title: "Consistent Quality",
-                desc: "Stringent quality control at every step",
-              },
-              {
-                icon: "🚛",
-                title: "Pan India Supply",
-                desc: "Timely delivery across India",
-              },
-              {
-                icon: "🎯",
-                title: "Technical Support",
-                desc: "Expert assistance for best performance",
-              },
-            ].map((b, i) => (
-              <div key={i} className="flex items-center gap-2.5">
-                <div className="w-10 h-10 rounded-full bg-white border border-stone-200 flex items-center justify-center text-base shadow-sm shrink-0">
-                  {b.icon}
-                </div>
+              { href: "/products/wood", img: "/new-images-update/wood.jpeg", title: "Wood Coatings", desc: "Premium coatings for beautiful and durable wood finishes." },
+              { href: "/products/metal", img: "/new-images-update/metal.jpeg", title: "Metal Coatings", desc: "High performance coatings for metal substrates." },
+              { href: "/products/dyestuff", img: "/paint-images/images/4.jpg", title: "Dyestuff Solutions", desc: "Industrial dyes and colourants for vibrant results." },
+              { href: "/products/auxiliaries", img: "/paint-images/images/5.jpg", title: "Wood Auxiliaries", desc: "Complementary products that enhance coating performance." },
+              { href: "/products/paint-removers", img: "/paint-images/images/4.jpg", title: "Paint Removers", desc: "Effective paint removers for wood, metal, and glass." },
+            ].map((s) => (
+              <Link key={s.href} href={s.href} className="flex items-center gap-3 p-4 rounded-xl border border-stone-200 hover:border-orange-300 hover:shadow-md transition-all">
+                <img src={s.img} alt={s.title} className="w-14 h-14 rounded-lg object-cover shrink-0" />
                 <div>
-                  <p className="text-[14px] font-bold" style={{ color: NAVY }}>
-                    {b.title}
-                  </p>
-                  <p className="text-[12px] text-stone-400">{b.desc}</p>
+                  <p className="font-bold text-[14px]" style={{ color: NAVY }}>{s.title}</p>
+                  <p className="text-[12px] text-stone-400">{s.desc}</p>
+                  <span className="text-[12px] font-bold mt-1 inline-block" style={{ color: ORANGE }}>Explore →</span>
                 </div>
-                {i < 4 && (
-                  <span className="hidden lg:block w-px h-8 bg-stone-200 ml-3" />
-                )}
-              </div>
+              </Link>
             ))}
           </div>
         </div>
@@ -350,11 +295,12 @@ function ProductCard({
   const NAVY = "#1e3a5f";
 
   return (
+    <Link href={`/products/glass/${product.id}`} className="block">
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay: index * 0.08, duration: 0.5 }}
-      className="bg-white rounded-2xl border border-stone-200 shadow-sm hover:shadow-xl transition-all overflow-hidden flex flex-col group"
+      className="bg-white rounded-2xl border border-stone-200 shadow-sm hover:shadow-xl transition-all overflow-hidden flex flex-col group cursor-pointer"
     >
       <div className="relative h-44 overflow-hidden">
         <img
@@ -427,19 +373,16 @@ function ProductCard({
         )}
 
         <div className="flex items-center justify-between mt-auto pt-3 border-t border-stone-100">
-          <Link
-            href={`/products/glass/${product.id}`}
-            className="text-[14px] font-bold flex items-center gap-1 hover:gap-2 transition-all"
+          <span
+            className="text-[14px] font-bold flex items-center gap-1"
             style={{ color: NAVY }}
           >
             Explore →
-          </Link>
+          </span>
           {((product as any).tdsUrl) && (
-            <a
-              href={(product as any).tdsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[11px] font-bold flex items-center gap-1"
+            <span
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); window.open((product as any).tdsUrl, '_blank'); }}
+              className="text-[11px] font-bold flex items-center gap-1 cursor-pointer"
               style={{ color: ORANGE }}
             >
               <svg
@@ -456,10 +399,11 @@ function ProductCard({
                 />
               </svg>
               Request TDS
-            </a>
+            </span>
           )}
         </div>
       </div>
     </motion.div>
+    </Link>
   );
 }

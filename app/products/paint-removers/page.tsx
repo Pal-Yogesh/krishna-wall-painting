@@ -271,9 +271,13 @@ export default function PaintRemoversPage() {
                       </span>
                     </div>
                   </div>
-                  {(g.banner || g.image) && (
+                  {(g.banner || g.image || /plastic/i.test(g.name)) && (
                     <div className="relative mt-auto h-64 sm:h-72 md:h-56">
-                      <Image src={g.banner || g.image} alt={g.name} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover object-center" />
+                      <Image src={
+                        /plastic/i.test(g.name)
+                          ? "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fplastic%20image.png?alt=media&token=9974c2cd-bdf4-4958-9b89-eddf1328165a"
+                          : (g.banner || g.image)
+                      } alt={g.name} fill sizes="(min-width: 768px) 33vw, 100vw" className="object-cover object-center" />
                     </div>
                   )}
                 </Link>
@@ -312,9 +316,9 @@ export default function PaintRemoversPage() {
                 >
                   {f.title}
                 </h3>
-                <p className="text-[12px] text-stone-600 leading-relaxed">
+                {/* <p className="text-[12px] text-stone-600 leading-relaxed">
                   {f.text}
-                </p>
+                </p> */}
               </motion.div>
             ))}
           </div>
@@ -402,11 +406,36 @@ export default function PaintRemoversPage() {
           </div>
         </div>
       </section>
+
+      {/* ═══ EXPLORE OTHER SUBSTRATES ═══ */}
+      <section className="bg-white py-14">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h3 className="text-3xl font-extrabold mb-6" style={{ ...FONT, color: NAVY }}>
+            Explore Other Substrates
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              { href: "/products/wood", img: "/new-images-update/wood.jpeg", title: "Wood Coatings", desc: "Premium coatings for beautiful and durable wood finishes." },
+              { href: "/products/metal", img: "/new-images-update/metal.jpeg", title: "Metal Coatings", desc: "High performance coatings for metal substrates." },
+              { href: "/products/glass", img: "/new-images-update/glass.jpeg", title: "Glass & Plastic Coatings", desc: "Advanced coating solutions for glass and plastic." },
+              { href: "/products/dyestuff", img: "/paint-images/images/4.jpg", title: "Dyestuff Solutions", desc: "Industrial dyes and colourants for vibrant results." },
+              { href: "/products/auxiliaries", img: "/paint-images/images/5.jpg", title: "Wood Auxiliaries", desc: "Complementary products that enhance coating performance." },
+            ].map((s) => (
+              <Link key={s.href} href={s.href} className="flex items-center gap-3 p-4 rounded-xl border border-stone-200 hover:border-orange-300 hover:shadow-md transition-all">
+                <img src={s.img} alt={s.title} className="w-14 h-14 rounded-lg object-cover shrink-0" />
+                <div>
+                  <p className="font-bold text-[14px]" style={{ color: NAVY }}>{s.title}</p>
+                  <p className="text-[12px] text-stone-400">{s.desc}</p>
+                  <span className="text-[12px] font-bold mt-1 inline-block" style={{ color: ORANGE }}>Explore →</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
-}
-
-function SubstrateBadge({
+}function SubstrateBadge({
   s,
   x,
   xSm = x,

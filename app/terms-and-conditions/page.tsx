@@ -156,7 +156,7 @@ export default function TermsAndConditionsPage() {
               {[
                 { icon: "✉️", label: "Email", value: "sales@krishna-chemicals.com", href: "mailto:sales@krishna-chemicals.com" },
                 { icon: "📞", label: "Phone", value: "+91 85888 30308", href: "tel:+918588830308" },
-                { icon: "📍", label: "Address", value: "B-169 & B-170, Industrial Area Phase-II, Noida, G.B. Nagar, U.P.-201305", href: null },
+                { icon: "📍", label: "Address", value: "B-169, Industrial Area Phase-II, Noida, G.B. Nagar, U.P.-201305", href: null },
               ].map((item) => (
                 <div key={item.label} className="flex items-start gap-3">
                   <span className="text-base">{item.icon}</span>

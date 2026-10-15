@@ -164,7 +164,7 @@ export default function ProductsSection() {
               style={{ clipPath: "ellipse(110% 100% at 100% 50%)" }}
             >
               <img
-                src="/new-images-update/manufacturing-excelllence.png"
+                src="https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2FManufacturing%20home%20page.png?alt=media&token=3ed5a1d3-54d0-4bea-86f0-9cc6126b645f"
                 alt="KMOPL Manufacturing Facility"
                 className="w-full h-full object-cover object-center"
               />
@@ -180,7 +180,7 @@ export default function ProductsSection() {
 
             {/* Bottom info strip */}
             <div
-              className="absolute bottom-0 left-0 right-0 flex items-center gap-4 px-6 py-3.5 z-10"
+              className="absolute bottom-0 left-0 right-0 flex items-center gap-3 sm:gap-4 px-4 sm:px-6 py-3 sm:py-3.5 z-10"
               style={{
                 background: "rgba(15,28,53,0.82)",
                 backdropFilter: "blur(6px)",
@@ -188,7 +188,7 @@ export default function ProductsSection() {
             >
               {/* Gold circle icon */}
               <div
-                className="w-10 h-10 rounded-full flex items-center justify-center shrink-0"
+                className="w-9 h-9 sm:w-10 sm:h-10 rounded-full flex items-center justify-center shrink-0"
                 style={{
                   background: "rgba(184,146,42,0.18)",
                   border: `1.5px solid ${GOLD}`,
@@ -197,7 +197,7 @@ export default function ProductsSection() {
                 <svg
                   viewBox="0 0 24 24"
                   fill="none"
-                  className="w-5 h-5"
+                  className="w-4 h-4 sm:w-5 sm:h-5"
                   stroke={GOLD}
                   strokeWidth={1.6}
                 >
@@ -208,9 +208,8 @@ export default function ProductsSection() {
                   />
                 </svg>
               </div>
-              <p className="text-white/85 text-[12px] font-medium tracking-wide">
-                Modern Infrastructure &nbsp;•&nbsp; Advanced Technology
-                &nbsp;•&nbsp; Consistent Quality
+              <p className="text-white/85 text-[11px] sm:text-[12px] font-medium tracking-wide leading-snug">
+                Modern Infrastructure &nbsp;•&nbsp; Advanced Technology &nbsp;•&nbsp; Consistent Quality
               </p>
             </div>
           </div>

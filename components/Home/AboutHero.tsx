@@ -14,7 +14,7 @@ const STATS = [
   { value: "4", label: "Manufacturing Units", color: "#7c3aed" },
 ];
 
-const CLIENT_LOGOS = Array.from({ length: 13 }, (_, i) => `/client-logos/client-logo-${String(i + 1).padStart(2, "0")}.jpg`);
+const CLIENT_LOGOS = Array.from({ length: 12 }, (_, i) => `/client-logos/client-logo-${String(i + 1).padStart(2, "0")}.jpg`);
 
 export default function AboutHero() {
   const doubledLogos = [...CLIENT_LOGOS, ...CLIENT_LOGOS];

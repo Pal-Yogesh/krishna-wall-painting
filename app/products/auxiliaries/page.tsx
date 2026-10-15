@@ -31,11 +31,11 @@ const groupIcon = (name: string) =>
 
 // Replace these with your own image URLs
 const APPLICATIONS = [
-  { label: "Furniture", icon: Armchair, image: "/paint-images/images/2.jpg" },
-  { label: "Doors & Windows", icon: DoorOpen, image: "/WOOD-PANNEL/9-RICH MAHOGANY.png" },
-  { label: "Wood Coatings", icon: PaintRoller, image: "/coating/wood-coating.jpeg" },
-  { label: "Interior Woodwork", icon: Sparkles, image: "/WOOD-PANNEL/wood.jpg" },
-  { label: "Decorative Finishes", icon: Palette, image: "/paint-images/images/5.jpg" },
+  { label: "Custom Woodworking", icon: Armchair, image: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fapplications%20-Custom%20Woodworking.png?alt=media&token=a29b1eae-1689-4677-a5c9-aa2217e18938" },
+  { label: "Interior Design", icon: DoorOpen, image: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fapplication%20-%20interior%20design.png?alt=media&token=f3724204-80f2-41df-b1da-d99f35d30507" },
+  { label: "Mass-Market Wood Laminates", icon: PaintRoller, image: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fapplication-%20mass%20market.png?alt=media&token=c5304a19-cc39-41ae-bd0b-ce41af82c413" },
+  { label: "Musical Instruments", icon: Sparkles, image: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fapplications%20-%20Musical%20Instruments.png?alt=media&token=4a495cba-40f1-4c66-8c69-fc33aa1ce1f3" },
+  { label: "Artisanal Wood Antiques", icon: Palette, image: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fapplications%20Artisanal%20Wood%20%26%20Antiques.png?alt=media&token=a389b018-b734-48ea-b4fe-f642368100b3" },
 ];
 
 const WHY = [
@@ -62,7 +62,7 @@ export default function WoodAuxiliariesPage() {
       <section className="relative overflow-hidden bg-white">
         <div className="absolute inset-y-0 right-0 w-full md:w-[62%]">
           <Image src={HERO_IMAGE} alt="Brush applying finish on wood" fill priority sizes="(min-width: 768px) 62vw, 100vw" className="object-cover object-center" />
-          <div className="absolute inset-0 bg-linear-to-r from-white via-white/85 to-white/40 md:via-white/75 md:to-transparent" />
+          <div className="absolute inset-0 bg-linear-to-r from-white via-white/85 to-white/40 md:via-white/15 md:to-transparent" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-16 lg:pb-24">
           <nav className="flex items-center gap-1.5 text-[11px] text-stone-500 mb-8" aria-label="Breadcrumb">
@@ -176,7 +176,7 @@ export default function WoodAuxiliariesPage() {
       </section>
 
       {/* Why */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
+      {/* <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-14">
         <motion.h2 {...fadeUp} className="text-center text-xl sm:text-2xl font-extrabold uppercase tracking-wide mb-8" style={{ ...FONT, color: NAVY }}>
           Why Choose Krishna Wood Auxiliaries?
         </motion.h2>
@@ -189,10 +189,10 @@ export default function WoodAuxiliariesPage() {
             </motion.div>
           ))}
         </div>
-      </section>
+      </section> */}
 
       {/* CTA */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
+      {/* <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
         <motion.div {...fadeUp} className="relative overflow-hidden rounded-2xl border border-[#efe3d6] bg-[#f8f2eb]">
           <div className="absolute inset-x-0 bottom-0 h-44 md:inset-y-0 md:left-auto md:h-auto md:w-1/2">
             <Image src={CTA_IMAGE} alt="Wooden furniture" fill sizes="(min-width: 768px) 50vw, 100vw" className="object-cover object-center" />
@@ -216,6 +216,33 @@ export default function WoodAuxiliariesPage() {
             </div>
           </div>
         </motion.div>
+      </section> */}
+
+      {/* ═══ EXPLORE OTHER SUBSTRATES ═══ */}
+      <section className="bg-white pb-14">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h3 className="text-3xl font-extrabold mb-6" style={{ ...FONT, color: NAVY }}>
+            Explore Other Substrates
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              { href: "/products/wood", img: "/new-images-update/wood.jpeg", title: "Wood Coatings", desc: "Premium coatings for beautiful and durable wood finishes." },
+              { href: "/products/metal", img: "/new-images-update/metal.jpeg", title: "Metal Coatings", desc: "High performance coatings for metal substrates." },
+              { href: "/products/glass", img: "/new-images-update/glass.jpeg", title: "Glass & Plastic Coatings", desc: "Advanced coating solutions for glass and plastic." },
+              { href: "/products/dyestuff", img: "/paint-images/images/4.jpg", title: "Dyestuff Solutions", desc: "Industrial dyes and colourants for vibrant results." },
+              { href: "/products/paint-removers", img: "/paint-images/images/4.jpg", title: "Paint Removers", desc: "Effective paint removers for wood, metal, and glass." },
+            ].map((s) => (
+              <Link key={s.href} href={s.href} className="flex items-center gap-3 p-4 rounded-xl border border-stone-200 hover:border-orange-300 hover:shadow-md transition-all">
+                <img src={s.img} alt={s.title} className="w-14 h-14 rounded-lg object-cover shrink-0" />
+                <div>
+                  <p className="font-bold text-[14px]" style={{ color: NAVY }}>{s.title}</p>
+                  <p className="text-[12px] text-stone-400">{s.desc}</p>
+                  <span className="text-[12px] font-bold mt-1 inline-block" style={{ color: ORANGE }}>Explore →</span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
       </section>
     </div>
   );

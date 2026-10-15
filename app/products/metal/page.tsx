@@ -318,11 +318,12 @@ function ProductCard({
   const NAVY = "#1e3a5f";
 
   return (
+    <Link href={`/products/${substrate}/${product.id}`} className="block">
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay: index * 0.08, duration: 0.5 }}
-      className="bg-white rounded-2xl border border-stone-200 shadow-sm hover:shadow-xl transition-all overflow-hidden flex flex-col group"
+      className="bg-white rounded-2xl border border-stone-200 shadow-sm hover:shadow-xl transition-all overflow-hidden flex flex-col group cursor-pointer"
     >
       {/* Image */}
       <div className="relative h-44 overflow-hidden">
@@ -400,19 +401,16 @@ function ProductCard({
 
         {/* Bottom links */}
         <div className="flex items-center justify-between mt-auto pt-3 border-t border-stone-100">
-          <Link
-            href={`/products/${substrate}/${product.id}`}
-            className="text-[14px] font-bold flex items-center gap-1 hover:gap-2 transition-all"
+          <span
+            className="text-[14px] font-bold flex items-center gap-1"
             style={{ color: NAVY }}
           >
             Explore →
-          </Link>
+          </span>
           {((product as any).tdsUrl) && (
-            <a
-              href={(product as any).tdsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[11px] font-bold flex items-center gap-1"
+            <span
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); window.open((product as any).tdsUrl, '_blank'); }}
+              className="text-[11px] font-bold flex items-center gap-1 cursor-pointer"
               style={{ color: ORANGE }}
             >
               <svg
@@ -429,10 +427,11 @@ function ProductCard({
                 />
               </svg>
               Request TDS
-            </a>
+            </span>
           )}
         </div>
       </div>
     </motion.div>
+    </Link>
   );
 }

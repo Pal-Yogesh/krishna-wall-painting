@@ -17,7 +17,16 @@ const HERO_BADGES = [
 
 export default function WoodProductsPage() {
   const { products } = useProducts();
-  const woodProducts = products.filter((p) => p.substrate === "wood");
+  const WOOD_ORDER = ["nc", "acrylic"];
+  const woodProducts = products
+    .filter((p) => p.substrate === "wood")
+    .sort((a, b) => {
+      const aIdx = WOOD_ORDER.findIndex((k) => a.name.toLowerCase().includes(k));
+      const bIdx = WOOD_ORDER.findIndex((k) => b.name.toLowerCase().includes(k));
+      const aPos = aIdx >= 0 ? aIdx : WOOD_ORDER.length;
+      const bPos = bIdx >= 0 ? bIdx : WOOD_ORDER.length;
+      return aPos - bPos;
+    });
   const sectionRef = useRef<HTMLElement>(null);
   const inView = useInView(sectionRef, { once: true, margin: "-60px" });
 
@@ -145,24 +154,15 @@ export default function WoodProductsPage() {
           </motion.div>
 
           {/* Product cards grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-8">
-            {woodProducts.slice(0, 4).map((product, i) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                index={i}
-                inView={inView}
-              />
-            ))}
-          </div>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {woodProducts.slice(4, 7).map((product, i) => (
-              <ProductCard
-                key={product.id}
-                product={product}
-                index={i + 4}
-                inView={inView}
-              />
+          <div className="flex flex-wrap justify-center gap-5">
+            {woodProducts.map((product, i) => (
+              <div key={product.id} className="w-full sm:w-[calc(50%-10px)] lg:w-[calc(33.333%-14px)]">
+                <ProductCard
+                  product={product}
+                  index={i}
+                  inView={inView}
+                />
+              </div>
             ))}
           </div>
         </div>
@@ -297,14 +297,15 @@ function ProductCard({
   const NAVY = "#1e3a5f";
 
   return (
+    <Link href={`/products/wood/${product.id}`} className="block">
     <motion.div
       initial={{ opacity: 0, y: 24 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ delay: index * 0.08, duration: 0.5 }}
-      className="bg-white rounded-2xl border border-stone-200  shadow-sm hover:shadow-xl transition-all overflow-hidden flex flex-col group"
+      className="bg-white rounded-2xl border border-stone-200  shadow-sm hover:shadow-xl transition-all overflow-hidden flex flex-col group cursor-pointer"
     >
       {/* Image */}
-      <div className="relative h-44 overflow-hidden z-20">
+      <div className="relative h-72 overflow-hidden z-20">
         <img
           src={product.image}
           alt={product.name}
@@ -369,19 +370,16 @@ function ProductCard({
 
         {/* Bottom links */}
         <div className="flex items-center justify-between mt-auto pt-3 border-t border-stone-100">
-          <Link
-            href={`/products/wood/${product.id}`}
-            className="text-[14px] font-bold flex items-center gap-1 hover:gap-2 transition-all"
+          <span
+            className="text-[14px] font-bold flex items-center gap-1"
             style={{ color: NAVY }}
           >
             Explore →
-          </Link>
+          </span>
           {((product as any).tdsUrl) && (
-            <a
-              href={(product as any).tdsUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-[14px] font-bold flex items-center gap-1"
+            <span
+              onClick={(e) => { e.preventDefault(); e.stopPropagation(); window.open((product as any).tdsUrl, '_blank'); }}
+              className="text-[14px] font-bold flex items-center gap-1 cursor-pointer"
               style={{ color: ORANGE }}
             >
               <svg
@@ -398,10 +396,11 @@ function ProductCard({
                 />
               </svg>
               Request TDS
-            </a>
+            </span>
           )}
         </div>
       </div>
     </motion.div>
+    </Link>
   );
 }

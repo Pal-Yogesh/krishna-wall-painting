@@ -47,7 +47,7 @@ export default function ProductForm({ productId, onSaved, onCancel }: Props) {
     if (!p) return;
     setSubstrate(p.substrate);
     setBanner(p.banner || "");
-    setCardImage(p.image || "");
+    setCardImage(p.image && p.image !== p.banner ? p.image : "");
     setName(p.name || "");
     setDescription(p.description || "");
     setSectionTitle(p.sectionTitle || "");

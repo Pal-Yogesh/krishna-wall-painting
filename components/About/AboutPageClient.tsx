@@ -30,7 +30,7 @@ import {
 const ACCENT = "#C05A28";
 const NAVY = "#0B1D36";
 
-const CLIENT_LOGOS = Array.from({ length: 13 }, (_, i) => ({
+const CLIENT_LOGOS = Array.from({ length: 12 }, (_, i) => ({
   id: i + 1,
   src: `/client-logos/client-logo-${String(i + 1).padStart(2, "0")}.jpg`,
   alt: `Client ${i + 1}`,
@@ -545,7 +545,7 @@ export default function AboutPageClient() {
               </ul>
               <div className="flex-1 relative min-h-[200px] sm:min-h-[220px]">
                 <Image
-                  src="/paint-images/rd.jpeg"
+                  src="https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fr-and-d.jpeg?alt=media&token=7f4131bd-9f3c-4a12-8ed9-205499160f47"
                   alt="R&D Lab"
                   fill
                   className="object-cover"
@@ -656,7 +656,7 @@ export default function AboutPageClient() {
               solutions.
             </p>
           </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 mb-8">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-8">
             {[
               {
                 img: "/Inside-our-manufacturing/production-facility.png",
@@ -664,7 +664,8 @@ export default function AboutPageClient() {
                 desc: "Modern infrastructure designed for safe, efficient and scalable production.",
               },
               {
-                img: "/Inside-our-manufacturing/rd.jpeg",
+                img:"https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2FR%26D%20Image.jpeg?alt=media&token=f09a0ad6-621d-4d59-920c-fac45305d73a",
+                // img: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fr-and-d.jpeg?alt=media&token=7f4131bd-9f3c-4a12-8ed9-205499160f47",
                 title: "R&D Laboratory",
                 desc: "In-house R&D driving innovation and formulation of advanced solutions.",
               },
@@ -679,7 +680,7 @@ export default function AboutPageClient() {
                 desc: "Multi-stage testing at every step to ensure performance, safety and reliability.",
               },
               {
-                img: "/Inside-our-manufacturing/packaging.jpeg",
+                img: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fabout%20us%20packaging.jpeg?alt=media&token=7058197b-b213-4f33-8585-6939288608b1",
                 title: "Packaging",
                 desc: "Automated, secure and environment-friendly packaging solutions.",
               },

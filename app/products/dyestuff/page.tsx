@@ -29,8 +29,24 @@ const FONT = { fontFamily: "var(--font-raleway), sans-serif" };
 // Water-based groups get the blue treatment, everything else orange
 function groupTheme(name: string) {
   return /water/i.test(name)
-    ? { icon: Droplet, iconColor: BLUE, titleColor: NAVY, subColor: BLUE, border: "border-blue-100", bg: "from-blue-50 via-white to-sky-100/70", blob: "bg-sky-200/50" }
-    : { icon: FlaskConical, iconColor: ORANGE, titleColor: ORANGE, subColor: ORANGE, border: "border-orange-100", bg: "from-orange-50 via-white to-orange-100/70", blob: "bg-orange-200/40" };
+    ? {
+        icon: Droplet,
+        iconColor: BLUE,
+        titleColor: NAVY,
+        subColor: BLUE,
+        border: "border-blue-100",
+        bg: "from-blue-50 via-white to-sky-100/70",
+        blob: "bg-sky-200/50",
+      }
+    : {
+        icon: FlaskConical,
+        iconColor: ORANGE,
+        titleColor: ORANGE,
+        subColor: ORANGE,
+        border: "border-orange-100",
+        bg: "from-orange-50 via-white to-orange-100/70",
+        blob: "bg-orange-200/40",
+      };
 }
 
 /** "Solvent Based Dyestuff Solutions" -> "Solvent Based" / "Dyestuff Solutions" */
@@ -41,37 +57,39 @@ function splitGroupName(name: string) {
 
 const APPLICATIONS = [
   {
-    label: "Coatings",
+    label: "Wood",
     image:
-      "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F16.jpg?alt=media&token=6db4d9b1-c173-4dbd-8b63-51f220cf17e5",
+      "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fapplications%20wood.png?alt=media&token=5af0afbe-2a2b-4887-a05a-a3fd4af4b2d4",
     icon: Palette,
     art: "radial-gradient(circle at 18% 70%, #1d4ed8 0 22%, transparent 23%), radial-gradient(circle at 50% 75%, #f59e0b 0 22%, transparent 23%), radial-gradient(circle at 82% 70%, #facc15 0 22%, transparent 23%), radial-gradient(circle at 35% 20%, #0ea5e9 0 20%, transparent 21%), radial-gradient(circle at 70% 20%, #ea580c 0 20%, transparent 21%), linear-gradient(#e7e5e4, #d6d3d1)",
   },
   {
-    label: "Printing",
+    label: "Metal",
     image:
-      "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F15.jpg?alt=media&token=7cd88f39-3bda-4ee7-a4a2-f85b20b527e2",
+      "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fapplications-%20metal.png?alt=media&token=f317c285-3227-41b2-8c94-dec83e4e7630",
     icon: Printer,
     art: "repeating-linear-gradient(115deg, #ef4444 0 10px, #f97316 10px 20px, #facc15 20px 30px, #22c55e 30px 40px, #06b6d4 40px 50px, #3b82f6 50px 60px, #a855f7 60px 70px, #ec4899 70px 80px)",
   },
   {
-    label: "Plastics",
+    label: "Glass",
     image:
-      "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F13.jpg?alt=media&token=f272ee4e-a26a-454d-a917-29e7a16da3e4",
+      "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fapplication%20glass.png?alt=media&token=c8f8583d-50a7-4bfc-8fcf-fb557536a37c",
     icon: Shapes,
     art: "radial-gradient(circle at 20% 30%, #ec4899 0 9%, transparent 10%), radial-gradient(circle at 45% 60%, #22c55e 0 9%, transparent 10%), radial-gradient(circle at 75% 25%, #3b82f6 0 9%, transparent 10%), radial-gradient(circle at 80% 75%, #f97316 0 9%, transparent 10%), radial-gradient(circle at 15% 80%, #facc15 0 9%, transparent 10%), radial-gradient(circle at 55% 20%, #a855f7 0 9%, transparent 10%), radial-gradient(circle at 35% 90%, #ef4444 0 9%, transparent 10%), linear-gradient(135deg, #fde68a, #f0abfc)",
   },
   {
     label: "Industrial Finishes",
     image:
-      "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F12.jpg?alt=media&token=afd0536f-c8bb-4498-a11f-f5b0eb597998",
+      "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fapplications%20-%20Industrial%20finishes.jpg?alt=media&token=f0edde4b-8efd-4a73-b8ff-d4dd4e393a9c",
+    // "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F12.jpg?alt=media&token=afd0536f-c8bb-4498-a11f-f5b0eb597998",
     icon: Layers,
     art: "linear-gradient(135deg, #71717a 0%, #e4e4e7 30%, #a1a1aa 50%, #f4f4f5 70%, #52525b 100%)",
   },
   {
     label: "Specialty Applications",
     image:
-      "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F14.jpg?alt=media&token=d9a4d6e9-db7b-4558-9ecd-3103e63314f1",
+      "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fapplications-%20speciality%20application.png?alt=media&token=0e8417b4-0a45-4a69-a99e-c278ef6c76f6",
+    // "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F14.jpg?alt=media&token=d9a4d6e9-db7b-4558-9ecd-3103e63314f1",
     icon: TestTubes,
     art: "linear-gradient(to top, #dc2626 0 45%, transparent 45%) 8% 100% / 12% 80% no-repeat, linear-gradient(to top, #16a34a 0 55%, transparent 55%) 30% 100% / 12% 80% no-repeat, linear-gradient(to top, #2563eb 0 40%, transparent 40%) 52% 100% / 12% 80% no-repeat, linear-gradient(to top, #9333ea 0 60%, transparent 60%) 74% 100% / 12% 80% no-repeat, linear-gradient(to top, #ea580c 0 50%, transparent 50%) 96% 100% / 12% 80% no-repeat, linear-gradient(#f8fafc, #e2e8f0)",
   },
@@ -108,6 +126,7 @@ export default function DyestuffPage() {
             alt="Dyestuff solution"
             className="w-full h-full object-cover object-center"
           />
+          <div className="absolute inset-0 bg-gradient-to-r from-white via-white/70 to-transparent" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-16 lg:pb-20">
           <nav
@@ -179,8 +198,16 @@ export default function DyestuffPage() {
         </div>
       ) : groups.length === 0 ? (
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 text-center">
-          <p className="text-stone-500">Products coming soon. Contact us for more details.</p>
-          <Link href="/contact-us" className="mt-3 inline-block text-sm font-bold" style={{ color: ORANGE }}>Contact Us →</Link>
+          <p className="text-stone-500">
+            Products coming soon. Contact us for more details.
+          </p>
+          <Link
+            href="/contact-us"
+            className="mt-3 inline-block text-sm font-bold"
+            style={{ color: ORANGE }}
+          >
+            Contact Us →
+          </Link>
         </section>
       ) : (
         <>
@@ -190,23 +217,53 @@ export default function DyestuffPage() {
                 const t = groupTheme(g.name);
                 const { main, rest } = splitGroupName(g.name);
                 return (
-                  <motion.div key={g.id} {...fadeUp} transition={{ duration: 0.5, delay: i * 0.1 }}>
-                  <Link href={`/products/dyestuff/${g.id}`}
-                    className={`group relative overflow-hidden rounded-2xl border ${t.border} bg-linear-to-br ${t.bg} p-6 sm:p-8 flex items-center gap-6 h-full hover:shadow-lg transition-shadow`}>
-                    <div aria-hidden className={`absolute -right-10 -bottom-12 w-56 h-56 rounded-full ${t.blob} blur-2xl`} />
-                    <div className="relative shrink-0 w-20 h-20 rounded-full bg-white shadow-md flex items-center justify-center">
-                      <t.icon className="w-9 h-9" style={{ color: t.iconColor }} strokeWidth={1.6} />
-                    </div>
-                    <div className="relative">
-                      <h3 className="text-[17px] font-extrabold uppercase tracking-wide leading-tight mb-2" style={{ ...FONT, color: t.titleColor }}>
-                        {main}{rest && <><br />{rest}</>}
-                      </h3>
-                      {g.description && <p className="text-[13px] text-stone-600 leading-relaxed max-w-xs">{g.description}</p>}
-                      <span className="inline-flex items-center gap-1.5 mt-3 text-[12px] font-bold" style={{ color: t.iconColor }}>
-                        View Products <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                      </span>
-                    </div>
-                  </Link>
+                  <motion.div
+                    key={g.id}
+                    {...fadeUp}
+                    transition={{ duration: 0.5, delay: i * 0.1 }}
+                  >
+                    <Link
+                      href={`/products/dyestuff/${g.id}`}
+                      className={`group relative overflow-hidden rounded-2xl border ${t.border} bg-linear-to-br ${t.bg} p-6 sm:p-8 flex items-center gap-6 h-full hover:shadow-lg transition-shadow`}
+                    >
+                      <div
+                        aria-hidden
+                        className={`absolute -right-10 -bottom-12 w-56 h-56 rounded-full ${t.blob} blur-2xl`}
+                      />
+                      <div className="relative shrink-0 w-20 h-20 rounded-full bg-white shadow-md flex items-center justify-center">
+                        <t.icon
+                          className="w-9 h-9"
+                          style={{ color: t.iconColor }}
+                          strokeWidth={1.6}
+                        />
+                      </div>
+                      <div className="relative">
+                        <h3
+                          className="text-[17px] font-extrabold uppercase tracking-wide leading-tight mb-2"
+                          style={{ ...FONT, color: t.titleColor }}
+                        >
+                          {main}
+                          {rest && (
+                            <>
+                              <br />
+                              {rest}
+                            </>
+                          )}
+                        </h3>
+                        {g.description && (
+                          <p className="text-[13px] text-stone-600 leading-relaxed max-w-xs">
+                            {g.description}
+                          </p>
+                        )}
+                        <span
+                          className="inline-flex items-center gap-1.5 mt-3 text-[12px] font-bold"
+                          style={{ color: t.iconColor }}
+                        >
+                          View Products{" "}
+                          <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
+                        </span>
+                      </div>
+                    </Link>
                   </motion.div>
                 );
               })}
@@ -214,7 +271,11 @@ export default function DyestuffPage() {
           </section>
 
           <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-            <motion.h2 {...fadeUp} className="text-center text-2xl sm:text-3xl font-extrabold uppercase tracking-wide mb-6" style={{ ...FONT, color: NAVY }}>
+            <motion.h2
+              {...fadeUp}
+              className="text-center text-2xl sm:text-3xl font-extrabold uppercase tracking-wide mb-6"
+              style={{ ...FONT, color: NAVY }}
+            >
               Our <span style={{ color: ORANGE }}>Dyestuff</span> Portfolio
             </motion.h2>
 
@@ -224,10 +285,19 @@ export default function DyestuffPage() {
               return (
                 <div key={g.id}>
                   {gi > 0 && <div className="border-t border-stone-200 mb-6" />}
-                  <SubHeading color={groupTheme(g.name).subColor}>{g.name}</SubHeading>
-                  <div className={`grid grid-cols-2 gap-3 sm:gap-4 mb-10 ${fiveCols ? "sm:grid-cols-3 lg:grid-cols-5" : "lg:grid-cols-4"}`}>
+                  <SubHeading color={groupTheme(g.name).subColor}>
+                    {g.name}
+                  </SubHeading>
+                  <div
+                    className={`grid grid-cols-2 gap-3 sm:gap-4 mb-10 ${fiveCols ? "sm:grid-cols-3 lg:grid-cols-5" : "lg:grid-cols-4"}`}
+                  >
                     {items.map((item, i) => (
-                      <Swatch key={item.id} item={item} index={i} href={`/products/dyestuff/${g.id}`} />
+                      <Swatch
+                        key={item.id}
+                        item={item}
+                        index={i}
+                        href={`/products/dyestuff/${g.id}`}
+                      />
                     ))}
                   </div>
                 </div>
@@ -263,9 +333,7 @@ export default function DyestuffPage() {
               transition={{ duration: 0.45, delay: i * 0.06 }}
               className="rounded-xl border border-stone-200 bg-white overflow-hidden shadow-sm hover:shadow-lg transition-shadow"
             >
-              <div
-                className="relative h-24 sm:h-28 overflow-hidden"
-              >
+              <div className="relative h-24 sm:h-28 overflow-hidden">
                 <Image
                   fill
                   sizes="(min-width: 1024px) 20vw, (min-width: 640px) 33vw, 50vw"
@@ -296,7 +364,7 @@ export default function DyestuffPage() {
       </section>
 
       {/* Why */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+      {/* <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
         <motion.div
           {...fadeUp}
           className="rounded-2xl border border-blue-100 bg-linear-to-br from-blue-50/70 via-white to-sky-50 px-4 sm:px-8 py-8"
@@ -332,7 +400,7 @@ export default function DyestuffPage() {
             ))}
           </div>
         </motion.div>
-      </section>
+      </section> */}
 
       {/* CTA */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16">
@@ -385,6 +453,76 @@ export default function DyestuffPage() {
           </div>
         </motion.div>
       </section>
+
+      {/* ═══ EXPLORE OTHER SUBSTRATES ═══ */}
+      <section className="bg-white pb-14">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <h3
+            className="text-3xl font-extrabold mb-6"
+            style={{ ...FONT, color: NAVY }}
+          >
+            Explore Other Substrates
+          </h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {[
+              {
+                href: "/products/wood",
+                img: "/new-images-update/wood.jpeg",
+                title: "Wood Coatings",
+                desc: "Premium coatings for beautiful and durable wood finishes.",
+              },
+              {
+                href: "/products/metal",
+                img: "/new-images-update/metal.jpeg",
+                title: "Metal Coatings",
+                desc: "High performance coatings for metal substrates.",
+              },
+              {
+                href: "/products/glass",
+                img: "/new-images-update/glass.jpeg",
+                title: "Glass & Plastic Coatings",
+                desc: "Advanced coating solutions for glass and plastic.",
+              },
+              {
+                href: "/products/auxiliaries",
+                img: "/paint-images/images/5.jpg",
+                title: "Wood Auxiliaries",
+                desc: "Complementary products that enhance coating performance.",
+              },
+              {
+                href: "/products/paint-removers",
+                img: "/paint-images/images/4.jpg",
+                title: "Paint Removers",
+                desc: "Effective paint removers for wood, metal, and glass.",
+              },
+            ].map((s) => (
+              <Link
+                key={s.href}
+                href={s.href}
+                className="flex items-center gap-3 p-4 rounded-xl border border-stone-200 hover:border-orange-300 hover:shadow-md transition-all"
+              >
+                <img
+                  src={s.img}
+                  alt={s.title}
+                  className="w-14 h-14 rounded-lg object-cover shrink-0"
+                />
+                <div>
+                  <p className="font-bold text-[14px]" style={{ color: NAVY }}>
+                    {s.title}
+                  </p>
+                  <p className="text-[12px] text-stone-400">{s.desc}</p>
+                  <span
+                    className="text-[12px] font-bold mt-1 inline-block"
+                    style={{ color: ORANGE }}
+                  >
+                    Explore →
+                  </span>
+                </div>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }
@@ -417,36 +555,78 @@ function SubHeading({
 }
 
 /** "SB Dyestuff Solution Green 4160" -> "SB Dyestuff Solution" / "Green 4160" */
-function Swatch({ item, index, href }: { item: ProductItem; index: number; href: string }) {
+function Swatch({
+  item,
+  index,
+  href,
+}: {
+  item: ProductItem;
+  index: number;
+  href: string;
+}) {
   const m = item.name.match(/^([\s\S]*?solution)\s+([\s\S]+)$/i);
   const color = dyeColor(item.name);
   const body = (
     <>
       {item.image ? (
         <span className="relative shrink-0 w-9 h-9 sm:w-11 sm:h-11 rounded-full overflow-hidden ring-1 ring-black/5">
-          <Image src={item.image} alt="" fill sizes="44px" className="object-cover" />
+          <Image
+            src={item.image}
+            alt=""
+            fill
+            sizes="44px"
+            className="object-cover"
+          />
         </span>
       ) : (
-        <span className="shrink-0 w-9 h-9 sm:w-11 sm:h-11 rounded-full shadow-inner ring-1 ring-black/5"
-          style={{ background: `radial-gradient(circle at 35% 30%, ${color}cc, ${color} 60%)` }} />
+        <span
+          className="shrink-0 w-9 h-9 sm:w-11 sm:h-11 rounded-full shadow-inner ring-1 ring-black/5"
+          style={{
+            background: `radial-gradient(circle at 35% 30%, ${color}cc, ${color} 60%)`,
+          }}
+        />
       )}
       <div className="text-[11px] sm:text-[12px] leading-snug min-w-0 flex-1">
         {m ? (
           <>
             <p className="font-semibold text-stone-700">{m[1]}</p>
-            <p className="font-extrabold wrap-break-word" style={{ color: NAVY }}>{m[2]}</p>
+            <p
+              className="font-extrabold wrap-break-word"
+              style={{ color: NAVY }}
+            >
+              {m[2]}
+            </p>
           </>
         ) : (
-          <p className="font-extrabold wrap-break-word whitespace-pre-line" style={{ color: NAVY }}>{item.name}</p>
+          <p
+            className="font-extrabold wrap-break-word whitespace-pre-line"
+            style={{ color: NAVY }}
+          >
+            {item.name}
+          </p>
         )}
       </div>
-      {item.tdsUrl && <FileText className="w-4 h-4 shrink-0" style={{ color: ORANGE }} aria-label="TDS available" />}
+      {item.tdsUrl && (
+        <FileText
+          className="w-4 h-4 shrink-0"
+          style={{ color: ORANGE }}
+          aria-label="TDS available"
+        />
+      )}
     </>
   );
-  const cls = "flex items-center gap-3 sm:gap-4 rounded-xl border border-stone-200 bg-white px-3 sm:px-4 py-3 sm:py-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all h-full";
+  const cls =
+    "flex items-center gap-3 sm:gap-4 rounded-xl border border-stone-200 bg-white px-3 sm:px-4 py-3 sm:py-4 shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all h-full";
   return (
-    <motion.div initial={{ opacity: 0, y: 16 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true, margin: "-40px" }} transition={{ duration: 0.4, delay: index * 0.04 }}>
-      <Link href={href} className={cls}>{body}</Link>
+    <motion.div
+      initial={{ opacity: 0, y: 16 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-40px" }}
+      transition={{ duration: 0.4, delay: index * 0.04 }}
+    >
+      <Link href={href} className={cls}>
+        {body}
+      </Link>
     </motion.div>
   );
 }

@@ -120,14 +120,22 @@ export default function EventsPage() {
   return (
     <div className="min-h-screen bg-[#faf9f7]">
       {/* ═══ HERO ═══ */}
-      <section className="relative overflow-hidden" style={{ background: "linear-gradient(160deg, #fff8ee 0%, #fefdfb 50%, #faf9f7 100%)" }}>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-10">
+      <section className="relative overflow-hidden min-h-[50vh]">
+        <div className="absolute inset-0">
+          <img
+            src="https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fevent%20banner%20image.PNG?alt=media&token=3bcea651-70ef-4294-a5de-81242d1a307c"
+            alt="Events banner"
+            className="w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-white/80 via-white/50 to-transparent" />
+        </div>
+        <div className="relative max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-10">
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
-            <p className="text-[11px] font-bold uppercase tracking-[0.25em] mb-3" style={{ color: ORANGE }}>Our Events</p>
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-stone-900 leading-tight" style={FONT}>
+            <p className="text-[1rem] font-bold uppercase tracking-[0.25em] mb-3" style={{ color: ORANGE }}>Our Events</p>
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-stone-900 leading-tight" style={FONT}>
               Moments & <span style={{ color: ORANGE }}>Milestones</span>
             </h1>
-            <p className="mt-3 text-[15px] text-stone-500 max-w-xl leading-relaxed">
+            <p className="mt-3 text-[17px] text-stone-500 max-w-xl leading-relaxed">
               A look back at our dealer meets, trainings, celebrations and team activities that bring our people together and drive our journey forward.
             </p>
           </motion.div>
@@ -168,11 +176,11 @@ export default function EventsPage() {
                 <div className="flex flex-col lg:flex-row gap-5 items-start">
                   {/* Left: title + description */}
                   <div className="lg:w-[240px] shrink-0">
-                    <h2 className="text-[17px] font-extrabold text-stone-900 leading-snug mb-2" style={FONT}>
+                    <h2 className="text-[22px] font-extrabold text-stone-900 leading-snug mb-2" style={FONT}>
                       {ev.title}
                     </h2>
                     {ev.description && (
-                      <p className="text-[12px] text-stone-500 leading-relaxed line-clamp-5">{ev.description}</p>
+                      <p className="text-[1rem] text-stone-500 leading-relaxed line-clamp-5">{ev.description}</p>
                     )}
                   </div>
 

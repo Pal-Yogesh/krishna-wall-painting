@@ -9,9 +9,9 @@ const NAVY = "#1e3a5f";
 const ORANGE = "#ea580c";
 const FONT = { fontFamily: "var(--font-raleway), sans-serif" };
 
-type Category = "All" | "Our Facility" | "Manufacturing" | "Products" | "Our Team" | "Safety" | "Events";
+type Category = "All" | "Our Facility" | "Manufacturing" | "Products" | "Our Team" | "Safety";
 
-const CATEGORIES: Category[] = ["All", "Our Facility", "Manufacturing", "Products", "Our Team", "Safety", "Events"];
+const CATEGORIES: Category[] = ["All", "Our Facility", "Manufacturing", "Products", "Our Team", "Safety"];
 
 interface GalleryItem {
   src: string;
@@ -20,35 +20,33 @@ interface GalleryItem {
 }
 
 const GALLERY_ITEMS: GalleryItem[] = [
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426423/kmopl-gallery/vgs27kg1va27hl7qftvy.jpg", label: "Our Facility", category: "Our Facility" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426454/kmopl-gallery/vdbibnxl8wj3q7wrz8ct.jpg", label: "Product Display", category: "Products" },
-  { src: "/director.jpeg", label: "Our Team", category: "Our Team" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426458/kmopl-gallery/tiqghmkm20clwo69mxyp.jpg", label: "Manufacturing Process", category: "Manufacturing" },
-  { src: "/gallery.jpeg", label: "Manufacturing", category: "Manufacturing" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426463/kmopl-gallery/awnaaotvvt9r5grl2rzz.jpg", label: "Quality & Testing", category: "Manufacturing" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426466/kmopl-gallery/qqmskkkvdtapsmrdn4hx.jpg", label: "Storage & Dispatch", category: "Manufacturing" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426467/kmopl-gallery/xkfdnucqv8boq56ssvqp.jpg", label: "Material Handling", category: "Manufacturing" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426476/kmopl-gallery/yqdkbkyuonwlefpojgie.jpg", label: "Safety at Work", category: "Safety" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426446/kmopl-gallery/kwuwjyjy3iclquyb4mz4.jpg", label: "Application Process", category: "Manufacturing" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426479/kmopl-gallery/haxg7zhlnkymouxvfxve.jpg", label: "Process Equipment", category: "Manufacturing" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426394/kmopl-gallery/vyt2gejregacju984dtd.jpg", label: "R&D / Product Development", category: "Products" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426396/kmopl-gallery/uhy67apojoclxgcjupeh.jpg", label: "Interior Applications", category: "Products" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426398/kmopl-gallery/jgecgnnrttkvjfuh3tzn.jpg", label: "Production Line", category: "Manufacturing" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426401/kmopl-gallery/u4kvt2avzjgiairz4hrh.jpg", label: "Infrastructure", category: "Our Facility" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426411/kmopl-gallery/qhu5a9okvwdavwquu0jp.jpg", label: "Finished Products", category: "Products" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426413/kmopl-gallery/nmiefq0mvbdorpab6ydx.jpg", label: "Safety & Compliance", category: "Safety" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426419/kmopl-gallery/pdqv4fb4zersjxfbvmai.jpg", label: "Events", category: "Events" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426424/kmopl-gallery/alnzcmxilsfkt12a7vim.jpg", label: "Our Facility", category: "Our Facility" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426434/kmopl-gallery/aecaisrnuq00ln0aktnt.jpg", label: "Team at Work", category: "Our Team" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426436/kmopl-gallery/toqefr81rj71dwn9tmmt.jpg", label: "Manufacturing Unit", category: "Manufacturing" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426437/kmopl-gallery/h6zhqdikgpb4hfmt5tbj.jpg", label: "Quality Control", category: "Manufacturing" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426440/kmopl-gallery/oy02cwt9b1x7ygto57d5.jpg", label: "Warehouse", category: "Manufacturing" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426477/kmopl-gallery/ix8huq1twjq8mnpjnqny.jpg", label: "Product Samples", category: "Products" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426478/kmopl-gallery/t7mq4ak5ga1pmpftabxr.jpg", label: "Lab Testing", category: "Manufacturing" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426481/kmopl-gallery/wtqxtjt0guohc6jsvaow.jpg", label: "Facility Overview", category: "Our Facility" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426484/kmopl-gallery/fgh1ivgw5nlo3hwakigl.jpg", label: "Team Event", category: "Events" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426485/kmopl-gallery/k3hmssoidvlov1jh37eh.jpg", label: "Safety Training", category: "Safety" },
-  { src: "https://res.cloudinary.com/dxfkygu6e/image/upload/v1780426444/kmopl-gallery/d6u6sxziccmym4pphrmj.jpg", label: "Corporate Event", category: "Events" },
+  // 1. Our Facility
+  { src: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F1792056187502-our_facility.jpeg?alt=media&token=651b5626-4d24-47fa-a7d1-63fc5e915201", label: "Our Facility", category: "Our Facility" },
+  // 2. Product Display
+  { src: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F1792056187607-product_display.jpeg?alt=media&token=2f4d2208-cd24-4fcc-9c5a-c0db4244daa8", label: "Product Display", category: "Products" },
+  // 3. Our Team
+  { src: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F1792056933259-Our_team.jpeg?alt=media&token=12cb6c8c-f51f-4f50-916e-2fa70ba2a9fa", label: "Our Team", category: "Our Team" },
+  // 4. Manufacturing Process
+  { src: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F1792056182769-Manufacturing_process.jpg?alt=media&token=af248460-5e28-45ba-af8a-1d4aa136d6dd", label: "Manufacturing Process", category: "Manufacturing" },
+  // 5. Quality & Testing
+  { src: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F1792056187695-quality_and_testing.jpg?alt=media&token=1ad7475e-da49-490c-8e85-3d8fee191f47", label: "Quality & Testing", category: "Manufacturing" },
+  // 6. Storage & Dispatch
+  { src: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F1792056188011-storage_and_dispatch.jpeg?alt=media&token=71fd23f0-3ef6-4d07-974a-bb6522a8fa8e", label: "Storage & Dispatch", category: "Manufacturing" },
+  // 7. Safety at Work
+  { src: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F1792056187810-safety_and_work.jpeg?alt=media&token=d76cf5a1-51d0-4d82-a26e-619f0b72c8f6", label: "Safety at Work", category: "Safety" },
+  // 8. Application Process
+  { src: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F1792056187399-application_process.jpeg?alt=media&token=e6979198-4366-4a48-a029-321c3fe53b20", label: "Application Process", category: "Manufacturing" },
+  // 9. Material Handling
+  { src: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F1792056934558-Material_handling.jpg?alt=media&token=530845e7-db3a-43ee-a290-0d5df5a9360b", label: "Material Handling", category: "Manufacturing" },
+  // Remaining
+  { src: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F1792056185985-Manufacturing.jpeg?alt=media&token=cd1f087c-9874-4902-bb66-0990036fb427", label: "Manufacturing", category: "Manufacturing" },
+  { src: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F1792056934766-Process_equipment.jpeg?alt=media&token=157c6c43-c8d8-43a7-a55e-dc67d91df9a6", label: "Process Equipment", category: "Manufacturing" },
+  { src: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F1792056187297-R_D_product_development.jpeg?alt=media&token=d3d454b6-96e5-4f30-a14b-ddfc6b6403f9", label: "R&D / Product Development", category: "Products" },
+  { src: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F1792056182655-Interior_Applications.jpeg?alt=media&token=52bc68e4-b64c-4cef-aa2f-51cf64686070", label: "Interior Applications", category: "Products" },
+  { src: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F1792056187200-Production_line.jpeg?alt=media&token=400c57f4-62e7-429a-b064-843c34a424df", label: "Production Line", category: "Manufacturing" },
+  { src: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F1792056180783-Infrastructure.jpeg?alt=media&token=9a773063-ae10-4830-b3e6-c28b9d0db5b8", label: "Infrastructure", category: "Our Facility" },
+  { src: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F1792056179303-Finished_products.png?alt=media&token=7990c0d4-3e26-49f0-8c5b-51f186ed5aa4", label: "Finished Products", category: "Products" },
+  { src: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2F1792056187919-saftey_and_compliance.jpeg?alt=media&token=ad3b147b-b2d0-4066-a15f-06cd2f867dc2", label: "Safety & Compliance", category: "Safety" },
 ];
 
 export default function GalleryPage() {

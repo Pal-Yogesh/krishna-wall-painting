@@ -4,7 +4,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { motion, useInView } from "framer-motion";
 
-const CLIENT_LOGOS = Array.from({ length: 13 }, (_, i) => ({
+const CLIENT_LOGOS = Array.from({ length: 12 }, (_, i) => ({
   id: i + 1,
   src: `/client-logos/client-logo-${String(i + 1).padStart(2, "0")}.jpg`,
   alt: `Client ${i + 1}`,

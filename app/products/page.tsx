@@ -14,7 +14,7 @@ const CATEGORIES = [
     description:
       "High-performance coatings for furniture, interiors, and industrial wood applications.",
     href: "/products/wood",
-    image: "/paint-images/images/2.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fmain%20Product%20page%20wood%20coating.png?alt=media&token=6ee44b67-6a2b-492a-9d23-76ef8ee72c51",
     color: "#C05A28",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" stroke="currentColor" strokeWidth={1.8}>
@@ -29,7 +29,7 @@ const CATEGORIES = [
     description:
       "Protective and decorative coatings for industrial and automotive metal surfaces.",
     href: "/products/metal",
-    image: "/paint-images/images/6.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2FMetal%20product%20main%20page.png?alt=media&token=6a7894db-2346-4af1-b51f-8ce7b7e44688",
     color: "#0B1D36",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" stroke="currentColor" strokeWidth={1.8}>
@@ -43,7 +43,7 @@ const CATEGORIES = [
     description:
       "Specialised coatings for glass substrates offering clarity, colour, and durability.",
     href: "/products/glass",
-    image: "/new/glass-product.jpeg",
+    image: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fglass-%20product%20main%20page.png?alt=media&token=ff262607-9ae6-465b-8d67-5e880ecb6355",
     color: "#0d9488",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" stroke="currentColor" strokeWidth={1.8}>
@@ -59,7 +59,7 @@ const CATEGORIES = [
     description:
       "Industrial dyes and colourants engineered for consistent, vibrant results.",
     href: "/products/dyestuff",
-    image: "/paint-images/images/4.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fdyestuff%20product%20main%20page.jpg?alt=media&token=385c5b21-34d5-4c84-be43-3bd0fef933c6",
     color: "#3b82f6",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" stroke="currentColor" strokeWidth={1.8}>
@@ -73,7 +73,7 @@ const CATEGORIES = [
     description:
       "Complementary products that enhance coating performance and application.",
     href: "/products/auxiliaries",
-    image: "/paint-images/images/5.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2Fwood%20auxilaries-%20main%20product%20page.png?alt=media&token=5c846247-a34a-4757-ad94-3c04012ed253",
     color: "#92400e",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" stroke="currentColor" strokeWidth={1.8}>
@@ -88,7 +88,7 @@ const CATEGORIES = [
     description:
       "Effective paint removers as per substrate for wood, metal, and glass surfaces.",
     href: "/products/paint-removers",
-    image: "/paint-images/images/4.jpg",
+    image: "https://firebasestorage.googleapis.com/v0/b/multi-vendor-jewellery.firebasestorage.app/o/wall-paint-images%2Fproducts%2FPaint%20remover-%20main%20product%20page.png?alt=media&token=0e97b049-cdad-49b2-9f54-08cc8dac4735",
     color: "#dc2626",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5" stroke="currentColor" strokeWidth={1.8}>

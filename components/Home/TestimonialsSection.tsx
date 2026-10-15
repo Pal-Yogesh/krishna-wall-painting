@@ -6,35 +6,43 @@ import { motion, AnimatePresence, useInView } from "framer-motion";
 const TESTIMONIALS = [
   {
     quote:
-      "Krishna Murari Organosys has been a dependable partner for our coating requirements. Their products consistently meet our quality expectations, and their technical support has helped us achieve excellent finish and durability.",
-    name: "Operations Head",
-    company: "Furniture Manufacturing Unit",
-    initial: "O",
+      "Our working relationship with Krishna Murari Organosys has been positive. Their team communicates clearly, responds to our requirements, and makes it easy to plan our regular purchases.",
+    name: "Studds Accessories",
+    company: "Studds Accessories Ltd.",
+    initial: "S",
     color: "#d97706",
   },
   {
     quote:
-      "What sets KMOPL apart is their responsiveness and commitment to customer satisfaction. From product selection to after-sales support, their team is always proactive and professional.",
-    name: "Procurement Manager",
-    company: "Industrial Components Ltd.",
-    initial: "P",
+      "What stands out about Krishna Murari Organosys is their willingness to listen and help us find a suitable product for the job. We appreciate their prompt communication and support.",
+    name: "Mothersons",
+    company: "Motherson Group",
+    initial: "M",
     color: "#16a34a",
   },
   {
     quote:
-      "We have been associated with Krishna Murari Organosys for several years. Their consistent product quality, timely deliveries, and technical expertise make them one of our most trusted suppliers.",
-    name: "Supply Chain Director",
-    company: "Home Furnishing Exporter",
-    initial: "S",
+      "We've had a good experience using KMOPL's products. The finish and colour consistency have worked well for our applications, and the team has been responsive when we've needed support.",
+    name: "CL Gupta Exports Ltd.",
+    company: "CL Gupta Exports Ltd.",
+    initial: "C",
     color: "#0891b2",
   },
   {
     quote:
-      "The performance of KMOPL's primers, base coats, and top coats has been consistently impressive. Their products deliver excellent adhesion, finish, and long-term durability.",
-    name: "Quality Assurance Head",
-    company: "Automotive Components Co.",
-    initial: "Q",
+      "Consistency matters in our work. Our experience with KMOPL's products has been positive, and their team is available when we have questions.",
+    name: "Designco Exports",
+    company: "Designco Exports",
+    initial: "D",
     color: "#7c3aed",
+  },
+  {
+    quote:
+      "Our experience with KMOPL has been smooth. The products meet our needs, and we value the attention their team gives to our requests.",
+    name: "Nippon Paint",
+    company: "Nippon Paint India",
+    initial: "N",
+    color: "#ea580c",
   },
 ];
 
